@@ -1,0 +1,31 @@
+{
+  "name": "zotero-chinese-website",
+  "version": "0.0.0",
+  "description": "Zotero 中文社区站点",
+  "private": "true",
+  "license": "MIT",
+  "type": "module",
+  "packageManager": "pnpm@8.15.6",
+  "scripts": {
+    "dev": "vitepress dev src",
+    "build": "vitepress build src",
+    "preview": "vitepress preview src",
+    "lint:prettier": "prettier --write .",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "@mdit/plugin-footnote": "^0.8.0",
+    "@types/node": "^20.12.7",
+    "feed": "^4.2.2",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.2",
+    "markdownlint-cli2": "^0.13.0",
+    "mermaid": "^10.9.0",
+    "prettier": "2.8.8",
+    "vitepress": "^1.1.0",
+    "vue": "^3.4.21"
+  },
+  "lint-staged": {
+    "*.md": "prettier --write"
+  }
+}
