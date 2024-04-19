@@ -32,7 +32,7 @@ export default defineConfig({
     ["meta", { name: "theme-color", content: "#646cff" }],
   ],
 
-  srcExclude: ["**/wiki/*.md", "**/wiki/index.md", "**/plugins/source/**/*.*"],
+  srcExclude: ["**/wiki/*.md", "**/wiki/index.md", "**/plugins/backend/**/*.*"],
 
   rewrites: {
     "wiki/src/:id+": ":id+",

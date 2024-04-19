@@ -1,6 +1,6 @@
 # Git Submodule
 src/wiki
-src/plugins/source
+src/plugins/backend
 
 # Auto generated files
 **/auto-imports.d.ts

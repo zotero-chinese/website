@@ -18,8 +18,8 @@ module.exports = {
     "scripts/**",
     "dist/**",
     "src/libs/**",
-    "**/src/**/source/**",
-    "**/src/plugins/source/**",
+    "**/src/**/backend/**",
+    "**/src/plugins/backend/**",
     "**/**/*.js",
   ],
 };

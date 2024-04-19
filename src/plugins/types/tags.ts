@@ -1,4 +1,4 @@
-import type { TagType } from "zotero-plugins-data";
+import type { TagType } from "../backend/backend";
 
 export type Tag = {
   label: string;
