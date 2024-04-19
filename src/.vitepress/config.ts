@@ -4,6 +4,9 @@ import { buildEnd } from "./config/buildEnd";
 import { sidebar } from "./config/sidebar";
 import { nav } from "./config/navbar";
 import { footnote } from "@mdit/plugin-footnote";
+import AutoImport from "unplugin-auto-import/vite";
+import Components from "unplugin-vue-components/vite";
+import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
 
 const ogDescription = "Next Generation Frontend Tooling";
 const ogImage = "https://vitejs.dev/og-image.png";
@@ -21,25 +24,15 @@ export default defineConfig({
       "link",
       { rel: "alternate", type: "application/rss+xml", href: "/blog.rss" },
     ],
-    ["link", { rel: "me", href: "https://m.webtoo.ls/@vite" }],
     ["meta", { property: "og:type", content: "website" }],
     ["meta", { property: "og:title", content: ogTitle }],
     ["meta", { property: "og:image", content: ogImage }],
     ["meta", { property: "og:url", content: ogUrl }],
     ["meta", { property: "og:description", content: ogDescription }],
-    ["meta", { name: "twitter:card", content: "summary_large_image" }],
-    ["meta", { name: "twitter:site", content: "@vite_js" }],
     ["meta", { name: "theme-color", content: "#646cff" }],
-    [
-      "script",
-      {
-        "src": "https://cdn.usefathom.com/script.js",
-        "data-site": "CBDFBSLI",
-        "data-spa": "auto",
-        "defer": "",
-      },
-    ],
   ],
+
+  srcExclude: ["**/wiki/*.md", "**/wiki/index.md", "**/plugins/source/**/*.*"],
 
   rewrites: {
     "wiki/src/:id+": ":id+",
@@ -61,12 +54,12 @@ export default defineConfig({
       //   { icon: "mastodon", link: "https://elk.zone/m.webtoo.ls/@vite" },
       //   { icon: "twitter", link: "https://twitter.com/vite_js" },
       //   { icon: "discord", link: "https://chat.vitejs.dev" },
-      { icon: "github", link: "https://github.com/zotero-chinese/wiki" },
+      { icon: "github", link: "https://github.com/zotero-chinese/" },
     ],
 
     footer: {
-      message: `Released under the MIT License.`,
-      copyright: "Copyright © 2019-present Evan You & Vite Contributors",
+      message: `本工作以 知识共享 署名-相同方式共享 和 MIT 协议共享`,
+      copyright: "版权所有 © 2020-至今 Zotero 中文社区及其贡献者",
     },
 
     docFooter: {
@@ -126,4 +119,15 @@ export default defineConfig({
     },
   },
   buildEnd,
+
+  vite: {
+    plugins: [
+      AutoImport({
+        resolvers: [ElementPlusResolver()],
+      }),
+      Components({
+        resolvers: [ElementPlusResolver()],
+      }),
+    ],
+  },
 });

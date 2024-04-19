@@ -7,6 +7,8 @@ import "./styles/vars.css";
 import HomeSponsors from "./components/HomeSponsors.vue";
 // import AsideSponsors from "./components/AsideSponsors.vue";
 import SvgImage from "./components/SvgImage.vue";
+import "element-plus/theme-chalk/dark/css-vars.css";
+import * as ElementPlusIconsVue from "@element-plus/icons-vue";
 
 export default {
   extends: DefaultTheme,
@@ -19,5 +21,9 @@ export default {
   enhanceApp({ app }) {
     app.component("SvgImage", SvgImage);
     // app.use(TwoslashFloatingVue)
+
+    for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+      app.component(key, component);
+    }
   },
 } satisfies Theme;

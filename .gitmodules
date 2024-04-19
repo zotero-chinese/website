@@ -2,3 +2,6 @@
 	path = src/wiki
 	url = https://github.com/zotero-chinese/wiki.git
 	branch = vitepress
+[submodule "src/plugins/source"]
+	path = src/plugins/source
+	url = https://github.com/zotero-chinese/zotero-plugins

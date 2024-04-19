@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { data as posts } from './blog.data'
+import { data as posts } from "./blog.data";
 
 function getDateTime(time: number) {
-  return new Date(time).toISOString()
+  return new Date(time).toISOString();
 }
 </script>
 
@@ -10,9 +10,9 @@ function getDateTime(time: number) {
   <ul class="blog-list">
     <li class="blog-entry" v-for="post of posts">
       <article>
-        <time :datetime="getDateTime(post.date.time)">{{
-          post.date.string
-        }}</time>
+        <time :datetime="getDateTime(post.date.time)">
+          {{ post.date.string }}
+        </time>
         <h2 class="title">
           <a :href="post.url">{{ post.title }}</a>
         </h2>

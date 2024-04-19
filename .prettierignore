@@ -1,3 +1,11 @@
+# Git Submodule
+src/wiki
+src/plugins/source
+
+# Auto generated files
+**/auto-imports.d.ts
+**/components.d.ts
+
 # Vuepress Cache
 **/.vuepress/.cache/**
 # Vuepress Temp

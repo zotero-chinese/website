@@ -4,6 +4,7 @@ export const nav: DefaultTheme.NavItem[] = [
   { text: "百科全书", link: "/user-guide/", activeMatch: "/user-guide/" },
   { text: "插件商店", link: "/plugins/", activeMatch: "/plugins/" },
   { text: "CSL 样式", link: "/styles/", activeMatch: "/styles/" },
+  { text: "转换器", link: "/translators/" },
   {
     text: "更多资源",
     items: [

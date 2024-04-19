@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { VPHomeSponsors } from 'vitepress/theme'
-import { useSponsor } from '../composables/sponsor'
+import { VPHomeSponsors } from "vitepress/theme";
+import { useSponsor } from "../composables/sponsor";
 
-const { data } = useSponsor()
+const { data } = useSponsor();
 </script>
 
 <template>
