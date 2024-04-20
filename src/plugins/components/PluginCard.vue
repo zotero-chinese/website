@@ -70,7 +70,7 @@
 import { tags } from "../types/tags";
 import { defineComponent, ref } from "vue";
 import type { PropType } from "vue";
-import type { PluginInfo } from "../source/backend";
+import type { PluginInfo } from "../backend";
 
 export default defineComponent({
   name: "PluginCard",

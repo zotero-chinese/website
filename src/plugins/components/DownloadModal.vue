@@ -78,9 +78,10 @@
 </template>
 
 <script lang="ts">
-import type { PluginInfo } from "zotero-plugins-data";
 import { defineComponent } from "vue";
 import type { PropType } from "vue";
+import type { PluginInfo } from "../types/plugin-info";
+
 export default defineComponent({
   name: "DownloadModal",
   props: {

@@ -1,9 +1,13 @@
 import { existsSync, readFileSync } from "fs";
 import path from "path";
+import type { PluginInfo } from "../types/plugin-info";
 
 const local_path = path.resolve("src/plugins/backend/dist/plugins.json"),
   remote_path =
     "https://raw.githubusercontent.com/zotero-chinese/zotero-plugins/gh-pages/dist/plugins.json";
+
+declare const data: PluginInfo[];
+export { data };
 
 export default {
   async load() {

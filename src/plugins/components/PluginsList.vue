@@ -57,7 +57,7 @@
     <!-- <el-checkbox value="all" border>All</el-checkbox> -->
     <el-checkbox
       v-for="(tagDetail, tag) in allTags"
-      :key="tagDetail"
+      :key="tagDetail.label"
       :value="tag"
       border
     >
@@ -104,7 +104,7 @@ import { defineComponent } from "vue";
 import type { PropType } from "vue";
 import PluginCard from "./PluginCard.vue";
 import DownloadModal from "./DownloadModal.vue";
-import type { PluginInfo } from "../source/backend";
+import type { PluginInfo } from "../backend";
 import { tags } from "../types/tags";
 
 export default defineComponent({

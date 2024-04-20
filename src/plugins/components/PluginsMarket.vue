@@ -1,9 +1,25 @@
 <template>
   <el-container>
-    <el-header class="vp-doc">
-      <h2>Zotero 插件商店</h2>
+    <el-header>
+      <div class="vp-doc">
+        <h2>Zotero 插件商店</h2>
+      </div>
       <el-text>更新时间：{{ updateTime }}</el-text>
-      <!-- <el-button type="primary" plain>请求收录插件</el-button> -->
+      <div class="header-button-group">
+        <el-button
+          type="primary"
+          plain
+          tag="a"
+          href="https://github.com/zotero-chinese/zotero-plugins"
+        >
+          <el-icon><Shop /></el-icon>
+          请求收录插件
+        </el-button>
+        <el-button type="primary" plain tag="a" href="./charts">
+          <el-icon><Trophy /></el-icon>
+          插件排行榜
+        </el-button>
+      </div>
     </el-header>
     <el-main>
       <PluginsList :plugins="plugins" />
@@ -53,29 +69,13 @@
   </el-container>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-import PluginsList from "../components/PluginsList.vue";
-import type { PluginInfo } from "../types/plugin-info";
+<script setup lang="ts">
 // @ts-expect-error data 是 vitepress 的隐式导出
+import { data as _updateTime } from "../data/update-time.data";
 import { data as plugins } from "../data/plugins.data";
-// @ts-expect-error data 是 vitepress 的隐式导出
-import { data as updateTime } from "../data/update-time.data";
+import PluginsList from "../components/PluginsList.vue";
 import HeartFilledIcon from "./icons/HeartFilledIcon.vue";
-
-export default defineComponent({
-  name: "PluginsMarket",
-  components: {
-    PluginsList,
-    HeartFilledIcon,
-  },
-  data() {
-    return {
-      plugins: plugins as unknown as PluginInfo[],
-      updateTime: updateTime["lastUpdate"],
-    };
-  },
-});
+const updateTime = _updateTime["lastUpdate"];
 </script>
 
 <style scoped>
@@ -88,6 +88,9 @@ export default defineComponent({
   align-items: center;
   flex-wrap: wrap;
   padding: 50px;
+}
+.header-button-group {
+  padding-top: 20px;
 }
 .el-footer {
   text-align: center;
