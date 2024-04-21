@@ -152,6 +152,13 @@ export default defineConfig({
       }),
     ],
     // @ts-ignore
-    ssr: { noExternal: ["element-plus", "highcharts", "highcharts-vue"] },
+    ssr: {
+      noExternal: [
+        "element-plus",
+        "highcharts",
+        "highcharts-vue",
+        "@highcharts/dashboards",
+      ],
+    },
   },
 });

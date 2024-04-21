@@ -6,8 +6,13 @@ sidebar: false
 
 <!-- markdownlint-disable -->
 
-<!-- <script setup>
-import PluginsChart from "./components/PluginsChart.vue"
+<script setup>
+import { defineClientComponent } from 'vitepress'
+const PluginsChart = defineClientComponent(() => {
+    return import ("./components/PluginsChart.vue")
+})
 </script>
 
-<PluginsChart /> -->
+<ClientOnly>
+    <PluginsChart />
+</ClientOnly>
