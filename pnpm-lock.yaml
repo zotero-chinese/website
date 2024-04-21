@@ -47,7 +47,7 @@ importers:
         version: 20.12.7
       '@vitejs/plugin-vue':
         specifier: 5.0.4
-        version: 5.0.4(vite@5.1.6(@types/node@20.12.7))(vue@3.4.23(typescript@5.4.5))
+        version: 5.0.4(vite@5.1.7(@types/node@20.12.7))(vue@3.4.23(typescript@5.4.5))
       '@vue/eslint-config-prettier':
         specifier: 9.0.0
         version: 9.0.0(eslint@8.57.0)(prettier@3.2.5)
@@ -91,8 +91,8 @@ importers:
         specifier: 0.26.0
         version: 0.26.0(@babel/parser@7.24.4)(rollup@4.16.0)(vue@3.4.23(typescript@5.4.5))
       vite:
-        specifier: 5.1.6
-        version: 5.1.6(@types/node@20.12.7)
+        specifier: 5.1.7
+        version: 5.1.7(@types/node@20.12.7)
       vue-tsc:
         specifier: 2.0.13
         version: 2.0.13(typescript@5.4.5)
@@ -2175,8 +2175,8 @@ packages:
     engines: {node: '>=8'}
     hasBin: true
 
-  vite@5.1.6:
-    resolution: {integrity: sha512-yYIAZs9nVfRJ/AiOLCA91zzhjsHUgMjB+EigzFb6W2XTLO8JixBCKCjvhKZaye+NKYHCrkv3Oh50dH9EdLU2RA==}
+  vite@5.1.7:
+    resolution: {integrity: sha512-sgnEEFTZYMui/sTlH1/XEnVNHMujOahPLGMxn1+5sIT45Xjng1Ec1K78jRP15dSmVgg5WBin9yO81j3o9OxofA==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
     peerDependencies:
@@ -2895,9 +2895,9 @@ snapshots:
 
   '@ungap/structured-clone@1.2.0': {}
 
-  '@vitejs/plugin-vue@5.0.4(vite@5.1.6(@types/node@20.12.7))(vue@3.4.23(typescript@5.4.5))':
+  '@vitejs/plugin-vue@5.0.4(vite@5.1.7(@types/node@20.12.7))(vue@3.4.23(typescript@5.4.5))':
     dependencies:
-      vite: 5.1.6(@types/node@20.12.7)
+      vite: 5.1.7(@types/node@20.12.7)
       vue: 3.4.23(typescript@5.4.5)
 
   '@vitejs/plugin-vue@5.0.4(vite@5.2.10(@types/node@20.12.7))(vue@3.4.23(typescript@5.4.5))':
@@ -4493,7 +4493,7 @@ snapshots:
       kleur: 4.1.5
       sade: 1.8.1
 
-  vite@5.1.6(@types/node@20.12.7):
+  vite@5.1.7(@types/node@20.12.7):
     dependencies:
       esbuild: 0.19.12
       postcss: 8.4.38
