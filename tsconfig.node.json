@@ -1,6 +1,6 @@
 {
   "extends": "@tsconfig/node20/tsconfig.json",
-  "include": ["src/vite.config.*", "src/**/types/*.d.ts", "vite.config.ts"],
+  "include": ["src/vite.config.*", "src/**/types/*.d.ts"],
   "compilerOptions": {
     "composite": true,
     "noEmit": true,
