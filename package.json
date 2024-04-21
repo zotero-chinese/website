@@ -7,10 +7,10 @@
   "type": "module",
   "packageManager": "pnpm@9.0.4",
   "scripts": {
-    "dev": "vitepress dev src",
-    "build": "vitepress build src",
+    "dev": "vitepress dev",
+    "build": "vitepress build",
     "build:tsc": "vue-tsc",
-    "preview": "vitepress preview src",
+    "preview": "vitepress preview",
     "lint:prettier": "prettier --write .",
     "lint:eslint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "git:update": "git submodule update --remote --recursive",

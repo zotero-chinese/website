@@ -1,5 +1,4 @@
 import { defineConfig, DefaultTheme } from "vitepress";
-// import { transformerTwoslash } from '@shikijs/vitepress-twoslash'
 import { buildEnd } from "./config/buildEnd";
 import { sidebar } from "./config/sidebar";
 import { nav } from "./config/navbar";
@@ -15,6 +14,14 @@ export default defineConfig({
   title: `Zotero 中文社区`,
   description: "Zotero 非官方中文维护小组",
   lang: "zh-CN",
+
+  srcDir: "./src",
+  srcExclude: ["**/wiki/*.md", "**/plugins/backend/**/*.*"],
+  outDir: "dist",
+
+  rewrites: {
+    "wiki/src/:id+": ":id+",
+  },
 
   head: [
     ["link", { rel: "icon", type: "image/svg+xml", href: "/logo.png" }],
@@ -42,12 +49,6 @@ export default defineConfig({
     //   gtag('config', 'TAG_ID');`,
     // ],
   ],
-
-  srcExclude: ["**/wiki/*.md", "**/plugins/backend/**/*.*"],
-
-  rewrites: {
-    "wiki/src/:id+": ":id+",
-  },
 
   themeConfig: {
     logo: "/logo.png",
@@ -119,19 +120,7 @@ export default defineConfig({
     darkModeSwitchTitle: "切换到深色模式",
   },
 
-  transformPageData(pageData) {
-    const canonicalUrl = `${ogUrl}/${pageData.relativePath}`
-      .replace(/\/index\.md$/, "/")
-      .replace(/\.md$/, "/");
-    pageData.frontmatter.head ??= [];
-    pageData.frontmatter.head.unshift([
-      "link",
-      { rel: "canonical", href: canonicalUrl },
-    ]);
-    return pageData;
-  },
   markdown: {
-    // codeTransformers: [transformerTwoslash()],
     container: {
       tipLabel: "提示",
       warningLabel: "警告",
