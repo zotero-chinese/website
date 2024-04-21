@@ -4,25 +4,23 @@ import { buildEnd } from "./config/buildEnd";
 import { sidebar } from "./config/sidebar";
 import { nav } from "./config/navbar";
 import { footnote } from "@mdit/plugin-footnote";
-import AutoImport from "unplugin-auto-import/vite";
-import Components from "unplugin-vue-components/vite";
-import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
 
-const ogDescription = "Next Generation Frontend Tooling";
-const ogImage = "https://vitejs.dev/og-image.png";
-const ogTitle = "Vite";
-const ogUrl = "https://vitejs.dev";
+const ogDescription =
+  "Zotero 中文社区，Zotero 中文维护小组，Zotero 插件，Zotero 中文 CSL 样式";
+const ogImage = "/logo.png";
+const ogTitle = "Zotero 中文社区";
+const ogUrl = "https://zotero-chinese.com";
 
 export default defineConfig({
   title: `Zotero 中文社区`,
-  description: "Next Generation Frontend Tooling",
+  description: "Zotero 非官方中文维护小组",
   lang: "zh-CN",
 
   head: [
-    ["link", { rel: "icon", type: "image/svg+xml", href: "/logo.svg" }],
+    ["link", { rel: "icon", type: "image/svg+xml", href: "/logo.png" }],
     [
       "link",
-      { rel: "alternate", type: "application/rss+xml", href: "/blog.rss" },
+      { rel: "alternate", type: "application/rss+xml", href: "/rss.rss" },
     ],
     ["meta", { property: "og:type", content: "website" }],
     ["meta", { property: "og:title", content: ogTitle }],
@@ -30,9 +28,22 @@ export default defineConfig({
     ["meta", { property: "og:url", content: ogUrl }],
     ["meta", { property: "og:description", content: ogDescription }],
     ["meta", { name: "theme-color", content: "#646cff" }],
+    // TODO: 添加谷歌分析
+    // [
+    //   "script",
+    //   { async: "", src: "https://www.googletagmanager.com/gtag/js?id=TAG_ID" },
+    // ],
+    // [
+    //   "script",
+    //   {},
+    //   `window.dataLayer = window.dataLayer || [];
+    //   function gtag(){dataLayer.push(arguments);}
+    //   gtag('js', new Date());
+    //   gtag('config', 'TAG_ID');`,
+    // ],
   ],
 
-  srcExclude: ["**/wiki/*.md", "**/wiki/index.md", "**/plugins/backend/**/*.*"],
+  srcExclude: ["**/wiki/*.md", "**/plugins/backend/**/*.*"],
 
   rewrites: {
     "wiki/src/:id+": ":id+",
@@ -45,17 +56,38 @@ export default defineConfig({
 
     editLink: {
       pattern: "https://github.com/zotero-chinese/wiki/edit/main/docs/:path",
-      text: "Suggest changes to this page",
+      text: "对本页提出修改建议",
     },
 
     externalLinkIcon: true,
 
     socialLinks: [
-      //   { icon: "mastodon", link: "https://elk.zone/m.webtoo.ls/@vite" },
-      //   { icon: "twitter", link: "https://twitter.com/vite_js" },
-      //   { icon: "discord", link: "https://chat.vitejs.dev" },
       { icon: "github", link: "https://github.com/zotero-chinese/" },
     ],
+
+    search: {
+      provider: "local",
+      options: {
+        locales: {
+          zh: {
+            translations: {
+              button: {
+                buttonText: "搜索文档",
+                buttonAriaLabel: "搜索文档",
+              },
+              modal: {
+                noResultsText: "无法找到相关结果",
+                resetButtonTitle: "清除查询条件",
+                footer: {
+                  selectText: "选择",
+                  navigateText: "切换",
+                },
+              },
+            },
+          },
+        },
+      },
+    },
 
     footer: {
       message: `本工作以 知识共享 署名-相同方式共享 和 MIT 协议共享`,
@@ -110,24 +142,11 @@ export default defineConfig({
       detailsLabel: "详细信息",
     },
     image: {
-      // 默认禁用图片懒加载
       lazyLoading: true,
     },
     config: (md) => {
-      // 使用更多的 Markdown-it 插件！
       md.use(footnote);
     },
   },
   buildEnd,
-
-  vite: {
-    plugins: [
-      AutoImport({
-        resolvers: [ElementPlusResolver()],
-      }),
-      Components({
-        resolvers: [ElementPlusResolver()],
-      }),
-    ],
-  },
 });

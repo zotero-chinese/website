@@ -1,8 +1,13 @@
 ---
+title: Zotero 中文转换器
 layout: page
 sidebar: false
 ---
 
-# 转换器
+<!-- markdownlint-disable -->
 
-此页面尚未实现
+<script setup>
+import TranslatorsMarket from "./components/TranslatorsMarket.vue"
+</script>
+
+<TranslatorsMarket />

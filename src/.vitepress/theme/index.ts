@@ -9,6 +9,7 @@ import HomeSponsors from "./components/HomeSponsors.vue";
 import SvgImage from "./components/SvgImage.vue";
 import "element-plus/theme-chalk/dark/css-vars.css";
 import * as ElementPlusIconsVue from "@element-plus/icons-vue";
+// import HighchartsVue from "highcharts-vue";
 
 export default {
   extends: DefaultTheme,
@@ -20,7 +21,7 @@ export default {
   },
   enhanceApp({ app }) {
     app.component("SvgImage", SvgImage);
-    // app.use(TwoslashFloatingVue)
+    // app.use(HighchartsVue);
 
     for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
       app.component(key, component);

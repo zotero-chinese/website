@@ -9,3 +9,5 @@ package-lock.json
 **/.vitepress/cache
 **/.vitepress/dist
 **/.obsidian
+
+**/data/dashboard.json

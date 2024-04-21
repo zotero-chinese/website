@@ -5,7 +5,7 @@
         <h2>Zotero 插件商店</h2>
       </div>
       <el-text>更新时间：{{ updateTime }}</el-text>
-      <div class="header-button-group">
+      <div class="button-group">
         <el-button
           type="primary"
           plain
@@ -25,6 +25,14 @@
       <PluginsList :plugins="plugins" />
     </el-main>
     <el-footer>
+      <div class="button-group">
+        <el-button type="primary" plain tag="a" href="./value-added">
+          付费插件列表
+        </el-button>
+        <el-button type="primary" plain tag="a" href="./deprecated">
+          停止维护的插件列表
+        </el-button>
+      </div>
       <p>
         <el-text>
           Zotero 中文交流群
@@ -87,10 +95,11 @@ const updateTime = _updateTime["lastUpdate"];
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  padding: 50px;
+  padding: 30px;
 }
-.header-button-group {
+.button-group {
   padding-top: 20px;
+  padding-bottom: 30px;
 }
 .el-footer {
   text-align: center;
