@@ -38,7 +38,9 @@ jobs:
       - name: Build
         env:
           GITHUB_TOKEN: ${{ secrets.PAT_GITHUB_TOKEN_NORTHWORD_GHOST }}
-        run: pnpm build
+        run: |
+          pnpm fetch-data
+          pnpm build
 
       - name: Upload Output
         uses: actions/upload-artifact@v4

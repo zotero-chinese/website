@@ -14,6 +14,7 @@
     "lint:prettier": "prettier --write .",
     "lint:eslint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "git:update": "git submodule update --remote --recursive",
+    "fetch-data": "node .github/scripts/fetch-data.mjs",
     "prepare": "husky"
   },
   "dependencies": {

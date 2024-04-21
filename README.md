@@ -22,10 +22,14 @@ Zotero 中文社区官方网站源码。
 
 ```bash
 # clone
+git clone --recursive https://github.com/zotero-chinese/website.git
 
-# init
+# install deps
 npm install -g pnpm
+pnpm install
 
+# fetch data
+pnpm fetch-data
 
 # development
 pnpm dev
