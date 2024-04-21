@@ -3,6 +3,9 @@ import { buildEnd } from "./config/buildEnd";
 import { sidebar } from "./config/sidebar";
 import { nav } from "./config/navbar";
 import { footnote } from "@mdit/plugin-footnote";
+import AutoImport from "unplugin-auto-import/vite";
+import Components from "unplugin-vue-components/vite";
+import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
 
 const ogDescription =
   "Zotero 中文社区，Zotero 中文维护小组，Zotero 插件，Zotero 中文 CSL 样式";
@@ -138,4 +141,17 @@ export default defineConfig({
     },
   },
   buildEnd,
+
+  vite: {
+    plugins: [
+      AutoImport({
+        resolvers: [ElementPlusResolver()],
+      }),
+      Components({
+        resolvers: [ElementPlusResolver()],
+      }),
+    ],
+    // @ts-ignore
+    ssr: { noExternal: ["element-plus", "highcharts", "highcharts-vue"] },
+  },
 });
