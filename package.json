@@ -29,6 +29,7 @@
     "vue": "3.4.23"
   },
   "devDependencies": {
+    "@nolebase/vitepress-plugin-git-changelog": "2.0.0-rc8",
     "@tsconfig/node20": "20.1.4",
     "@types/fs-extra": "11.0.4",
     "@types/node": "20.12.7",

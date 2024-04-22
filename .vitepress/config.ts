@@ -6,6 +6,10 @@ import { footnote } from "@mdit/plugin-footnote";
 import AutoImport from "unplugin-auto-import/vite";
 import Components from "unplugin-vue-components/vite";
 import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
+import {
+  GitChangelog,
+  GitChangelogMarkdownSection,
+} from "@nolebase/vitepress-plugin-git-changelog/vite";
 
 const ogDescription =
   "Zotero 中文社区，Zotero 中文维护小组，Zotero 插件，Zotero 中文 CSL 样式";
@@ -150,6 +154,10 @@ export default defineConfig({
       Components({
         resolvers: [ElementPlusResolver()],
       }),
+      GitChangelog({
+        repoURL: () => "https://github.com/zotero-chinese/website",
+      }),
+      GitChangelogMarkdownSection(),
     ],
     // @ts-ignore
     ssr: {
@@ -158,6 +166,7 @@ export default defineConfig({
         "highcharts",
         "highcharts-vue",
         "@highcharts/dashboards",
+        "@nolebase/vitepress-plugin-git-changelog",
       ],
     },
   },
