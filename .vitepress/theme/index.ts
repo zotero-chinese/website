@@ -9,20 +9,20 @@ import HomeSponsors from "./components/HomeSponsors.vue";
 import SvgImage from "./components/SvgImage.vue";
 import "element-plus/theme-chalk/dark/css-vars.css";
 import * as ElementPlusIconsVue from "@element-plus/icons-vue";
+import Giscus from "./components/Giscus.vue";
 // import HighchartsVue from "highcharts-vue";
 
 export default {
   extends: DefaultTheme,
   Layout() {
     return h(DefaultTheme.Layout, null, {
-      "home-features-after": () => h(HomeSponsors),
+      // "home-features-after": () => h(HomeSponsors),
       // "aside-ads-before": () => h(AsideSponsors),
+      "doc-after": () => h(Giscus),
     });
   },
   enhanceApp({ app }) {
     app.component("SvgImage", SvgImage);
-    // app.use(HighchartsVue);
-
     for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
       app.component(key, component);
     }
