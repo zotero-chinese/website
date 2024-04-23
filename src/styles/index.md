@@ -1,8 +1,13 @@
 ---
+title: 中文 CSL 样式
 layout: page
 sidebar: false
 ---
 
-# 中文 CSL-M 样式商店
+<!-- markdownlint-disable -->
 
-此页面尚未实现。
+<script setup>
+import StylesMarket from "./components/StylesMarket.vue"
+</script>
+
+<StylesMarket />

@@ -1,25 +1,30 @@
+<script setup lang="ts">
+// @ts-expect-error data 是 vitepress 的隐式导出
+import { data as _updateTime } from "../data/update-time.data";
+import { data as plugins } from "../data/plugins.data";
+import PluginsList from "../components/PluginsList.vue";
+import HeartFilledIcon from "./icons/HeartFilledIcon.vue";
+const updateTime = _updateTime["lastUpdate"];
+import PageHeader from "@theme/components/PageHeader.vue";
+</script>
+
 <template>
   <el-container>
-    <el-header>
-      <div class="vp-doc">
-        <h2>Zotero 插件商店</h2>
-      </div>
-      <el-text>更新时间：{{ updateTime }}</el-text>
-      <div class="button-group">
-        <el-button
-          type="primary"
-          plain
-          tag="a"
-          href="https://github.com/zotero-chinese/zotero-plugins"
-        >
-          <el-icon><Shop /></el-icon>
-          请求收录插件
-        </el-button>
-        <el-button type="primary" plain tag="a" href="./charts">
-          <el-icon><Trophy /></el-icon>
-          插件排行榜
-        </el-button>
-      </div>
+    <el-header height="fit-content">
+      <PageHeader
+        title="Zotero 插件商店"
+        :description="'更新时间：' + updateTime"
+        :actions="[
+          {
+            text: '🏪 请求收录插件',
+            link: 'https://github.com/zotero-chinese/zotero-plugins',
+          },
+          {
+            text: '🏆 插件排行榜',
+            link: '/charts',
+          },
+        ]"
+      />
     </el-header>
     <el-main>
       <PluginsList :plugins="plugins" />
@@ -77,39 +82,10 @@
   </el-container>
 </template>
 
-<script setup lang="ts">
-// @ts-expect-error data 是 vitepress 的隐式导出
-import { data as _updateTime } from "../data/update-time.data";
-import { data as plugins } from "../data/plugins.data";
-import PluginsList from "../components/PluginsList.vue";
-import HeartFilledIcon from "./icons/HeartFilledIcon.vue";
-const updateTime = _updateTime["lastUpdate"];
-</script>
-
 <style scoped>
-.el-header {
-  height: max-content;
-  display: flex;
-  align-content: center;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  padding: 30px;
-}
-.button-group {
-  padding-top: 20px;
-  padding-bottom: 30px;
-}
 .el-footer {
   text-align: center;
-  padding-bottom: 40px;
+  padding-bottom: 2rem;
   height: 100%;
-}
-p {
-  vertical-align: middle;
-}
-h2 {
-  border-top: none;
 }
 </style>
