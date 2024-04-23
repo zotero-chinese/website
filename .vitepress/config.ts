@@ -155,9 +155,24 @@ export default defineConfig({
         resolvers: [ElementPlusResolver()],
       }),
       GitChangelog({
+        includeDirs: ["src/wiki"],
+        rewritePaths: {
+          "src/wiki/src/": "",
+          "src/": "",
+        },
         repoURL: () => "https://github.com/zotero-chinese/website",
       }),
-      GitChangelogMarkdownSection(),
+      GitChangelogMarkdownSection({
+        exclude: (id) => !id.match("src/wiki/") || id.endsWith("index.md"),
+        locales: {
+          "zh-CN": {
+            gitChangelogMarkdownSectionTitles: {
+              changelog: "文件历史",
+              contributors: "贡献者",
+            },
+          },
+        },
+      }),
     ],
     // @ts-ignore
     ssr: {
@@ -166,7 +181,6 @@ export default defineConfig({
         "highcharts",
         "highcharts-vue",
         "@highcharts/dashboards",
-        "@nolebase/vitepress-plugin-git-changelog",
       ],
     },
   },
