@@ -19,7 +19,7 @@ export default defineConfig({
   lang: "zh-CN",
 
   srcDir: "./src",
-  srcExclude: ["**/wiki/*.md", "**/plugins/backend/**/*.*"],
+  srcExclude: ["**/wiki/*.md"],
   outDir: "dist",
 
   rewrites: {
