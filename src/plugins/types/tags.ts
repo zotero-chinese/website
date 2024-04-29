@@ -1,5 +1,3 @@
-import type { TagType } from "../backend";
-
 export type Tag = {
   label: string;
   description: string;
