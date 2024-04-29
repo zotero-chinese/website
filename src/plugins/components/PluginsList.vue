@@ -104,7 +104,6 @@ import { defineComponent } from "vue";
 import type { PropType } from "vue";
 import PluginCard from "./PluginCard.vue";
 import DownloadModal from "./DownloadModal.vue";
-import type { PluginInfo } from "../backend";
 import { tags } from "../types/tags";
 
 export default defineComponent({

@@ -1,6 +1,6 @@
 <script setup>
-import { data as translators } from "../data/translators.data";
-import TranslatorsList from "../components/TranslatorsList.vue";
+// import { data as styles } from "../data/styles.data";
+// import StylesList from "../components/StylesList.vue";
 const updateTime = new Date().toLocaleString("zh-CN");
 import PageHeader from "@theme/components/PageHeader.vue";
 </script>
@@ -9,18 +9,19 @@ import PageHeader from "@theme/components/PageHeader.vue";
   <el-container>
     <el-header height="fit-content">
       <PageHeader
-        title="Zotero 转换器（中文生态）"
+        title="中文 CSL 样式"
         :description="'更新时间：' + updateTime"
         :actions="[
           {
-            text: '🕯 报告转换器问题',
-            link: 'https://github.com/l0o0/translators_CN',
+            text: '🕯 获取样式 / 报告 CSL 样式问题',
+            link: 'https://github.com/redleafnew/Chinese-STD-GB-T-7714-related-csl',
           },
         ]"
       />
     </el-header>
     <el-main>
-      <TranslatorsList :translators="translators" />
+      <!-- <StylesList :styles="styles" /> -->
+      <el-empty description="此页面尚未实现" />
     </el-main>
   </el-container>
 </template>

@@ -1,4 +1,4 @@
-import { defineConfig, DefaultTheme } from "vitepress";
+import { defineConfig } from "vitepress";
 import { buildEnd } from "./config/buildEnd";
 import { sidebar } from "./config/sidebar";
 import { nav } from "./config/navbar";
@@ -23,7 +23,7 @@ export default defineConfig({
   lang: "zh-CN",
 
   srcDir: "./src",
-  srcExclude: ["**/wiki/*.md", "**/plugins/backend/**/*.*"],
+  srcExclude: ["**/wiki/*.md"],
   outDir: "dist",
 
   rewrites: {
@@ -42,19 +42,22 @@ export default defineConfig({
     ["meta", { property: "og:url", content: ogUrl }],
     ["meta", { property: "og:description", content: ogDescription }],
     ["meta", { name: "theme-color", content: "#646cff" }],
-    // TODO: 添加谷歌分析
-    // [
-    //   "script",
-    //   { async: "", src: "https://www.googletagmanager.com/gtag/js?id=TAG_ID" },
-    // ],
-    // [
-    //   "script",
-    //   {},
-    //   `window.dataLayer = window.dataLayer || [];
-    //   function gtag(){dataLayer.push(arguments);}
-    //   gtag('js', new Date());
-    //   gtag('config', 'TAG_ID');`,
-    // ],
+    // 谷歌分析
+    [
+      "script",
+      {
+        async: "",
+        src: "https://www.googletagmanager.com/gtag/js?id=G-YHYFX0LRZK",
+      },
+    ],
+    [
+      "script",
+      {},
+      `window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-YHYFX0LRZK');`,
+    ],
   ],
 
   themeConfig: {
@@ -125,6 +128,11 @@ export default defineConfig({
     darkModeSwitchLabel: "主题",
     lightModeSwitchTitle: "切换到浅色模式",
     darkModeSwitchTitle: "切换到深色模式",
+    notFound: {
+      title: "页面未找到",
+      quote: "从前有座山，山里有座庙，庙里有个页面，现在找不到...",
+      linkText: "返回首页",
+    },
   },
 
   markdown: {

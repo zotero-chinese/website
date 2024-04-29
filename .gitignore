@@ -8,7 +8,8 @@ package-lock.json
 **/.vuepress/dist/
 **/.vitepress/cache
 **/.vitepress/dist
+**/.vitepress/.temp
 dist
 **/.obsidian
 
-**/data/dashboard.json
+**/data/*.json

@@ -4,17 +4,17 @@ import { exit } from "process";
 
 const data_list = [
   {
-    local_path: "src/plugins/backend/dist/plugins.json",
+    local_path: "src/plugins/data/plugins.json",
     remote_url:
       "https://raw.githubusercontent.com/zotero-chinese/zotero-plugins/gh-pages/dist/plugins.json",
   },
   {
-    local_path: "src/plugins/backend/dist/update-time.json",
+    local_path: "src/plugins/data/update-time.json",
     remote_url:
       "https://raw.githubusercontent.com/zotero-chinese/zotero-plugins/gh-pages/dist/shields.json",
   },
   {
-    local_path: "src/plugins/backend/dist/charts.json",
+    local_path: "src/plugins/data/charts.json",
     remote_url:
       "https://raw.githubusercontent.com/zotero-chinese/zotero-plugins/gh-pages/dist/charts.json",
   },
