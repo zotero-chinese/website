@@ -28,12 +28,9 @@ export const nav: DefaultTheme.NavItem[] = [
       {
         text: "最好的中文社区",
         items: [
-          { text: "团队", link: "/about/team" },
+          { text: "关于我们", link: "/about" },
+          { text: "贡献者名单", link: "/contributors" },
           { text: "贡献指南", link: "/contributing/" },
-          {
-            text: "Awesome Zotero",
-            link: "https://github.com/vitejs/awesome-vite",
-          },
         ],
       },
     ],
