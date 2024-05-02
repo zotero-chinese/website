@@ -2,16 +2,9 @@ import { defineConfig } from "vitepress";
 import { buildEnd } from "./config/buildEnd";
 import { sidebar } from "./config/sidebar";
 import { nav } from "./config/navbar";
-import { footnote } from "@mdit/plugin-footnote";
-import AutoImport from "unplugin-auto-import/vite";
-import Components from "unplugin-vue-components/vite";
-import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
-
-const ogDescription =
-  "Zotero 中文社区，Zotero 中文维护小组，Zotero 插件，Zotero 中文 CSL 样式";
-const ogImage = "/logo.png";
-const ogTitle = "Zotero 中文社区";
-const ogUrl = "https://zotero-chinese.com";
+import { markdown } from "./config/markdown";
+import { head } from "./config/head";
+import { vite } from "./config/vite";
 
 export default defineConfig({
   title: `Zotero 中文社区`,
@@ -19,42 +12,14 @@ export default defineConfig({
   lang: "zh-CN",
 
   srcDir: "./src",
-  srcExclude: ["**/wiki/*.md"],
+  // srcExclude: ["**/wiki/*.md"],
   outDir: "dist",
 
   rewrites: {
-    "wiki/src/:id+": ":id+",
+    "wiki/:id+": ":id+",
   },
 
-  head: [
-    ["link", { rel: "icon", type: "image/svg+xml", href: "/logo.png" }],
-    [
-      "link",
-      { rel: "alternate", type: "application/rss+xml", href: "/rss.rss" },
-    ],
-    ["meta", { property: "og:type", content: "website" }],
-    ["meta", { property: "og:title", content: ogTitle }],
-    ["meta", { property: "og:image", content: ogImage }],
-    ["meta", { property: "og:url", content: ogUrl }],
-    ["meta", { property: "og:description", content: ogDescription }],
-    ["meta", { name: "theme-color", content: "#646cff" }],
-    // 谷歌分析
-    [
-      "script",
-      {
-        async: "",
-        src: "https://www.googletagmanager.com/gtag/js?id=G-YHYFX0LRZK",
-      },
-    ],
-    [
-      "script",
-      {},
-      `window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-YHYFX0LRZK');`,
-    ],
-  ],
+  head,
 
   themeConfig: {
     logo: "/logo.png",
@@ -62,7 +27,13 @@ export default defineConfig({
     sidebar: sidebar,
 
     editLink: {
-      pattern: "https://github.com/zotero-chinese/wiki/edit/main/docs/:path",
+      pattern: ({ filePath }) => {
+        if (filePath.startsWith("wiki")) {
+          return `https://github.com/zotero-chinese/wiki/edit/main/${filePath.replace("wiki/", "")}`;
+        } else {
+          return `https://github.com/zotero-chinese/website/edit/main/:path`;
+        }
+      },
       text: "对本页提出修改建议",
     },
 
@@ -126,47 +97,14 @@ export default defineConfig({
     darkModeSwitchTitle: "切换到深色模式",
     notFound: {
       title: "页面未找到",
-      quote: "从前有座山，山里有座庙，庙里有个页面，现在找不到...",
+      quote: "从前有座山，山上有座庙，庙里有个页面，现在找不到...",
       linkText: "返回首页",
     },
   },
 
-  markdown: {
-    container: {
-      tipLabel: "提示",
-      warningLabel: "警告",
-      dangerLabel: "危险",
-      cautionLabel: "危险",
-      infoLabel: "信息",
-      noteLabel: "注",
-      detailsLabel: "详细信息",
-    },
-    image: {
-      lazyLoading: true,
-    },
-    config: (md) => {
-      md.use(footnote);
-    },
-  },
+  markdown,
+
   buildEnd,
 
-  vite: {
-    plugins: [
-      AutoImport({
-        resolvers: [ElementPlusResolver()],
-      }),
-      Components({
-        resolvers: [ElementPlusResolver()],
-      }),
-    ],
-    // @ts-ignore
-    ssr: {
-      noExternal: [
-        "element-plus",
-        "highcharts",
-        "highcharts-vue",
-        "@highcharts/dashboards",
-      ],
-    },
-  },
+  vite,
 });

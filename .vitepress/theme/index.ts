@@ -11,6 +11,8 @@ import "element-plus/theme-chalk/dark/css-vars.css";
 import * as ElementPlusIconsVue from "@element-plus/icons-vue";
 import Giscus from "./components/Giscus.vue";
 // import HighchartsVue from "highcharts-vue";
+import { NolebaseGitChangelogPlugin } from "@nolebase/vitepress-plugin-git-changelog/client";
+import "@nolebase/vitepress-plugin-git-changelog/client/style.css";
 
 export default {
   extends: DefaultTheme,
@@ -26,5 +28,6 @@ export default {
     for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
       app.component(key, component);
     }
+    app.use(NolebaseGitChangelogPlugin);
   },
 } satisfies Theme;
