@@ -1,6 +1,6 @@
-<script setup>
+<script setup lang="ts">
 import { data as translators } from "../data/translators.data";
-import TranslatorsList from "../components/TranslatorsList.vue";
+import TranslatorsList from "./TranslatorsList.vue";
 const updateTime = new Date().toLocaleString("zh-CN");
 import PageHeader from "@theme/components/PageHeader.vue";
 </script>

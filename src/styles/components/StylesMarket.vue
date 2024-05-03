@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 // import { data as styles } from "../data/styles.data";
 // import StylesList from "../components/StylesList.vue";
 const updateTime = new Date().toLocaleString("zh-CN");
