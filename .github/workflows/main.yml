@@ -6,6 +6,8 @@ on:
   # pull_request:
   #   branches: [main]
   workflow_dispatch:
+  repository_dispatch:
+    types: [update-content]
 
 permissions:
   contents: write
@@ -24,6 +26,7 @@ jobs:
     secrets: inherit
 
   deploy:
+    if: github.ref_name == 'main' && github.event_name != 'pull_request' && github.repository == 'zotero-chinese/website'
     needs:
       - build
     runs-on: ubuntu-latest
