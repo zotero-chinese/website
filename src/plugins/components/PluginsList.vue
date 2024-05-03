@@ -42,7 +42,6 @@
       placeholder="搜索插件..."
       clearable
       @clear="clearSearch"
-      @input="performSearch"
     >
       <template #prefix>
         <el-icon>
@@ -84,112 +83,94 @@
       :key="plugin.repo"
     >
       <div class="grid-content ep-bg-purple">
-        <PluginCard :plugin="plugin" @showDownloads="showDownloads" />
+        <PluginCard :plugin="plugin" @show-download="showDownload" />
       </div>
     </el-col>
   </el-row>
+
   <!-- 空状态 -->
   <el-empty v-if="filteredPlugins.length == 0" description="无匹配插件" />
 
   <!-- 下载页面 -->
   <DownloadModal
-    :showModal="showModal"
+    v-if="isShowDownload"
     :selectedPlugin="selectedPlugin"
-    @closeModal="closeModal"
+    @close-download="closeDownload"
   />
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-import type { PropType } from "vue";
+<script setup lang="ts">
+import { computed, ref } from "vue";
+
+import { data as plugins } from "../data/plugins.data";
+import { tags as allTags } from "../types/tags";
+
 import PluginCard from "./PluginCard.vue";
 import DownloadModal from "./DownloadModal.vue";
-import { tags } from "../types/tags";
 
-export default defineComponent({
-  name: "PluginsList",
-  components: {
-    PluginCard,
-    DownloadModal,
-  },
-  props: {
-    plugins: { type: Array as PropType<PluginInfo[]>, required: true },
-  },
-  data() {
-    return {
-      // filteredPlugins: this.plugins,
-      showModal: false,
-      selectedPlugin: this.plugins[0],
-      searchText: "",
-      sortBy: "stars",
-      zotero: "",
-      selectedTags: [],
-      allTags: tags,
-    };
-  },
-  computed: {
-    sortedPlugins() {
-      if (this.sortBy === "name") {
-        return this.filteredPlugins
-          .slice()
-          .sort((a, b) => a.name.localeCompare(b.name));
-      } else if (this.sortBy === "stars") {
-        return this.filteredPlugins.slice().sort((a, b) => b.stars - a.stars);
-      } else if (this.sortBy === "author") {
-        return this.filteredPlugins
-          .slice()
-          .sort((a, b) => a.author.name.localeCompare(b.author.name));
-      } else {
-        return this.filteredPlugins;
-      }
-    },
-    filteredPlugins() {
-      let filtered = this.plugins;
+const isShowDownload = ref(false);
+const selectedPlugin = ref(plugins[0]);
+const searchText = ref("");
+const sortBy = ref("stars");
+const zotero = ref("");
+const selectedTags = ref([]);
 
-      if (this.zotero !== "") {
-        filtered = filtered.filter((plugin) => {
-          return plugin.releases.some(
-            (release) =>
-              release.targetZoteroVersion ===
-              (this.zotero == "zotero6" ? "6" : "7"),
-          );
-        });
-      }
-      if (this.searchText) {
-        const searchTextLower = this.searchText.toLowerCase();
-        filtered = filtered.filter((plugin) => {
-          return (
-            plugin.name.toLowerCase().includes(searchTextLower) ||
-            plugin.description.toLowerCase().includes(searchTextLower)
-          );
-        });
-      }
-      if (this.selectedTags.length !== 0) {
-        filtered = filtered.filter((plugin) => {
-          return this.selectedTags.every((tag) => plugin.tags.includes(tag));
-        });
-      }
-      return filtered;
-    },
-  },
-  methods: {
-    showDownloads(plugin: PluginInfo) {
-      this.selectedPlugin = plugin;
-      this.showModal = true;
-    },
-    closeModal() {
-      this.showModal = false;
-      // this.selectedPlugin = null;
-    },
-    performSearch() {
-      // Handle search logic here
-      console.log("Performing search:", this.searchText);
-    },
-    clearSearch() {
-      this.searchText = "";
-    },
-  },
+const sortedPlugins = computed(() => {
+  if (sortBy.value === "name") {
+    return filteredPlugins.value
+      .slice()
+      .sort((a, b) => a.name.localeCompare(b.name));
+  } else if (sortBy.value === "stars") {
+    return filteredPlugins.value.slice().sort((a, b) => b.stars - a.stars);
+  } else if (sortBy.value === "author") {
+    return filteredPlugins.value
+      .slice()
+      .sort((a, b) => a.author.name.localeCompare(b.author.name));
+  } else {
+    return filteredPlugins.value;
+  }
 });
+
+const filteredPlugins = computed(() => {
+  let filtered = plugins;
+
+  if (zotero.value !== "") {
+    filtered = filtered.filter((plugin) => {
+      return plugin.releases.some(
+        (release) =>
+          release.targetZoteroVersion ===
+          (zotero.value == "zotero6" ? "6" : "7"),
+      );
+    });
+  }
+  if (searchText.value) {
+    const searchTextLower = searchText.value.toLowerCase();
+    filtered = filtered.filter((plugin) => {
+      return (
+        plugin.name.toLowerCase().includes(searchTextLower) ||
+        plugin.description.toLowerCase().includes(searchTextLower)
+      );
+    });
+  }
+  if (selectedTags.value.length !== 0) {
+    filtered = filtered.filter((plugin) => {
+      return selectedTags.value.every((tag) => plugin.tags.includes(tag));
+    });
+  }
+  return filtered;
+});
+
+function showDownload(plugin: PluginInfo) {
+  selectedPlugin.value = plugin;
+  isShowDownload.value = true;
+}
+function closeDownload() {
+  isShowDownload.value = false;
+  // selectedPlugin.value = null;
+}
+function clearSearch() {
+  searchText.value = "";
+}
 </script>
 
 <style scoped>

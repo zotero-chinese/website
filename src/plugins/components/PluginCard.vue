@@ -61,32 +61,26 @@
     </div>
 
     <template #footer>
-      <el-button type="primary" @click="showDownloads">下载</el-button>
+      <el-button type="primary" @click="showDownload">下载</el-button>
     </template>
   </el-card>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { tags } from "../types/tags";
-import { defineComponent, ref } from "vue";
-import type { PropType } from "vue";
+import { defineProps, defineEmits } from "vue";
 
-export default defineComponent({
-  name: "PluginCard",
-  props: {
-    plugin: { type: Object as PropType<PluginInfo>, required: true },
-  },
-  methods: {
-    showDownloads() {
-      this.$emit("showDownloads", this.plugin);
-    },
-  },
-  data() {
-    return {
-      tagsInfo: ref(tags),
-    };
-  },
-});
+const props = defineProps<{
+  plugin: PluginInfo;
+}>();
+
+const emits = defineEmits(["showDownload"]);
+
+function showDownload() {
+  emits("showDownload", props.plugin);
+}
+
+const tagsInfo = tags;
 </script>
 
 <style scoped>

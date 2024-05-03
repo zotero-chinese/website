@@ -1,5 +1,5 @@
 <template>
-  <div class="modal" v-if="showModal">
+  <div class="modal">
     <div
       class="modal-content"
       :style="{
@@ -7,7 +7,7 @@
         boxShadow: `var(--el-box-shadow)`,
       }"
     >
-      <span class="close" @click="closeModal">&times;</span>
+      <span class="close" @click="$emit('closeDownload')">&times;</span>
       <el-container>
         <el-header>
           <h2>下载 {{ selectedPlugin.name }}</h2>
@@ -77,22 +77,16 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-import type { PropType } from "vue";
+<script setup lang="ts">
+import { defineProps, defineEmits } from "vue";
 
-export default defineComponent({
-  name: "DownloadModal",
-  props: {
-    showModal: Boolean,
-    selectedPlugin: { type: Object as PropType<PluginInfo>, required: true },
-  },
-  methods: {
-    closeModal() {
-      this.$emit("closeModal");
-    },
-  },
-});
+const props = defineProps<{
+  selectedPlugin: PluginInfo;
+}>();
+
+const selectedPlugin = props.selectedPlugin;
+
+defineEmits(["closeDownload"]);
 </script>
 
 <style scoped>
@@ -108,9 +102,9 @@ export default defineComponent({
 
 .modal-content {
   background-color: var(--el-bg-color);
-  padding: 10px 20px 40px 20px;
+  padding: 40px 20px 40px 20px;
   position: fixed;
-  width: 80%;
+  width: 90%;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);

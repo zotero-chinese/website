@@ -1,7 +1,6 @@
 <script setup lang="ts">
 // @ts-expect-error data 是 vitepress 的隐式导出
 import { data as _updateTime } from "../data/update-time.data";
-import { data as plugins } from "../data/plugins.data";
 import PluginsList from "../components/PluginsList.vue";
 import HeartFilledIcon from "./icons/HeartFilledIcon.vue";
 const updateTime = _updateTime["lastUpdate"];
@@ -21,13 +20,13 @@ import PageHeader from "@theme/components/PageHeader.vue";
           },
           {
             text: '🏆 插件排行榜',
-            link: '/charts',
+            link: './charts',
           },
         ]"
       />
     </el-header>
     <el-main>
-      <PluginsList :plugins="plugins" />
+      <PluginsList />
     </el-main>
     <el-footer>
       <div class="button-group">
