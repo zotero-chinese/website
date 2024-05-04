@@ -1,10 +1,8 @@
 name: CI
 
 on:
-  # push:
-  #   branches: [main]
-  # pull_request:
-  #   branches: [main]
+  push:
+    branches: [main]
   workflow_dispatch:
   repository_dispatch:
     types: [update-content]
@@ -31,7 +29,7 @@ jobs:
       - build
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout 🛎️
+      - name: Checkout
         uses: actions/checkout@v4
         with:
           persist-credentials: false
@@ -40,10 +38,10 @@ jobs:
       - name: Download Build Output
         uses: actions/download-artifact@v4
         with:
-          name: artifact
+          name: build-result
           path: dist
 
-      - name: Deploy 🚀
+      - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           repository-name: zotero-chinese/zotero-chinese.github.io
@@ -53,3 +51,19 @@ jobs:
           token: ${{ secrets.ACCESS_TOKEN }}
           git-config-name: github-actions[bot]
           git-config-email: github-actions[bot]@users.noreply.github.com
+
+      - name: Deploy to Netlify
+        id: netlify
+        uses: nwtgck/actions-netlify@v3.0
+        with:
+          publish-dir: "dist"
+          deploy-message: "Deploy from GitHub Actions"
+          production-deploy: true
+          enable-commit-comment: false
+          enable-pull-request-comment: false
+          enable-commit-status: false
+          enable-github-deployment: false
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        timeout-minutes: 3

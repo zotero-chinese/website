@@ -13,3 +13,6 @@ dist
 **/.obsidian
 
 **/data/*.json
+
+# Local Netlify folder
+.netlify
