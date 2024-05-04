@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import { data as translators } from "../data/translators.data";
-import TranslatorsList from "./TranslatorsList.vue";
-const updateTime = new Date().toLocaleString("zh-CN");
 import PageHeader from "@theme/components/PageHeader.vue";
+import TranslatorsList from "./TranslatorsList.vue";
+
+// @ts-expect-error data 是 vitepress 的隐式导出
+import { data as updateTime } from "@theme/../data/time.data";
+import { data as translators } from "../data/translators.data";
 </script>
 
 <template>
