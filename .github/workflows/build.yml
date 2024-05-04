@@ -37,6 +37,7 @@ jobs:
 
       - name: Build
         run: |
+          git submodule update --remote
           pnpm fetch-data
           pnpm build
 

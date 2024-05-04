@@ -1,4 +1,4 @@
 [submodule "src/wiki"]
 	path = src/wiki
 	url = https://github.com/zotero-chinese/wiki.git
-	branch = vitepress
+	branch = main
