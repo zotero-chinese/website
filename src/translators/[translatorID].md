@@ -34,10 +34,12 @@ import TranslatorTimeline from "./components/TranslatorTimeline.vue"
 
 ## 最近更新
 
-<TranslatorTimeline :trends="params.trends" />
+<div class="no-list">
+  <TranslatorTimeline :trends="params.trends" />
+</div>
 
 <style>
-.vp-doc ul {
+.no-list ul {
     list-style: none;
 }
 </style>
