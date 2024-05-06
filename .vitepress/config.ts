@@ -82,13 +82,13 @@ export default defineConfig({
       level: [2, 3],
     },
 
-    lastUpdated: {
-      text: "最后更新于",
-      formatOptions: {
-        dateStyle: "short",
-        timeStyle: "medium",
-      },
-    },
+    // lastUpdated: {
+    //   text: "最后更新于",
+    //   formatOptions: {
+    //     dateStyle: "short",
+    //     timeStyle: "medium",
+    //   },
+    // },
 
     returnToTopLabel: "回到顶部",
     sidebarMenuLabel: "菜单",
