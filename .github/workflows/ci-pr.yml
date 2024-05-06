@@ -69,7 +69,7 @@ jobs:
             |:-----------:|:----------------------------------------------------------------------------------------------------:|
             | 预览地址     | ${{ steps.netlify.outputs.deploy-url }}                                                              |
             | 最新提交     | ${{ github.sha }}                                                                                    |
-            | 部署日志     | [工作流 ${{ github.workflow }} 第 ${{ github.run_attempt }} 次尝试](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}) |
+            | 部署日志     | [${{ github.workflow }} - ${{ github.run_number }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}) |
 
             <!-- auto message -->
 
