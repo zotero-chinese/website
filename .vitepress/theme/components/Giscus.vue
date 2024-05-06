@@ -4,10 +4,18 @@
 import Giscus from "@giscus/vue";
 // import "../styles/giscus.dark.css";
 // import "../styles/giscus.light.css";
+
+import { useData } from "vitepress";
+
+const { frontmatter, title } = useData();
 </script>
 
 <template>
-  <div class="comments-container">
+  <div
+    v-if="frontmatter.comments !== false"
+    :key="title"
+    class="comments-container"
+  >
     <Giscus
       id="comments"
       repo="zotero-chinese/wiki"
