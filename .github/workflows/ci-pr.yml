@@ -26,10 +26,10 @@ jobs:
         with:
           name: build-result
 
-      - name: 解压构建文件
-        run: |
-          tar -xvf dist.tar dist
-          # ls -R -a
+      # - name: 解压构建文件
+      #   run: |
+      #     tar -xvf dist.tar dist
+      #     # ls -R -a
 
       - name: 推送到 Netlify
         id: netlify
