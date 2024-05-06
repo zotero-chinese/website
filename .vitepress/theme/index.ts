@@ -5,10 +5,6 @@ import DefaultTheme from "vitepress/theme";
 // CSS
 import "./styles/vars.css";
 
-// twoslash
-// import TwoslashFloatingVue from '@shikijs/vitepress-twoslash/client'
-// import "@shikijs/vitepress-twoslash/style.css";
-
 // Components
 import HomeSponsors from "./components/HomeSponsors.vue";
 // import AsideSponsors from "./components/AsideSponsors.vue";
