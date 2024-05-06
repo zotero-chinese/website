@@ -68,7 +68,7 @@ jobs:
             | 类型         | 链接                                                                                                 |
             |:-----------:|:----------------------------------------------------------------------------------------------------:|
             | 预览地址     | ${{ steps.netlify.outputs.deploy-url }}                                                              |
-            | 最新提交     | [${{ github.sha }}](${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }})      |
+            | 最新提交     | ${{ github.sha }}                                                                                    |
             | 部署日志     | [工作流 ${{ github.workflow }} 第 ${{ github.run_attempt }} 次尝试](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}) |
 
             <!-- auto message -->
@@ -104,7 +104,7 @@ jobs:
             | 类型         | 链接                                                                                                 |
             |:-----------:|:----------------------------------------------------------------------------------------------------:|
             | 预览地址     | 部署失败，请查看工作流运行日志。                                                                        |
-            | 最新提交     | [${{ github.sha }}](${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }})      |
+            | 最新提交     | ${{ github.sha }}                                                                                    |
             | 部署日志     | [工作流 ${{ github.workflow }} 第 ${{ github.run_attempt }} 次尝试](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}) |
 
             <!-- auto message -->
