@@ -40,8 +40,8 @@ importers:
         version: 3.4.23(typescript@5.4.5)
     devDependencies:
       '@nolebase/vitepress-plugin-git-changelog':
-        specifier: 2.0.0-rc10
-        version: 2.0.0-rc10(vitepress@1.1.3(@algolia/client-search@4.23.3)(@types/node@20.12.7)(async-validator@4.2.5)(less@4.2.0)(postcss@8.4.38)(search-insights@2.13.0)(typescript@5.4.5))(vue@3.4.23(typescript@5.4.5))
+        specifier: 2.0.0-rc11
+        version: 2.0.0-rc11(vitepress@1.1.3(@algolia/client-search@4.23.3)(@types/node@20.12.7)(async-validator@4.2.5)(less@4.2.0)(postcss@8.4.38)(search-insights@2.13.0)(typescript@5.4.5))(vue@3.4.23(typescript@5.4.5))
       '@tsconfig/node20':
         specifier: 20.1.4
         version: 20.1.4
@@ -424,12 +424,6 @@ packages:
   '@jridgewell/sourcemap-codec@1.4.15':
     resolution: {integrity: sha512-eF2rxCRulEKXHTRiDrDy6erMYWqNw4LPdQ8UQA4huuxaQsVeRPFl2oM8oDGxMFhJUWZf9McpLtJasDDZb/Bpeg==}
 
-  '@kwsites/file-exists@1.1.1':
-    resolution: {integrity: sha512-m9/5YGR18lIwxSFDwfE3oA7bWuq9kdau6ugN4H2rJeyhFQZcG9AgSHkQtSD15a8WvTgfz9aikZMrKPHvbpqFiw==}
-
-  '@kwsites/promise-deferred@1.1.1':
-    resolution: {integrity: sha512-GaHYm+c0O9MjZRu0ongGBRbinu8gVAMd2UZjji6jVmqKtZluZnptXGWhz1E8j8D2HJ3f/yMxKAUC0b+57wncIw==}
-
   '@lit-labs/ssr-dom-shim@1.2.0':
     resolution: {integrity: sha512-yWJKmpGE6lUURKAaIltoPIE/wrbY3TEkqQt+X0m+7fQNnAv0keydnYvbiJFP1PnMhizmIWRWOG5KLhYyc/xl+g==}
 
@@ -454,8 +448,8 @@ packages:
     resolution: {integrity: sha512-oGB+UxlgWcgQkgwo8GcEGwemoTFt3FIO9ababBmaGwXIoBKZ+GTy0pP185beGg7Llih/NSHSV2XAs1lnznocSg==}
     engines: {node: '>= 8'}
 
-  '@nolebase/ui@2.0.0-rc10':
-    resolution: {integrity: sha512-EKZSNnWAnyMs/PO1mM/FOcZ1vkqeN9LRRMnHIq18KYsKaXYpNATNg2d0pbr7qX63OBU5VB6cIu1NpXjTVBLJKQ==}
+  '@nolebase/ui@2.0.0-rc11':
+    resolution: {integrity: sha512-z3km5HYpLFyHX9wke9ZZZzbNtxOTD7t3u/wd4juG2Ig3dH64DqQS+lLcLLEMzB+gpHVzIK8YrJbh3R6uL7sSqg==}
     peerDependencies:
       '@rive-app/canvas': ^2.11.1
       asciinema-player: ^3.7.1
@@ -469,8 +463,8 @@ packages:
       vitepress:
         optional: true
 
-  '@nolebase/vitepress-plugin-git-changelog@2.0.0-rc10':
-    resolution: {integrity: sha512-0UEGb1T4/y6ct7tfBcb4cTwdOa/U4UmjrM2EOevzhGDwbdrAU9zphYXxgimqCoZbsNec0nrwtdZjLTFzIysS1g==}
+  '@nolebase/vitepress-plugin-git-changelog@2.0.0-rc11':
+    resolution: {integrity: sha512-2scOxG+6IHWJUEukHHCluB4kAq0qbeCmtVJxLmrVW9oIL6iTOkM6g7ngcui4uGQtyc4Y08edSTLdlSu8s/hK6A==}
     peerDependencies:
       vitepress: ^1.0.0
 
@@ -572,6 +566,10 @@ packages:
 
   '@shikijs/transformers@1.3.0':
     resolution: {integrity: sha512-3mlpg2I9CjhjE96dEWQOGeCWoPcyTov3s4aAsHmgvnTHa8MBknEnCQy8/xivJPSpD+olqOqIEoHnLfbNJK29AA==}
+
+  '@sindresorhus/merge-streams@2.3.0':
+    resolution: {integrity: sha512-LtoMMhxAlorcGhmFYI+LhPgbPZCkgP6ra1YL604EeF6U98pLlQ3iWIGMdWSC+vWmPBWBNgmDBAhnAobLROJmwg==}
+    engines: {node: '>=18'}
 
   '@sxzz/popperjs-es@2.11.7':
     resolution: {integrity: sha512-Ccy0NlLkzr0Ex2FKvh2X+OyERHXJ88XJ1MXtsI9y9fGexlaXaVTPzBCRBwIxFkORuOb+uBqeu+RqnpgYTEZRUQ==}
@@ -1411,6 +1409,10 @@ packages:
     resolution: {integrity: sha512-jhIXaOzy1sb8IyocaruWSn1TjmnBVs8Ayhcy83rmxNJ8q2uWKCAj3CnJY+KpGSXCueAPc0i05kVvVKtP1t9S3g==}
     engines: {node: '>=10'}
 
+  globby@14.0.1:
+    resolution: {integrity: sha512-jOMLD2Z7MAhyG8aJpNOpmziMOP4rPLcc95oQPKXBazW82z+CEgPFBQvEpRUa1KeIMUJo4Wsm+q6uzO/Q/4BksQ==}
+    engines: {node: '>=18'}
+
   graceful-fs@4.2.11:
     resolution: {integrity: sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==}
 
@@ -1893,6 +1895,10 @@ packages:
     resolution: {integrity: sha512-gDKb8aZMDeD/tZWs9P6+q0J9Mwkdl6xMV8TjnGP3qJVJ06bdMgkbBlLU8IdfOsIsFz2BW1rNVT3XuNEl8zPAvw==}
     engines: {node: '>=8'}
 
+  path-type@5.0.0:
+    resolution: {integrity: sha512-5HviZNaZcfqP95rwpv+1HDgUamezbqdSYTyzjTvwtJSnIH+3vnbmWsItli8OFEndS984VT55M3jduxZbX351gg==}
+    engines: {node: '>=12'}
+
   pathe@1.1.2:
     resolution: {integrity: sha512-whLdWMYL2TwI08hn8/ZqAbrVemu0LNaNNJZX73O6qaIdCTfXutsLhMkjdENX0qhsQ9uIimo4/aQOmXkoon2nDQ==}
 
@@ -2048,12 +2054,13 @@ packages:
     resolution: {integrity: sha512-bzyZ1e88w9O1iNJbKnOlvYTrWPDl46O1bG0D3XInv+9tkPrxrN8jUUTiFlDkkmKWgn1M6CfIA13SuGqOa9Korw==}
     engines: {node: '>=14'}
 
-  simple-git@3.24.0:
-    resolution: {integrity: sha512-QqAKee9Twv+3k8IFOFfPB2hnk6as6Y6ACUpwCtQvRYBAes23Wv3SZlHVobAzqcE8gfsisCvPw3HGW3HYM+VYYw==}
-
   slash@3.0.0:
     resolution: {integrity: sha512-g9Q1haeby36OSStwb4ntCGGGaKsaVSjQ68fBxoQcutl5fS1vuY18H3wSt3jFyFtrkx+Kz0V1G85A4MyAdDMi2Q==}
     engines: {node: '>=8'}
+
+  slash@5.1.0:
+    resolution: {integrity: sha512-ZA6oR3T/pEyuqwMgAKT0/hAv8oAXckzbkmR0UkUosQ+Mc4RxGoJkRmwHgHufaenlyAgE1Mxgpdcrf75y6XcnDg==}
+    engines: {node: '>=14.16'}
 
   slice-ansi@5.0.0:
     resolution: {integrity: sha512-FC+lgizVPfie0kkhqUScwRu1O/lF6NOgJmlCgK+/LYxDCTk8sGelYaHDhFcDN+Sn3Cv+3VSa4Byeo+IMCzpMgQ==}
@@ -2179,6 +2186,10 @@ packages:
 
   undici-types@5.26.5:
     resolution: {integrity: sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==}
+
+  unicorn-magic@0.1.0:
+    resolution: {integrity: sha512-lRfVq8fE8gz6QMBuDM6a+LO3IAzTi05H6gCVaUpir2E1Rwpo4ZUog45KpNXKC/Mn3Yb9UDuHumeFTo9iV/D9FQ==}
+    engines: {node: '>=18'}
 
   unimport@3.7.1:
     resolution: {integrity: sha512-V9HpXYfsZye5bPPYUgs0Otn3ODS1mDUciaBlXljI4C2fTwfFpvFZRywmlOu943puN9sncxROMZhsZCjNXEpzEQ==}
@@ -2637,14 +2648,6 @@ snapshots:
 
   '@jridgewell/sourcemap-codec@1.4.15': {}
 
-  '@kwsites/file-exists@1.1.1':
-    dependencies:
-      debug: 4.3.4
-    transitivePeerDependencies:
-      - supports-color
-
-  '@kwsites/promise-deferred@1.1.1': {}
-
   '@lit-labs/ssr-dom-shim@1.2.0': {}
 
   '@lit/reactive-element@2.0.4':
@@ -2668,7 +2671,7 @@ snapshots:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.17.1
 
-  '@nolebase/ui@2.0.0-rc10(vitepress@1.1.3(@algolia/client-search@4.23.3)(@types/node@20.12.7)(async-validator@4.2.5)(less@4.2.0)(postcss@8.4.38)(search-insights@2.13.0)(typescript@5.4.5))(vue@3.4.23(typescript@5.4.5))':
+  '@nolebase/ui@2.0.0-rc11(vitepress@1.1.3(@algolia/client-search@4.23.3)(@types/node@20.12.7)(async-validator@4.2.5)(less@4.2.0)(postcss@8.4.38)(search-insights@2.13.0)(typescript@5.4.5))(vue@3.4.23(typescript@5.4.5))':
     dependencies:
       '@iconify-json/octicon': 1.1.54
       less: 4.2.0
@@ -2676,22 +2679,22 @@ snapshots:
     optionalDependencies:
       vitepress: 1.1.3(@algolia/client-search@4.23.3)(@types/node@20.12.7)(async-validator@4.2.5)(less@4.2.0)(postcss@8.4.38)(search-insights@2.13.0)(typescript@5.4.5)
 
-  '@nolebase/vitepress-plugin-git-changelog@2.0.0-rc10(vitepress@1.1.3(@algolia/client-search@4.23.3)(@types/node@20.12.7)(async-validator@4.2.5)(less@4.2.0)(postcss@8.4.38)(search-insights@2.13.0)(typescript@5.4.5))(vue@3.4.23(typescript@5.4.5))':
+  '@nolebase/vitepress-plugin-git-changelog@2.0.0-rc11(vitepress@1.1.3(@algolia/client-search@4.23.3)(@types/node@20.12.7)(async-validator@4.2.5)(less@4.2.0)(postcss@8.4.38)(search-insights@2.13.0)(typescript@5.4.5))(vue@3.4.23(typescript@5.4.5))':
     dependencies:
       '@iconify-json/octicon': 1.1.54
-      '@nolebase/ui': 2.0.0-rc10(vitepress@1.1.3(@algolia/client-search@4.23.3)(@types/node@20.12.7)(async-validator@4.2.5)(less@4.2.0)(postcss@8.4.38)(search-insights@2.13.0)(typescript@5.4.5))(vue@3.4.23(typescript@5.4.5))
+      '@nolebase/ui': 2.0.0-rc11(vitepress@1.1.3(@algolia/client-search@4.23.3)(@types/node@20.12.7)(async-validator@4.2.5)(less@4.2.0)(postcss@8.4.38)(search-insights@2.13.0)(typescript@5.4.5))(vue@3.4.23(typescript@5.4.5))
       colorette: 2.0.20
       date-fns: 3.6.0
+      execa: 8.0.1
+      globby: 14.0.1
       gray-matter: 4.0.3
       less: 4.2.0
       ora: 8.0.1
-      simple-git: 3.24.0
       uncrypto: 0.1.3
       vitepress: 1.1.3(@algolia/client-search@4.23.3)(@types/node@20.12.7)(async-validator@4.2.5)(less@4.2.0)(postcss@8.4.38)(search-insights@2.13.0)(typescript@5.4.5)
     transitivePeerDependencies:
       - '@rive-app/canvas'
       - asciinema-player
-      - supports-color
       - vue
 
   '@pkgr/core@0.1.1': {}
@@ -2757,6 +2760,8 @@ snapshots:
   '@shikijs/transformers@1.3.0':
     dependencies:
       shiki: 1.3.0
+
+  '@sindresorhus/merge-streams@2.3.0': {}
 
   '@sxzz/popperjs-es@2.11.7': {}
 
@@ -3746,6 +3751,15 @@ snapshots:
       merge2: 1.4.1
       slash: 3.0.0
 
+  globby@14.0.1:
+    dependencies:
+      '@sindresorhus/merge-streams': 2.3.0
+      fast-glob: 3.3.2
+      ignore: 5.3.1
+      path-type: 5.0.0
+      slash: 5.1.0
+      unicorn-magic: 0.1.0
+
   graceful-fs@4.2.11: {}
 
   graphemer@1.4.0: {}
@@ -4315,6 +4329,8 @@ snapshots:
 
   path-type@4.0.0: {}
 
+  path-type@5.0.0: {}
+
   pathe@1.1.2: {}
 
   perfect-debounce@1.0.0: {}
@@ -4459,15 +4475,9 @@ snapshots:
 
   signal-exit@4.1.0: {}
 
-  simple-git@3.24.0:
-    dependencies:
-      '@kwsites/file-exists': 1.1.1
-      '@kwsites/promise-deferred': 1.1.1
-      debug: 4.3.4
-    transitivePeerDependencies:
-      - supports-color
-
   slash@3.0.0: {}
+
+  slash@5.1.0: {}
 
   slice-ansi@5.0.0:
     dependencies:
@@ -4562,6 +4572,8 @@ snapshots:
   uncrypto@0.1.3: {}
 
   undici-types@5.26.5: {}
+
+  unicorn-magic@0.1.0: {}
 
   unimport@3.7.1(rollup@4.16.4):
     dependencies:
