@@ -25,6 +25,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: build-result
+          path: dist
 
       # - name: 解压构建文件
       #   run: |
