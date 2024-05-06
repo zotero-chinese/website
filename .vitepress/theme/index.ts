@@ -6,7 +6,7 @@ import DefaultTheme from "vitepress/theme";
 import "./styles/vars.css";
 
 // Components
-import HomeSponsors from "./components/HomeSponsors.vue";
+// import HomeSponsors from "./components/HomeSponsors.vue";
 // import AsideSponsors from "./components/AsideSponsors.vue";
 import SvgImage from "./components/SvgImage.vue";
 import Giscus from "./components/Giscus.vue";
@@ -17,8 +17,12 @@ import "element-plus/theme-chalk/dark/css-vars.css";
 import * as ElementPlusIconsVue from "@element-plus/icons-vue";
 
 // Git Changelog
-import { NolebaseGitChangelogPlugin } from "@nolebase/vitepress-plugin-git-changelog/client";
+import {
+  InjectionKey as NolebaseGitChangelogInjectionKey,
+  NolebaseGitChangelogPlugin,
+} from "@nolebase/vitepress-plugin-git-changelog/client";
 import "@nolebase/vitepress-plugin-git-changelog/client/style.css";
+import { contributors } from "../data/contributors";
 
 export default {
   extends: DefaultTheme,
@@ -36,6 +40,10 @@ export default {
     for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
       app.component(key, component);
     }
+
+    app.provide(NolebaseGitChangelogInjectionKey, {
+      mapContributors: contributors,
+    });
     app.use(NolebaseGitChangelogPlugin);
   },
 } satisfies Theme;
