@@ -1,13 +1,16 @@
+import { wikiContributors } from "../../src/wiki/.vitepress/contributors";
+import type { WikiContributor } from "../../src/wiki/.vitepress/contributors";
+
 export interface SocialEntry {
   type: "github" | "twitter" | "email";
   icon: string;
   link: string;
 }
 
-export interface Creator {
-  avatar: string;
+export interface Creator extends WikiContributor {
   name: string;
-  username?: string;
+  username: string;
+  avatar?: string;
   title?: string;
   org?: string;
   desc?: string;
@@ -21,20 +24,30 @@ const getAvatarUrl = (name: string) => `https://github.com/${name}.png`;
 export const contributors: Creator[] = [
   {
     name: "Northword",
-    avatar: "",
     username: "northword",
     title: "开发者",
-    links: [
-      { type: "github", icon: "github", link: "https://github.com/northword" },
-    ],
-    nameAliases: ["renovate[bot]"],
+    nameAliases: ["renovate[bot]", "ImgBotApp"],
     emailAliases: [
       "29139614+renovate[bot]@users.noreply.github.com",
       "44738481+northword@users.noreply.github.com",
+      "ImgBotHelp@gmail.com",
     ],
   },
+  ...(wikiContributors as Creator[]),
 ].map<Creator>((c) => {
-  c.avatar = c.avatar || getAvatarUrl(c.username);
+  c.avatar = getAvatarUrl(c.username);
+  c.links = [
+    {
+      type: "github",
+      icon: "github",
+      link: `https://github.com/${c.username}`,
+    },
+  ];
+  if (!c.nameAliases) {
+    c.nameAliases = [];
+    c.nameAliases.push(c.name);
+  }
+  console.log(c);
   return c as Creator;
 });
 
