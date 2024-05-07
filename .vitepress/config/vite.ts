@@ -17,22 +17,22 @@ export const vite: UserConfig["vite"] = {
     Components({
       resolvers: [ElementPlusResolver()],
     }),
+
     // Git Changelog
-    // GitChangelog({
-    //   // apply: "build",
-    //   //   includeDirs: ["src/wiki/**/*.md"],
-    //   repoURL: () => "https://github.com/zotero-chinese/wiki",
-    // }),
-    // GitChangelogMarkdownSection({
-    //   exclude: (id) =>
-    //     !id.match("src/wiki/") || id.endsWith("src/wiki/index.md"),
-    //   getChangelogTitle() {
-    //     return "文件历史";
-    //   },
-    //   getContributorsTitle() {
-    //     return "贡献者";
-    //   },
-    // }),
+    GitChangelog({
+      includeDirs: ["src/wiki/**/*.md"],
+      repoURL: () => "https://github.com/zotero-chinese/wiki",
+    }),
+    GitChangelogMarkdownSection({
+      exclude: (id) =>
+        !id.match("src/wiki/") || id.endsWith("src/wiki/index.md"),
+      getChangelogTitle() {
+        return "文件历史";
+      },
+      getContributorsTitle() {
+        return "贡献者";
+      },
+    }),
   ],
   // @ts-ignore
   ssr: {
