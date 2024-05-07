@@ -14,6 +14,7 @@
     "lint:eslint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "git:update": "git submodule update --remote --recursive",
     "fetch-data": "node .github/scripts/fetch-data.mjs",
+    "deps:update": "pnpx taze minor --write --force --include-locked",
     "prepare": "husky"
   },
   "dependencies": {
@@ -26,13 +27,13 @@
     "highcharts": "11.4.1",
     "highcharts-vue": "2.0.1",
     "vitepress": "1.1.4",
-    "vue": "3.4.26"
+    "vue": "3.4.27"
   },
   "devDependencies": {
-    "@nolebase/vitepress-plugin-git-changelog": "2.0.0-rc11",
+    "@nolebase/vitepress-plugin-git-changelog": "2.0.0-rc12",
     "@tsconfig/node20": "20.1.4",
     "@types/fs-extra": "11.0.4",
-    "@types/node": "20.12.8",
+    "@types/node": "20.12.10",
     "@vitejs/plugin-vue": "5.0.4",
     "@vue/eslint-config-prettier": "9.0.0",
     "@vue/eslint-config-typescript": "13.0.0",
