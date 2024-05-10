@@ -74,17 +74,15 @@
   <!-- 插件卡片列表 -->
   <el-row :gutter="20">
     <el-col
-      :xs="12"
-      :sm="8"
+      :xs="24"
+      :sm="12"
       :md="8"
       :lg="6"
       :xl="4"
       v-for="plugin in sortedPlugins"
       :key="plugin.repo"
     >
-      <div class="grid-content ep-bg-purple">
-        <PluginCard :plugin="plugin" @show-download="showDownload" />
-      </div>
+      <PluginCard :plugin="plugin" @show-download="showDownload" />
     </el-col>
   </el-row>
 
@@ -213,7 +211,7 @@ function clearSearch() {
   border-left-color: unset !important;
 }
 
-.grid-content {
+.el-col {
   border-radius: 4px;
   min-height: 36px;
   padding-bottom: 20px;
