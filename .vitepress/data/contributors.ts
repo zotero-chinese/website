@@ -47,7 +47,6 @@ export const contributors: Creator[] = [
     c.nameAliases = [];
     c.nameAliases.push(c.name);
   }
-  console.log(c);
   return c as Creator;
 });
 
