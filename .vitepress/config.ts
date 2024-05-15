@@ -3,7 +3,7 @@ import { buildEnd } from "./config/buildEnd";
 import { sidebar } from "./config/sidebar";
 import { nav } from "./config/navbar";
 import { markdown } from "./config/markdown";
-import { head } from "./config/head";
+import { head, transformPageData } from "./config/head";
 import { vite } from "./config/vite";
 
 export default defineConfig({
@@ -20,6 +20,7 @@ export default defineConfig({
   },
 
   head,
+  transformPageData,
 
   themeConfig: {
     logo: "/logo.png",

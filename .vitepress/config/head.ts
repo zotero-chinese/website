@@ -1,4 +1,4 @@
-import type { DefaultTheme, UserConfig } from "vitepress";
+import type { DefaultTheme, PageData, UserConfig } from "vitepress";
 
 const ogDescription =
   "Zotero 中文社区，Zotero 中文维护小组，Zotero 插件，Zotero 中文 CSL 样式";
@@ -32,3 +32,34 @@ export const head: UserConfig["head"] = [
       gtag('config', 'G-YHYFX0LRZK');`,
   ],
 ];
+
+export const transformPageData = (pageData: PageData) => {
+  console.log(pageData);
+  pageData.frontmatter.head ??= [];
+  pageData.frontmatter.head.push([
+    "meta",
+    {
+      name: "citation_title",
+      content:
+        pageData.frontmatter.layout === "home"
+          ? `Zotero 中文社区`
+          : `${pageData.title} | Zotero 中文社区`,
+    },
+  ]);
+  pageData.frontmatter.head.push([
+    "meta",
+    {
+      name: "og:type",
+      content: pageData.frontmatter.layout === "doc" ? `document` : `website`,
+    },
+  ]);
+
+  const canonicalUrl = `https://zotero-chinese.com/${pageData.relativePath}`
+    .replace(/index\.md$/, "")
+    .replace(/\.md$/, ".html");
+
+  pageData.frontmatter.head.push([
+    "link",
+    { rel: "canonical", href: canonicalUrl },
+  ]);
+};
