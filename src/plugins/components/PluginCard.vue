@@ -68,7 +68,6 @@
 
 <script setup lang="ts">
 import { tags } from "../types/tags";
-import { defineProps, defineEmits } from "vue";
 
 const props = defineProps<{
   plugin: PluginInfo;
