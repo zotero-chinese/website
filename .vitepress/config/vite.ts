@@ -26,12 +26,6 @@ export const vite: UserConfig["vite"] = {
     GitChangelogMarkdownSection({
       exclude: (id) =>
         !id.match("src/wiki/") || id.endsWith("src/wiki/index.md"),
-      getChangelogTitle() {
-        return "文件历史";
-      },
-      getContributorsTitle() {
-        return "贡献者";
-      },
     }),
   ],
   // @ts-ignore
