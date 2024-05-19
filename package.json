@@ -26,7 +26,7 @@
     "feed": "4.2.2",
     "highcharts": "11.4.1",
     "highcharts-vue": "2.0.1",
-    "vitepress": "1.1.4",
+    "vitepress": "1.2.0",
     "vue": "3.4.27"
   },
   "devDependencies": {
@@ -35,6 +35,7 @@
     "@types/fs-extra": "11.0.4",
     "@types/node": "20.12.12",
     "@vitejs/plugin-vue": "5.0.4",
+    "@vue/devtools": "^7.2.0",
     "@vue/eslint-config-prettier": "9.0.0",
     "@vue/eslint-config-typescript": "13.0.0",
     "@vue/tsconfig": "0.5.1",
@@ -50,7 +51,9 @@
     "unplugin-auto-import": "0.17.6",
     "unplugin-vue-components": "0.27.0",
     "vite": "5.2.11",
-    "vue-tsc": "2.0.17"
+    "vite-plugin-inspect": "^0.8.4",
+    "vite-plugin-vue-devtools": "^7.2.0",
+    "vue-tsc": "2.0.19"
   },
   "lint-staged": {
     "*.md": "prettier --ignore-unknown --write"
