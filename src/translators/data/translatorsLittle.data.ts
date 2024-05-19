@@ -5,13 +5,22 @@ const local_path = path.resolve("src/translators/data/dashboard.json"),
   remote_path =
     "https://github.com/l0o0/translators_CN/raw/master/data/dashboard.json";
 
-declare const data: Translator[];
+declare const data: TranslatorLittle[];
 export { data };
 
 export default {
   async load() {
     const raw = await getRaw();
-    return Object.values(raw);
+    return Object.values(raw).map((item) => {
+      return {
+        translatorID: item.header.translatorID,
+        label: item.header.label,
+        zhLabel: item.zhLabel,
+        creator: item.header.creator,
+        target: item.header.target,
+        lastUpdated: item.header.lastUpdated,
+      };
+    });
   },
 };
 

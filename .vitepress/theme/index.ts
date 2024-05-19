@@ -4,6 +4,7 @@ import DefaultTheme from "vitepress/theme";
 
 // CSS
 import "./styles/vars.css";
+import "./styles/custom.css";
 
 // Components
 // import HomeSponsors from "./components/HomeSponsors.vue";

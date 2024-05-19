@@ -1,4 +1,6 @@
 import type { UserConfig } from "vitepress";
+import Inspect from "vite-plugin-inspect";
+import VueDevTools from "vite-plugin-vue-devtools";
 
 import AutoImport from "unplugin-auto-import/vite";
 import Components from "unplugin-vue-components/vite";
@@ -11,6 +13,8 @@ import {
 
 export const vite: UserConfig["vite"] = {
   plugins: [
+    Inspect(),
+    VueDevTools(),
     AutoImport({
       resolvers: [ElementPlusResolver()],
     }),
