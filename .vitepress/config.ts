@@ -1,10 +1,10 @@
 import { defineConfig } from "vitepress";
-import { buildEnd } from "./config/buildEnd";
-import { sidebar } from "./config/sidebar";
-import { nav } from "./config/navbar";
-import { markdown } from "./config/markdown";
-import { head } from "./config/head";
-import { vite } from "./config/vite";
+import { buildEnd } from "./config/buildEnd.config";
+import { sidebar } from "./config/sidebar.config";
+import { nav } from "./config/navbar.config";
+import { markdown } from "./config/markdown.config";
+import { head } from "./config/head.config";
+import vite from "./config/vite.config";
 
 export default defineConfig({
   title: `Zotero 中文社区`,

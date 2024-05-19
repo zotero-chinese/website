@@ -1,4 +1,6 @@
-import type { UserConfig } from "vitepress";
+import { defineConfig } from "vite";
+// import type { UserConfig } from "vitepress";
+
 import Inspect from "vite-plugin-inspect";
 import VueDevTools from "vite-plugin-vue-devtools";
 
@@ -11,7 +13,7 @@ import {
   GitChangelogMarkdownSection,
 } from "@nolebase/vitepress-plugin-git-changelog/vite";
 
-export const vite: UserConfig["vite"] = {
+export default defineConfig({
   plugins: [
     Inspect(),
     VueDevTools(),
@@ -41,4 +43,4 @@ export const vite: UserConfig["vite"] = {
       "@highcharts/dashboards",
     ],
   },
-};
+});
