@@ -1,11 +1,7 @@
 <script setup lang="ts">
 import { ref, computed } from "vue";
 import TranslatorCard from "./TranslatorCard.vue";
-import { data as raw } from "../data/translators.data";
-
-const translators: TranslatorResolved[] = raw.map((item) => {
-  return { ...item.header, zhLabel: item.zhLabel };
-});
+import { data as translators } from "../data/translatorsLittle.data";
 
 const searchText = ref("");
 const filtered = computed(() => {

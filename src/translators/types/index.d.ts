@@ -34,6 +34,10 @@ declare interface Translators {
   [fileName: string]: Translator;
 }
 
-declare interface TranslatorResolved extends TranslatorHeader {
+declare interface TranslatorLittle
+  extends Pick<
+    TranslatorHeader,
+    "translatorID" | "label" | "creator" | "target" | "lastUpdated"
+  > {
   zhLabel: string;
 }
