@@ -41,7 +41,9 @@ const translator = translators.find(
 
     <div v-if="testCase.type === 'import'">
       <strong>输入：</strong>
-      <div v-html="testCase.input?.replaceAll('\n', '<br/>')" />
+      <div class="language-plain vp-adaptive-theme">
+        <code>{{ testCase.input }}</code>
+      </div>
     </div>
 
     <template v-if="testCase.items !== 'multiple'">
@@ -70,7 +72,7 @@ const translator = translators.find(
         :key="index"
         :timestamp="trend.date"
       >
-        {{ trend.message }} by {{ trend.author }}
+        {{ trend.message }}, by {{ trend.author }}
       </el-timeline-item>
     </el-timeline>
   </div>
