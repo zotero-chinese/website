@@ -1,3 +1,13 @@
+<script setup lang="ts">
+const props = defineProps<{
+  selectedPlugin: PluginInfo;
+}>();
+
+const selectedPlugin = props.selectedPlugin;
+
+defineEmits(["closeDownload"]);
+</script>
+
 <template>
   <div class="modal">
     <div
@@ -63,12 +73,9 @@
             </el-icon>
             Zotero 6 与 Zotero 7 的插件可能互不兼容，请按自己的 Zotero
             版本下载对应的插件版本。查看 Zotero 版本和安装插件步骤请参考：
-            <el-link
-              href="https://zotero-chinese.com/user-guide/plugins/about-plugin.html"
-              type="danger"
-            >
+            <a href="/user-guide/plugins/about-plugin" type="danger">
               关于 Zotero 插件 - 安装插件
-            </el-link>
+            </a>
             。
           </el-text>
         </el-footer>
@@ -76,18 +83,6 @@
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-import { defineProps, defineEmits } from "vue";
-
-const props = defineProps<{
-  selectedPlugin: PluginInfo;
-}>();
-
-const selectedPlugin = props.selectedPlugin;
-
-defineEmits(["closeDownload"]);
-</script>
 
 <style scoped>
 .modal {
