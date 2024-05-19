@@ -81,7 +81,7 @@ const translator = translators.find(
               <ul>
                 <li v-for="(creator, index) in value" :key="index">
                   {{ creator.creatorType }}：{{ creator.lastName
-                  }}{{ creator.fieldMode === 0 ? "," : ""
+                  }}{{ creator.fieldMode !== 1 ? ", " : ""
                   }}{{ creator.firstName }}
                 </li>
               </ul>
