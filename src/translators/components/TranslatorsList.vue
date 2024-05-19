@@ -1,13 +1,15 @@
-<script setup>
+<script setup lang="ts">
 import { ref, computed } from "vue";
 import TranslatorCard from "./TranslatorCard.vue";
+import { data as raw } from "../data/translators.data";
 
-const props = defineProps(["translators"]);
+const translators: TranslatorResolved[] = raw.map((item) => {
+  return { ...item.header, zhLabel: item.zhLabel };
+});
 
 const searchText = ref("");
-
 const filtered = computed(() => {
-  let filtered = props.translators;
+  let filtered = translators;
 
   if (searchText.value) {
     const searchTextLower = searchText.value.toLowerCase();
@@ -22,10 +24,6 @@ const filtered = computed(() => {
   return filtered;
 });
 
-function performSearch() {
-  // Handle search logic here
-  // console.log("Performing search:", searchText);
-}
 function clearSearch() {
   searchText.value = "";
 }
@@ -40,7 +38,6 @@ function clearSearch() {
       placeholder="搜索转换器名称或匹配网址..."
       clearable
       @clear="clearSearch"
-      @input="performSearch"
     >
       <template #prefix>
         <el-icon>

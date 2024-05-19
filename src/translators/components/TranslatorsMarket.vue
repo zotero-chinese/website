@@ -4,7 +4,6 @@ import TranslatorsList from "./TranslatorsList.vue";
 
 // @ts-expect-error data 是 vitepress 的隐式导出
 import { data as updateTime } from "@theme/../data/time.data";
-import { data as translators } from "../data/translators.data";
 </script>
 
 <template>
@@ -22,7 +21,7 @@ import { data as translators } from "../data/translators.data";
       />
     </el-header>
     <el-main>
-      <TranslatorsList :translators="translators" />
+      <TranslatorsList />
     </el-main>
   </el-container>
 </template>

@@ -1,5 +1,5 @@
-<script setup>
-const props = defineProps(["translator"]);
+<script setup lang="ts">
+const props = defineProps<{ translator: TranslatorResolved }>();
 
 const translator = props.translator;
 </script>
