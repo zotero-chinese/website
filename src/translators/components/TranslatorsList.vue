@@ -1,19 +1,24 @@
 <script setup lang="ts">
 import { ref, computed } from "vue";
+import { refDebounced } from "@vueuse/core";
+
 import TranslatorCard from "./TranslatorCard.vue";
 import { data as translators } from "../data/translatorsLittle.data";
 
 const searchText = ref("");
+const debouncedSearchText = refDebounced(searchText, 1000);
+
 const filtered = computed(() => {
   let filtered = translators;
 
-  if (searchText.value) {
-    const searchTextLower = searchText.value.toLowerCase();
+  if (debouncedSearchText.value) {
+    const searchTextLower = debouncedSearchText.value.toLowerCase();
     filtered = filtered.filter((item) => {
       return (
         item.label.toLowerCase().includes(searchTextLower) ||
         item.zhLabel.toLowerCase().includes(searchTextLower) ||
-        (item.target !== "" && new RegExp(item.target).test(searchText.value))
+        (item.target !== "" &&
+          new RegExp(item.target).test(debouncedSearchText.value))
       );
     });
   }

@@ -99,6 +99,7 @@
 
 <script setup lang="ts">
 import { computed, ref } from "vue";
+import { refDebounced } from "@vueuse/core";
 
 import { data as plugins } from "../data/plugins.data";
 import { tags as allTags } from "../types/tags";
@@ -109,6 +110,7 @@ import DownloadModal from "./DownloadModal.vue";
 const isShowDownload = ref(false);
 const selectedPlugin = ref(plugins[0]);
 const searchText = ref("");
+const debouncedSearchText = refDebounced(searchText, 1000);
 const sortBy = ref("stars");
 const zotero = ref("");
 const selectedTags = ref([]);
@@ -141,8 +143,8 @@ const filteredPlugins = computed(() => {
       );
     });
   }
-  if (searchText.value) {
-    const searchTextLower = searchText.value.toLowerCase();
+  if (debouncedSearchText.value) {
+    const searchTextLower = debouncedSearchText.value.toLowerCase();
     filtered = filtered.filter((plugin) => {
       return (
         plugin.name.toLowerCase().includes(searchTextLower) ||
