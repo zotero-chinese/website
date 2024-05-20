@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useTranslatorType } from "../composables/translatorType";
 import { data as translators } from "../data/translators.data";
 
 const props = defineProps(["translatorID"]);
@@ -30,7 +31,7 @@ const translator = translators.find(
     </el-descriptions-item>
 
     <el-descriptions-item label="类型">
-      {{ translator?.header.translatorType }}
+      {{ useTranslatorType(translator?.header.translatorType).join(", ") }}
     </el-descriptions-item>
 
     <el-descriptions-item label="优先级">
@@ -49,15 +50,15 @@ const translator = translators.find(
     class="details custom-block"
   >
     <summary style="word-break: break-all">
-      {{
-        testCase.type === "web"
-          ? testCase.url
-          : testCase.type +
-            " -> " +
-            (testCase.items === "multiple"
-              ? "multiple"
-              : testCase.items[0].itemType)
-      }}
+      <template v-if="testCase.type === 'web'">{{ testCase.url }}</template>
+      <template v-else>
+        {{ testCase.type }} ->
+        {{
+          testCase.items === "multiple"
+            ? "multiple"
+            : testCase.items[0].itemType
+        }}
+      </template>
     </summary>
 
     <div v-if="testCase.type === 'import'">
