@@ -33,7 +33,7 @@ const translator = translators.find(
       {{ translator?.header.translatorType }}
     </el-descriptions-item>
 
-    <el-descriptions-item label="权重">
+    <el-descriptions-item label="优先级">
       {{ translator?.header.priority }}
     </el-descriptions-item>
 
