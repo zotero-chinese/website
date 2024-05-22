@@ -31,7 +31,7 @@ const translator = translators.find(
     </el-descriptions-item>
 
     <el-descriptions-item label="类型">
-      {{ useTranslatorType(translator?.header.translatorType).join(", ") }}
+      {{ useTranslatorType(translator?.header.translatorType!).join(", ") }}
     </el-descriptions-item>
 
     <el-descriptions-item label="优先级">
@@ -87,8 +87,15 @@ const translator = translators.find(
                 </li>
               </ul>
             </div>
+            <div v-else-if="field === 'tags'">
+              {{ value.map((v: any) => v.tag).join(", ") || "[]" }}
+            </div>
             <div v-else>
-              {{ value }}
+              <div
+                v-if="typeof value === 'string'"
+                v-html="value.replaceAll('\n', '<br/ >')"
+              ></div>
+              <div v-else>{{ value }}</div>
             </div>
           </el-descriptions-item>
         </el-descriptions>
@@ -112,7 +119,7 @@ const translator = translators.find(
   </div>
 </template>
 
-<style scoped>
+<style>
 .no-list ul {
   list-style: none;
 }
