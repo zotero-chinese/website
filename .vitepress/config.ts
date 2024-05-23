@@ -108,4 +108,8 @@ export default defineConfig({
   buildEnd,
 
   vite,
+
+  sitemap: {
+    hostname: "https://zotero-chinese.com",
+  },
 });
