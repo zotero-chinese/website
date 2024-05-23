@@ -26,7 +26,9 @@ import PageHeader from "@theme/components/PageHeader.vue";
       />
     </el-header>
     <el-main>
-      <PluginsList />
+      <client-only>
+        <PluginsList />
+      </client-only>
     </el-main>
     <el-footer>
       <div class="button-group">
