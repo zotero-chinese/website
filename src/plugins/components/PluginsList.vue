@@ -54,19 +54,14 @@
   <!-- 标签筛选 -->
   <el-checkbox-group v-model="selectedTags" size="large">
     <!-- <el-checkbox value="all" border>All</el-checkbox> -->
-    <el-checkbox
-      v-for="(tagDetail, tag) in allTags"
-      :key="tagDetail.label"
-      :value="tag"
-      border
-    >
+    <el-checkbox v-for="(tag, key) in allTags" :key="key" :value="key" border>
       <el-tooltip
         class="box-item"
         effect="dark"
-        :content="tagDetail.description"
+        :content="tag.description"
         placement="bottom"
       >
-        {{ tagDetail.label }}
+        {{ tag.label }}
       </el-tooltip>
     </el-checkbox>
   </el-checkbox-group>
@@ -79,7 +74,7 @@
       :md="8"
       :lg="6"
       :xl="4"
-      v-for="plugin in sortedPlugins"
+      v-for="plugin in filteredPlugins"
       :key="plugin.repo"
     >
       <PluginCard :plugin="plugin" @show-download="showDownload" />
@@ -115,25 +110,10 @@ const sortBy = ref("stars");
 const zotero = ref("");
 const selectedTags = ref([]);
 
-const sortedPlugins = computed(() => {
-  if (sortBy.value === "name") {
-    return filteredPlugins.value
-      .slice()
-      .sort((a, b) => a.name.localeCompare(b.name));
-  } else if (sortBy.value === "stars") {
-    return filteredPlugins.value.slice().sort((a, b) => b.stars - a.stars);
-  } else if (sortBy.value === "author") {
-    return filteredPlugins.value
-      .slice()
-      .sort((a, b) => a.author.name.localeCompare(b.author.name));
-  } else {
-    return filteredPlugins.value;
-  }
-});
-
 const filteredPlugins = computed(() => {
   let filtered = plugins;
 
+  // 筛选 Zotero 版本
   if (zotero.value !== "") {
     filtered = filtered.filter((plugin) => {
       return plugin.releases.some(
@@ -143,7 +123,9 @@ const filteredPlugins = computed(() => {
       );
     });
   }
-  if (debouncedSearchText.value) {
+
+  // 筛选搜索词
+  if (debouncedSearchText.value !== "") {
     const searchTextLower = debouncedSearchText.value.toLowerCase();
     filtered = filtered.filter((plugin) => {
       return (
@@ -152,10 +134,23 @@ const filteredPlugins = computed(() => {
       );
     });
   }
+
+  // 筛选标签
   if (selectedTags.value.length !== 0) {
     filtered = filtered.filter((plugin) => {
       return selectedTags.value.every((tag) => plugin.tags.includes(tag));
     });
+  }
+
+  // 排序
+  if (sortBy.value === "name") {
+    return filtered.slice().sort((a, b) => a.name.localeCompare(b.name));
+  } else if (sortBy.value === "stars") {
+    filtered.slice().sort((a, b) => b.stars - a.stars);
+  } else if (sortBy.value === "author") {
+    return filtered
+      .slice()
+      .sort((a, b) => a.author.name.localeCompare(b.author.name));
   }
   return filtered;
 });

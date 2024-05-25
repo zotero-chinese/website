@@ -4,7 +4,7 @@ export type Tag = {
   color?: string;
 };
 
-export const tags: { [type in TagType]: Tag } = {
+export const tags: { [type in PluginTagType]: Tag } = {
   favorite: {
     label: "推荐",
     description:
@@ -64,4 +64,4 @@ export const tags: { [type in TagType]: Tag } = {
     color: undefined,
   },
 };
-export const tagList = Object.keys(tags) as TagType[];
+export const tagList = Object.keys(tags) as PluginTagType[];

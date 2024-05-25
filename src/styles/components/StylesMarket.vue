@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import PageHeader from "@theme/components/PageHeader.vue";
-// import StylesList from "../components/StylesList.vue";
+import StylesList from "../components/StylesList.vue";
 
 // @ts-expect-error data 是 vitepress 的隐式导出
 import { data as updateTime } from "@theme/../data/time.data";
@@ -22,8 +22,7 @@ import { data as updateTime } from "@theme/../data/time.data";
       />
     </el-header>
     <el-main>
-      <!-- <StylesList :styles="styles" /> -->
-      <el-empty description="此页面尚未实现" />
+      <StylesList />
     </el-main>
   </el-container>
 </template>
