@@ -25,6 +25,10 @@ import {
 import "@nolebase/vitepress-plugin-git-changelog/client/style.css";
 import { contributors } from "../data/contributors";
 
+// @ts-expect-error no types
+import nprogress from "nprogress";
+import "nprogress/nprogress.css";
+
 export default {
   extends: DefaultTheme,
   Layout() {
@@ -36,7 +40,7 @@ export default {
       "doc-after": () => h(Giscus),
     });
   },
-  enhanceApp({ app }) {
+  enhanceApp({ app, router }) {
     app.component("SvgImage", SvgImage);
     for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
       app.component(key, component);
@@ -46,5 +50,17 @@ export default {
       mapContributors: contributors,
     });
     app.use(NolebaseGitChangelogPlugin);
+
+    nprogress.configure({ showSpinner: false });
+    const _cacheBeforeRouteChange = router.onBeforeRouteChange;
+    const _cacheAfterRouteChange = router.onAfterRouteChanged;
+    router.onBeforeRouteChange = (to) => {
+      nprogress.start();
+      _cacheBeforeRouteChange?.(to);
+    };
+    router.onAfterRouteChanged = (to) => {
+      _cacheAfterRouteChange?.(to);
+      nprogress.done();
+    };
   },
 } satisfies Theme;
