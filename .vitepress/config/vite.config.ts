@@ -13,6 +13,8 @@ import {
   GitChangelogMarkdownSection,
 } from "@nolebase/vitepress-plugin-git-changelog/vite";
 
+import { RssPlugin } from "vitepress-plugin-rss";
+
 export default defineConfig({
   plugins: [
     Inspect(),
@@ -22,6 +24,12 @@ export default defineConfig({
     }),
     Components({
       resolvers: [ElementPlusResolver()],
+    }),
+
+    RssPlugin({
+      title: "Zotero 中文社区",
+      baseUrl: "https://zotero-chinese.com",
+      copyright: "Copyright (c) 2018-present, Zotero 中文社区",
     }),
 
     // Git Changelog

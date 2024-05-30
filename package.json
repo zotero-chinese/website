@@ -28,6 +28,7 @@
     "highcharts": "11.4.1",
     "highcharts-vue": "2.0.1",
     "vitepress": "1.2.0",
+    "vitepress-plugin-rss": "^0.2.6",
     "vue": "3.4.27"
   },
   "devDependencies": {

@@ -38,6 +38,9 @@ importers:
       vitepress:
         specifier: 1.2.0
         version: 1.2.0(@algolia/client-search@4.23.3)(@types/node@20.12.12)(async-validator@4.2.5)(less@4.2.0)(postcss@8.4.38)(search-insights@2.13.0)(typescript@5.4.5)
+      vitepress-plugin-rss:
+        specifier: ^0.2.6
+        version: 0.2.6(vitepress@1.2.0(@algolia/client-search@4.23.3)(@types/node@20.12.12)(async-validator@4.2.5)(less@4.2.0)(postcss@8.4.38)(search-insights@2.13.0)(typescript@5.4.5))
       vue:
         specifier: 3.4.27
         version: 3.4.27(typescript@5.4.5)
@@ -2649,6 +2652,11 @@ packages:
         optional: true
       terser:
         optional: true
+
+  vitepress-plugin-rss@0.2.6:
+    resolution: {integrity: sha512-Z1wDHaJer44dOTQrcd5VcJvwXdD5HCSPV5vsZqQ5FFpgMwap+VymtD0YWcajOOFWxLeoQS3T9vCv/V1SuP+r3Q==}
+    peerDependencies:
+      vitepress: ^1
 
   vitepress@1.2.0:
     resolution: {integrity: sha512-m/4PAQVyPBvKHV7sFKwcmNmrsoSxdjnw/Eg40YyuBSaBHhrro9ubnfWk5GT0xGfE98LqjZkHCWKNJlR6G/7Ayg==}
@@ -5467,6 +5475,14 @@ snapshots:
       '@types/node': 20.12.12
       fsevents: 2.3.3
       less: 4.2.0
+
+  vitepress-plugin-rss@0.2.6(vitepress@1.2.0(@algolia/client-search@4.23.3)(@types/node@20.12.12)(async-validator@4.2.5)(less@4.2.0)(postcss@8.4.38)(search-insights@2.13.0)(typescript@5.4.5)):
+    dependencies:
+      cross-spawn: 7.0.3
+      fast-glob: 3.3.2
+      feed: 4.2.2
+      gray-matter: 4.0.3
+      vitepress: 1.2.0(@algolia/client-search@4.23.3)(@types/node@20.12.12)(async-validator@4.2.5)(less@4.2.0)(postcss@8.4.38)(search-insights@2.13.0)(typescript@5.4.5)
 
   vitepress@1.2.0(@algolia/client-search@4.23.3)(@types/node@20.12.12)(async-validator@4.2.5)(less@4.2.0)(postcss@8.4.38)(search-insights@2.13.0)(typescript@5.4.5):
     dependencies:
