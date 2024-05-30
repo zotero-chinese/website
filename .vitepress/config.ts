@@ -105,7 +105,7 @@ export default defineConfig({
 
   markdown,
 
-  buildEnd,
+  // buildEnd,
 
   vite,
 

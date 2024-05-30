@@ -3,22 +3,21 @@ import { writeFileSync } from "fs";
 import { Feed } from "feed";
 import { createContentLoader, type SiteConfig } from "vitepress";
 
-const siteUrl = "https://vitejs.dev";
-const blogUrl = `${siteUrl}/blog`;
+const siteUrl = "https://zotero-chinese.com";
 
 export const buildEnd = async (config: SiteConfig) => {
   const feed = new Feed({
-    title: "Vite",
-    description: "Next Generation Frontend Tooling",
-    id: blogUrl,
-    link: blogUrl,
-    language: "en",
-    image: "https://vitejs.dev/og-image.png",
+    title: "Zotero 中文社区",
+    description: "非官方 Zotero 中文维护小组",
+    id: siteUrl,
+    link: siteUrl,
+    language: "zh",
+    image: "https://zotero-chinese/logo.png",
     favicon: "https://vitejs.dev/logo.svg",
-    copyright: "Copyright © 2019-present Evan You & Vite Contributors",
+    copyright: "Copyright © 2018-present Zotero 中文社区及贡献者",
   });
 
-  const posts = await createContentLoader("blog/*.md", {
+  const posts = await createContentLoader("**/*.md", {
     excerpt: true,
     render: true,
   }).load();
@@ -38,7 +37,7 @@ export const buildEnd = async (config: SiteConfig) => {
       content: html,
       author: [
         {
-          name: frontmatter.author.name,
+          name: frontmatter.author?.name,
         },
       ],
       date: frontmatter.date,
