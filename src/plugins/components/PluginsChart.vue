@@ -13,7 +13,7 @@ import { data as chartsData } from "../data/charts.data";
 import { useData } from "vitepress";
 import { onMounted } from "vue";
 
-import * as Highcharts from "highcharts/highcharts";
+import Highcharts from "highcharts";
 import HighchartsMore from "highcharts/highcharts-more";
 HighchartsMore(Highcharts);
 import WordCloudGraph from "highcharts/modules/wordcloud";
@@ -34,11 +34,16 @@ import HighchartsExportData from "highcharts/modules/export-data";
 HighchartsExportData(Highcharts);
 import NoDataToDisplay from "highcharts/modules/no-data-to-display";
 NoDataToDisplay(Highcharts);
-import HighchartsPlugin from "@highcharts/dashboards/es-modules/Dashboards/Plugins/HighchartsPlugin";
-HighchartsPlugin.custom.connectHighcharts(Highcharts);
+
 import Dashboards from "@highcharts/dashboards";
 import type { Board } from "@highcharts/dashboards";
-Dashboards.PluginHandler.addPlugin(HighchartsPlugin);
+import DataGrid from "@highcharts/dashboards/datagrid";
+import LayoutModule from "@highcharts/dashboards/modules/layout";
+LayoutModule(Dashboards);
+Dashboards.HighchartsPlugin.custom.connectHighcharts(Highcharts);
+Dashboards.DataGridPlugin.custom.connectDataGrid(DataGrid);
+Dashboards.PluginHandler.addPlugin(Dashboards.HighchartsPlugin);
+Dashboards.PluginHandler.addPlugin(Dashboards.DataGridPlugin);
 
 const darkMode = useData().isDark;
 
