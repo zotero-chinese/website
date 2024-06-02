@@ -13,100 +13,16 @@ jobs:
     name: 构建文档
     uses: ./.github/workflows/build.yml
 
-  deploy:
-    name: 部署预览
-    needs:
-      - build
+  upload:
+    name: 上传运行信息
     runs-on: ubuntu-latest
-    permissions:
-      pull-requests: write
+    if: github.repository == 'zotero-chinese/website' && github.event_name == 'pull_request'
     steps:
-      - name: 下载构建内容
-        uses: actions/download-artifact@v4
+      - name: 保存 PR 编号
+        run: |
+          echo "${{ github.event.number }}" > pr_num
+      - name: 上传 PR 编号
+        uses: actions/upload-artifact@v2
         with:
-          name: build-result
-          path: dist
-
-      # - name: 解压构建文件
-      #   run: |
-      #     tar -xvf dist.tar dist
-      #     # ls -R -a
-
-      - name: 推送到 Netlify
-        id: netlify
-        uses: nwtgck/actions-netlify@v3.0
-        with:
-          publish-dir: "dist"
-          deploy-message: "Deploy from GitHub Actions"
-          production-deploy: false
-          alias: deploy-preview-${{ github.event.number }}
-          enable-commit-comment: false
-          enable-pull-request-comment: false
-          enable-commit-status: false
-          enable-github-deployment: false
-        env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-        timeout-minutes: 3
-
-      - name: 查找评论 ID
-        uses: peter-evans/find-comment@v3
-        id: fc
-        with:
-          issue-number: ${{ github.event.number }}
-          comment-author: "github-actions[bot]"
-          body-includes: <!-- auto message -->
-
-      - name: 创建或更新评论
-        uses: peter-evans/create-or-update-comment@v4
-        with:
-          comment-id: ${{ steps.fc.outputs.comment-id }}
-          issue-number: ${{ github.event.number }}
-          body: |
-            ## ✅ 成功部署预览！
-
-            | 类型         | 链接                                                                                                 |
-            |:-----------:|:----------------------------------------------------------------------------------------------------:|
-            | 预览地址     | ${{ steps.netlify.outputs.deploy-url }}                                                              |
-            | 最新提交     | ${{ github.sha }}                                                                                    |
-            | 部署日志     | [${{ github.workflow }} #${{ github.run_number }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}) |
-
-            <!-- auto message -->
-
-          edit-mode: replace
-
-  on-failure:
-    name: 提示部署结果
-    runs-on: ubuntu-latest
-    permissions:
-      pull-requests: write
-    needs:
-      - build
-      - deploy
-    if: ${{ failure() }}
-    steps:
-      - name: 查找评论 ID
-        uses: peter-evans/find-comment@v3
-        id: fc
-        with:
-          issue-number: ${{ github.event.number }}
-          comment-author: "github-actions[bot]"
-          body-includes: <!-- auto message -->
-
-      - name: 创建或更新评论：失败
-        uses: peter-evans/create-or-update-comment@v4
-        with:
-          comment-id: ${{ steps.fc.outputs.comment-id }}
-          issue-number: ${{ github.event.number }}
-          body: |
-            ## ❌ 部署预览失败
-
-            | 类型         | 链接                                                                                                 |
-            |:-----------:|:----------------------------------------------------------------------------------------------------:|
-            | 预览地址     | 部署失败，请查看工作流运行日志。                                                                        |
-            | 最新提交     | ${{ github.sha }}                                                                                    |
-            | 部署日志     | [${{ github.workflow }} #${{ github.run_number }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}) |
-
-            <!-- auto message -->
-
-          edit-mode: replace
+          name: pr-num
+          path: ./pr_num
