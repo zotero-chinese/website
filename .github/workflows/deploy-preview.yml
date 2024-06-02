@@ -39,6 +39,7 @@ jobs:
           run_id: ${{ github.event.workflow_run.id }}
           name: build-result
           allow_forks: true
+          path: dist
 
       - name: 推送到 Netlify
         id: netlify
