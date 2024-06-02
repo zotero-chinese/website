@@ -3,7 +3,7 @@ name: 部署 (预览环境) 后处理
 on:
   workflow_run:
     workflows:
-      - 部署 (预览环境)
+      - 部署预览
     types:
       - completed
 
