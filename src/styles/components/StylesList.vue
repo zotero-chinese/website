@@ -101,7 +101,9 @@ function clearSearch() {
     <client-only>
       <ul>
         <li v-for="style in filtered" :key="style.id">
-          <StyleCard :style="style" :mode="showPreview ? 'full' : 'sample'" />
+          <a :href="style.dir">
+            <StyleCard :style="style" :mode="showPreview ? 'full' : 'sample'" />
+          </a>
         </li>
       </ul>
     </client-only>

@@ -17,6 +17,7 @@ export default defineConfig({
 
   rewrites: {
     "wiki/:id+": ":id+",
+    "styles/detail/src/:id+": "styles/:id+",
   },
   cleanUrls: true,
 
