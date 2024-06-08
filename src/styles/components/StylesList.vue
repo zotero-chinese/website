@@ -53,7 +53,7 @@ function clearSearch() {
     <!-- Zotero 版本筛选 -->
     <el-select
       v-model="format"
-      placeholder="Format"
+      placeholder="引文格式"
       size="large"
       style="width: 300px"
     >
@@ -62,7 +62,7 @@ function clearSearch() {
           <Filter />
         </el-icon>
       </template>
-      <el-option label="All" value=""></el-option>
+      <el-option label="所有" value=""></el-option>
       <el-option label="作者" value="author"></el-option>
       <el-option label="作者—年代" value="author-date"></el-option>
       <el-option label="数字编码" value="numeric"></el-option>
@@ -86,7 +86,7 @@ function clearSearch() {
     </el-input>
 
     <!-- 显示预览 -->
-    <el-switch v-model="showPreview" />
+    <!-- <el-switch v-model="showPreview" /> -->
   </div>
 
   <!-- 标签筛选 -->
