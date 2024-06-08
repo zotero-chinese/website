@@ -98,15 +98,13 @@ function clearSearch() {
 
   <!-- 插件卡片列表 -->
   <div class="styles-list">
-    <client-only>
-      <ul>
-        <li v-for="style in filtered" :key="style.id">
-          <a :href="style.dir">
-            <StyleCard :style="style" :mode="showPreview ? 'full' : 'sample'" />
-          </a>
-        </li>
-      </ul>
-    </client-only>
+    <ul>
+      <li v-for="style in filtered" :key="style.id">
+        <a :href="style.dir">
+          <StyleCard :style="style" :mode="showPreview ? 'full' : 'sample'" />
+        </a>
+      </li>
+    </ul>
   </div>
 
   <!-- 空状态 -->

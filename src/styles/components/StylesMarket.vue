@@ -22,7 +22,9 @@ import { data as updateTime } from "@theme/../data/time.data";
       />
     </el-header>
     <el-main>
-      <StylesList />
+      <ClientOnly>
+        <StylesList />
+      </ClientOnly>
     </el-main>
   </el-container>
 </template>
