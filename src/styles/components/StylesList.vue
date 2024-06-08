@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, computed } from "vue";
 import { refDebounced } from "@vueuse/core";
-import StyleCard from "./StyleCard.vue";
+import StyleListItem from "./StyleListItem.vue";
 import { styleTags } from "../types/tags";
 
 // @ts-ignore
@@ -101,7 +101,10 @@ function clearSearch() {
     <ul>
       <li v-for="style in filtered" :key="style.id">
         <a :href="style.dir">
-          <StyleCard :style="style" :mode="showPreview ? 'full' : 'sample'" />
+          <StyleListItem
+            :style="style"
+            :mode="showPreview ? 'full' : 'sample'"
+          />
         </a>
       </li>
     </ul>

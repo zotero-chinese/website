@@ -36,30 +36,13 @@ const mode = props.mode ?? "sample";
 
 <style>
 .csl-preview {
-  font-family: Georgia, Times, "Times New Roman", serif;
+  /* font-family: Georgia, Times, "Times New Roman", serif; */
+  font-size: 1rem;
 }
 
 .csl-preview h3 {
   font-weight: bold;
-}
-
-/* second-field-align 首行缩进适配 */
-.csl-bib-body.second-field-align-flush .csl-entry {
-  display: flex;
-}
-
-.csl-bib-body.second-field-align-flush .csl-entry .csl-left-margin {
-  float: left;
-  margin-right: 0.5em;
-}
-
-.csl-bib-body.second-field-align-flush.maxoffset-4 .csl-entry .csl-left-margin {
-  width: 2.5em;
-}
-
-/* hangingindent 悬挂缩进适配 */
-.csl-bib-body.hangingindent-true .csl-entry {
-  text-indent: -2em;
-  padding-left: 2em;
+  font-size: 1.5rem;
+  margin: 1rem 0;
 }
 </style>

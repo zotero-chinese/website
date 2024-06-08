@@ -1,0 +1,19 @@
+/* second-field-align 首行缩进适配 */
+.csl-bib-body.second-field-align-flush .csl-entry {
+  display: flex;
+}
+
+.csl-bib-body.second-field-align-flush .csl-entry .csl-left-margin {
+  float: left;
+  margin-right: 0.5em;
+}
+
+.csl-bib-body.second-field-align-flush.maxoffset-4 .csl-entry .csl-left-margin {
+  width: 2.5em;
+}
+
+/* hangingindent 悬挂缩进适配 */
+.csl-bib-body.hangingindent-true .csl-entry {
+  text-indent: -2em;
+  padding-left: 2em;
+}

@@ -109,6 +109,7 @@ export default defineConfig({
   buildEnd,
 
   vite,
+  metaChunk: true,
 
   sitemap: {
     hostname: "https://zotero-chinese.com",
