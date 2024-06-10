@@ -63,9 +63,9 @@ function clearSearch() {
         </el-icon>
       </template>
       <el-option label="所有" value=""></el-option>
-      <el-option label="作者" value="author"></el-option>
-      <el-option label="作者—年代" value="author-date"></el-option>
-      <el-option label="数字编码" value="numeric"></el-option>
+      <el-option label="著者" value="author"></el-option>
+      <el-option label="著者—出版年" value="author-date"></el-option>
+      <el-option label="顺序编码" value="numeric"></el-option>
       <el-option label="脚注" value="note"></el-option>
       <el-option label="标签" value="label"></el-option>
     </el-select>
