@@ -165,7 +165,7 @@ const itemFields = {
   authority: "主管机构",
   organization: "组织",
   feed: "订阅",
-}
+};
 
 const creatorTypes = {
   author: "作者",
@@ -206,27 +206,42 @@ const baseTypes = [
   { flag: 8, type: "搜索转换器" },
 ];
 
-export function getTranslatorType(code: number) {
+function useTranslatorType(code: number) {
   return baseTypes
     .filter((item) => (code & item.flag) !== 0)
     .map((item) => item.type);
 }
 
-export function getItemType(itemType: string) {
-  return itemTypes[itemType as keyof typeof itemTypes];
+function useItemType(itemType: string) {
+  return itemType == "multiple"
+    ? "多个条目"
+    : itemTypes[itemType as keyof typeof itemTypes];
 }
 
-function getItemField(field: string) {
+function useItemField(field: string) {
   return itemFields[field as keyof typeof itemFields];
 }
 
-function getCreatorType(creatorType: string) {
+function useCreatorType(creatorType: string) {
   return creatorTypes[creatorType as keyof typeof creatorTypes];
 }
 
+function useSortedTypes(types: Array<string>) {
+  return types.sort((a, b) => {
+    if (a === useItemType("multiple")) {
+      return 1;
+    }
+    if (b === useItemType("multiple")) {
+      return -1;
+    }
+    return a.localeCompare(b);
+  });
+}
+
 export default {
-  getTranslatorType,
-  getItemType,
-  getItemField,
-  getCreatorType,
+  useTranslatorType,
+  useItemType,
+  useItemField,
+  useCreatorType,
+  useSortedTypes,
 };

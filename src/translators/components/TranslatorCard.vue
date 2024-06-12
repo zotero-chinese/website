@@ -1,7 +1,14 @@
 <script setup lang="ts">
+import toLocale from "../composables/localize";
 const props = defineProps<{ translator: TranslatorLittle }>();
 
 const translator = props.translator;
+
+function sortedTypes(itemTypes: Array<string>) {
+  return toLocale.useSortedTypes(
+    itemTypes.map((type) => toLocale.useItemType(type)),
+  );
+}
 </script>
 
 <template>
@@ -15,14 +22,14 @@ const translator = props.translator;
     </template>
 
     <el-space direction="vertical" alignment="normal" fill>
-      <el-text class="hanging-indent" style="overflow-wrap: break-word;">
+      <el-text class="hanging-indent" style="overflow-wrap: break-word">
         <el-icon>
           <User />
         </el-icon>
         {{ translator.creator }}
       </el-text>
 
-      <el-text class="hanging-indent" style="word-break: break-all;">
+      <el-text class="hanging-indent" style="word-break: break-all">
         <el-icon>
           <Link />
         </el-icon>
@@ -41,7 +48,13 @@ const translator = props.translator;
           <Aim />
         </el-icon>
         <span class="tags-container">
-          <el-tag v-for="(type, index) in translator.translatorType" :key="index" type="info">
+          <el-tag
+            v-for="(type, index) in toLocale.useTranslatorType(
+              translator.translatorType,
+            )"
+            :key="index"
+            type="info"
+          >
             {{ type }}
           </el-tag>
         </span>
@@ -49,8 +62,11 @@ const translator = props.translator;
     </el-space>
     <template #footer>
       <span class="tags-container">
-        <template v-for="(type, index) in translator.itemTypes" :key="index">
-          <el-tag v-if="type == '多个条目'" type="success">
+        <template
+          v-for="(type, index) in sortedTypes(translator.itemTypes)"
+          :key="index"
+        >
+          <el-tag v-if="type == 'multiple'" type="success">
             {{ type }}
           </el-tag>
           <el-tag v-else type="primary">

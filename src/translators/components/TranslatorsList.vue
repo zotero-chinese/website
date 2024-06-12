@@ -4,6 +4,7 @@ import { refDebounced } from "@vueuse/core";
 
 import TranslatorCard from "./TranslatorCard.vue";
 import { data as translators } from "../data/translatorsLittle.data";
+import toLocale from "../composables/localize";
 
 const searchText = ref("");
 const debouncedSearchText = refDebounced(searchText, 1000);
@@ -12,7 +13,9 @@ let allTags: Array<string> = [];
 translators.forEach((item) => {
   allTags.push(...item.itemTypes);
 });
-allTags = [...new Set(allTags)];
+allTags = toLocale.useSortedTypes(
+  [...new Set(allTags)].map((tag) => toLocale.useItemType(tag)),
+);
 
 const filtered = computed(() => {
   let filtered = translators;
@@ -44,7 +47,13 @@ function clearSearch() {
 <template>
   <div class="toolbar">
     <!-- 搜索 -->
-    <el-input v-model="searchText" size="large" placeholder="搜索转换器名称或匹配网址..." clearable @clear="clearSearch">
+    <el-input
+      v-model="searchText"
+      size="large"
+      placeholder="搜索转换器名称或匹配网址..."
+      clearable
+      @clear="clearSearch"
+    >
       <template #prefix>
         <el-icon>
           <Search />
@@ -55,14 +64,27 @@ function clearSearch() {
 
   <!-- 标签筛选 -->
   <el-checkbox-group v-model="selectedTags" size="large">
-    <el-checkbox v-for="(tag, index) in allTags" :key="index" :value="tag" border>
+    <el-checkbox
+      v-for="(tag, index) in allTags"
+      :key="index"
+      :value="tag"
+      border
+    >
       {{ tag }}
     </el-checkbox>
   </el-checkbox-group>
 
   <!-- 插件卡片列表 -->
   <el-row :gutter="20">
-    <el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="4" v-for="translator in filtered" :key="translator.translatorID">
+    <el-col
+      :xs="24"
+      :sm="12"
+      :md="8"
+      :lg="6"
+      :xl="4"
+      v-for="translator in filtered"
+      :key="translator.translatorID"
+    >
       <a :href="translator.translatorID">
         <TranslatorCard :translator="translator" />
       </a>
@@ -80,15 +102,15 @@ function clearSearch() {
   padding-bottom: 20px;
 }
 
-.toolbar>* {
+.toolbar > * {
   margin: 0 8px;
 }
 
-.toolbar> :first-child {
+.toolbar > :first-child {
   margin-left: 0;
 }
 
-.toolbar> :last-child {
+.toolbar > :last-child {
   margin-right: 0;
 }
 
@@ -103,7 +125,7 @@ function clearSearch() {
   margin: 0px 10px 10px 0px;
 }
 
-.el-checkbox> :deep(.el-checkbox__input) {
+.el-checkbox > :deep(.el-checkbox__input) {
   display: none !important;
 }
 

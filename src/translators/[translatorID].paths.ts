@@ -18,7 +18,7 @@ export default {
                   : `笔记 ${index + 1}`;
               });
               delete item.seeAlso;
-            } 
+            }
           }
         }
         return {

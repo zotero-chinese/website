@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import toLabel from "../composables/localize";
-import { useData } from 'vitepress'
+import toLocale from "../composables/localize";
+import { useData } from "vitepress";
 
 const { params } = useData();
-const data = params.value as { translatorID: string; translator: Translator; };
-const translator = data.translator;
+const translator = (
+  params.value as { translatorID: string; translator: Translator }
+).translator;
 </script>
 
 <template>
@@ -28,9 +29,19 @@ const translator = data.translator;
       {{ translator?.header.lastUpdated }}
     </el-descriptions-item>
 
-    <el-descriptions-item label="类型" class="tags-container" label-class-name="fieldLabel">
-      <el-tag v-for="(type, index) in toLabel.getTranslatorType(translator?.header.translatorType)" :key="index"
-        type="info" round>
+    <el-descriptions-item
+      label="类型"
+      class="tags-container"
+      label-class-name="fieldLabel"
+    >
+      <el-tag
+        v-for="(type, index) in toLocale.useTranslatorType(
+          translator?.header.translatorType,
+        )"
+        :key="index"
+        type="info"
+        round
+      >
         {{ type }}
       </el-tag>
     </el-descriptions-item>
@@ -45,9 +56,15 @@ const translator = data.translator;
   </el-descriptions>
 
   <h2>示例</h2>
-  <details v-for="(testCase, caseIndex) in translator?.testCases" :key="caseIndex" class="details custom-block">
+  <details
+    v-for="(testCase, caseIndex) in translator?.testCases"
+    :key="caseIndex"
+    class="details custom-block"
+  >
     <summary style="word-break: break-all">
-      <template v-if="testCase.type === 'web'"><a :href="testCase.url">{{ testCase.url }}</a></template>
+      <template v-if="testCase.type === 'web'">
+        {{ testCase.url }}
+      </template>
       <template v-else>
         {{ testCase.type }} ->
         {{
@@ -67,12 +84,22 @@ const translator = data.translator;
 
     <template v-if="testCase.items !== 'multiple'">
       <template v-for="(item, itemIndex) in testCase.items" :key="itemIndex">
-        <strong>条目 {{ itemIndex + 1 }}</strong>
+        <a :href="testCase.url">
+          <strong>条目 {{ itemIndex + 1 }}</strong>
+        </a>
         <el-descriptions :column="1" border>
-          <template v-for="(value, field, fieldIndex) in item" :key="fieldIndex">
+          <template
+            v-for="(value, field, fieldIndex) in item"
+            :key="fieldIndex"
+          >
             <template v-if="field === 'creators'">
-              <el-descriptions-item v-for="(creator, creatorIndex) in value" :key="creatorIndex"
-                :label="toLabel.getCreatorType(creator.creatorType)" label-align="right" label-class-name="fieldLabel">
+              <el-descriptions-item
+                v-for="(creator, creatorIndex) in value"
+                :key="creatorIndex"
+                :label="toLocale.useCreatorType(creator.creatorType)"
+                label-align="right"
+                label-class-name="fieldLabel"
+              >
                 <div>
                   {{ creator.lastName }}
                   {{ creator.fieldMode !== 1 ? ", " : "" }}
@@ -81,44 +108,74 @@ const translator = data.translator;
               </el-descriptions-item>
             </template>
             <template v-else>
-              <el-descriptions-item :label="toLabel.getItemField(String(field))" label-align="right"
-                label-class-name="fieldLabel">
+              <el-descriptions-item
+                :label="toLocale.useItemField(String(field))"
+                label-align="right"
+                label-class-name="fieldLabel"
+              >
                 <div v-if="field == 'itemType'">
-                  {{ toLabel.getItemType(value) }}
+                  {{ toLocale.useItemType(value) }}
                 </div>
-                <div v-else-if="field == 'abstractNote' || field == 'extra'"
-                  style="white-space:pre-wrap;overflow-wrap:anywher">
+                <div
+                  v-else-if="field == 'extra'"
+                  style="white-space: pre-wrap; word-break: break-all"
+                >
                   {{ value }}
                 </div>
                 <div v-else-if="field == 'url'">
                   <a :href="value">{{ value }}</a>
-                </div>                
+                </div>
                 <div v-else-if="field == 'attachments'" class="tags-container">
-                  <el-card v-for="(attachment, attachmentIndex) in value" :key="attachmentIndex"
-                    body-style="padding:5px;display:flex;align-items:center;" shadow="never">
+                  <el-card
+                    v-for="(attachment, attachmentIndex) in value"
+                    :key="attachmentIndex"
+                    body-style="padding:5px;display:flex;align-items:center;"
+                    shadow="never"
+                  >
                     <template v-if="attachment.mimeType == 'application/pdf'">
-                      <img src="..\..\wiki\assets\icons\item-type\attachment-pdf.svg" class="attachment-icon" />
+                      <img
+                        src="..\..\wiki\assets\icons\item-type\attachment-pdf.svg"
+                        class="attachment-icon"
+                      />
                     </template>
                     <template v-else>
-                      <img src="..\..\wiki\assets\icons\item-type\attachment-snapshot.svg" class="attachment-icon" />
+                      <img
+                        src="..\..\wiki\assets\icons\item-type\attachment-snapshot.svg"
+                        class="attachment-icon"
+                      />
                     </template>
                     {{ attachment.title }}
                   </el-card>
                 </div>
                 <div v-else-if="field === 'tags'" class="tags-container">
-                  <el-tag v-for="(tag, tagIndex) in value" :key="tagIndex" type="info" round>
+                  <el-tag
+                    v-for="(tag, tagIndex) in value"
+                    :key="tagIndex"
+                    type="info"
+                    round
+                  >
                     {{ tag.tag }}
                   </el-tag>
                 </div>
                 <div v-else-if="field == 'notes'" class="tags-container">
-                  <el-card v-for="(note, noteIndex) in value" :key="noteIndex"
-                    body-style="padding:5px;display:flex;align-items:center;" shadow="never">
-                    <img src="..\..\wiki\assets\icons\item-type\note.svg" class="attachment-icon" />
+                  <el-card
+                    v-for="(note, noteIndex) in value"
+                    :key="noteIndex"
+                    body-style="padding:5px;display:flex;align-items:center;"
+                    shadow="never"
+                  >
+                    <img
+                      src="..\..\wiki\assets\icons\item-type\note.svg"
+                      class="attachment-icon"
+                    />
                     {{ note }}
                   </el-card>
                 </div>
                 <div v-else>
-                  <div v-if="typeof value === 'string'" v-html="value.replaceAll('\n', '<br/ >')"></div>
+                  <div
+                    v-if="typeof value === 'string'"
+                    v-html="value.replaceAll('\n', '<br/ >')"
+                  ></div>
                   <div v-else>{{ value }}</div>
                 </div>
               </el-descriptions-item>
@@ -134,8 +191,13 @@ const translator = data.translator;
   <h2>变更历史</h2>
   <div class="no-list">
     <el-timeline>
-      <el-timeline-item v-for="(trend, index) in translator?.trends" :key="index" :timestamp="trend.date">
-        {{ trend.message }}, by <a :href="`https://github.com/${trend.author}`">{{ trend.author }}</a>
+      <el-timeline-item
+        v-for="(trend, index) in translator?.trends"
+        :key="index"
+        :timestamp="trend.date"
+      >
+        {{ trend.message }}, by
+        <a :href="`https://github.com/${trend.author}`">{{ trend.author }}</a>
       </el-timeline-item>
     </el-timeline>
   </div>
@@ -158,7 +220,7 @@ const translator = data.translator;
   flex-wrap: wrap;
 }
 
-.fieldLabel {
+:deep(.fieldLabel) {
   white-space: nowrap;
 }
 </style>
