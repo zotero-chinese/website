@@ -14,21 +14,64 @@ const translator = props.translator;
       </div>
     </template>
 
-    <el-space direction="vertical" alignment="normal">
-      <el-text>
-        <el-icon><User /></el-icon>
+    <el-space direction="vertical" alignment="normal" fill>
+      <el-text class="hanging-indent" style="overflow-wrap: break-word;">
+        <el-icon>
+          <User />
+        </el-icon>
         {{ translator.creator }}
       </el-text>
 
-      <el-text>
-        <el-icon><Link /></el-icon>
+      <el-text class="hanging-indent" style="word-break: break-all;">
+        <el-icon>
+          <Link />
+        </el-icon>
         {{ translator.target }}
       </el-text>
 
       <el-text>
-        <el-icon><DataLine /></el-icon>
+        <el-icon>
+          <Refresh />
+        </el-icon>
         {{ translator.lastUpdated }}
       </el-text>
+
+      <el-text>
+        <el-icon>
+          <Aim />
+        </el-icon>
+        <span class="tags-container">
+          <el-tag v-for="(type, index) in translator.translatorType" :key="index" type="info">
+            {{ type }}
+          </el-tag>
+        </span>
+      </el-text>
     </el-space>
+    <template #footer>
+      <span class="tags-container">
+        <template v-for="(type, index) in translator.itemTypes" :key="index">
+          <el-tag v-if="type == '多个条目'" type="success">
+            {{ type }}
+          </el-tag>
+          <el-tag v-else type="primary">
+            {{ type }}
+          </el-tag>
+        </template>
+      </span>
+    </template>
   </el-card>
 </template>
+
+<style scoped>
+.hanging-indent {
+  text-indent: -1.15rem;
+  padding-left: 1.15rem;
+}
+
+.tags-container {
+  margin-left: 0.5ch;
+  display: inline-flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+</style>

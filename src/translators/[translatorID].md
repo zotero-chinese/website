@@ -1,6 +1,5 @@
 ---
 title: 转换器详情
-# layout: page
 sidebar: false
 aside: false
 editLink: false

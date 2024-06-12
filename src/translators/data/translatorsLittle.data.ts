@@ -1,5 +1,6 @@
 import { existsSync, readFileSync } from "fs";
 import path from "path";
+import { getTranslatorType, getItemType } from "../composables/localize";
 
 const local_path = path.resolve("src/translators/data/dashboard.json"),
   remote_path =
@@ -19,6 +20,28 @@ export default {
         creator: item.header.creator,
         target: item.header.target,
         lastUpdated: item.header.lastUpdated,
+        translatorType: getTranslatorType(item.header.translatorType),
+        itemTypes: (() => {
+          const itemTypes: Array<string> = [];
+          item.testCases.forEach((testCase) => {
+            if (typeof testCase.items == "string") {
+              itemTypes.push(testCase.items);
+            } else {
+              itemTypes.push(...testCase.items.map(item => item.itemType));
+            }
+          })
+          return Array.from(new Set(itemTypes));
+        })()
+          .map(itemType => itemType == "multiple" ? "多个条目" : getItemType(itemType))
+          .sort((a, b) => {
+            if (a === "多个条目") {  
+              return 1;
+            }
+            if (b === "多个条目") {  
+              return -1;
+            }
+            return a.localeCompare(b);
+          })
       };
     });
   },

@@ -1,56 +1,53 @@
 <script setup lang="ts">
-import { useTranslatorType } from "../composables/translatorType";
-import { data as translators } from "../data/translators.data";
+import toLabel from "../composables/localize";
+import { useData } from 'vitepress'
 
-const props = defineProps(["translatorID"]);
-
-const translator = translators.find(
-  (v) => v.header.translatorID === props.translatorID,
-);
+const { params } = useData();
+const data = params.value as { translatorID: string; translator: Translator; };
+const translator = data.translator;
 </script>
 
 <template>
-  <h1>{{ translator?.zhLabel }} 的转换器</h1>
+  <h1>{{ translator?.zhLabel }}的转换器</h1>
 
   <h2>元数据</h2>
   <el-descriptions :column="2" border>
-    <el-descriptions-item label="ID" :span="2">
+    <el-descriptions-item label="ID" :span="2" label-class-name="fieldLabel">
       {{ translator?.header.translatorID }}
     </el-descriptions-item>
 
-    <el-descriptions-item label="标题" :span="2">
+    <el-descriptions-item label="标题" :span="2" label-class-name="fieldLabel">
       {{ translator?.header.label }}，{{ translator?.zhLabel }}
     </el-descriptions-item>
 
-    <el-descriptions-item label="作者">
+    <el-descriptions-item label="作者" label-class-name="fieldLabel">
       {{ translator?.header.creator }}
     </el-descriptions-item>
 
-    <el-descriptions-item label="更新时间">
+    <el-descriptions-item label="更新时间" label-class-name="fieldLabel">
       {{ translator?.header.lastUpdated }}
     </el-descriptions-item>
 
-    <el-descriptions-item label="类型">
-      {{ useTranslatorType(translator?.header.translatorType!).join(", ") }}
+    <el-descriptions-item label="类型" class="tags-container" label-class-name="fieldLabel">
+      <el-tag v-for="(type, index) in toLabel.getTranslatorType(translator?.header.translatorType)" :key="index"
+        type="info" round>
+        {{ type }}
+      </el-tag>
     </el-descriptions-item>
 
-    <el-descriptions-item label="优先级">
+    <el-descriptions-item label="优先级" label-class-name="fieldLabel">
       {{ translator?.header.priority }}
     </el-descriptions-item>
 
-    <el-descriptions-item label="目标">
+    <el-descriptions-item label="目标" label-class-name="fieldLabel">
       {{ translator?.header.target }}
     </el-descriptions-item>
   </el-descriptions>
 
   <h2>示例</h2>
-  <details
-    v-for="(testCase, index) in translator?.testCases"
-    :key="index"
-    class="details custom-block"
-  >
+  <details v-for="(testCase, caseIndex) in translator?.testCases" :key="caseIndex" class="details custom-block">
     <summary style="word-break: break-all">
-      <template v-if="testCase.type === 'web'">{{ testCase.url }}</template>
+      <template v-if="testCase.type === 'web'"><a :href="testCase.url">{{ testCase.url }}</a></template>
       <template v-else>
         {{ testCase.type }} ->
         {{
@@ -69,35 +66,64 @@ const translator = translators.find(
     </div>
 
     <template v-if="testCase.items !== 'multiple'">
-      <template v-for="(item, index) in testCase.items" :key="index">
-        <strong>条目 {{ index + 1 }}</strong>
+      <template v-for="(item, itemIndex) in testCase.items" :key="itemIndex">
+        <strong>条目 {{ itemIndex + 1 }}</strong>
         <el-descriptions :column="1" border>
-          <el-descriptions-item
-            v-for="(value, field, index) in item"
-            :key="index"
-            :label="String(field)"
-            label-align="right"
-          >
-            <div v-if="field === 'creators'">
-              <ul>
-                <li v-for="(creator, index) in value" :key="index">
-                  {{ creator.creatorType }}：{{ creator.lastName
-                  }}{{ creator.fieldMode !== 1 ? ", " : ""
-                  }}{{ creator.firstName }}
-                </li>
-              </ul>
-            </div>
-            <div v-else-if="field === 'tags'">
-              {{ value.map((v: any) => v.tag).join(", ") || "[]" }}
-            </div>
-            <div v-else>
-              <div
-                v-if="typeof value === 'string'"
-                v-html="value.replaceAll('\n', '<br/ >')"
-              ></div>
-              <div v-else>{{ value }}</div>
-            </div>
-          </el-descriptions-item>
+          <template v-for="(value, field, fieldIndex) in item" :key="fieldIndex">
+            <template v-if="field === 'creators'">
+              <el-descriptions-item v-for="(creator, creatorIndex) in value" :key="creatorIndex"
+                :label="toLabel.getCreatorType(creator.creatorType)" label-align="right" label-class-name="fieldLabel">
+                <div>
+                  {{ creator.lastName }}
+                  {{ creator.fieldMode !== 1 ? ", " : "" }}
+                  {{ creator.firstName }}
+                </div>
+              </el-descriptions-item>
+            </template>
+            <template v-else>
+              <el-descriptions-item :label="toLabel.getItemField(String(field))" label-align="right"
+                label-class-name="fieldLabel">
+                <div v-if="field == 'itemType'">
+                  {{ toLabel.getItemType(value) }}
+                </div>
+                <div v-else-if="field == 'abstractNote' || field == 'extra'"
+                  style="white-space:pre-wrap;overflow-wrap:anywher">
+                  {{ value }}
+                </div>
+                <div v-else-if="field == 'url'">
+                  <a :href="value">{{ value }}</a>
+                </div>                
+                <div v-else-if="field == 'attachments'" class="tags-container">
+                  <el-card v-for="(attachment, attachmentIndex) in value" :key="attachmentIndex"
+                    body-style="padding:5px;display:flex;align-items:center;" shadow="never">
+                    <template v-if="attachment.mimeType == 'application/pdf'">
+                      <img src="..\..\wiki\assets\icons\item-type\attachment-pdf.svg" class="attachment-icon" />
+                    </template>
+                    <template v-else>
+                      <img src="..\..\wiki\assets\icons\item-type\attachment-snapshot.svg" class="attachment-icon" />
+                    </template>
+                    {{ attachment.title }}
+                  </el-card>
+                </div>
+                <div v-else-if="field === 'tags'" class="tags-container">
+                  <el-tag v-for="(tag, tagIndex) in value" :key="tagIndex" type="info" round>
+                    {{ tag.tag }}
+                  </el-tag>
+                </div>
+                <div v-else-if="field == 'notes'" class="tags-container">
+                  <el-card v-for="(note, noteIndex) in value" :key="noteIndex"
+                    body-style="padding:5px;display:flex;align-items:center;" shadow="never">
+                    <img src="..\..\wiki\assets\icons\item-type\note.svg" class="attachment-icon" />
+                    {{ note }}
+                  </el-card>
+                </div>
+                <div v-else>
+                  <div v-if="typeof value === 'string'" v-html="value.replaceAll('\n', '<br/ >')"></div>
+                  <div v-else>{{ value }}</div>
+                </div>
+              </el-descriptions-item>
+            </template>
+          </template>
         </el-descriptions>
       </template>
     </template>
@@ -108,19 +134,31 @@ const translator = translators.find(
   <h2>变更历史</h2>
   <div class="no-list">
     <el-timeline>
-      <el-timeline-item
-        v-for="(trend, index) in translator?.trends"
-        :key="index"
-        :timestamp="trend.date"
-      >
-        {{ trend.message }}, by {{ trend.author }}
+      <el-timeline-item v-for="(trend, index) in translator?.trends" :key="index" :timestamp="trend.date">
+        {{ trend.message }}, by <a :href="`https://github.com/${trend.author}`">{{ trend.author }}</a>
       </el-timeline-item>
     </el-timeline>
   </div>
 </template>
 
-<style>
+<style scoped>
 .no-list ul {
   list-style: none;
+}
+
+.tags-container {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.attachment-icon {
+  width: 1.2rem;
+  margin-right: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.fieldLabel {
+  white-space: nowrap;
 }
 </style>
