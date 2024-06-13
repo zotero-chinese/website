@@ -32,7 +32,7 @@ declare interface TranslatorHeader {
   maxVersion: string;
   priority: number;
   inRepository: boolean;
-  translatorType: 1 | 4 | 8 | 12;
+  translatorType: number;
   browserSupport: string;
   lastUpdated: string;
 }
@@ -44,9 +44,13 @@ declare interface Translators {
 declare interface TranslatorLittle
   extends Pick<
     TranslatorHeader,
-    "translatorID" | "label" | "creator" | "target" | "lastUpdated"
+    | "translatorID"
+    | "label"
+    | "creator"
+    | "target"
+    | "translatorType"
+    | "lastUpdated"
   > {
   zhLabel: string;
-  translatorType: number;
   itemTypes: Array<string>;
 }

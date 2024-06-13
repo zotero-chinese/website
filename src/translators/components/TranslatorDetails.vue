@@ -1,11 +1,13 @@
 <script setup lang="ts">
-import toLocale from "../composables/localize";
+import {
+  useTranslatorType,
+  useCreatorType,
+  useItemField,
+  useItemType,
+} from "../composables/localize";
 import { useData } from "vitepress";
 
-const { params } = useData();
-const translator = (
-  params.value as { translatorID: string; translator: Translator }
-).translator;
+const translator = useData().params.value.translator;
 </script>
 
 <template>
@@ -35,7 +37,7 @@ const translator = (
       label-class-name="fieldLabel"
     >
       <el-tag
-        v-for="(type, index) in toLocale.useTranslatorType(
+        v-for="(type, index) in useTranslatorType(
           translator?.header.translatorType,
         )"
         :key="index"
@@ -50,7 +52,7 @@ const translator = (
       {{ translator?.header.priority }}
     </el-descriptions-item>
 
-    <el-descriptions-item label="目标" label-class-name="fieldLabel">
+    <el-descriptions-item label="目标网址" label-class-name="fieldLabel">
       {{ translator?.header.target }}
     </el-descriptions-item>
   </el-descriptions>
@@ -96,7 +98,7 @@ const translator = (
               <el-descriptions-item
                 v-for="(creator, creatorIndex) in value"
                 :key="creatorIndex"
-                :label="toLocale.useCreatorType(creator.creatorType)"
+                :label="useCreatorType(creator.creatorType)"
                 label-align="right"
                 label-class-name="fieldLabel"
               >
@@ -109,12 +111,12 @@ const translator = (
             </template>
             <template v-else>
               <el-descriptions-item
-                :label="toLocale.useItemField(String(field))"
+                :label="useItemField(String(field))"
                 label-align="right"
                 label-class-name="fieldLabel"
               >
                 <div v-if="field == 'itemType'">
-                  {{ toLocale.useItemType(value) }}
+                  {{ useItemType(value) }}
                 </div>
                 <div
                   v-else-if="field == 'extra'"
@@ -122,7 +124,7 @@ const translator = (
                 >
                   {{ value }}
                 </div>
-                <div v-else-if="field == 'url'">
+                <div v-else-if="field == 'url'" style="word-break: break-all">
                   <a :href="value">{{ value }}</a>
                 </div>
                 <div v-else-if="field == 'attachments'" class="tags-container">

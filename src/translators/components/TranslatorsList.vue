@@ -3,19 +3,14 @@ import { ref, computed } from "vue";
 import { refDebounced } from "@vueuse/core";
 
 import TranslatorCard from "./TranslatorCard.vue";
-import { data as translators } from "../data/translatorsLittle.data";
-import toLocale from "../composables/localize";
+import { data } from "../data/translatorsLittle.data";
+import { useSortedItemTypes, useItemType } from "../composables/localize";
+
+const translators = data.translators;
 
 const searchText = ref("");
 const debouncedSearchText = refDebounced(searchText, 1000);
 const selectedTags = ref([]);
-let allTags: Array<string> = [];
-translators.forEach((item) => {
-  allTags.push(...item.itemTypes);
-});
-allTags = toLocale.useSortedTypes(
-  [...new Set(allTags)].map((tag) => toLocale.useItemType(tag)),
-);
 
 const filtered = computed(() => {
   let filtered = translators;
@@ -32,9 +27,11 @@ const filtered = computed(() => {
     });
   }
   if (selectedTags.value.length !== 0) {
-    filtered = filtered.filter((plugin) => {
-      return selectedTags.value.every((tag) => plugin.itemTypes.includes(tag));
-    });
+    filtered = filtered.filter((translator) =>
+      selectedTags.value.every((tag) =>
+        translator.itemTypes.some((type) => useItemType(type) === tag),
+      ),
+    );
   }
   return filtered;
 });
@@ -65,7 +62,9 @@ function clearSearch() {
   <!-- 标签筛选 -->
   <el-checkbox-group v-model="selectedTags" size="large">
     <el-checkbox
-      v-for="(tag, index) in allTags"
+      v-for="(tag, index) in useSortedItemTypes(
+        data.allItemTypes.map((type) => useItemType(type)),
+      )"
       :key="index"
       :value="tag"
       border

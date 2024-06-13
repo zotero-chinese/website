@@ -5,14 +5,25 @@ const local_path = path.resolve("src/translators/data/dashboard.json"),
   remote_path =
     "https://github.com/l0o0/translators_CN/raw/master/data/dashboard.json";
 
-declare const data: TranslatorLittle[];
-export { data };
-
 export default {
   async load() {
     const raw = await getRaw();
-    return Object.values(raw).map((item) => {
-      return {
+    const translators: Array<TranslatorLittle> = [];
+    const allItemTypes: Set<string> = new Set();
+    Object.values(raw).forEach((item) => {
+      const itemTypes: Set<string> = new Set();
+      item.testCases.forEach((testCase) => {
+        if (testCase.items === "multiple") {
+          itemTypes.add(testCase.items);
+          allItemTypes.add(testCase.items);
+        } else {
+          testCase.items.forEach((item) => {
+            itemTypes.add(item.itemType);
+            allItemTypes.add(item.itemType);
+          });
+        }
+      });
+      translators.push({
         translatorID: item.header.translatorID,
         label: item.header.label,
         zhLabel: item.zhLabel,
@@ -20,19 +31,13 @@ export default {
         target: item.header.target,
         lastUpdated: item.header.lastUpdated,
         translatorType: item.header.translatorType,
-        itemTypes: (() => {
-          const itemTypes: Array<string> = [];
-          item.testCases.forEach((testCase) => {
-            if (typeof testCase.items == "string") {
-              itemTypes.push(testCase.items);
-            } else {
-              itemTypes.push(...testCase.items.map((item) => item.itemType));
-            }
-          });
-          return Array.from(new Set(itemTypes));
-        })(),
-      };
+        itemTypes: [...itemTypes],
+      });
     });
+    return {
+      translators: translators,
+      allItemTypes: [...allItemTypes],
+    };
   },
 };
 

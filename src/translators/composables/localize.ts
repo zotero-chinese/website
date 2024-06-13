@@ -226,7 +226,7 @@ function useCreatorType(creatorType: string) {
   return creatorTypes[creatorType as keyof typeof creatorTypes];
 }
 
-function useSortedTypes(types: Array<string>) {
+function useSortedItemTypes(types: Array<string>) {
   return types.sort((a, b) => {
     if (a === useItemType("multiple")) {
       return 1;
@@ -238,10 +238,10 @@ function useSortedTypes(types: Array<string>) {
   });
 }
 
-export default {
+export {
   useTranslatorType,
   useItemType,
   useItemField,
   useCreatorType,
-  useSortedTypes,
+  useSortedItemTypes,
 };
