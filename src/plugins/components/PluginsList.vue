@@ -36,40 +36,11 @@
     </el-select>
 
     <!-- 搜索 -->
-    <el-input
-      v-model="searchText"
-      size="large"
-      placeholder="搜索插件..."
-      clearable
-      @clear="clearSearch"
-    >
-      <template #prefix>
-        <el-icon>
-          <Search />
-        </el-icon>
-      </template>
-    </el-input>
+    <Search v-model="searchText" placeholder="搜索插件..." />
   </div>
 
   <!-- 标签筛选 -->
-  <el-checkbox-group v-model="selectedTags" size="large">
-    <!-- <el-checkbox value="all" border>All</el-checkbox> -->
-    <el-checkbox
-      v-for="(tagDetail, tag) in allTags"
-      :key="tagDetail.label"
-      :value="tag"
-      border
-    >
-      <el-tooltip
-        class="box-item"
-        effect="dark"
-        :content="tagDetail.description"
-        placement="bottom"
-      >
-        {{ tagDetail.label }}
-      </el-tooltip>
-    </el-checkbox>
-  </el-checkbox-group>
+  <TagsFilter v-model="selectedTags" :tags="allTags" />
 
   <!-- 插件卡片列表 -->
   <el-row :gutter="20">
@@ -99,20 +70,21 @@
 
 <script setup lang="ts">
 import { computed, ref } from "vue";
-import { refDebounced } from "@vueuse/core";
 
 import { data as plugins } from "../data/plugins.data";
 import { tags as allTags } from "../types/tags";
 
 import PluginCard from "./PluginCard.vue";
 import DownloadModal from "./DownloadModal.vue";
+import Search from "@theme/components/Search.vue";
+import TagsFilter from "@theme/components/TagsFilter.vue";
 
 const isShowDownload = ref(false);
 const selectedPlugin = ref(plugins[0]);
-const searchText = ref("");
-const debouncedSearchText = refDebounced(searchText, 1000);
+
 const sortBy = ref("stars");
 const zotero = ref("");
+const searchText = ref("");
 const selectedTags = ref([]);
 
 const sortedPlugins = computed(() => {
@@ -143,8 +115,8 @@ const filteredPlugins = computed(() => {
       );
     });
   }
-  if (debouncedSearchText.value) {
-    const searchTextLower = debouncedSearchText.value.toLowerCase();
+  if (searchText.value !== "") {
+    const searchTextLower = searchText.value.toLowerCase();
     filtered = filtered.filter((plugin) => {
       return (
         plugin.name.toLowerCase().includes(searchTextLower) ||
@@ -168,9 +140,6 @@ function closeDownload() {
   isShowDownload.value = false;
   // selectedPlugin.value = null;
 }
-function clearSearch() {
-  searchText.value = "";
-}
 </script>
 
 <style scoped>
@@ -187,30 +156,6 @@ function clearSearch() {
 }
 .toolbar > :last-child {
   margin-right: 0;
-}
-.el-checkbox-group {
-  display: flex;
-  justify-content: center;
-  padding-bottom: 20px;
-  flex-wrap: wrap;
-}
-
-.el-checkbox {
-  margin: 0px 10px 10px 0px;
-}
-
-.el-checkbox > :deep(.el-checkbox__input) {
-  display: none !important;
-}
-
-.el-checkbox-button {
-  border: var(--el-border);
-  border-radius: var(--el-border-radius-base);
-  /* box-shadow: none!important; */
-}
-.el-checkbox-button__inner {
-  border: unset !important;
-  border-left-color: unset !important;
 }
 
 .el-col {

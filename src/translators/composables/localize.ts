@@ -226,17 +226,15 @@ function useCreatorType(creatorType: string) {
   return creatorTypes[creatorType as keyof typeof creatorTypes];
 }
 
-function useSortedItemTypes(types: Array<string>) {
-  return types.sort((a, b) => {
-    if (a === useItemType("multiple")) {
-      return 1;
-    }
-    if (b === useItemType("multiple")) {
-      return -1;
-    }
-    return a.localeCompare(b);
-  });
-}
+const useSortedItemTypes = (a: string, b: string) => {
+  if (a === useItemType("multiple")) {
+    return 1;
+  }
+  if (b === useItemType("multiple")) {
+    return -1;
+  }
+  return a.localeCompare(b);
+};
 
 export {
   useTranslatorType,

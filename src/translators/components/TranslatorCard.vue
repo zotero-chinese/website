@@ -8,9 +8,10 @@ import {
 const props = defineProps<{ translator: TranslatorLittle }>();
 const translator = props.translator;
 
-const sortedItemTypes = useSortedItemTypes(
-  translator.itemTypes.map((v) => useItemType(v)),
-);
+const sortedItemTypes = translator.itemTypes
+  .map((v) => useItemType(v))
+  .sort(useSortedItemTypes);
+
 const translatorTypes = useTranslatorType(translator.translatorType);
 </script>
 
