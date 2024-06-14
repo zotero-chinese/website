@@ -7,7 +7,8 @@ import {
 } from "../composables/localize";
 import { useData } from "vitepress";
 
-const translator = useData().params.value.translator;
+const translator = useData().params.value?.translator as Translator;
+const translatorTypes = useTranslatorType(translator?.header.translatorType);
 </script>
 
 <template>
@@ -37,9 +38,7 @@ const translator = useData().params.value.translator;
       label-class-name="fieldLabel"
     >
       <el-tag
-        v-for="(type, index) in useTranslatorType(
-          translator?.header.translatorType,
-        )"
+        v-for="(type, index) in translatorTypes"
         :key="index"
         type="info"
         round
@@ -89,6 +88,7 @@ const translator = useData().params.value.translator;
         <a :href="testCase.url">
           <strong>条目 {{ itemIndex + 1 }}</strong>
         </a>
+
         <el-descriptions :column="1" border>
           <template
             v-for="(value, field, fieldIndex) in item"
@@ -109,6 +109,7 @@ const translator = useData().params.value.translator;
                 </div>
               </el-descriptions-item>
             </template>
+
             <template v-else>
               <el-descriptions-item
                 :label="useItemField(String(field))"
@@ -118,15 +119,18 @@ const translator = useData().params.value.translator;
                 <div v-if="field == 'itemType'">
                   {{ useItemType(value) }}
                 </div>
+
                 <div
                   v-else-if="field == 'extra'"
                   style="white-space: pre-wrap; word-break: break-all"
                 >
                   {{ value }}
                 </div>
+
                 <div v-else-if="field == 'url'" style="word-break: break-all">
                   <a :href="value">{{ value }}</a>
                 </div>
+
                 <div v-else-if="field == 'attachments'" class="tags-container">
                   <el-card
                     v-for="(attachment, attachmentIndex) in value"
@@ -149,6 +153,7 @@ const translator = useData().params.value.translator;
                     {{ attachment.title }}
                   </el-card>
                 </div>
+
                 <div v-else-if="field === 'tags'" class="tags-container">
                   <el-tag
                     v-for="(tag, tagIndex) in value"
@@ -159,6 +164,7 @@ const translator = useData().params.value.translator;
                     {{ tag.tag }}
                   </el-tag>
                 </div>
+
                 <div v-else-if="field == 'notes'" class="tags-container">
                   <el-card
                     v-for="(note, noteIndex) in value"
@@ -173,6 +179,7 @@ const translator = useData().params.value.translator;
                     {{ note }}
                   </el-card>
                 </div>
+
                 <div v-else>
                   <div
                     v-if="typeof value === 'string'"

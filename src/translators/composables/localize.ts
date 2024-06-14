@@ -228,10 +228,10 @@ function useCreatorType(creatorType: string) {
 
 function useSortedItemTypes(types: Array<string>) {
   return types.sort((a, b) => {
-    if (a === useItemType("multiple")) {
+    if (a === "multiple") {
       return 1;
     }
-    if (b === useItemType("multiple")) {
+    if (b === "multiple") {
       return -1;
     }
     return a.localeCompare(b);

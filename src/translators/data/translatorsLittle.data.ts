@@ -5,6 +5,9 @@ const local_path = path.resolve("src/translators/data/dashboard.json"),
   remote_path =
     "https://github.com/l0o0/translators_CN/raw/master/data/dashboard.json";
 
+declare const data: { translators: TranslatorLittle[]; allItemTypes: string[] };
+export { data };
+
 export default {
   async load() {
     const raw = await getRaw();

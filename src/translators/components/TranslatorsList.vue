@@ -8,6 +8,8 @@ import { useSortedItemTypes, useItemType } from "../composables/localize";
 
 const translators = data.translators;
 
+const translatorTypes = useSortedItemTypes(data.allItemTypes);
+
 const searchText = ref("");
 const debouncedSearchText = refDebounced(searchText, 1000);
 const selectedTags = ref([]);
@@ -26,6 +28,7 @@ const filtered = computed(() => {
       );
     });
   }
+
   if (selectedTags.value.length !== 0) {
     filtered = filtered.filter((translator) =>
       selectedTags.value.every((tag) =>
@@ -62,14 +65,12 @@ function clearSearch() {
   <!-- 标签筛选 -->
   <el-checkbox-group v-model="selectedTags" size="large">
     <el-checkbox
-      v-for="(tag, index) in useSortedItemTypes(
-        data.allItemTypes.map((type) => useItemType(type)),
-      )"
+      v-for="(tag, index) in translatorTypes"
       :key="index"
       :value="tag"
       border
     >
-      {{ tag }}
+      {{ useItemType(tag) }}
     </el-checkbox>
   </el-checkbox-group>
 
