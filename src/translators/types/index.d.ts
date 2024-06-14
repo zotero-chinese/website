@@ -13,7 +13,14 @@ declare interface testCase {
   type: string;
   url?: string;
   input?: string;
-  items: Array<{ [key: string]: any; itemType: string }> | "multiple";
+  items:
+    | Array<{
+        [key: string]: any;
+        itemType: string;
+        notes?: Array<string | { title?: string; note: string }>;
+        seeAlso?: Array<string>;
+      }>
+    | "multiple";
 }
 
 declare interface TranslatorHeader {
@@ -25,7 +32,7 @@ declare interface TranslatorHeader {
   maxVersion: string;
   priority: number;
   inRepository: boolean;
-  translatorType: 1 | 4 | 8 | 12;
+  translatorType: number;
   browserSupport: string;
   lastUpdated: string;
 }
@@ -37,7 +44,13 @@ declare interface Translators {
 declare interface TranslatorLittle
   extends Pick<
     TranslatorHeader,
-    "translatorID" | "label" | "creator" | "target" | "lastUpdated"
+    | "translatorID"
+    | "label"
+    | "creator"
+    | "target"
+    | "translatorType"
+    | "lastUpdated"
   > {
   zhLabel: string;
+  itemTypes: Array<string>;
 }

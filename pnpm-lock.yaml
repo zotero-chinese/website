@@ -15,8 +15,8 @@ importers:
         specifier: ^3.0.0
         version: 3.0.0(vue@3.4.27(typescript@5.4.5))
       '@highcharts/dashboards':
-        specifier: 1.3.1
-        version: 1.3.1(highcharts@11.4.1)
+        specifier: 2.1.0
+        version: 2.1.0(highcharts@11.4.3)
       '@mdit/plugin-footnote':
         specifier: 0.10.1
         version: 0.10.1(markdown-it@14.1.0)
@@ -30,11 +30,11 @@ importers:
         specifier: 4.2.2
         version: 4.2.2
       highcharts:
-        specifier: 11.4.1
-        version: 11.4.1
+        specifier: 11.4.3
+        version: 11.4.3
       highcharts-vue:
         specifier: 2.0.1
-        version: 2.0.1(highcharts@11.4.1)(vue@3.4.27(typescript@5.4.5))
+        version: 2.0.1(highcharts@11.4.3)(vue@3.4.27(typescript@5.4.5))
       vitepress:
         specifier: 1.2.0
         version: 1.2.0(@algolia/client-search@4.23.3)(@types/node@20.12.12)(async-validator@4.2.5)(less@4.2.0)(postcss@8.4.38)(search-insights@2.13.0)(typescript@5.4.5)
@@ -56,7 +56,7 @@ importers:
         version: 20.12.12
       '@vitejs/plugin-vue':
         specifier: 5.0.4
-        version: 5.0.4(vite@5.2.11(@types/node@20.12.12)(less@4.2.0))(vue@3.4.27(typescript@5.4.5))
+        version: 5.0.4(vite@5.2.12(@types/node@20.12.12)(less@4.2.0))(vue@3.4.27(typescript@5.4.5))
       '@vue/eslint-config-prettier':
         specifier: 9.0.0
         version: 9.0.0(eslint@8.57.0)(prettier@3.2.5)
@@ -100,14 +100,14 @@ importers:
         specifier: 0.27.0
         version: 0.27.0(@babel/parser@7.24.5)(rollup@4.16.4)(vue@3.4.27(typescript@5.4.5))
       vite:
-        specifier: 5.2.11
-        version: 5.2.11(@types/node@20.12.12)(less@4.2.0)
+        specifier: 5.2.12
+        version: 5.2.12(@types/node@20.12.12)(less@4.2.0)
       vite-plugin-inspect:
         specifier: ^0.8.4
-        version: 0.8.4(rollup@4.16.4)(vite@5.2.11(@types/node@20.12.12)(less@4.2.0))
+        version: 0.8.4(rollup@4.16.4)(vite@5.2.12(@types/node@20.12.12)(less@4.2.0))
       vite-plugin-vue-devtools:
         specifier: ^7.2.0
-        version: 7.2.0(rollup@4.16.4)(vite@5.2.11(@types/node@20.12.12)(less@4.2.0))(vue@3.4.27(typescript@5.4.5))
+        version: 7.2.0(rollup@4.16.4)(vite@5.2.12(@types/node@20.12.12)(less@4.2.0))(vue@3.4.27(typescript@5.4.5))
       vue-tsc:
         specifier: 2.0.19
         version: 2.0.19(typescript@5.4.5)
@@ -575,8 +575,8 @@ packages:
     peerDependencies:
       vue: '>=3.2.0'
 
-  '@highcharts/dashboards@1.3.1':
-    resolution: {integrity: sha512-vT3ojxON5EKmhxUUZZzy5TG98pGqe2Z13/WTMuCu6LY/vBwjq4hts2AY0Nmd6XX4ad5Eov+zGPZ8ohJZbCbirw==}
+  '@highcharts/dashboards@2.1.0':
+    resolution: {integrity: sha512-tdnM4bFEREoADljplmd+EgZ1dTNY+e88mvHGs4JlsDRrETsW/o01QFdQDCUVXVWzIgc4NXotJvrR7GtRn21jhQ==}
     peerDependencies:
       highcharts: '>=10.0.0'
 
@@ -1716,8 +1716,8 @@ packages:
       highcharts: '>=5.0.0'
       vue: '>=3.0.0'
 
-  highcharts@11.4.1:
-    resolution: {integrity: sha512-t+BjB4hba5rNheczCrpyDz8BJrqGdgECHaaXQrgbf1mRdPMPemlOfo08/kTMgZ/Kp/Xfj015atdXpUFdwUU12Q==}
+  highcharts@11.4.3:
+    resolution: {integrity: sha512-rMmvYvcdwyUVfnRPfiZ0PnW6TgVhoS0FTBI8fc4Fp8l8ocoC9dMecvxS6E6tm7h7LrnSGoEo3b/0IRHuLatD2w==}
 
   hookable@5.5.3:
     resolution: {integrity: sha512-Yc+BQe8SvoXH1643Qez1zqLRmbA5rCL+sSmk6TVos0LWVfNIB7PGncdlId77WzLGSIB5KaWgTaNTs2lNVEI6VQ==}
@@ -2622,8 +2622,8 @@ packages:
     peerDependencies:
       vite: ^3.0.0-0 || ^4.0.0-0 || ^5.0.0-0
 
-  vite@5.2.11:
-    resolution: {integrity: sha512-HndV31LWW05i1BLPMUCE1B9E9GFbOu1MbenhS58FuK6owSO5qHm7GiCotrNY1YE5rMeQSFBGmT5ZaLEjFizgiQ==}
+  vite@5.2.12:
+    resolution: {integrity: sha512-/gC8GxzxMK5ntBwb48pR32GGhENnjtY30G4A0jemunsBkiEZFw60s8InGpN8gkhHEkjnRK1aSAxeQgwvFhUHAA==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
     peerDependencies:
@@ -2860,7 +2860,7 @@ snapshots:
   '@babel/code-frame@7.24.2':
     dependencies:
       '@babel/highlight': 7.24.5
-      picocolors: 1.0.0
+      picocolors: 1.0.1
 
   '@babel/compat-data@7.24.4': {}
 
@@ -2994,7 +2994,7 @@ snapshots:
       '@babel/helper-validator-identifier': 7.24.5
       chalk: 2.4.2
       js-tokens: 4.0.0
-      picocolors: 1.0.0
+      picocolors: 1.0.1
 
   '@babel/parser@7.24.4':
     dependencies:
@@ -3217,9 +3217,9 @@ snapshots:
       giscus: 1.5.0
       vue: 3.4.27(typescript@5.4.5)
 
-  '@highcharts/dashboards@1.3.1(highcharts@11.4.1)':
+  '@highcharts/dashboards@2.1.0(highcharts@11.4.3)':
     dependencies:
-      highcharts: 11.4.1
+      highcharts: 11.4.3
 
   '@humanwhocodes/config-array@0.11.14':
     dependencies:
@@ -3525,9 +3525,9 @@ snapshots:
 
   '@ungap/structured-clone@1.2.0': {}
 
-  '@vitejs/plugin-vue@5.0.4(vite@5.2.11(@types/node@20.12.12)(less@4.2.0))(vue@3.4.27(typescript@5.4.5))':
+  '@vitejs/plugin-vue@5.0.4(vite@5.2.12(@types/node@20.12.12)(less@4.2.0))(vue@3.4.27(typescript@5.4.5))':
     dependencies:
-      vite: 5.2.11(@types/node@20.12.12)(less@4.2.0)
+      vite: 5.2.12(@types/node@20.12.12)(less@4.2.0)
       vue: 3.4.27(typescript@5.4.5)
 
   '@volar/language-core@2.2.4':
@@ -3608,14 +3608,14 @@ snapshots:
     transitivePeerDependencies:
       - vue
 
-  '@vue/devtools-core@7.2.0(vite@5.2.11(@types/node@20.12.12)(less@4.2.0))(vue@3.4.27(typescript@5.4.5))':
+  '@vue/devtools-core@7.2.0(vite@5.2.12(@types/node@20.12.12)(less@4.2.0))(vue@3.4.27(typescript@5.4.5))':
     dependencies:
       '@vue/devtools-kit': 7.2.0(vue@3.4.27(typescript@5.4.5))
       '@vue/devtools-shared': 7.2.0
       mitt: 3.0.1
       nanoid: 3.3.7
       pathe: 1.1.2
-      vite-hot-client: 0.2.3(vite@5.2.11(@types/node@20.12.12)(less@4.2.0))
+      vite-hot-client: 0.2.3(vite@5.2.12(@types/node@20.12.12)(less@4.2.0))
     transitivePeerDependencies:
       - vite
       - vue
@@ -4472,12 +4472,12 @@ snapshots:
 
   he@1.2.0: {}
 
-  highcharts-vue@2.0.1(highcharts@11.4.1)(vue@3.4.27(typescript@5.4.5)):
+  highcharts-vue@2.0.1(highcharts@11.4.3)(vue@3.4.27(typescript@5.4.5)):
     dependencies:
-      highcharts: 11.4.1
+      highcharts: 11.4.3
       vue: 3.4.27(typescript@5.4.5)
 
-  highcharts@11.4.1: {}
+  highcharts@11.4.3: {}
 
   hookable@5.5.3: {}
 
@@ -5086,7 +5086,7 @@ snapshots:
   postcss@8.4.38:
     dependencies:
       nanoid: 3.3.7
-      picocolors: 1.0.0
+      picocolors: 1.0.1
       source-map-js: 1.2.0
 
   preact@10.20.2: {}
@@ -5407,11 +5407,11 @@ snapshots:
       kleur: 4.1.5
       sade: 1.8.1
 
-  vite-hot-client@0.2.3(vite@5.2.11(@types/node@20.12.12)(less@4.2.0)):
+  vite-hot-client@0.2.3(vite@5.2.12(@types/node@20.12.12)(less@4.2.0)):
     dependencies:
-      vite: 5.2.11(@types/node@20.12.12)(less@4.2.0)
+      vite: 5.2.12(@types/node@20.12.12)(less@4.2.0)
 
-  vite-plugin-inspect@0.8.4(rollup@4.16.4)(vite@5.2.11(@types/node@20.12.12)(less@4.2.0)):
+  vite-plugin-inspect@0.8.4(rollup@4.16.4)(vite@5.2.12(@types/node@20.12.12)(less@4.2.0)):
     dependencies:
       '@antfu/utils': 0.7.8
       '@rollup/pluginutils': 5.1.0(rollup@4.16.4)
@@ -5422,28 +5422,28 @@ snapshots:
       perfect-debounce: 1.0.0
       picocolors: 1.0.0
       sirv: 2.0.4
-      vite: 5.2.11(@types/node@20.12.12)(less@4.2.0)
+      vite: 5.2.12(@types/node@20.12.12)(less@4.2.0)
     transitivePeerDependencies:
       - rollup
       - supports-color
 
-  vite-plugin-vue-devtools@7.2.0(rollup@4.16.4)(vite@5.2.11(@types/node@20.12.12)(less@4.2.0))(vue@3.4.27(typescript@5.4.5)):
+  vite-plugin-vue-devtools@7.2.0(rollup@4.16.4)(vite@5.2.12(@types/node@20.12.12)(less@4.2.0))(vue@3.4.27(typescript@5.4.5)):
     dependencies:
-      '@vue/devtools-core': 7.2.0(vite@5.2.11(@types/node@20.12.12)(less@4.2.0))(vue@3.4.27(typescript@5.4.5))
+      '@vue/devtools-core': 7.2.0(vite@5.2.12(@types/node@20.12.12)(less@4.2.0))(vue@3.4.27(typescript@5.4.5))
       '@vue/devtools-kit': 7.2.0(vue@3.4.27(typescript@5.4.5))
       '@vue/devtools-shared': 7.2.0
       execa: 8.0.1
       sirv: 2.0.4
-      vite: 5.2.11(@types/node@20.12.12)(less@4.2.0)
-      vite-plugin-inspect: 0.8.4(rollup@4.16.4)(vite@5.2.11(@types/node@20.12.12)(less@4.2.0))
-      vite-plugin-vue-inspector: 5.1.0(vite@5.2.11(@types/node@20.12.12)(less@4.2.0))
+      vite: 5.2.12(@types/node@20.12.12)(less@4.2.0)
+      vite-plugin-inspect: 0.8.4(rollup@4.16.4)(vite@5.2.12(@types/node@20.12.12)(less@4.2.0))
+      vite-plugin-vue-inspector: 5.1.0(vite@5.2.12(@types/node@20.12.12)(less@4.2.0))
     transitivePeerDependencies:
       - '@nuxt/kit'
       - rollup
       - supports-color
       - vue
 
-  vite-plugin-vue-inspector@5.1.0(vite@5.2.11(@types/node@20.12.12)(less@4.2.0)):
+  vite-plugin-vue-inspector@5.1.0(vite@5.2.12(@types/node@20.12.12)(less@4.2.0)):
     dependencies:
       '@babel/core': 7.24.5
       '@babel/plugin-proposal-decorators': 7.24.1(@babel/core@7.24.5)
@@ -5454,11 +5454,11 @@ snapshots:
       '@vue/compiler-dom': 3.4.27
       kolorist: 1.8.0
       magic-string: 0.30.10
-      vite: 5.2.11(@types/node@20.12.12)(less@4.2.0)
+      vite: 5.2.12(@types/node@20.12.12)(less@4.2.0)
     transitivePeerDependencies:
       - supports-color
 
-  vite@5.2.11(@types/node@20.12.12)(less@4.2.0):
+  vite@5.2.12(@types/node@20.12.12)(less@4.2.0):
     dependencies:
       esbuild: 0.20.2
       postcss: 8.4.38
@@ -5475,7 +5475,7 @@ snapshots:
       '@shikijs/core': 1.6.0
       '@shikijs/transformers': 1.6.0
       '@types/markdown-it': 14.1.1
-      '@vitejs/plugin-vue': 5.0.4(vite@5.2.11(@types/node@20.12.12)(less@4.2.0))(vue@3.4.27(typescript@5.4.5))
+      '@vitejs/plugin-vue': 5.0.4(vite@5.2.12(@types/node@20.12.12)(less@4.2.0))(vue@3.4.27(typescript@5.4.5))
       '@vue/devtools-api': 7.2.0(vue@3.4.27(typescript@5.4.5))
       '@vue/shared': 3.4.27
       '@vueuse/core': 10.9.0(vue@3.4.27(typescript@5.4.5))
@@ -5484,7 +5484,7 @@ snapshots:
       mark.js: 8.11.1
       minisearch: 6.3.0
       shiki: 1.6.0
-      vite: 5.2.11(@types/node@20.12.12)(less@4.2.0)
+      vite: 5.2.12(@types/node@20.12.12)(less@4.2.0)
       vue: 3.4.27(typescript@5.4.5)
     optionalDependencies:
       postcss: 8.4.38

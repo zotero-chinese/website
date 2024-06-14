@@ -1,52 +1,61 @@
 <script setup lang="ts">
 import { ref, computed } from "vue";
-import { refDebounced } from "@vueuse/core";
 
+import Search from "@theme/components/Search.vue";
+import TagsFilter from "@theme/components/TagsFilter.vue";
 import TranslatorCard from "./TranslatorCard.vue";
-import { data as translators } from "../data/translatorsLittle.data";
+
+import { data } from "../data/translatorsLittle.data";
+import { useSortedItemTypes, useItemType } from "../composables/localize";
+
+const translatorTypes = data.allItemTypes
+  .map((v) => {
+    return {
+      label: useItemType(v),
+      value: v,
+    };
+  })
+  .sort((a, b) => {
+    return useSortedItemTypes(a.label, b.label);
+  });
 
 const searchText = ref("");
-const debouncedSearchText = refDebounced(searchText, 1000);
+const selectedTags = ref([]);
 
+const translators = data.translators;
 const filtered = computed(() => {
   let filtered = translators;
 
-  if (debouncedSearchText.value) {
-    const searchTextLower = debouncedSearchText.value.toLowerCase();
+  if (searchText.value !== "") {
+    const searchTextLower = searchText.value.toLowerCase();
     filtered = filtered.filter((item) => {
       return (
         item.label.toLowerCase().includes(searchTextLower) ||
         item.zhLabel.toLowerCase().includes(searchTextLower) ||
-        (item.target !== "" &&
-          new RegExp(item.target).test(debouncedSearchText.value))
+        (item.target !== "" && new RegExp(item.target).test(searchText.value))
       );
     });
   }
+
+  if (selectedTags.value.length !== 0) {
+    filtered = filtered.filter((translator) =>
+      selectedTags.value.every((tag) =>
+        translator.itemTypes.some((type) => type === tag),
+      ),
+    );
+  }
   return filtered;
 });
-
-function clearSearch() {
-  searchText.value = "";
-}
 </script>
 
 <template>
   <div class="toolbar">
     <!-- 搜索 -->
-    <el-input
-      v-model="searchText"
-      size="large"
-      placeholder="搜索转换器名称或匹配网址..."
-      clearable
-      @clear="clearSearch"
-    >
-      <template #prefix>
-        <el-icon>
-          <Search />
-        </el-icon>
-      </template>
-    </el-input>
+    <Search v-model="searchText" placeholder="搜索转换器名称或匹配网址..." />
   </div>
+
+  <!-- 标签筛选 -->
+  <TagsFilter v-model="selectedTags" :tags="translatorTypes" />
 
   <!-- 插件卡片列表 -->
   <el-row :gutter="20">
@@ -75,38 +84,17 @@ function clearSearch() {
   justify-content: space-around;
   padding-bottom: 20px;
 }
+
 .toolbar > * {
   margin: 0 8px;
 }
+
 .toolbar > :first-child {
   margin-left: 0;
 }
+
 .toolbar > :last-child {
   margin-right: 0;
-}
-.el-checkbox-group {
-  display: flex;
-  justify-content: center;
-  padding-bottom: 20px;
-  flex-wrap: wrap;
-}
-
-.el-checkbox {
-  margin: 0px 10px 10px 0px;
-}
-
-.el-checkbox > :deep(.el-checkbox__input) {
-  display: none !important;
-}
-
-.el-checkbox-button {
-  border: var(--el-border);
-  border-radius: var(--el-border-radius-base);
-  /* box-shadow: none!important; */
-}
-.el-checkbox-button__inner {
-  border: unset !important;
-  border-left-color: unset !important;
 }
 
 .el-col {

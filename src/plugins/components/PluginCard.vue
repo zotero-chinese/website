@@ -52,10 +52,10 @@
         <el-tooltip
           class="box-item"
           effect="dark"
-          :content="tagsInfo[tag].description"
+          :content="allTags.find((t) => t.value === tag)?.description"
           placement="bottom"
         >
-          {{ tagsInfo[tag].label }}
+          {{ allTags.find((t) => t.value === tag)?.label }}
         </el-tooltip>
       </el-tag>
     </div>
@@ -67,7 +67,7 @@
 </template>
 
 <script setup lang="ts">
-import { tags } from "../types/tags";
+import { tags as allTags } from "../types/tags";
 
 const props = defineProps<{
   plugin: PluginInfo;
@@ -78,8 +78,6 @@ const emits = defineEmits(["showDownload"]);
 function showDownload() {
   emits("showDownload", props.plugin);
 }
-
-const tagsInfo = tags;
 </script>
 
 <style scoped>
