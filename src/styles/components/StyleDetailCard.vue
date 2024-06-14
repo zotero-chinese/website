@@ -73,7 +73,7 @@ const styleFormat =
       </el-descriptions-item>
 
       <el-descriptions-item label="格式">
-        {{ styleClass }}， {{ styleFormat }}
+        {{ styleClass }}, {{ styleFormat }}
       </el-descriptions-item>
 
       <el-descriptions-item label="标签">
