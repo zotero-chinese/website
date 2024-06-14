@@ -1,14 +1,12 @@
 <script setup lang="ts">
 import { ref, computed } from "vue";
-import StyleListItem from "./StyleListItem.vue";
 import Search from "@theme/components/Search.vue";
 import TagsFilter from "@theme/components/TagsFilter.vue";
+import StyleListItem from "./StyleListItem.vue";
 
-// @ts-ignore
 import { data as styles } from "../data/styles.data";
 
-import { styleTags } from "../types/tags";
-const allTags = styleTags.map((v) => {
+const allTags = [...new Set(styles.flatMap((style) => style.tags))].map((v) => {
   return {
     label: v,
     value: v,
