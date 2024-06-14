@@ -1,23 +1,30 @@
 <script setup lang="ts">
 import { ref, computed } from "vue";
-import { refDebounced } from "@vueuse/core";
 import StyleListItem from "./StyleListItem.vue";
-import { styleTags } from "../types/tags";
+import Search from "@theme/components/Search.vue";
+import TagsFilter from "@theme/components/TagsFilter.vue";
 
 // @ts-ignore
 import { data as styles } from "../data/styles.data";
 
+import { styleTags } from "../types/tags";
+const allTags = styleTags.map((v) => {
+  return {
+    label: v,
+    value: v,
+  };
+});
+
 const format = ref("");
 const searchText = ref("");
-const debouncedSearchText = refDebounced(searchText, 1000);
 const selectedTags = ref([]);
 const showPreview = ref(false);
 
 const filtered = computed(() => {
   let filtered = styles;
   // 搜索
-  if (debouncedSearchText.value !== "") {
-    const searchTextLower = debouncedSearchText.value.toLowerCase();
+  if (searchText.value !== "") {
+    const searchTextLower = searchText.value.toLowerCase();
     filtered = filtered.filter((item) => {
       return (
         item.title.toLowerCase().includes(searchTextLower) ||
@@ -42,10 +49,6 @@ const filtered = computed(() => {
 
   return filtered;
 });
-
-function clearSearch() {
-  searchText.value = "";
-}
 </script>
 
 <template>
@@ -71,30 +74,14 @@ function clearSearch() {
     </el-select>
 
     <!-- 搜索 -->
-    <el-input
-      v-model="searchText"
-      size="large"
-      placeholder="搜索样式名称..."
-      clearable
-      @clear="clearSearch"
-    >
-      <template #prefix>
-        <el-icon>
-          <Search />
-        </el-icon>
-      </template>
-    </el-input>
+    <Search v-model="searchText" placeholder="搜索样式名称..." />
 
     <!-- 显示预览 -->
     <!-- <el-switch v-model="showPreview" /> -->
   </div>
 
   <!-- 标签筛选 -->
-  <el-checkbox-group v-model="selectedTags" size="large">
-    <el-checkbox v-for="tag in styleTags" :key="tag" :value="tag" border>
-      {{ tag }}
-    </el-checkbox>
-  </el-checkbox-group>
+  <TagsFilter v-model="selectedTags" :tags="allTags" />
 
   <!-- 插件卡片列表 -->
   <div class="styles-list">
