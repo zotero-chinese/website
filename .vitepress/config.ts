@@ -7,7 +7,7 @@ import { head } from "./config/head.config";
 import vite from "./config/vite.config";
 
 export default defineConfig({
-  title: `Zotero 中文社区`,
+  title: "Zotero 中文社区",
   description: "Zotero 非官方中文维护小组",
   lang: "zh-CN",
 

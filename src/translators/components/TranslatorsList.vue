@@ -3,10 +3,18 @@ import { ref, computed } from "vue";
 import { refDebounced } from "@vueuse/core";
 
 import TranslatorCard from "./TranslatorCard.vue";
-import { data as translators } from "../data/translatorsLittle.data";
+import { data } from "../data/translatorsLittle.data";
+import { useSortedItemTypes, useItemType } from "../composables/localize";
+
+const translators = data.translators;
+
+const translatorTypes = useSortedItemTypes(
+  data.allItemTypes.map((v) => useItemType(v)),
+);
 
 const searchText = ref("");
 const debouncedSearchText = refDebounced(searchText, 1000);
+const selectedTags = ref([]);
 
 const filtered = computed(() => {
   let filtered = translators;
@@ -21,6 +29,14 @@ const filtered = computed(() => {
           new RegExp(item.target).test(debouncedSearchText.value))
       );
     });
+  }
+
+  if (selectedTags.value.length !== 0) {
+    filtered = filtered.filter((translator) =>
+      selectedTags.value.every((tag) =>
+        translator.itemTypes.some((type) => type === tag),
+      ),
+    );
   }
   return filtered;
 });
@@ -47,6 +63,18 @@ function clearSearch() {
       </template>
     </el-input>
   </div>
+
+  <!-- 标签筛选 -->
+  <el-checkbox-group v-model="selectedTags" size="large">
+    <el-checkbox
+      v-for="(tag, index) in translatorTypes"
+      :key="index"
+      :value="tag"
+      border
+    >
+      {{ tag }}
+    </el-checkbox>
+  </el-checkbox-group>
 
   <!-- 插件卡片列表 -->
   <el-row :gutter="20">
@@ -75,15 +103,19 @@ function clearSearch() {
   justify-content: space-around;
   padding-bottom: 20px;
 }
+
 .toolbar > * {
   margin: 0 8px;
 }
+
 .toolbar > :first-child {
   margin-left: 0;
 }
+
 .toolbar > :last-child {
   margin-right: 0;
 }
+
 .el-checkbox-group {
   display: flex;
   justify-content: center;
@@ -104,6 +136,7 @@ function clearSearch() {
   border-radius: var(--el-border-radius-base);
   /* box-shadow: none!important; */
 }
+
 .el-checkbox-button__inner {
   border: unset !important;
   border-left-color: unset !important;
