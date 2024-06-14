@@ -9,7 +9,10 @@ const style = styles.find(
   (s) => s.dir === page.value.relativePath.split("/")[1],
 );
 
-const contributors = "";
+const contributors = [
+  ...(style?.author?.map((v) => v.name) || ""),
+  ...(style?.contributor?.map((v) => v.name) || ""),
+].join(", ");
 
 const repoU = "redleafnew";
 const repoN = "Chinese-STD-GB-T-7714-related-csl";
