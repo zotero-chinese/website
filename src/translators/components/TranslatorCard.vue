@@ -8,7 +8,9 @@ import {
 const props = defineProps<{ translator: TranslatorLittle }>();
 const translator = props.translator;
 
-const sortedItemTypes = useSortedItemTypes(translator.itemTypes);
+const sortedItemTypes = useSortedItemTypes(
+  translator.itemTypes.map((v) => useItemType(v)),
+);
 const translatorTypes = useTranslatorType(translator.translatorType);
 </script>
 
@@ -62,8 +64,10 @@ const translatorTypes = useTranslatorType(translator.translatorType);
     <template #footer>
       <span class="tags-container">
         <template v-for="(type, index) in sortedItemTypes" :key="index">
-          <el-tag :type="type === 'multiple' ? 'success' : 'primary'">
-            {{ useItemType(type) }}
+          <el-tag
+            :type="type === useItemType('multiple') ? 'success' : 'primary'"
+          >
+            {{ type }}
           </el-tag>
         </template>
       </span>

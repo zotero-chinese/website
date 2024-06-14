@@ -8,7 +8,9 @@ import { useSortedItemTypes, useItemType } from "../composables/localize";
 
 const translators = data.translators;
 
-const translatorTypes = useSortedItemTypes(data.allItemTypes);
+const translatorTypes = useSortedItemTypes(
+  data.allItemTypes.map((v) => useItemType(v)),
+);
 
 const searchText = ref("");
 const debouncedSearchText = refDebounced(searchText, 1000);
@@ -70,7 +72,7 @@ function clearSearch() {
       :value="tag"
       border
     >
-      {{ useItemType(tag) }}
+      {{ tag }}
     </el-checkbox>
   </el-checkbox-group>
 
