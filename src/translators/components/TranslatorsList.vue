@@ -32,7 +32,7 @@ const filtered = computed(() => {
   if (selectedTags.value.length !== 0) {
     filtered = filtered.filter((translator) =>
       selectedTags.value.every((tag) =>
-        translator.itemTypes.some((type) => useItemType(type) === tag),
+        translator.itemTypes.some((type) => type === tag),
       ),
     );
   }
