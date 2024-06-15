@@ -1,4 +1,15 @@
 <template>
+  <PageHeader
+    title="🤩 Awesome Zotero Plugins"
+    :actions="[
+      { text: '🏪 Plugins Store', link: '/plugins' },
+      {
+        text: '🤵 Feedback',
+        link: 'https://github.com/zotero-chinese/zotero-plugins',
+      },
+    ]"
+  />
+
   <div
     id="container"
     :class="{ 'highcharts-dark': darkMode, 'highcharts-light': !darkMode }"
@@ -12,6 +23,7 @@
 import { data as chartsData } from "../data/charts.data";
 import { useData } from "vitepress";
 import { onMounted } from "vue";
+import PageHeader from "@theme/components/PageHeader.vue";
 
 import Highcharts from "highcharts";
 import HighchartsMore from "highcharts/highcharts-more";
@@ -70,7 +82,7 @@ function loadChartsJson() {
     }
   }
   (
-    chartsData.components[2].chartOptions!.plotOptions!.series.point!
+    chartsData.components[1].chartOptions!.plotOptions!.series.point!
       .events as any
   ).click = function (this: any) {
     // @ts-ignore
@@ -84,7 +96,7 @@ function loadChartsJson() {
 }
 </script>
 
-<style>
+<style scope>
 @import url("highcharts/css/highcharts.css");
 @import url("@highcharts/dashboards/css/dashboards.css");
 @import url("@highcharts/dashboards/css/datagrid.css");
@@ -95,6 +107,11 @@ function loadChartsJson() {
   --highcharts-color-102: #3fb950;
 }
 
+.highcharts-dashboards,
+.highcharts-dashboards-wrapper {
+  background-color: unset;
+}
+
 .highcharts-color-101 {
   fill: var(--highcharts-color-101);
   stroke: var(--highcharts-color-101);
@@ -103,10 +120,6 @@ function loadChartsJson() {
 .highcharts-color-102 {
   fill: var(--highcharts-color-102);
   stroke: var(--highcharts-color-102);
-}
-
-#title h1 {
-  text-align: center;
 }
 
 .stargazers-pie-plugin {
