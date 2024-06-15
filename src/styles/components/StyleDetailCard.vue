@@ -62,9 +62,9 @@ const styleFormat =
       </el-descriptions-item>
 
       <el-descriptions-item label="规范" :span="2">
-        <el-link :href="style.link_documentation" target="_blank">
+        <a :href="style.link_documentation" target="_blank">
           {{ style.link_documentation }}
-        </el-link>
+        </a>
       </el-descriptions-item>
 
       <el-descriptions-item label="贡献者">
@@ -112,9 +112,6 @@ const styleFormat =
             从 GH Proxy 安装样式
           </a>
         </li>
-        <!-- <li v-for="(v, k) in downloadLinks" :key="k">
-          <a :href="v">{{ k }}</a>
-        </li> -->
         <li><a :href="rawLink">查看源码</a></li>
       </ul>
     </div>
