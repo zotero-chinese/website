@@ -50,7 +50,7 @@
       :md="8"
       :lg="6"
       :xl="4"
-      v-for="plugin in sortedPlugins"
+      v-for="plugin in filteredPlugins"
       :key="plugin.repo"
     >
       <PluginCard :plugin="plugin" @show-download="showDownload" />
@@ -87,25 +87,10 @@ const zotero = ref("");
 const searchText = ref("");
 const selectedTags = ref([]);
 
-const sortedPlugins = computed(() => {
-  if (sortBy.value === "name") {
-    return filteredPlugins.value
-      .slice()
-      .sort((a, b) => a.name.localeCompare(b.name));
-  } else if (sortBy.value === "stars") {
-    return filteredPlugins.value.slice().sort((a, b) => b.stars - a.stars);
-  } else if (sortBy.value === "author") {
-    return filteredPlugins.value
-      .slice()
-      .sort((a, b) => a.author.name.localeCompare(b.author.name));
-  } else {
-    return filteredPlugins.value;
-  }
-});
-
 const filteredPlugins = computed(() => {
   let filtered = plugins;
 
+  // 筛选 Zotero 版本
   if (zotero.value !== "") {
     filtered = filtered.filter((plugin) => {
       return plugin.releases.some(
@@ -124,10 +109,23 @@ const filteredPlugins = computed(() => {
       );
     });
   }
+
+  // 筛选标签
   if (selectedTags.value.length !== 0) {
     filtered = filtered.filter((plugin) => {
       return selectedTags.value.every((tag) => plugin.tags.includes(tag));
     });
+  }
+
+  // 排序
+  if (sortBy.value === "name") {
+    return filtered.slice().sort((a, b) => a.name.localeCompare(b.name));
+  } else if (sortBy.value === "stars") {
+    filtered.slice().sort((a, b) => b.stars - a.stars);
+  } else if (sortBy.value === "author") {
+    return filtered
+      .slice()
+      .sort((a, b) => a.author.name.localeCompare(b.author.name));
   }
   return filtered;
 });

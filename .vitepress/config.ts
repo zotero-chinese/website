@@ -17,6 +17,7 @@ export default defineConfig({
 
   rewrites: {
     "wiki/:id+": ":id+",
+    "styles/detail/src/:id+": "styles/:id+",
   },
   cleanUrls: true,
 
@@ -108,6 +109,7 @@ export default defineConfig({
   buildEnd,
 
   vite,
+  metaChunk: true,
 
   sitemap: {
     hostname: "https://zotero-chinese.com",

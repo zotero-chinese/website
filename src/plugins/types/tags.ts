@@ -63,5 +63,3 @@ export const tags: Tag[] = [
     description: "不在以上分类中的其他插件",
   },
 ];
-
-export const tagList = Object.keys(tags) as TagType[];

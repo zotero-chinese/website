@@ -23,11 +23,16 @@ const data_list = [
     remote_url:
       "https://raw.githubusercontent.com/l0o0/translators_CN/master/data/dashboard.json",
   },
+  {
+    local_path: "src/styles/data/styles.json",
+    remote_url:
+      "https://raw.githubusercontent.com/zotero-chinese/styles/gh-pages/result.json",
+  },
 ];
 
 const tasks = data_list.map(async (d) => {
   const data = await (await fetch(d.remote_url)).json();
-  fs.writeJSONSync(path.resolve(d.local_path), data);
+  fs.outputJSONSync(path.resolve(d.local_path), data);
   console.log(`Download ${d.local_path} success!`);
 });
 

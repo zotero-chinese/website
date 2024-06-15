@@ -12,6 +12,7 @@ import {
   GitChangelog,
   GitChangelogMarkdownSection,
 } from "@nolebase/vitepress-plugin-git-changelog/vite";
+import { MarkdownTransform } from ".vitepress/plugins/markdownTransform";
 
 export default defineConfig({
   plugins: [
@@ -23,6 +24,7 @@ export default defineConfig({
     Components({
       resolvers: [ElementPlusResolver()],
     }),
+    MarkdownTransform(),
 
     // Git Changelog
     GitChangelog({
