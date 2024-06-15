@@ -71,10 +71,6 @@ onMounted(() => {
 });
 
 function loadChartsJson() {
-  chartsData.editMode = {
-    enable: false,
-  };
-
   for (const com of chartsData.components) {
     if (com.chartOptions?.exporting) {
       (
