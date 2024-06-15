@@ -17,12 +17,12 @@ const contributors = [
 const repoU = "redleafnew";
 const repoN = "Chinese-STD-GB-T-7714-related-csl";
 const rawLink = `https://github.com/${repoU}/${repoN}/blob/main/src/${style?.dir}/${style?.file}`;
-const githubLink = `https://github.com/${repoU}/${repoN}/raw/main/src/${style?.dir}/${style?.file}`;
 const downloadLinks = {
-  github: githubLink,
-  gitee: githubLink.replace("github.com", "gitee.com"),
+  // https://raw.githubusercontent.com/redleafnew/Chinese-STD-GB-T-7714-related-csl/main/src/accounting-research/accounting-research.csl
+  github: `https://raw.githubusercontent.com/${repoU}/${repoN}/main/src/${style?.dir}/${style?.file}`,
+  gitee: `https://gitee.com/redleafnew00/${repoN}/raw/main/src/${style?.dir}/${style?.file}`,
   jsd: `https://cdn.jsdelivr.net/gh/${repoU}/${repoN}@main/src/${style?.dir}/${style?.file}`,
-  ghproxy: "#",
+  ghproxy: `https://ghproxy.com/?q=${encodeURI(rawLink)}`,
 };
 
 const styleClass = style?.style_class === "in-text" ? "行间引注" : "脚注";
@@ -98,10 +98,20 @@ const styleFormat =
         本站为每一个样式文件都提供了多个下载地址，请选择自己可用的地址。
       </p>
       <ul>
-        <li><a :href="downloadLinks.github">从 GitHub 安装样式</a></li>
-        <li><a :href="downloadLinks.gitee">从 Gitee 安装样式</a></li>
-        <li><a :href="downloadLinks.jsd">从 JsDeliver 安装样式</a></li>
-        <li><a :href="downloadLinks.ghproxy">从 GH Proxy 安装样式</a></li>
+        <li>
+          <a :href="downloadLinks.github" target="_blank">从 GitHub 安装样式</a>
+        </li>
+        <li>
+          <a :href="downloadLinks.gitee" target="_blank">从 Gitee 安装样式</a>
+        </li>
+        <li>
+          <a :href="downloadLinks.jsd" target="_blank">从 JsDeliver 安装样式</a>
+        </li>
+        <li>
+          <a :href="downloadLinks.ghproxy" target="_blank">
+            从 GH Proxy 安装样式
+          </a>
+        </li>
         <!-- <li v-for="(v, k) in downloadLinks" :key="k">
           <a :href="v">{{ k }}</a>
         </li> -->
