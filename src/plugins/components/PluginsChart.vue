@@ -1,7 +1,13 @@
 <template>
   <PageHeader
     title="🤩 Awesome Zotero Plugins"
-    :actions="[{ text: '🏪 Plugins Store', link: '/plugins' }]"
+    :actions="[
+      { text: '🏪 Plugins Store', link: '/plugins' },
+      {
+        text: '🤵 Feedback',
+        link: 'https://github.com/zotero-chinese/zotero-plugins',
+      },
+    ]"
   />
 
   <div
