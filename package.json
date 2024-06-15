@@ -56,6 +56,6 @@
     "vue-tsc": "2.0.19"
   },
   "lint-staged": {
-    "*.md": "prettier --ignore-unknown --write"
+    "*": "prettier --ignore-unknown --write"
   }
 }
