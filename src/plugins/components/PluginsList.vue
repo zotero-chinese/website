@@ -121,7 +121,7 @@ const filteredPlugins = computed(() => {
   if (sortBy.value === "name") {
     return filtered.slice().sort((a, b) => a.name.localeCompare(b.name));
   } else if (sortBy.value === "stars") {
-    filtered.slice().sort((a, b) => b.stars - a.stars);
+    return filtered.slice().sort((a, b) => b.stars - a.stars);
   } else if (sortBy.value === "author") {
     return filtered
       .slice()
