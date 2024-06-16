@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { ref, watch } from "vue";
+import { useUrlSearchParams } from "@vueuse/core";
+import { toRef, watch, type Ref } from "vue";
 
 export type Tag = {
   label: string;
@@ -9,7 +10,7 @@ export type Tag = {
 
 const props = defineProps({
   modelValue: {
-    type: Array<String>,
+    type: Array<string>,
     default: [],
   },
   tags: {
@@ -18,7 +19,8 @@ const props = defineProps({
   },
 });
 
-const selectedTags = ref(props.modelValue);
+const query = useUrlSearchParams("hash-params", { removeFalsyValues: true });
+const selectedTags = toRef(query, "tags", props.modelValue) as Ref<string[]>;
 
 const emits = defineEmits(["update:modelValue"]);
 
