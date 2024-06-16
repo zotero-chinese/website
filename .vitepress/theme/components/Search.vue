@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { toRef, watch, type Ref } from "vue";
-import { refDebounced, useUrlSearchParams } from "@vueuse/core";
+import { ref, watch } from "vue";
+import { refDebounced } from "@vueuse/core";
 
 const props = defineProps({
   modelValue: {
@@ -19,8 +19,7 @@ const props = defineProps({
 
 const emits = defineEmits(["update:modelValue"]);
 
-const query = useUrlSearchParams("hash-params", { removeFalsyValues: true });
-const searchText = toRef(query, "search", props.modelValue) as Ref<string>;
+const searchText = ref(props.modelValue);
 const debouncedSearchText = refDebounced(searchText, props.debounceTime);
 
 watch(debouncedSearchText, (v) => {

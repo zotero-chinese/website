@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { ref, computed } from "vue";
+import { computed, ref, toRef, type Ref } from "vue";
+import { syncRef, useUrlSearchParams } from "@vueuse/core";
 
 import Search from "@theme/components/Search.vue";
 import TagsFilter from "@theme/components/TagsFilter.vue";
@@ -19,9 +20,17 @@ const translatorTypes = data.allItemTypes
     return useSortedItemTypes(a.label, b.label);
   });
 
-const searchText = ref("");
-const selectedTags = ref([]);
+const query = useUrlSearchParams("hash-params", { removeFalsyValues: true });
 
+const searchText = toRef(query, "search", "") as Ref<string>;
+const _selectedTags = toRef(query, "tags", []) as Ref<string | string[]>;
+const selectedTags = ref([]) as Ref<string[]>;
+// 将 urlSearchParams.tags 由 string | string[] 转为 string[]
+syncRef(_selectedTags, selectedTags, {
+  transform: {
+    ltr: (left) => [left].flat(),
+  },
+});
 const translators = data.translators;
 const filtered = computed(() => {
   let filtered = translators;

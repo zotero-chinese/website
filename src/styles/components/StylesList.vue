@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import { ref, computed } from "vue";
+import { ref, computed, toRef, type Ref } from "vue";
+import { syncRef, useUrlSearchParams } from "@vueuse/core";
+
 import Search from "@theme/components/Search.vue";
 import TagsFilter from "@theme/components/TagsFilter.vue";
 import StyleListItem from "./StyleListItem.vue";
@@ -13,10 +15,19 @@ const allTags = [...new Set(styles.flatMap((style) => style.tags))].map((v) => {
   };
 });
 
-const format = ref("");
-const searchText = ref("");
-const selectedTags = ref([]);
+const query = useUrlSearchParams("hash-params", { removeFalsyValues: true });
+
+const format = toRef(query, "format", "") as Ref<string>;
+const searchText = toRef(query, "search", "") as Ref<string>;
 const showPreview = ref(false);
+const _selectedTags = toRef(query, "tags", []) as Ref<string | string[]>;
+const selectedTags = ref([]) as Ref<string[]>;
+// 将 urlSearchParams.tags 由 string | string[] 转为 string[]
+syncRef(_selectedTags, selectedTags, {
+  transform: {
+    ltr: (left) => [left].flat(),
+  },
+});
 
 const filtered = computed(() => {
   let filtered = styles;
@@ -41,7 +52,7 @@ const filtered = computed(() => {
   // 筛选标签
   if (selectedTags.value.length !== 0) {
     filtered = filtered.filter((item) => {
-      return selectedTags.value.every((tag) => item.tags?.includes(tag));
+      return selectedTags.value.every((tag) => item.tags?.includes(tag as Tag));
     });
   }
 
