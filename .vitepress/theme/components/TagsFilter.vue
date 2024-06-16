@@ -9,7 +9,7 @@ export type Tag = {
 
 const props = defineProps({
   modelValue: {
-    type: Array<String>,
+    type: Array<string>,
     default: [],
   },
   tags: {

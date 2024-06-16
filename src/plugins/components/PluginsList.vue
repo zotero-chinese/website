@@ -69,7 +69,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from "vue";
+import { computed, ref, toRef, type Ref } from "vue";
+import { syncRef, useUrlSearchParams } from "@vueuse/core";
 
 import { data as plugins } from "../data/plugins.data";
 import { tags as allTags } from "../types/tags";
@@ -82,10 +83,18 @@ import TagsFilter from "@theme/components/TagsFilter.vue";
 const isShowDownload = ref(false);
 const selectedPlugin = ref(plugins[0]);
 
-const sortBy = ref("stars");
-const zotero = ref("");
-const searchText = ref("");
-const selectedTags = ref([]);
+const query = useUrlSearchParams("hash-params", { removeFalsyValues: true });
+const sortBy = toRef(query, "sort", "stars") as Ref<string>;
+const zotero = toRef(query, "zotero", "") as Ref<string>;
+const searchText = toRef(query, "search", "") as Ref<string>;
+const _selectedTags = toRef(query, "tags", []) as Ref<string | string[]>;
+const selectedTags = ref([]) as Ref<string[]>;
+// 将 urlSearchParams.tags 由 string | string[] 转为 string[]
+syncRef(_selectedTags, selectedTags, {
+  transform: {
+    ltr: (left) => [left].flat(),
+  },
+});
 
 const filteredPlugins = computed(() => {
   let filtered = plugins;
@@ -113,7 +122,9 @@ const filteredPlugins = computed(() => {
   // 筛选标签
   if (selectedTags.value.length !== 0) {
     filtered = filtered.filter((plugin) => {
-      return selectedTags.value.every((tag) => plugin.tags.includes(tag));
+      return selectedTags.value.every((tag) =>
+        plugin.tags.includes(tag as PluginTagType),
+      );
     });
   }
 
