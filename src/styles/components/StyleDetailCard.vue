@@ -1,5 +1,6 @@
 <script setup lang="ts">
-// @ts-ignore
+import DownloadLink from "@theme/components/DownloadLink.vue";
+
 import { data as styles } from "../data/styles.data";
 
 import { useData } from "vitepress";
@@ -17,12 +18,13 @@ const contributors = [
 const repoU = "redleafnew";
 const repoN = "Chinese-STD-GB-T-7714-related-csl";
 const rawLink = `https://github.com/${repoU}/${repoN}/blob/main/src/${style?.dir}/${style?.file}`;
+const ghLink = `https://raw.githubusercontent.com/${repoU}/${repoN}/main/src/${style?.dir}/${style?.file}`;
 const downloadLinks = {
   // https://raw.githubusercontent.com/redleafnew/Chinese-STD-GB-T-7714-related-csl/main/src/accounting-research/accounting-research.csl
-  github: `https://raw.githubusercontent.com/${repoU}/${repoN}/main/src/${style?.dir}/${style?.file}`,
+  github: ghLink,
   gitee: `https://gitee.com/redleafnew00/${repoN}/raw/main/src/${style?.dir}/${style?.file}`,
   jsd: `https://cdn.jsdelivr.net/gh/${repoU}/${repoN}@main/src/${style?.dir}/${style?.file}`,
-  ghproxy: `https://ghproxy.com/?q=${encodeURI(rawLink)}`,
+  ghproxy: `https://ghproxy.com/?q=${encodeURI(ghLink)}`,
 };
 
 const styleClass = style?.style_class === "in-text" ? "行间引注" : "脚注";
@@ -93,27 +95,43 @@ const styleFormat =
       <a href="/user-guide/citation-styles">安装样式文件</a>
       了解详情。
     </p>
-    <div class="custom-block tip">
+    <div class="custom-block info">
       <p class="custom-block-title">
         本站为每一个样式文件都提供了多个下载地址，请选择自己可用的地址。
       </p>
-      <ul>
-        <li>
-          <a :href="downloadLinks.github" target="_blank">从 GitHub 安装样式</a>
-        </li>
-        <li>
-          <a :href="downloadLinks.gitee" target="_blank">从 Gitee 安装样式</a>
-        </li>
-        <li>
-          <a :href="downloadLinks.jsd" target="_blank">从 JsDeliver 安装样式</a>
-        </li>
-        <li>
-          <a :href="downloadLinks.ghproxy" target="_blank">
-            从 GH Proxy 安装样式
-          </a>
-        </li>
-        <li><a :href="rawLink">查看源码</a></li>
-      </ul>
+
+      <DownloadLink
+        :downlinks="[
+          {
+            label: '从 GitHub 安装样式',
+            link: downloadLinks.github,
+          },
+          {
+            label: '从 Gitee 安装样式',
+            link: downloadLinks.gitee,
+            useFetch: true,
+          },
+          {
+            label: '从 Js Deliver 安装样式',
+            link: downloadLinks.jsd,
+            useFetch: true,
+          },
+          {
+            label: '从 GitHub Proxy 安装样式',
+            link: downloadLinks.ghproxy,
+            useFetch: true,
+          },
+        ]"
+      />
+
+      <DownloadLink
+        :downlinks="[
+          {
+            label: '查看源码',
+            link: rawLink,
+          },
+        ]"
+      />
     </div>
   </template>
   <template v-else>未找到此条目。</template>
