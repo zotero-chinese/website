@@ -21,7 +21,6 @@ const translatorTypes = data.allItemTypes
   });
 
 const query = useUrlSearchParams("hash-params", { removeFalsyValues: true });
-
 const searchText = toRef(query, "search", "") as Ref<string>;
 const _selectedTags = toRef(query, "tags", []) as Ref<string | string[]>;
 const selectedTags = ref([]) as Ref<string[]>;
@@ -31,6 +30,7 @@ syncRef(_selectedTags, selectedTags, {
     ltr: (left) => [left].flat(),
   },
 });
+
 const translators = data.translators;
 const filtered = computed(() => {
   let filtered = translators;

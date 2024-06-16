@@ -16,7 +16,6 @@ const allTags = [...new Set(styles.flatMap((style) => style.tags))].map((v) => {
 });
 
 const query = useUrlSearchParams("hash-params", { removeFalsyValues: true });
-
 const format = toRef(query, "format", "") as Ref<string>;
 const searchText = toRef(query, "search", "") as Ref<string>;
 const showPreview = ref(false);

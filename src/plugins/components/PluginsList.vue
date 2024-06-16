@@ -84,7 +84,6 @@ const isShowDownload = ref(false);
 const selectedPlugin = ref(plugins[0]);
 
 const query = useUrlSearchParams("hash-params", { removeFalsyValues: true });
-
 const sortBy = toRef(query, "sort", "stars") as Ref<string>;
 const zotero = toRef(query, "zotero", "") as Ref<string>;
 const searchText = toRef(query, "search", "") as Ref<string>;
