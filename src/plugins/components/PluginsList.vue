@@ -63,8 +63,8 @@
   <!-- 下载页面 -->
   <DownloadModal
     v-if="isShowDownload"
+    v-model="isShowDownload"
     :selectedPlugin="selectedPlugin"
-    @close-download="closeDownload"
   />
 </template>
 
@@ -81,7 +81,7 @@ import Search from "@theme/components/Search.vue";
 import TagsFilter from "@theme/components/TagsFilter.vue";
 
 const isShowDownload = ref(false);
-const selectedPlugin = ref(plugins[0]);
+const selectedPlugin = ref(undefined) as Ref<PluginInfo | undefined>;
 
 const query = useUrlSearchParams("hash-params", { removeFalsyValues: true });
 const sortBy = toRef(query, "sort", "stars") as Ref<string>;
@@ -144,10 +144,6 @@ const filteredPlugins = computed(() => {
 function showDownload(plugin: PluginInfo) {
   selectedPlugin.value = plugin;
   isShowDownload.value = true;
-}
-function closeDownload() {
-  isShowDownload.value = false;
-  // selectedPlugin.value = null;
 }
 </script>
 
