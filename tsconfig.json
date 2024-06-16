@@ -1,6 +1,6 @@
 {
   "extends": ["@tsconfig/node20/tsconfig.json", "@vue/tsconfig/tsconfig.json"],
-  "include": ["env.d.ts", ".vitepress/**/*", "src/**/*"],
+  "include": ["env.d.ts", "src/**/*"],
   "compilerOptions": {
     // "composite": true,
     "noEmit": true,
@@ -19,7 +19,7 @@
     "baseUrl": ".",
     "paths": {
       // "@/*": ["./src/*"],
-      "@theme/*": [".vitepress/theme/*"],
+      "@theme/*": ["src/.vitepress/theme/*"],
       "@wiki/*": ["src/wiki/*"]
     }
   }

@@ -1,5 +1,5 @@
 import type { UserConfig } from "vitepress";
-import { markdown as _markdown } from "../../src/wiki/.vitepress/config/markdown";
+import { markdown as _markdown } from "../../wiki/.vitepress/config/markdown";
 
 import { footnote } from "@mdit/plugin-footnote";
 

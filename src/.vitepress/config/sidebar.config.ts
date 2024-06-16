@@ -1,5 +1,5 @@
 import type { DefaultTheme } from "vitepress";
-import { sidebar as wikiSideBar } from "../../src/wiki/.vitepress/config/sidebar";
+import { sidebar as wikiSideBar } from "../../wiki/.vitepress/config/sidebar";
 
 export const sidebar: DefaultTheme.Sidebar = {
   ...wikiSideBar,

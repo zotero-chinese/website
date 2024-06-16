@@ -27,7 +27,7 @@ import "@nolebase/vitepress-plugin-git-changelog/client/style.css";
 import { contributors } from "../data/contributors";
 
 // CSL
-import StyleDetailCard from "../../src/styles/components/StyleDetailCard.vue";
+import StyleDetailCard from "../../styles/components/StyleDetailCard.vue";
 
 export default {
   extends: DefaultTheme,

@@ -10,6 +10,7 @@ package-lock.json
 **/.vitepress/dist
 **/.vitepress/.temp
 dist
+src/dev-dist
 **/.obsidian
 
 **/data/*.json
