@@ -14,13 +14,13 @@ const contributors = [
   ...(style?.contributor?.map((v) => v.name) || ""),
 ].join(", ");
 
-const repoU = "redleafnew";
-const repoN = "Chinese-STD-GB-T-7714-related-csl";
+const repoU = "zotero-chinese";
+const repoN = "styles";
 const rawLink = `https://github.com/${repoU}/${repoN}/blob/main/src/${style?.dir}/${style?.file}`;
 const downloadLinks = {
   // https://raw.githubusercontent.com/redleafnew/Chinese-STD-GB-T-7714-related-csl/main/src/accounting-research/accounting-research.csl
   github: `https://raw.githubusercontent.com/${repoU}/${repoN}/main/src/${style?.dir}/${style?.file}`,
-  gitee: `https://gitee.com/redleafnew00/${repoN}/raw/main/src/${style?.dir}/${style?.file}`,
+  gitee: `https://gitee.com/redleafnew00/Chinese-STD-GB-T-7714-related-csl/raw/main/src/${style?.dir}/${style?.file}`,
   jsd: `https://cdn.jsdelivr.net/gh/${repoU}/${repoN}@main/src/${style?.dir}/${style?.file}`,
   ghproxy: `https://ghproxy.com/?q=${encodeURI(rawLink)}`,
 };
