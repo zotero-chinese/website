@@ -22,7 +22,9 @@ const downloadLinks = {
   github: `https://raw.githubusercontent.com/${repoU}/${repoN}/main/src/${style?.dir}/${style?.file}`,
   gitee: `https://gitee.com/redleafnew00/Chinese-STD-GB-T-7714-related-csl/raw/main/src/${style?.dir}/${style?.file}`,
   jsd: `https://cdn.jsdelivr.net/gh/${repoU}/${repoN}@main/src/${style?.dir}/${style?.file}`,
-  ghproxy: `https://ghproxy.com/?q=${encodeURI(rawLink)}`,
+  ghproxy: `https://mirror.ghproxy.com/?q=${encodeURI(rawLink)}`,
+  keleAli: `https://oss.wieke.cn/styles/src/${style?.dir}/${style?.file}`,
+  keleAzure: `https://oss.wwang.de/styles/src/${style?.dir}/${style?.file}`,
 };
 
 const styleClass = style?.style_class === "in-text" ? "行间引注" : "脚注";
@@ -102,15 +104,34 @@ const styleFormat =
           <a :href="downloadLinks.github" target="_blank">从 GitHub 安装样式</a>
         </li>
         <li>
-          <a :href="downloadLinks.gitee" target="_blank">从 Gitee 安装样式</a>
+          <a :href="downloadLinks.gitee" target="_blank">从 Gitee 下载样式</a>
+          （请右击->另存为）
         </li>
         <li>
-          <a :href="downloadLinks.jsd" target="_blank">从 JsDeliver 安装样式</a>
+          <a :href="downloadLinks.jsd" target="_blank">从 JsDeliver 下载样式</a>
+          （此地址存在 24 h 延迟）
         </li>
         <li>
           <a :href="downloadLinks.ghproxy" target="_blank">
-            从 GH Proxy 安装样式
+            从 GH Proxy 下载样式
           </a>
+          （请右击->另存为）
+        </li>
+        <li>
+          <a :href="downloadLinks.keleAli" target="_blank">
+            从
+            <code>oss.wieke.cn</code>
+            下载样式
+          </a>
+          （此地址由网友可口可乐提供）
+        </li>
+        <li>
+          <a :href="downloadLinks.keleAzure" target="_blank">
+            从
+            <code>oss.wwang.de</code>
+            下载样式
+          </a>
+          （此地址由网友可口可乐提供）
         </li>
         <li><a :href="rawLink">查看源码</a></li>
       </ul>
