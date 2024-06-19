@@ -100,6 +100,7 @@ const filtered = computed(() => {
 
   <!-- 插件卡片列表 -->
   <div class="styles-list vp-doc">
+    <p>共加载 {{ filtered.length }} 条样式。</p>
     <ul v-if="!showPreview">
       <li v-for="style in filtered" :key="style.id">
         <StyleListItem :style="style" />
