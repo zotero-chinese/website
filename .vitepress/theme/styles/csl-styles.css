@@ -1,19 +1,20 @@
 /* second-field-align 首行缩进适配 */
 .csl-bib-body.second-field-align-flush .csl-entry {
   display: flex;
+  align-items: flex-start;
 }
 
-.csl-bib-body.second-field-align-flush .csl-entry .csl-left-margin {
-  float: left;
+.csl-bib-body.second-field-align-flush .csl-left-margin {
   margin-right: 0.5em;
+  flex-shrink: 0; /* 确保左边距不会缩小 */
 }
 
-.csl-bib-body.second-field-align-flush.maxoffset-4 .csl-entry .csl-left-margin {
+.csl-bib-body.second-field-align-flush.maxoffset-4 .csl-left-margin {
   width: 2.5em;
 }
 
 /* hangingindent 悬挂缩进适配 */
 .csl-bib-body.hangingindent-true .csl-entry {
-  text-indent: -2em;
   padding-left: 2em;
+  text-indent: -2em;
 }
