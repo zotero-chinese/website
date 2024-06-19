@@ -55,7 +55,12 @@ const filtered = computed(() => {
     });
   }
 
-  return filtered;
+  return filtered.sort((a, b) => {
+    // title 中包含 GB 的始终最前，否则按预览顺序排序
+    if (a.title.match("GB")) return -1;
+    if (b.title.match("GB")) return 1;
+    return a.title.localeCompare(b.title);
+  });
 });
 </script>
 
