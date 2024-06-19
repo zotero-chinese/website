@@ -10,8 +10,15 @@ export default {
   load(watchedFiles: string[]) {
     // watchFiles 是一个所匹配文件的绝对路径的数组。
 
-    return watchedFiles.map((file) => {
-      return fs.readJsonSync(file);
-    });
+    return watchedFiles
+      .map((file) => {
+        return fs.readJsonSync(file) as Style;
+      })
+      .sort((a, b) => {
+        // title 中包含 GB 的始终最前，否则按预览顺序排序
+        if (a.title.match("GB")) return -1;
+        if (b.title.match("GB")) return 1;
+        return a.title.localeCompare(b.title);
+      });
   },
 };
