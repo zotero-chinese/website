@@ -15,10 +15,15 @@ export default {
         return fs.readJsonSync(file) as Style;
       })
       .sort((a, b) => {
-        // title 中包含 GB 的始终最前，否则按预览顺序排序
-        if (a.title.match("GB")) return -1;
-        if (b.title.match("GB")) return 1;
-        return a.title.localeCompare(b.title);
+        const _a = a.title.match("GB"),
+          _b = b.title.match("GB");
+        // title 中包含 GB 的始终最前且逆序（如此可按标题长度递增）
+        // 否则顺序
+        if (_a && !_b) return -1;
+        if (!_a && _b) return 1;
+        if (_a && _b)
+          return b.title.localeCompare(a.title, "zh", { numeric: true });
+        return a.title.localeCompare(b.title, "zh", { numeric: true });
       });
   },
 };
