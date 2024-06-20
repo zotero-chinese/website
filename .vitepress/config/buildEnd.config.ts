@@ -32,7 +32,7 @@ export const buildEnd = async (config: SiteConfig) => {
           .replace("src", "")
           .replace("index.md", "")
           .replace(".md", ""),
-        updated: await getGitTimestamp(path),
+        updated: new Date(await getGitTimestamp(path)),
       };
     }),
   );
@@ -52,10 +52,7 @@ export const buildEnd = async (config: SiteConfig) => {
     return post;
   });
 
-  posts.sort(
-    (a, b) =>
-      +new Date(b.frontmatter.updated) - +new Date(a.frontmatter.updated),
-  );
+  posts.sort((a, b) => b.frontmatter.updated - a.frontmatter.updated);
 
   for (const { url, excerpt, frontmatter, html, src } of posts) {
     feed.addItem({
@@ -69,7 +66,7 @@ export const buildEnd = async (config: SiteConfig) => {
           name: "Zotero 中文社区",
         },
       ],
-      date: new Date(frontmatter.updated || frontmatter.date) || new Date(),
+      date: frontmatter.updated || new Date(),
     });
   }
 
