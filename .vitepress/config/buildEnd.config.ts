@@ -1,49 +1,79 @@
-import path from "path";
-import { writeFileSync } from "fs";
+import path, { join } from "path";
+import { writeFileSync, copyFileSync } from "fs";
 import { Feed } from "feed";
 import { createContentLoader, type SiteConfig } from "vitepress";
+import { getGitTimestamp } from ".vitepress/utils/getGitTimestamp";
+import { getDefaultTitle, getTextSummary } from ".vitepress/utils/markdown";
+import FastGlob from "fast-glob";
 
-const siteUrl = "https://vitejs.dev";
-const blogUrl = `${siteUrl}/blog`;
+const siteUrl = "https://zotero-chinese.com";
 
 export const buildEnd = async (config: SiteConfig) => {
   const feed = new Feed({
-    title: "Vite",
-    description: "Next Generation Frontend Tooling",
-    id: blogUrl,
-    link: blogUrl,
-    language: "en",
-    image: "https://vitejs.dev/og-image.png",
-    favicon: "https://vitejs.dev/logo.svg",
-    copyright: "Copyright © 2019-present Evan You & Vite Contributors",
+    title: "Zotero 中文社区",
+    description: "非官方 Zotero 中文维护小组",
+    id: siteUrl,
+    link: siteUrl,
+    language: "zh",
+    image: "https://zotero-chinese/logo.png",
+    favicon: "https://zotero-chinese.com/logo.png",
+    copyright: "Copyright © 2018-present Zotero 中文社区及贡献者",
   });
 
-  const posts = await createContentLoader("blog/*.md", {
-    excerpt: true,
-    render: true,
-  }).load();
+  const paths = await FastGlob.glob("src/wiki/**/*.md", {
+    ignore: ["README.md", "node_modules"],
+  });
 
-  posts.sort(
-    (a, b) =>
-      +new Date(b.frontmatter.date as string) -
-      +new Date(a.frontmatter.date as string),
+  // 获取每一条路径的 Git 时间
+  const updatedDates = await Promise.all(
+    paths.map(async (path) => {
+      return {
+        router: path
+          .replace("src", "")
+          .replace("index.md", "")
+          .replace(".md", ""),
+        updated: new Date(await getGitTimestamp(path)),
+      };
+    }),
   );
 
-  for (const { url, excerpt, frontmatter, html } of posts) {
+  // 渲染 md
+  const posts = await createContentLoader("wiki/**/*.md", {
+    includeSrc: true,
+    excerpt: true,
+    // render: true,
+  }).load();
+
+  // 匹配时间
+  posts.map((post) => {
+    post.frontmatter.updated = updatedDates.find(
+      (v) => v.router === post.url,
+    )?.updated;
+    return post;
+  });
+
+  posts.sort((a, b) => b.frontmatter.updated - a.frontmatter.updated);
+
+  for (const { url, excerpt, frontmatter, html, src } of posts) {
     feed.addItem({
-      title: frontmatter.title,
+      title: frontmatter.title || getDefaultTitle(src!),
       id: `${siteUrl}${url}`,
-      link: `${siteUrl}${url}`,
-      description: excerpt,
-      content: html,
+      link: `${siteUrl}${url.replace("wiki/", "")}`,
+      description: excerpt || getTextSummary(src!),
+      // content: html,
       author: [
         {
-          name: frontmatter.author.name,
+          name: "Zotero 中文社区",
         },
       ],
-      date: frontmatter.date,
+      date: frontmatter.updated || new Date(),
     });
   }
 
-  writeFileSync(path.join(config.outDir, "blog.rss"), feed.rss2());
+  writeFileSync(path.join(config.outDir, "feed.rss"), feed.rss2());
+  copyFileSync(
+    path.join(config.outDir, "feed.rss"),
+    path.join(config.outDir, "rss.rss"),
+  );
+  console.log("🎉 RSS generated");
 };
