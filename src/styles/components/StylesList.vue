@@ -5,6 +5,7 @@ import { syncRef, useUrlSearchParams } from "@vueuse/core";
 import Search from "@theme/components/Search.vue";
 import TagsFilter from "@theme/components/TagsFilter.vue";
 import StyleListItem from "./StyleListItem.vue";
+import StyleListItemPreview from "./StyleListItemPreview.vue";
 
 import { data as styles } from "../data/styles.data";
 
@@ -85,24 +86,33 @@ const filtered = computed(() => {
     <Search v-model="searchText" placeholder="搜索样式名称..." />
 
     <!-- 显示预览 -->
-    <!-- <el-switch v-model="showPreview" /> -->
+    <el-switch
+      v-model="showPreview"
+      size="large"
+      inline-prompt
+      active-text="始终显示预览"
+      inactive-text="仅在悬浮时显示预览"
+    />
   </div>
 
   <!-- 标签筛选 -->
   <TagsFilter v-model="selectedTags" :tags="allTags" />
 
   <!-- 插件卡片列表 -->
-  <div class="styles-list">
-    <ul>
+  <div class="styles-list vp-doc">
+    <p>共加载 {{ filtered.length }} 条样式。</p>
+    <ul v-if="!showPreview">
       <li v-for="style in filtered" :key="style.id">
-        <a :href="style.dir">
-          <StyleListItem
-            :style="style"
-            :mode="showPreview ? 'full' : 'sample'"
-          />
-        </a>
+        <StyleListItem :style="style" />
       </li>
     </ul>
+    <div v-else>
+      <StyleListItemPreview
+        v-for="style in filtered"
+        :key="style.id"
+        :style="style"
+      />
+    </div>
   </div>
 
   <!-- 空状态 -->
@@ -118,51 +128,8 @@ const filtered = computed(() => {
 .toolbar > * {
   margin: 0 8px;
 }
-.toolbar > :first-child {
-  margin-left: 0;
-}
-.toolbar > :last-child {
-  margin-right: 0;
-}
-.el-checkbox-group {
-  display: flex;
-  justify-content: center;
-  padding-bottom: 20px;
-  flex-wrap: wrap;
-}
 
-.el-checkbox {
-  margin: 0px 10px 10px 0px;
-}
-
-.el-checkbox > :deep(.el-checkbox__input) {
-  display: none !important;
-}
-
-.el-checkbox-button {
-  border: var(--el-border);
-  border-radius: var(--el-border-radius-base);
-  /* box-shadow: none!important; */
-}
-.el-checkbox-button__inner {
-  border: unset !important;
-  border-left-color: unset !important;
-}
-
-.el-col {
-  border-radius: 4px;
-  min-height: 36px;
-  padding-bottom: 20px;
-}
-
-.styles-list ul {
-  display: block;
-  list-style-type: disc;
-  margin-block-start: 1em;
-  margin-block-end: 1em;
-  margin-inline-start: 0px;
-  margin-inline-end: 0px;
-  padding-inline-start: 40px;
-  unicode-bidi: isolate;
+.styles-list {
+  padding: 0 10rem;
 }
 </style>
