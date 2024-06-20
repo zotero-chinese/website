@@ -1,11 +1,7 @@
 import path, { join } from "path";
-import { writeFileSync } from "fs";
+import { writeFileSync, copyFileSync } from "fs";
 import { Feed } from "feed";
-import {
-  createContentLoader,
-  createMarkdownRenderer,
-  type SiteConfig,
-} from "vitepress";
+import { createContentLoader, type SiteConfig } from "vitepress";
 import { getGitTimestamp } from ".vitepress/utils/getGitTimestamp";
 import { getDefaultTitle, getTextSummary } from ".vitepress/utils/markdown";
 import FastGlob from "fast-glob";
@@ -77,6 +73,10 @@ export const buildEnd = async (config: SiteConfig) => {
     });
   }
 
-  writeFileSync(path.join(config.outDir, "rss.rss"), feed.rss2());
+  writeFileSync(path.join(config.outDir, "feed.rss"), feed.rss2());
+  copyFileSync(
+    path.join(config.outDir, "feed.rss"),
+    path.join(config.outDir, "rss.rss"),
+  );
   console.log("🎉 RSS generated");
 };
