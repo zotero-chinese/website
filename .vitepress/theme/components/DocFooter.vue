@@ -20,9 +20,9 @@ const filePath = ref(useData().page.value.filePath);
       v-else-if="filePath.match('styles/')"
       class="footer-cc-link"
       target="_blank"
-      href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh-hans"
+      href="https://creativecommons.org/licenses/by-sa/3.0/deed.zh-hans"
     >
-      CC BY-SA 4.0
+      CC BY-SA 3.0
     </a>
     <a
       v-else

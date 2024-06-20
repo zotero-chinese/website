@@ -2,3 +2,6 @@
 	path = src/wiki
 	url = https://github.com/zotero-chinese/wiki.git
 	branch = main
+[submodule "src/styles/detail"]
+	path = src/styles/detail
+	url = https://github.com/zotero-chinese/styles.git

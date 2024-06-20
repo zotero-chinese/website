@@ -27,7 +27,7 @@ const data_list = [
 
 const tasks = data_list.map(async (d) => {
   const data = await (await fetch(d.remote_url)).json();
-  fs.writeJSONSync(path.resolve(d.local_path), data);
+  fs.outputJSONSync(path.resolve(d.local_path), data);
   console.log(`Download ${d.local_path} success!`);
 });
 

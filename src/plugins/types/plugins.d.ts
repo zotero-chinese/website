@@ -12,7 +12,7 @@ interface PluginInfoBase {
    */
   releases: ReleaseInfoBase[];
 
-  tags: TagType[];
+  tags: PluginTagType[];
 }
 
 interface ReleaseInfoBase {
@@ -76,7 +76,7 @@ interface ReleaseInfo extends ReleaseInfoBase {
 /**
  * 插件标签
  */
-type TagType =
+type PluginTagType =
   // 推荐列表
   | "favorite"
   // 条目元数据维护

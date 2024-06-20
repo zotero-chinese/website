@@ -5,6 +5,7 @@ import DefaultTheme from "vitepress/theme";
 // CSS
 import "./styles/vars.css";
 import "./styles/custom.css";
+import "./styles/csl-styles.css";
 
 // Components
 // import HomeSponsors from "./components/HomeSponsors.vue";
@@ -25,6 +26,9 @@ import {
 import "@nolebase/vitepress-plugin-git-changelog/client/style.css";
 import { contributors } from "../data/contributors";
 
+// CSL
+import StyleDetailCard from "../../src/styles/components/StyleDetailCard.vue";
+
 export default {
   extends: DefaultTheme,
   Layout() {
@@ -41,6 +45,7 @@ export default {
     for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
       app.component(key, component);
     }
+    app.component("StyleDetailCard", StyleDetailCard);
 
     app.provide(NolebaseGitChangelogInjectionKey, {
       mapContributors: contributors,

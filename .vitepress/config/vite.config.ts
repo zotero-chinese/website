@@ -12,10 +12,15 @@ import {
   GitChangelog,
   GitChangelogMarkdownSection,
 } from "@nolebase/vitepress-plugin-git-changelog/vite";
+import { MarkdownTransform } from ".vitepress/plugins/markdownTransform";
 
 import { RssPlugin } from "vitepress-plugin-rss";
 
 export default defineConfig({
+  define: {
+    // 启用生产环境构建下激活不匹配的详细警告
+    __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: "true",
+  },
   plugins: [
     Inspect(),
     VueDevTools(),
@@ -25,6 +30,7 @@ export default defineConfig({
     Components({
       resolvers: [ElementPlusResolver()],
     }),
+    MarkdownTransform(),
 
     RssPlugin({
       title: "Zotero 中文社区",

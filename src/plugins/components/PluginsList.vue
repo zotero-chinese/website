@@ -36,40 +36,11 @@
     </el-select>
 
     <!-- 搜索 -->
-    <el-input
-      v-model="searchText"
-      size="large"
-      placeholder="搜索插件..."
-      clearable
-      @clear="clearSearch"
-    >
-      <template #prefix>
-        <el-icon>
-          <Search />
-        </el-icon>
-      </template>
-    </el-input>
+    <Search v-model="searchText" placeholder="搜索插件..." />
   </div>
 
   <!-- 标签筛选 -->
-  <el-checkbox-group v-model="selectedTags" size="large">
-    <!-- <el-checkbox value="all" border>All</el-checkbox> -->
-    <el-checkbox
-      v-for="(tagDetail, tag) in allTags"
-      :key="tagDetail.label"
-      :value="tag"
-      border
-    >
-      <el-tooltip
-        class="box-item"
-        effect="dark"
-        :content="tagDetail.description"
-        placement="bottom"
-      >
-        {{ tagDetail.label }}
-      </el-tooltip>
-    </el-checkbox>
-  </el-checkbox-group>
+  <TagsFilter v-model="selectedTags" :tags="allTags" />
 
   <!-- 插件卡片列表 -->
   <el-row :gutter="20">
@@ -79,7 +50,7 @@
       :md="8"
       :lg="6"
       :xl="4"
-      v-for="plugin in sortedPlugins"
+      v-for="plugin in filteredPlugins"
       :key="plugin.repo"
     >
       <PluginCard :plugin="plugin" @show-download="showDownload" />
@@ -92,48 +63,43 @@
   <!-- 下载页面 -->
   <DownloadModal
     v-if="isShowDownload"
+    v-model="isShowDownload"
     :selectedPlugin="selectedPlugin"
-    @close-download="closeDownload"
   />
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from "vue";
-import { refDebounced } from "@vueuse/core";
+import { computed, ref, toRef, type Ref } from "vue";
+import { syncRef, useUrlSearchParams } from "@vueuse/core";
 
 import { data as plugins } from "../data/plugins.data";
 import { tags as allTags } from "../types/tags";
 
 import PluginCard from "./PluginCard.vue";
 import DownloadModal from "./DownloadModal.vue";
+import Search from "@theme/components/Search.vue";
+import TagsFilter from "@theme/components/TagsFilter.vue";
 
 const isShowDownload = ref(false);
-const selectedPlugin = ref(plugins[0]);
-const searchText = ref("");
-const debouncedSearchText = refDebounced(searchText, 1000);
-const sortBy = ref("stars");
-const zotero = ref("");
-const selectedTags = ref([]);
+const selectedPlugin = ref(undefined) as Ref<PluginInfo | undefined>;
 
-const sortedPlugins = computed(() => {
-  if (sortBy.value === "name") {
-    return filteredPlugins.value
-      .slice()
-      .sort((a, b) => a.name.localeCompare(b.name));
-  } else if (sortBy.value === "stars") {
-    return filteredPlugins.value.slice().sort((a, b) => b.stars - a.stars);
-  } else if (sortBy.value === "author") {
-    return filteredPlugins.value
-      .slice()
-      .sort((a, b) => a.author.name.localeCompare(b.author.name));
-  } else {
-    return filteredPlugins.value;
-  }
+const query = useUrlSearchParams("hash-params", { removeFalsyValues: true });
+const sortBy = toRef(query, "sort", "stars") as Ref<string>;
+const zotero = toRef(query, "zotero", "") as Ref<string>;
+const searchText = toRef(query, "search", "") as Ref<string>;
+const _selectedTags = toRef(query, "tags", []) as Ref<string | string[]>;
+const selectedTags = ref([]) as Ref<string[]>;
+// 将 urlSearchParams.tags 由 string | string[] 转为 string[]
+syncRef(_selectedTags, selectedTags, {
+  transform: {
+    ltr: (left) => [left].flat(),
+  },
 });
 
 const filteredPlugins = computed(() => {
   let filtered = plugins;
 
+  // 筛选 Zotero 版本
   if (zotero.value !== "") {
     filtered = filtered.filter((plugin) => {
       return plugin.releases.some(
@@ -143,8 +109,8 @@ const filteredPlugins = computed(() => {
       );
     });
   }
-  if (debouncedSearchText.value) {
-    const searchTextLower = debouncedSearchText.value.toLowerCase();
+  if (searchText.value !== "") {
+    const searchTextLower = searchText.value.toLowerCase();
     filtered = filtered.filter((plugin) => {
       return (
         plugin.name.toLowerCase().includes(searchTextLower) ||
@@ -152,10 +118,25 @@ const filteredPlugins = computed(() => {
       );
     });
   }
+
+  // 筛选标签
   if (selectedTags.value.length !== 0) {
     filtered = filtered.filter((plugin) => {
-      return selectedTags.value.every((tag) => plugin.tags.includes(tag));
+      return selectedTags.value.every((tag) =>
+        plugin.tags.includes(tag as PluginTagType),
+      );
     });
+  }
+
+  // 排序
+  if (sortBy.value === "name") {
+    return filtered.slice().sort((a, b) => a.name.localeCompare(b.name));
+  } else if (sortBy.value === "stars") {
+    return filtered.slice().sort((a, b) => b.stars - a.stars);
+  } else if (sortBy.value === "author") {
+    return filtered
+      .slice()
+      .sort((a, b) => a.author.name.localeCompare(b.author.name));
   }
   return filtered;
 });
@@ -163,13 +144,6 @@ const filteredPlugins = computed(() => {
 function showDownload(plugin: PluginInfo) {
   selectedPlugin.value = plugin;
   isShowDownload.value = true;
-}
-function closeDownload() {
-  isShowDownload.value = false;
-  // selectedPlugin.value = null;
-}
-function clearSearch() {
-  searchText.value = "";
 }
 </script>
 
@@ -187,30 +161,6 @@ function clearSearch() {
 }
 .toolbar > :last-child {
   margin-right: 0;
-}
-.el-checkbox-group {
-  display: flex;
-  justify-content: center;
-  padding-bottom: 20px;
-  flex-wrap: wrap;
-}
-
-.el-checkbox {
-  margin: 0px 10px 10px 0px;
-}
-
-.el-checkbox > :deep(.el-checkbox__input) {
-  display: none !important;
-}
-
-.el-checkbox-button {
-  border: var(--el-border);
-  border-radius: var(--el-border-radius-base);
-  /* box-shadow: none!important; */
-}
-.el-checkbox-button__inner {
-  border: unset !important;
-  border-left-color: unset !important;
 }
 
 .el-col {

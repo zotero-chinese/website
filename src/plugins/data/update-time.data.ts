@@ -1,7 +1,7 @@
 import { existsSync, readFileSync } from "fs";
 import path from "path";
 
-const local_path = path.resolve("src/plugins/data/shields.json"),
+const local_path = path.resolve("src/plugins/data/update-time.json"),
   remote_path =
     "https://raw.githubusercontent.com/zotero-chinese/zotero-plugins/gh-pages/dist/shields.json";
 
