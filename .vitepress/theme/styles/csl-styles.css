@@ -1,3 +1,8 @@
+.csl-bib-body {
+  word-break: break-word;
+  text-align: justify;
+}
+
 /* second-field-align 首行缩进适配 */
 /* https://github.com/zotero-chinese/website/issues/48 */
 .csl-bib-body.second-field-align-flush .csl-entry {
