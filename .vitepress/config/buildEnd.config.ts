@@ -1,7 +1,14 @@
-import path from "path";
+import path, { join } from "path";
 import { writeFileSync } from "fs";
 import { Feed } from "feed";
-import { createContentLoader, type SiteConfig } from "vitepress";
+import {
+  createContentLoader,
+  createMarkdownRenderer,
+  type SiteConfig,
+} from "vitepress";
+import { getGitTimestamp } from ".vitepress/utils/getGitTimestamp";
+import { getDefaultTitle, getTextSummary } from ".vitepress/utils/markdown";
+import FastGlob from "fast-glob";
 
 const siteUrl = "https://zotero-chinese.com";
 
@@ -13,36 +20,63 @@ export const buildEnd = async (config: SiteConfig) => {
     link: siteUrl,
     language: "zh",
     image: "https://zotero-chinese/logo.png",
-    favicon: "https://vitejs.dev/logo.svg",
+    favicon: "https://zotero-chinese.com/logo.png",
     copyright: "Copyright © 2018-present Zotero 中文社区及贡献者",
   });
 
-  const posts = await createContentLoader("**/*.md", {
+  const paths = await FastGlob.glob("src/wiki/**/*.md", {
+    ignore: ["README.md", "node_modules"],
+  });
+
+  // 获取每一条路径的 Git 时间
+  const updatedDates = await Promise.all(
+    paths.map(async (path) => {
+      return {
+        router: path
+          .replace("src", "")
+          .replace("index.md", "")
+          .replace(".md", ""),
+        updated: await getGitTimestamp(path),
+      };
+    }),
+  );
+
+  // 渲染 md
+  const posts = await createContentLoader("wiki/**/*.md", {
+    includeSrc: true,
     excerpt: true,
-    render: true,
+    // render: true,
   }).load();
+
+  // 匹配时间
+  posts.map((post) => {
+    post.frontmatter.updated = updatedDates.find(
+      (v) => v.router === post.url,
+    )?.updated;
+    return post;
+  });
 
   posts.sort(
     (a, b) =>
-      +new Date(b.frontmatter.date as string) -
-      +new Date(a.frontmatter.date as string),
+      +new Date(b.frontmatter.updated) - +new Date(a.frontmatter.updated),
   );
 
-  for (const { url, excerpt, frontmatter, html } of posts) {
+  for (const { url, excerpt, frontmatter, html, src } of posts) {
     feed.addItem({
-      title: frontmatter.title,
+      title: frontmatter.title || getDefaultTitle(src!),
       id: `${siteUrl}${url}`,
-      link: `${siteUrl}${url}`,
-      description: excerpt,
-      content: html,
+      link: `${siteUrl}${url.replace("wiki/", "")}`,
+      description: excerpt || getTextSummary(src!),
+      // content: html,
       author: [
         {
-          name: frontmatter.author?.name,
+          name: "Zotero 中文社区",
         },
       ],
-      date: frontmatter.date,
+      date: new Date(frontmatter.updated || frontmatter.date) || new Date(),
     });
   }
 
-  writeFileSync(path.join(config.outDir, "blog.rss"), feed.rss2());
+  writeFileSync(path.join(config.outDir, "rss.rss"), feed.rss2());
+  console.log("🎉 RSS generated");
 };

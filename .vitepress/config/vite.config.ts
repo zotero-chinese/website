@@ -32,11 +32,11 @@ export default defineConfig({
     }),
     MarkdownTransform(),
 
-    RssPlugin({
-      title: "Zotero 中文社区",
-      baseUrl: "https://zotero-chinese.com",
-      copyright: "Copyright (c) 2018-present, Zotero 中文社区",
-    }),
+    // RssPlugin({
+    //   title: "Zotero 中文社区",
+    //   baseUrl: "https://zotero-chinese.com",
+    //   copyright: "Copyright (c) 2018-present, Zotero 中文社区",
+    // }),
 
     // Git Changelog
     GitChangelog({
