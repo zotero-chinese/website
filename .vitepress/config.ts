@@ -45,7 +45,7 @@ export default defineConfig({
 
     socialLinks: [
       { icon: "github", link: "https://github.com/zotero-chinese/" },
-      { icon: { svg: RssIcon }, link: "/rss.rss", ariaLabel: "RSS Feed" },
+      { icon: { svg: RssIcon }, link: "/feed.xml", ariaLabel: "RSS Feed" },
     ],
 
     search: {

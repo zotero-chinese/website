@@ -70,9 +70,10 @@ export const buildEnd = async (config: SiteConfig) => {
     });
   }
 
-  writeFileSync(path.join(config.outDir, "feed.rss"), feed.rss2());
+  writeFileSync(path.join(config.outDir, "feed.xml"), feed.rss2());
+  // 旧站点兼容性
   copyFileSync(
-    path.join(config.outDir, "feed.rss"),
+    path.join(config.outDir, "feed.xml"),
     path.join(config.outDir, "rss.rss"),
   );
   console.log("🎉 RSS generated");
