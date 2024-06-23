@@ -1,7 +1,6 @@
 # Zotero 中文社区站点前端
 
 [![CI](https://github.com/zotero-chinese/website/actions/workflows/ci.yml/badge.svg)](https://github.com/zotero-chinese/website/actions/workflows/ci.yml)
-[![部署 (预览环境) 后处理](https://github.com/zotero-chinese/website/actions/workflows/deploy-preview.yml/badge.svg)](https://github.com/zotero-chinese/website/actions/workflows/deploy-preview.yml)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/aaa3fdac-5809-409e-b99d-012a232fed18/deploy-status)](https://app.netlify.com/sites/zotero-zh/deploys)
 
 Zotero 中文社区官方网站源码。
