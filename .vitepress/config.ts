@@ -51,6 +51,13 @@ export default defineConfig({
     search: {
       provider: "local",
       options: {
+        // https://vitepress.dev/zh/reference/default-theme-search#example-excluding-pages-from-search
+        _render(src, env, md) {
+          const html = md.render(src, env);
+          if (env.frontmatter?.search === false) return "";
+          if (!env.relativePath.startsWith("wiki")) return "";
+          return html;
+        },
         locales: {
           zh: {
             translations: {
