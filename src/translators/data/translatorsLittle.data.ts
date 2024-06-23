@@ -30,7 +30,7 @@ export default {
         translatorID: item.header.translatorID,
         label: item.header.label,
         zhLabel: item.zhLabel,
-        creator: item.header.creator,
+        creator: item.header.creator.replace(/\<.*@.*\>/g, ""),
         target: item.header.target,
         lastUpdated: item.header.lastUpdated,
         translatorType: item.header.translatorType,
