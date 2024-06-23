@@ -233,7 +233,7 @@ const useSortedItemTypes = (a: string, b: string) => {
   if (b === useItemType("multiple")) {
     return -1;
   }
-  return a.localeCompare(b);
+  return a.localeCompare(b, "zh");
 };
 
 export {
