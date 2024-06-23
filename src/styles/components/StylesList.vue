@@ -9,15 +9,29 @@ import StyleListItemPreview from "./StyleListItemPreview.vue";
 
 import { data as styles } from "../data/styles.data";
 
-const allTags = [...new Set(styles.flatMap((style) => style.tags))].map((v) => {
-  return {
-    label: v,
-    value: v,
-  };
-});
+const allTags = [...new Set(styles.flatMap((style) => style.tags))]
+  .sort((a, b) => a.localeCompare(b, "zh"))
+  .map((v) => {
+    return {
+      label: v,
+      value: v,
+    };
+  });
+
+const allFields = [...new Set(styles.flatMap((style) => style.field!))]
+  .filter((v) => !!v)
+  .sort((a, b) => a.localeCompare(b, "en"))
+  .map((v) => {
+    return {
+      label: v,
+      value: v,
+    };
+  });
 
 const query = useUrlSearchParams("hash-params", { removeFalsyValues: true });
 const format = toRef(query, "format", "") as Ref<string>;
+const field = toRef(query, "field", "") as Ref<string>;
+const filter = toRef(query, "filter", "") as Ref<string>;
 const searchText = toRef(query, "search", "") as Ref<string>;
 const showPreview = ref(false);
 const _selectedTags = toRef(query, "tags", []) as Ref<string | string[]>;
@@ -46,6 +60,24 @@ const filtered = computed(() => {
   if (format.value !== "") {
     filtered = filtered.filter((item) => {
       return item.citation_format === format.value;
+    });
+  }
+
+  // 筛选学科
+  if (field.value !== "") {
+    filtered = filtered.filter((item) => {
+      return item.field === field.value;
+    });
+  }
+
+  // 筛选其他
+  if (filter.value !== "") {
+    filtered = filtered.filter((item) => {
+      if (filter.value === "export") {
+        return item.title.includes("export") || item.title.includes("导出");
+      } else if (filter.value === "thesis") {
+        return item.title.includes("学位论文") || item.title.includes("大学");
+      }
     });
   }
 
@@ -80,6 +112,44 @@ const filtered = computed(() => {
       <el-option label="顺序编码" value="numeric"></el-option>
       <el-option label="脚注" value="note"></el-option>
       <el-option label="标签" value="label"></el-option>
+    </el-select>
+
+    <!--学科分类 -->
+    <el-select
+      v-model="field"
+      placeholder="学科分类"
+      size="large"
+      style="width: 300px"
+    >
+      <template #prefix>
+        <el-icon>
+          <Filter />
+        </el-icon>
+      </template>
+      <el-option label="所有" value=""></el-option>
+      <el-option
+        v-for="field in allFields"
+        :key="field.value"
+        :label="field.label"
+        :value="field.value"
+      ></el-option>
+    </el-select>
+
+    <!-- 工具样式 -->
+    <el-select
+      v-model="filter"
+      placeholder="引文格式"
+      size="large"
+      style="width: 300px"
+    >
+      <template #prefix>
+        <el-icon>
+          <Filter />
+        </el-icon>
+      </template>
+      <el-option label="所有" value=""></el-option>
+      <el-option label="学位论文" value="thesis"></el-option>
+      <el-option label="工具" value="export"></el-option>
     </el-select>
 
     <!-- 搜索 -->
