@@ -200,7 +200,9 @@ const filtered = computed(() => {
   margin: 0 8px;
 }
 
-.styles-list {
-  padding: 0 10rem;
+@media only screen and (min-width: 800px) {
+  .styles-list {
+    padding: 0 10rem;
+  }
 }
 </style>
