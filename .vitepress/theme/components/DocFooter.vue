@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import { useData } from "vitepress";
-const filePath = ref(useData().page.value.filePath);
+import { ref } from 'vue'
+import { useData } from 'vitepress'
+
+const filePath = ref(useData().page.value.filePath)
 </script>
 
 <template>

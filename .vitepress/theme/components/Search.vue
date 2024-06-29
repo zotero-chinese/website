@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { ref, watch } from "vue";
-import { refDebounced } from "@vueuse/core";
+import { ref, watch } from 'vue'
+import { refDebounced } from '@vueuse/core'
 
 const props = defineProps({
   modelValue: {
     type: String,
-    default: "",
+    default: '',
   },
   debounceTime: {
     type: Number,
@@ -13,21 +13,21 @@ const props = defineProps({
   },
   placeholder: {
     type: String,
-    default: "搜索...",
+    default: '搜索...',
   },
-});
+})
 
-const emits = defineEmits(["update:modelValue"]);
+const emits = defineEmits(['update:modelValue'])
 
-const searchText = ref(props.modelValue);
-const debouncedSearchText = refDebounced(searchText, props.debounceTime);
+const searchText = ref(props.modelValue)
+const debouncedSearchText = refDebounced(searchText, props.debounceTime)
 
 watch(debouncedSearchText, (v) => {
-  emits("update:modelValue", v);
-});
+  emits('update:modelValue', v)
+})
 
 function clearSearch() {
-  searchText.value = "";
+  searchText.value = ''
 }
 </script>
 

@@ -1,17 +1,17 @@
 <script setup lang="ts">
-import { VPButton } from "vitepress/theme";
+import { VPButton } from 'vitepress/theme'
 
 const props = defineProps({
   title: String,
   description: String,
   actions: Array<{
-    text: string;
-    link: string;
+    text: string
+    link: string
     // theme?: { type: "brand" | "alt"; default: "alt" };
-    target?: string;
-    rel?: string;
+    target?: string
+    rel?: string
   }>,
-});
+})
 </script>
 
 <template>

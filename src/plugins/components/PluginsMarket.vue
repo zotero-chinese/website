@@ -1,10 +1,11 @@
 <script setup lang="ts">
+import PageHeader from '@theme/components/PageHeader.vue'
+import PluginsList from '../components/PluginsList.vue'
 // @ts-expect-error data 是 vitepress 的隐式导出
-import { data as _updateTime } from "../data/update-time.data";
-import PluginsList from "../components/PluginsList.vue";
-import HeartFilledIcon from "./icons/HeartFilledIcon.vue";
-const updateTime = _updateTime["lastUpdate"];
-import PageHeader from "@theme/components/PageHeader.vue";
+import { data as _updateTime } from '../data/update-time.data'
+import HeartFilledIcon from './icons/HeartFilledIcon.vue'
+
+const updateTime = _updateTime.lastUpdate
 </script>
 
 <template>
@@ -12,7 +13,7 @@ import PageHeader from "@theme/components/PageHeader.vue";
     <el-header height="fit-content">
       <PageHeader
         title="Zotero 插件商店"
-        :description="'更新时间：' + updateTime"
+        :description="`更新时间：${updateTime}`"
         :actions="[
           {
             text: '🏪 请求收录插件',
@@ -64,7 +65,9 @@ import PageHeader from "@theme/components/PageHeader.vue";
       <p>
         <el-text>
           Zotero 中文社区
-          <el-icon color="#F56C6C"><HeartFilledIcon /></el-icon>
+          <el-icon color="#F56C6C">
+            <HeartFilledIcon />
+          </el-icon>
           荣誉出品
         </el-text>
       </p>
@@ -76,7 +79,7 @@ import PageHeader from "@theme/components/PageHeader.vue";
           <img
             src="https://badges.toozhao.com/badges/01H9T10RA7708BEZZ78B6ZW9VV/green.svg"
             alt="Page Views Count"
-          />
+          >
         </el-link>
       </p>
     </el-footer>

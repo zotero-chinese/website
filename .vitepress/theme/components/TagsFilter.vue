@@ -1,37 +1,37 @@
 <script setup lang="ts">
-import { ref, watch } from "vue";
+import { ref, watch } from 'vue'
 
-export type Tag = {
-  label: string;
-  value: string;
-  description?: string;
-};
+export interface Tag {
+  label: string
+  value: string
+  description?: string
+}
 
 const props = defineProps({
   modelValue: {
-    type: Array<String>,
+    type: Array<string>,
     default: [],
   },
   tags: {
     type: Array<Tag>,
     default: [],
   },
-});
+})
 
-const selectedTags = ref(props.modelValue);
+const emits = defineEmits(['update:modelValue'])
 
-const emits = defineEmits(["update:modelValue"]);
+const selectedTags = ref(props.modelValue)
 
 watch(selectedTags, (v) => {
-  emits("update:modelValue", v);
-});
+  emits('update:modelValue', v)
+})
 </script>
 
 <template>
   <el-checkbox-group v-model="selectedTags" size="large">
     <!-- <el-checkbox value="all" border>All</el-checkbox> -->
     <el-checkbox
-      v-for="(tag, index) in props.tags"
+      v-for="tag in props.tags"
       :key="tag.value"
       :value="tag.value"
       border
@@ -45,7 +45,9 @@ watch(selectedTags, (v) => {
       >
         {{ tag.label }}
       </el-tooltip>
-      <div v-else>{{ tag.label }}</div>
+      <div v-else>
+        {{ tag.label }}
+      </div>
     </el-checkbox>
   </el-checkbox-group>
 </template>

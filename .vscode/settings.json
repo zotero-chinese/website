@@ -1,18 +1,25 @@
 {
-  /** 编辑器相关 **/
+  // Disable the default formatter, use eslint instead
+  "prettier.enable": false,
+
+  /** 编辑器相关 */
   "editor.formatOnSave": true,
   "editor.formatOnType": false,
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.defaultFormatter": "dbaeumer.vscode-eslint",
   "editor.codeActionsOnSave": {
+    "source.fixAll.prettier": "never",
     "source.fixAll.markdownlint": "always",
-    "source.fixAll": "always"
+    "source.fixAll.eslint": "always",
+    "source.fixAll": "always",
+    "source.organizeImports": "never"
   },
+
   "[markdown]": {
     "editor.fontFamily": "Sarasa Mono SC, Noto Sans Mono CJK SC, monospace",
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
 
-  /** Markdown 相关 **/
+  /** Markdown 相关 */
   "markdown.validate.enabled": true,
   "markdown.validate.fileLinks.enabled": "error",
   "markdown.validate.referenceLinks.enabled": "ignore",
@@ -22,7 +29,7 @@
   "markdown.updateLinksOnFileMove.enabled": "always",
   "markdown.editor.pasteUrlAsFormattedLink.enabled": "smart",
 
-  /** 文件管理器相关  **/
+  /** 文件管理器相关  */
   // "explorer.sortOrder": "mixed",
   "explorer.excludeGitIgnore": false,
   "files.exclude": {
@@ -33,7 +40,7 @@
     "**/.DS_Store": true,
     "**/Thumbs.db": true
 
-    /** custom begin **/
+    /** custom begin */
 
     // npm
     // "node_modules": true,
@@ -53,5 +60,43 @@
     // ".prettierignore": true,
     // "**/.vuepress": true,
     // "LICENSE": true
-  }
+  },
+
+  // Silent the stylistic rules in you IDE, but still auto fix them
+  "eslint.rules.customizations": [
+    { "rule": "style/*", "severity": "off" },
+    { "rule": "format/*", "severity": "off" },
+    { "rule": "*-indent", "severity": "off" },
+    { "rule": "*-spacing", "severity": "off" },
+    { "rule": "*-spaces", "severity": "off" },
+    { "rule": "*-order", "severity": "off" },
+    { "rule": "*-dangle", "severity": "off" },
+    { "rule": "*-newline", "severity": "off" },
+    { "rule": "*quotes", "severity": "off" },
+    { "rule": "*semi", "severity": "off" }
+  ],
+
+  // Enable eslint for all supported languages
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "vue",
+    "html",
+    "markdown",
+    "json",
+    "jsonc",
+    "yaml",
+    "toml",
+    "xml",
+    "gql",
+    "graphql",
+    "astro",
+    "css",
+    "less",
+    "scss",
+    "pcss",
+    "postcss"
+  ]
 }

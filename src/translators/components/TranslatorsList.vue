@@ -1,51 +1,58 @@
 <script setup lang="ts">
-import { ref, computed } from "vue";
+import { type Ref, computed, ref, toRef } from 'vue'
+import { syncRef, useUrlSearchParams } from '@vueuse/core'
 
-import Search from "@theme/components/Search.vue";
-import TagsFilter from "@theme/components/TagsFilter.vue";
-import TranslatorCard from "./TranslatorCard.vue";
+import Search from '@theme/components/Search.vue'
+import TagsFilter from '@theme/components/TagsFilter.vue'
 
-import { data } from "../data/translatorsLittle.data";
-import { useSortedItemTypes, useItemType } from "../composables/localize";
+import { data } from '../data/translatorsLittle.data'
+import { useItemType, useSortedItemTypes } from '../composables/localize'
+import TranslatorCard from './TranslatorCard.vue'
 
 const translatorTypes = data.allItemTypes
   .map((v) => {
     return {
       label: useItemType(v),
       value: v,
-    };
+    }
   })
   .sort((a, b) => {
-    return useSortedItemTypes(a.label, b.label);
-  });
+    return useSortedItemTypes(a.label, b.label)
+  })
 
-const searchText = ref("");
-const selectedTags = ref([]);
+const query = useUrlSearchParams('hash-params', { removeFalsyValues: true })
+const searchText = toRef(query, 'search', '') as Ref<string>
+const _selectedTags = toRef(query, 'tags', []) as Ref<string | string[]>
+const selectedTags = ref([]) as Ref<string[]>
+// 将 urlSearchParams.tags 由 string | string[] 转为 string[]
+syncRef(_selectedTags, selectedTags, {
+  transform: {
+    ltr: left => [left].flat(),
+  },
+})
 
-const translators = data.translators;
+const translators = data.translators
 const filtered = computed(() => {
-  let filtered = translators;
+  let filtered = translators
 
-  if (searchText.value !== "") {
-    const searchTextLower = searchText.value.toLowerCase();
+  if (searchText.value !== '') {
+    const searchTextLower = searchText.value.toLowerCase()
     filtered = filtered.filter((item) => {
       return (
-        item.label.toLowerCase().includes(searchTextLower) ||
-        item.zhLabel.toLowerCase().includes(searchTextLower) ||
-        (item.target !== "" && new RegExp(item.target).test(searchText.value))
-      );
-    });
+        item.label.toLowerCase().includes(searchTextLower)
+        || item.zhLabel.toLowerCase().includes(searchTextLower)
+        || (item.target !== '' && new RegExp(item.target).test(searchText.value))
+      )
+    })
   }
 
   if (selectedTags.value.length !== 0) {
-    filtered = filtered.filter((translator) =>
-      selectedTags.value.every((tag) =>
-        translator.itemTypes.some((type) => type === tag),
-      ),
-    );
+    filtered = filtered.filter(translator =>
+      selectedTags.value.every(tag => translator.itemTypes.includes(tag)),
+    )
   }
-  return filtered;
-});
+  return filtered
+})
 </script>
 
 <template>
@@ -60,13 +67,13 @@ const filtered = computed(() => {
   <!-- 插件卡片列表 -->
   <el-row :gutter="20">
     <el-col
+      v-for="translator in filtered"
+      :key="translator.translatorID"
       :xs="24"
       :sm="12"
       :md="8"
       :lg="6"
       :xl="4"
-      v-for="translator in filtered"
-      :key="translator.translatorID"
     >
       <a :href="translator.translatorID">
         <TranslatorCard :translator="translator" />
@@ -75,7 +82,7 @@ const filtered = computed(() => {
   </el-row>
 
   <!-- 空状态 -->
-  <el-empty v-if="filtered.length == 0" description="无匹配项" />
+  <el-empty v-if="filtered.length === 0" description="无匹配项" />
 </template>
 
 <style scoped>
