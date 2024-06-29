@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import PageHeader from '@theme/components/PageHeader.vue'
 import PluginsList from '../components/PluginsList.vue'
+// @ts-expect-error data 是 vitepress 的隐式导出
 import { data as _updateTime } from '../data/update-time.data'
 import HeartFilledIcon from './icons/HeartFilledIcon.vue'
 
-// @ts-expect-error data 是 vitepress 的隐式导出
 const updateTime = _updateTime.lastUpdate
 </script>
 

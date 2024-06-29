@@ -22,9 +22,6 @@ import 'element-plus/es/components/timeline-item/style/css'
     <el-timeline-item timestamp="2020.8.1">
         GitHub 组织成立
     </el-timeline-item>
-    <el-timeline-item timestamp="2020.8.1">
-        测试
-    </el-timeline-item>
 </el-timeline>
 
 <!-- markdownlint-restore -->

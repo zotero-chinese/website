@@ -10,7 +10,7 @@
     "build": "vitepress build",
     "build:tsc": "vue-tsc",
     "preview": "vitepress preview",
-    "lint:eslint": "eslint . --fix",
+    "lint": "eslint . --fix",
     "git:update": "git submodule update --remote --recursive",
     "fetch-data": "node .github/scripts/fetch-data.mjs",
     "deps:update": "pnpx taze minor --write --force --include-locked",

@@ -1,5 +1,4 @@
 <script setup lang="ts">
-// @ts-expect-error data 是 vitepress 的隐式导出
 import { useData } from 'vitepress'
 import { onMounted } from 'vue'
 import PageHeader from '@theme/components/PageHeader.vue'
@@ -20,6 +19,8 @@ import Dashboards from '@highcharts/dashboards'
 import type { Board } from '@highcharts/dashboards'
 import DataGrid from '@highcharts/dashboards/datagrid'
 import LayoutModule from '@highcharts/dashboards/modules/layout'
+
+// @ts-expect-error data 是 vitepress 的隐式导出
 import { data as chartsData } from '../data/charts.data'
 
 HighchartsMore(Highcharts)
