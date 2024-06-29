@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type Ref, ref } from 'vue'
+import { ref } from 'vue'
 
 declare interface DownloadLink {
   label: string
