@@ -1,3 +1,84 @@
+<script setup lang="ts">
+import { type Ref, computed, ref, toRef } from 'vue'
+import { syncRef, useUrlSearchParams } from '@vueuse/core'
+
+import Search from '@theme/components/Search.vue'
+import TagsFilter from '@theme/components/TagsFilter.vue'
+import { data as plugins } from '../data/plugins.data'
+import { tags as allTags } from '../types/tags'
+
+import PluginCard from './PluginCard.vue'
+import DownloadModal from './DownloadModal.vue'
+
+const isShowDownload = ref(false)
+const selectedPlugin = ref(undefined) as Ref<PluginInfo | undefined>
+
+const query = useUrlSearchParams('hash-params', { removeFalsyValues: true })
+const sortBy = toRef(query, 'sort', 'stars') as Ref<string>
+const zotero = toRef(query, 'zotero', '') as Ref<string>
+const searchText = toRef(query, 'search', '') as Ref<string>
+const _selectedTags = toRef(query, 'tags', []) as Ref<string | string[]>
+const selectedTags = ref([]) as Ref<string[]>
+// 将 urlSearchParams.tags 由 string | string[] 转为 string[]
+syncRef(_selectedTags, selectedTags, {
+  transform: {
+    ltr: left => [left].flat(),
+  },
+})
+
+const filteredPlugins = computed(() => {
+  let filtered = plugins
+
+  // 筛选 Zotero 版本
+  if (zotero.value !== '') {
+    filtered = filtered.filter((plugin) => {
+      return plugin.releases.some(
+        release =>
+          release.targetZoteroVersion
+          === (zotero.value === 'zotero6' ? '6' : '7'),
+      )
+    })
+  }
+  if (searchText.value !== '') {
+    const searchTextLower = searchText.value.toLowerCase()
+    filtered = filtered.filter((plugin) => {
+      return (
+        plugin.name.toLowerCase().includes(searchTextLower)
+        || plugin.description.toLowerCase().includes(searchTextLower)
+      )
+    })
+  }
+
+  // 筛选标签
+  if (selectedTags.value.length !== 0) {
+    filtered = filtered.filter((plugin) => {
+      return selectedTags.value.every(tag =>
+        plugin.tags.includes(tag as PluginTagType),
+      )
+    })
+  }
+
+  // 排序
+  if (sortBy.value === 'name') {
+    return filtered.slice().sort((a, b) => a.name.localeCompare(b.name))
+  }
+  else if (sortBy.value === 'stars') {
+    return filtered.slice().sort((a, b) => b.stars - a.stars)
+  }
+  else if (sortBy.value === 'author') {
+    return filtered
+      .slice()
+      .sort((a, b) => a.author.name.localeCompare(b.author.name))
+  }
+  return filtered
+})
+
+function showDownload(plugin: PluginInfo) {
+  selectedPlugin.value = plugin
+  isShowDownload.value = true
+}
+</script>
+
 <template>
   <div class="toolbar">
     <!-- Zotero 版本筛选 -->
@@ -12,9 +93,9 @@
           <Filter />
         </el-icon>
       </template>
-      <el-option label="All" value=""></el-option>
-      <el-option label="Zotero 6" value="zotero6"></el-option>
-      <el-option label="Zotero 7" value="zotero7"></el-option>
+      <el-option label="All" value="" />
+      <el-option label="Zotero 6" value="zotero6" />
+      <el-option label="Zotero 7" value="zotero7" />
     </el-select>
 
     <!-- 排序 -->
@@ -29,10 +110,10 @@
           <Sort />
         </el-icon>
       </template>
-      <el-option label="星标量" value="stars"></el-option>
-      <el-option label="插件名" value="name"></el-option>
-      <el-option label="作者" value="author"></el-option>
-      <el-option label="最后更新时间" value="lastUpdated" disabled></el-option>
+      <el-option label="星标量" value="stars" />
+      <el-option label="插件名" value="name" />
+      <el-option label="作者" value="author" />
+      <el-option label="最后更新时间" value="lastUpdated" disabled />
     </el-select>
 
     <!-- 搜索 -->
@@ -45,107 +126,28 @@
   <!-- 插件卡片列表 -->
   <el-row :gutter="20">
     <el-col
+      v-for="plugin in filteredPlugins"
+      :key="plugin.repo"
       :xs="24"
       :sm="12"
       :md="8"
       :lg="6"
       :xl="4"
-      v-for="plugin in filteredPlugins"
-      :key="plugin.repo"
     >
       <PluginCard :plugin="plugin" @show-download="showDownload" />
     </el-col>
   </el-row>
 
   <!-- 空状态 -->
-  <el-empty v-if="filteredPlugins.length == 0" description="无匹配插件" />
+  <el-empty v-if="filteredPlugins.length === 0" description="无匹配插件" />
 
   <!-- 下载页面 -->
   <DownloadModal
     v-if="isShowDownload"
     v-model="isShowDownload"
-    :selectedPlugin="selectedPlugin"
+    :selected-plugin="selectedPlugin"
   />
 </template>
-
-<script setup lang="ts">
-import { computed, ref, toRef, type Ref } from "vue";
-import { syncRef, useUrlSearchParams } from "@vueuse/core";
-
-import { data as plugins } from "../data/plugins.data";
-import { tags as allTags } from "../types/tags";
-
-import PluginCard from "./PluginCard.vue";
-import DownloadModal from "./DownloadModal.vue";
-import Search from "@theme/components/Search.vue";
-import TagsFilter from "@theme/components/TagsFilter.vue";
-
-const isShowDownload = ref(false);
-const selectedPlugin = ref(undefined) as Ref<PluginInfo | undefined>;
-
-const query = useUrlSearchParams("hash-params", { removeFalsyValues: true });
-const sortBy = toRef(query, "sort", "stars") as Ref<string>;
-const zotero = toRef(query, "zotero", "") as Ref<string>;
-const searchText = toRef(query, "search", "") as Ref<string>;
-const _selectedTags = toRef(query, "tags", []) as Ref<string | string[]>;
-const selectedTags = ref([]) as Ref<string[]>;
-// 将 urlSearchParams.tags 由 string | string[] 转为 string[]
-syncRef(_selectedTags, selectedTags, {
-  transform: {
-    ltr: (left) => [left].flat(),
-  },
-});
-
-const filteredPlugins = computed(() => {
-  let filtered = plugins;
-
-  // 筛选 Zotero 版本
-  if (zotero.value !== "") {
-    filtered = filtered.filter((plugin) => {
-      return plugin.releases.some(
-        (release) =>
-          release.targetZoteroVersion ===
-          (zotero.value == "zotero6" ? "6" : "7"),
-      );
-    });
-  }
-  if (searchText.value !== "") {
-    const searchTextLower = searchText.value.toLowerCase();
-    filtered = filtered.filter((plugin) => {
-      return (
-        plugin.name.toLowerCase().includes(searchTextLower) ||
-        plugin.description.toLowerCase().includes(searchTextLower)
-      );
-    });
-  }
-
-  // 筛选标签
-  if (selectedTags.value.length !== 0) {
-    filtered = filtered.filter((plugin) => {
-      return selectedTags.value.every((tag) =>
-        plugin.tags.includes(tag as PluginTagType),
-      );
-    });
-  }
-
-  // 排序
-  if (sortBy.value === "name") {
-    return filtered.slice().sort((a, b) => a.name.localeCompare(b.name));
-  } else if (sortBy.value === "stars") {
-    return filtered.slice().sort((a, b) => b.stars - a.stars);
-  } else if (sortBy.value === "author") {
-    return filtered
-      .slice()
-      .sort((a, b) => a.author.name.localeCompare(b.author.name));
-  }
-  return filtered;
-});
-
-function showDownload(plugin: PluginInfo) {
-  selectedPlugin.value = plugin;
-  isShowDownload.value = true;
-}
-</script>
 
 <style scoped>
 .toolbar {

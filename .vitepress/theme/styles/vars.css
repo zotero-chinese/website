@@ -123,14 +123,14 @@
   max-height: 96px;
 }
 
-.vp-sponsor-grid.mini .vp-sponsor-grid-image[alt="Bit"] {
+.vp-sponsor-grid.mini .vp-sponsor-grid-image[alt='Bit'] {
   max-height: 48px;
 }
 
-.vp-sponsor-grid.xmini .vp-sponsor-grid-image[alt="JetBrains"] {
+.vp-sponsor-grid.xmini .vp-sponsor-grid-image[alt='JetBrains'] {
   max-height: 54px;
 }
 
-.vp-sponsor-grid.medium .vp-sponsor-grid-image[alt="JetBrains"] {
+.vp-sponsor-grid.medium .vp-sponsor-grid-image[alt='JetBrains'] {
   max-height: 100px;
 }

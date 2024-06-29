@@ -1,22 +1,21 @@
 <script setup lang="ts">
-// @ts-ignore
-import { data as styles } from "../data/styles.data";
+import { useData } from 'vitepress'
+import { data as styles } from '../data/styles.data'
 
-import { useData } from "vitepress";
-const { page } = useData();
+const { page } = useData()
 
 const style = styles.find(
-  (s) => s.dir === page.value.relativePath.split("/")[1],
-);
+  s => s.dir === page.value.relativePath.split('/')[1],
+)
 
 const contributors = [
-  ...(style?.author?.map((v) => v.name) || ""),
-  ...(style?.contributor?.map((v) => v.name) || ""),
-].join(", ");
+  ...(style?.author?.map(v => v.name) || ''),
+  ...(style?.contributor?.map(v => v.name) || ''),
+].join(', ')
 
-const repoU = "zotero-chinese";
-const repoN = "styles";
-const rawLink = `https://github.com/${repoU}/${repoN}/blob/main/src/${style?.dir}/${style?.file}`;
+const repoU = 'zotero-chinese'
+const repoN = 'styles'
+const rawLink = `https://github.com/${repoU}/${repoN}/blob/main/src/${style?.dir}/${style?.file}`
 const downloadLinks = {
   // https://raw.githubusercontent.com/redleafnew/Chinese-STD-GB-T-7714-related-csl/main/src/accounting-research/accounting-research.csl
   github: `https://raw.githubusercontent.com/${repoU}/${repoN}/main/src/${style?.dir}/${style?.file}`,
@@ -25,25 +24,27 @@ const downloadLinks = {
   ghproxy: `https://mirror.ghproxy.com/?q=${encodeURI(rawLink)}`,
   keleAli: `https://oss.wieke.cn/styles/src/${style?.dir}/${style?.file}`,
   keleAzure: `https://oss.wwang.de/styles/src/${style?.dir}/${style?.file}`,
-};
+}
 
-const styleClass = style?.style_class === "in-text" ? "行间引注" : "脚注";
+const styleClass = style?.style_class === 'in-text' ? '行间引注' : '脚注'
 
 const styleFormatMap: { [key: string]: string } = {
-  author: "著者",
-  "author-date": "著者—出版年",
-  numeric: "顺序编码",
-  label: "标签",
-  note: "脚注",
-};
-const styleFormat =
-  styleFormatMap[style?.citation_format || ""] || style?.citation_format;
+  'author': '著者',
+  'author-date': '著者—出版年',
+  'numeric': '顺序编码',
+  'label': '标签',
+  'note': '脚注',
+}
+const styleFormat
+  = styleFormatMap[style?.citation_format || ''] || style?.citation_format
 </script>
 
 <template>
   <p><a href="../">返回列表</a></p>
   <template v-if="style">
-    <h1 :id="style.title">{{ style.title }}</h1>
+    <h1 :id="style.title">
+      {{ style.title }}
+    </h1>
 
     <h2 id="info">
       元数据
@@ -137,5 +138,7 @@ const styleFormat =
       </ul>
     </div>
   </template>
-  <template v-else>未找到此条目。</template>
+  <template v-else>
+    未找到此条目。
+  </template>
 </template>

@@ -56,8 +56,8 @@ jobs:
         id: netlify
         uses: nwtgck/actions-netlify@v3.0
         with:
-          publish-dir: "dist"
-          deploy-message: "Deploy from GitHub Actions"
+          publish-dir: dist
+          deploy-message: Deploy from GitHub Actions
           production-deploy: true
           enable-commit-comment: false
           enable-pull-request-comment: false

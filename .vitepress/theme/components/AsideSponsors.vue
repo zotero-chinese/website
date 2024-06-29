@@ -1,20 +1,20 @@
 <script setup lang="ts">
-import { computed } from "vue";
-import { VPDocAsideSponsors } from "vitepress/theme";
-import { useSponsor } from "../composables/sponsor";
+import { computed } from 'vue'
+import { VPDocAsideSponsors } from 'vitepress/theme'
+import { useSponsor } from '../composables/sponsor'
 
-const { data } = useSponsor();
+const { data } = useSponsor()
 
 const sponsors = computed(() => {
   return (
     data?.value.map((sponsor) => {
       return {
-        size: sponsor.size === "big" ? "mini" : "xmini",
+        size: sponsor.size === 'big' ? 'mini' : 'xmini',
         items: sponsor.items,
-      };
+      }
     }) ?? []
-  );
-});
+  )
+})
 </script>
 
 <template>
@@ -23,7 +23,7 @@ const sponsors = computed(() => {
     href="https://viteconf.org/23/replay?utm=vite-sidebar"
     target="_blank"
   >
-    <img width="22" height="22" src="/viteconf.svg" />
+    <img width="22" height="22" src="/viteconf.svg">
     <span>
       <p class="extra-info">Beyond Fast</p>
       <p class="heading">ViteConf 2023</p>

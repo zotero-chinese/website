@@ -1,13 +1,13 @@
 <script setup lang="ts">
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
-import Giscus from "@giscus/vue";
+import Giscus from '@giscus/vue'
 // import "../styles/giscus.dark.css";
 // import "../styles/giscus.light.css";
 
-import { useData } from "vitepress";
+import { useData } from 'vitepress'
 
-const { frontmatter, title } = useData();
+const { frontmatter, title } = useData()
 </script>
 
 <template>
@@ -19,14 +19,14 @@ const { frontmatter, title } = useData();
     <Giscus
       id="comments"
       repo="zotero-chinese/wiki"
-      repoId="R_kgDOJZD4iQ"
+      repo-id="R_kgDOJZD4iQ"
       category="文档评论区"
-      categoryId="DIC_kwDOJZD4ic4CbJJB"
+      category-id="DIC_kwDOJZD4ic4CbJJB"
       mapping="pathname"
       strict="1"
-      reactionsEnabled="1"
-      emitMetadata="0"
-      inputPosition="top"
+      reactions-enabled="1"
+      emit-metadata="0"
+      input-position="top"
       theme="preferred_color_scheme"
       lang="zh-CN"
       loading="lazy"
