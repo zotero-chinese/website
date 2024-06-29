@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { data as posts } from "./blog.data";
+import { data as posts } from './blog.data'
 
 function getDateTime(time: number) {
-  return new Date(time).toISOString();
+  return new Date(time).toISOString()
 }
 </script>
 
 <template>
   <ul class="blog-list">
-    <li class="blog-entry" v-for="post of posts">
+    <li v-for="post of posts" :key="post.url" class="blog-entry">
       <article>
         <time :datetime="getDateTime(post.date.time)">
           {{ post.date.string }}

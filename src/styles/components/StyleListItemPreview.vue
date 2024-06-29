@@ -1,8 +1,8 @@
 <script setup lang="ts">
 const props = defineProps<{
-  style: Style;
-}>();
-const style = props.style;
+  style: Style
+}>()
+const style = props.style
 </script>
 
 <template>
@@ -11,8 +11,8 @@ const style = props.style;
   </a>
   <div class="csl-preview">
     <h3>引注</h3>
-    <div v-html="style.citations" class="csl-preview-citations"></div>
+    <div class="csl-preview-citations" v-html="style.citations" />
     <h3>参考文献表</h3>
-    <div v-html="style.bibliography" class="csl-preview-bibliography"></div>
+    <div class="csl-preview-bibliography" v-html="style.bibliography" />
   </div>
 </template>

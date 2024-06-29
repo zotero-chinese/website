@@ -1,26 +1,25 @@
 {
-  "extends": ["@tsconfig/node20/tsconfig.json", "@vue/tsconfig/tsconfig.json"],
-  "include": ["env.d.ts", ".vitepress/**/*", "src/**/*"],
+  "extends": ["@tsconfig/node20/tsconfig.json"],
   "compilerOptions": {
-    // "composite": true,
-    "noEmit": true,
-
     "target": "ESNext",
-    "module": "ESNext",
-    "moduleResolution": "Bundler",
-    "esModuleInterop": true,
-    "resolveJsonModule": true,
-    "skipLibCheck": true,
-
-    "allowJs": true,
-    "strict": true,
     "jsx": "preserve",
 
     "baseUrl": ".",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
     "paths": {
       // "@/*": ["./src/*"],
       "@theme/*": [".vitepress/theme/*"],
       "@wiki/*": ["src/wiki/*"]
-    }
-  }
+    },
+    "resolveJsonModule": true,
+
+    "allowJs": true,
+    "strict": true,
+    // "composite": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true
+  },
+  "include": ["env.d.ts", ".vitepress/**/*", "src/**/*"]
 }

@@ -1,18 +1,18 @@
 <script setup lang="ts">
 import {
-  useSortedItemTypes,
   useItemType,
+  useSortedItemTypes,
   useTranslatorType,
-} from "../composables/localize";
+} from '../composables/localize'
 
-const props = defineProps<{ translator: TranslatorLittle }>();
-const translator = props.translator;
+const props = defineProps<{ translator: TranslatorLittle }>()
+const translator = props.translator
 
 const sortedItemTypes = translator.itemTypes
-  .map((v) => useItemType(v))
-  .sort(useSortedItemTypes);
+  .map(v => useItemType(v))
+  .sort(useSortedItemTypes)
 
-const translatorTypes = useTranslatorType(translator.translatorType);
+const translatorTypes = useTranslatorType(translator.translatorType)
 </script>
 
 <template>

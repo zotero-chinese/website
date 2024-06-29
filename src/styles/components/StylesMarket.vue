@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import PageHeader from "@theme/components/PageHeader.vue";
-import StylesList from "../components/StylesList.vue";
+import PageHeader from '@theme/components/PageHeader.vue'
+import { data as updateTime } from '@theme/../data/time.data'
+import StylesList from '../components/StylesList.vue'
 
 // @ts-expect-error data 是 vitepress 的隐式导出
-import { data as updateTime } from "@theme/../data/time.data";
 </script>
 
 <template>
@@ -11,7 +11,7 @@ import { data as updateTime } from "@theme/../data/time.data";
     <el-header height="fit-content">
       <PageHeader
         title="中文 CSL 样式"
-        :description="'更新时间：' + updateTime"
+        :description="`更新时间：${updateTime}`"
         :actions="[
           {
             text: '🕯 请求新样式 / 报告 CSL 样式问题',

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-defineProps<{ svg: string }>();
+defineProps<{ svg: string }>()
 </script>
 
 <template>

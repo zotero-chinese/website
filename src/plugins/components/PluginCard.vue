@@ -1,3 +1,17 @@
+<script setup lang="ts">
+import { tags as allTags } from '../types/tags'
+
+const props = defineProps<{
+  plugin: PluginInfo
+}>()
+
+const emits = defineEmits(['showDownload'])
+
+function showDownload() {
+  emits('showDownload', props.plugin)
+}
+</script>
+
 <template>
   <el-card shadow="hover">
     <template #header>
@@ -21,7 +35,9 @@
           <el-icon>
             <Avatar />
           </el-icon>
-          <el-link :href="plugin.author.url">{{ plugin.author.name }}</el-link>
+          <el-link :href="plugin.author.url">
+            {{ plugin.author.name }}
+          </el-link>
         </el-text>
       </el-tooltip>
 
@@ -41,13 +57,15 @@
     </el-space>
 
     <p class="desc">
-      <el-text truncated line-clamp="5">{{ plugin.description }}</el-text>
+      <el-text truncated line-clamp="5">
+        {{ plugin.description }}
+      </el-text>
     </p>
     <div class="tags">
       <el-tag
         v-for="tag in plugin.tags"
         :key="tag"
-        :type="tag == 'favorite' ? 'success' : 'info'"
+        :type="tag === 'favorite' ? 'success' : 'info'"
       >
         <el-tooltip
           class="box-item"
@@ -61,24 +79,12 @@
     </div>
 
     <template #footer>
-      <el-button type="primary" @click="showDownload">下载</el-button>
+      <el-button type="primary" @click="showDownload">
+        下载
+      </el-button>
     </template>
   </el-card>
 </template>
-
-<script setup lang="ts">
-import { tags as allTags } from "../types/tags";
-
-const props = defineProps<{
-  plugin: PluginInfo;
-}>();
-
-const emits = defineEmits(["showDownload"]);
-
-function showDownload() {
-  emits("showDownload", props.plugin);
-}
-</script>
 
 <style scoped>
 .desc {

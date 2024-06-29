@@ -1,17 +1,18 @@
 <script setup lang="ts">
-import { ref, watch } from "vue";
+import { ref, watch } from 'vue'
 
 defineProps<{
-  modelValue: Boolean;
-  selectedPlugin?: PluginInfo;
-}>();
+  modelValue: boolean
+  selectedPlugin?: PluginInfo
+}>()
 
-const isShowing = ref(true);
+const emits = defineEmits(['update:modelValue'])
 
-const emits = defineEmits(["update:modelValue"]);
+const isShowing = ref(true)
+
 watch(isShowing, (v) => {
-  emits("update:modelValue", v);
-});
+  emits('update:modelValue', v)
+})
 </script>
 
 <template>
@@ -42,7 +43,7 @@ watch(isShowing, (v) => {
           </el-icon>
           插件之间可能存在冲突，建议按需安装。
         </el-text>
-        <br />
+        <br>
         <el-text type="warning">
           <el-icon>
             <WarnTriangleFilled />
@@ -56,7 +57,7 @@ watch(isShowing, (v) => {
         </el-text>
       </div>
 
-      <br />
+      <br>
 
       <div class="cards">
         <el-card

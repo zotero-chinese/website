@@ -1,14 +1,14 @@
 <script setup lang="ts">
+import { useData } from 'vitepress'
 import {
-  useTranslatorType,
   useCreatorType,
   useItemField,
   useItemType,
-} from "../composables/localize";
-import { useData } from "vitepress";
+  useTranslatorType,
+} from '../composables/localize'
 
-const translator = useData().params.value?.translator as Translator;
-const translatorTypes = useTranslatorType(translator?.header.translatorType);
+const translator = useData().params.value?.translator as Translator
+const translatorTypes = useTranslatorType(translator?.header.translatorType)
 </script>
 
 <template>
@@ -116,39 +116,39 @@ const translatorTypes = useTranslatorType(translator?.header.translatorType);
                 label-align="right"
                 label-class-name="fieldLabel"
               >
-                <div v-if="field == 'itemType'">
+                <div v-if="field === 'itemType'">
                   {{ useItemType(value) }}
                 </div>
 
                 <div
-                  v-else-if="field == 'extra'"
+                  v-else-if="field === 'extra'"
                   style="white-space: pre-wrap; word-break: break-all"
                 >
                   {{ value }}
                 </div>
 
-                <div v-else-if="field == 'url'" style="word-break: break-all">
+                <div v-else-if="field === 'url'" style="word-break: break-all">
                   <a :href="value">{{ value }}</a>
                 </div>
 
-                <div v-else-if="field == 'attachments'" class="tags-container">
+                <div v-else-if="field === 'attachments'" class="tags-container">
                   <el-card
                     v-for="(attachment, attachmentIndex) in value"
                     :key="attachmentIndex"
                     body-style="padding:5px;display:flex;align-items:center;"
                     shadow="never"
                   >
-                    <template v-if="attachment.mimeType == 'application/pdf'">
+                    <template v-if="attachment.mimeType === 'application/pdf'">
                       <img
                         src="..\..\wiki\assets\icons\item-type\attachment-pdf.svg"
                         class="attachment-icon"
-                      />
+                      >
                     </template>
                     <template v-else>
                       <img
                         src="..\..\wiki\assets\icons\item-type\attachment-snapshot.svg"
                         class="attachment-icon"
-                      />
+                      >
                     </template>
                     {{ attachment.title }}
                   </el-card>
@@ -165,7 +165,7 @@ const translatorTypes = useTranslatorType(translator?.header.translatorType);
                   </el-tag>
                 </div>
 
-                <div v-else-if="field == 'notes'" class="tags-container">
+                <div v-else-if="field === 'notes'" class="tags-container">
                   <el-card
                     v-for="(note, noteIndex) in value"
                     :key="noteIndex"
@@ -175,7 +175,7 @@ const translatorTypes = useTranslatorType(translator?.header.translatorType);
                     <img
                       src="..\..\wiki\assets\icons\item-type\note.svg"
                       class="attachment-icon"
-                    />
+                    >
                     {{ note }}
                   </el-card>
                 </div>
@@ -184,8 +184,10 @@ const translatorTypes = useTranslatorType(translator?.header.translatorType);
                   <div
                     v-if="typeof value === 'string'"
                     v-html="value.replaceAll('\n', '<br/ >')"
-                  ></div>
-                  <div v-else>{{ value }}</div>
+                  />
+                  <div v-else>
+                    {{ value }}
+                  </div>
                 </div>
               </el-descriptions-item>
             </template>
@@ -194,7 +196,9 @@ const translatorTypes = useTranslatorType(translator?.header.translatorType);
       </template>
     </template>
 
-    <template v-else>多个条目</template>
+    <template v-else>
+      多个条目
+    </template>
   </details>
 
   <h2>变更历史</h2>

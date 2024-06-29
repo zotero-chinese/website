@@ -1,27 +1,30 @@
-import { existsSync, readFileSync } from "fs";
-import path from "path";
+/* eslint-disable no-console */
 
-const local_path = path.resolve("src/translators/data/dashboard.json"),
-  remote_path =
-    "https://github.com/l0o0/translators_CN/raw/master/data/dashboard.json";
+import { existsSync, readFileSync } from 'node:fs'
+import path from 'node:path'
 
-declare const data: Translator[];
-export { data };
+const local_path = path.resolve('src/translators/data/dashboard.json')
+const remote_path
+  = 'https://github.com/l0o0/translators_CN/raw/master/data/dashboard.json'
+
+declare const data: Translator[]
+export { data }
 
 export default {
   async load() {
-    const raw = await getRaw();
-    return Object.values(raw);
+    const raw = await getRaw()
+    return Object.values(raw)
   },
-};
+}
 
 async function getRaw(): Promise<Translators> {
   if (existsSync(local_path)) {
-    return JSON.parse(readFileSync(local_path).toString());
-  } else {
+    return JSON.parse(readFileSync(local_path).toString())
+  }
+  else {
     console.log(
-      "Local translators dashboard.json not found, will fetch from remote",
-    );
-    return (await fetch(remote_path)).json() as unknown as Translators;
+      'Local translators dashboard.json not found, will fetch from remote',
+    )
+    return (await fetch(remote_path)).json() as unknown as Translators
   }
 }

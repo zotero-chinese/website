@@ -45,8 +45,8 @@ jobs:
         id: netlify
         uses: nwtgck/actions-netlify@v3.0
         with:
-          publish-dir: "dist"
-          deploy-message: "Deploy from GitHub Actions"
+          publish-dir: dist
+          deploy-message: Deploy from GitHub Actions
           production-deploy: false
           alias: deploy-preview-${{ env.PR_NUM }}
           enable-commit-comment: false
@@ -63,7 +63,7 @@ jobs:
         id: fc
         with:
           issue-number: ${{ env.PR_NUM }}
-          comment-author: "github-actions[bot]"
+          comment-author: 'github-actions[bot]'
           body-includes: <!-- auto message -->
 
       - name: 创建或更新评论
@@ -110,7 +110,7 @@ jobs:
         id: fc
         with:
           issue-number: ${{ env.PR_NUM }}
-          comment-author: "github-actions[bot]"
+          comment-author: 'github-actions[bot]'
           body-includes: <!-- auto message -->
 
       - name: 创建或更新评论：失败
