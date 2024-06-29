@@ -21,7 +21,7 @@ export function MarkdownTransform(): Plugin {
 sidebar: false
 comments: false
 ---
-          ${code}`
+${code}`
 
         // CSL 详情页的头部块
         code = code.replace(
