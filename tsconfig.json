@@ -3,24 +3,18 @@
   "compilerOptions": {
     "target": "ESNext",
     "jsx": "preserve",
-
+    "lib": ["dom"],
     "baseUrl": ".",
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "paths": {
       // "@/*": ["./src/*"],
       "@theme/*": [".vitepress/theme/*"],
-      "@wiki/*": ["src/wiki/*"]
-    },
-    "resolveJsonModule": true,
-
-    "allowJs": true,
-    "strict": true,
-    // "composite": true,
-    "noEmit": true,
-    "esModuleInterop": true,
-    "isolatedModules": true,
-    "skipLibCheck": true
+      "@wiki/*": ["src/wiki/*"],
+      "@styles/": ["src/styles/*"],
+      "@plugins/": ["src/plugins/*"],
+      "@translators/": ["src/translators/*"]
+    }
   },
   "include": ["env.d.ts", ".vitepress/**/*", "src/**/*"]
 }
