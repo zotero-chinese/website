@@ -20,6 +20,7 @@ export function MarkdownTransform(): Plugin {
         code = `---
 sidebar: false
 comments: false
+editLink: false
 ---
 ${code}`
 
