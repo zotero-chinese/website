@@ -23,6 +23,9 @@ importers:
       '@mdit/plugin-footnote':
         specifier: 0.12.0
         version: 0.12.0(markdown-it@14.1.0)
+      '@mdit/plugin-mark':
+        specifier: ^0.12.0
+        version: 0.12.0(markdown-it@14.1.0)
       '@nolebase/vitepress-plugin-git-changelog':
         specifier: 2.2.0
         version: 2.2.0(@algolia/client-search@4.23.3)(@types/node@20.14.9)(async-validator@4.2.5)(postcss@8.4.38)(search-insights@2.13.0)(typescript@5.5.2)
@@ -678,6 +681,15 @@ packages:
     engines: {node: '>= 18'}
     peerDependencies:
       markdown-it: ^14.1.0
+
+  '@mdit/plugin-mark@0.12.0':
+    resolution: {integrity: sha512-BDFwbV/tbgUGL8KF2ymYNLEXT2KNBLe8D0rshDrbB4Iko1U2DywACQkmaUbYBJ1VCn7/dff35at9fWrm3QjrwQ==}
+    engines: {node: '>= 18'}
+    peerDependencies:
+      markdown-it: ^14.1.0
+    peerDependenciesMeta:
+      markdown-it:
+        optional: true
 
   '@nodelib/fs.scandir@2.1.5':
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -3648,6 +3660,12 @@ snapshots:
   '@mdit/plugin-footnote@0.12.0(markdown-it@14.1.0)':
     dependencies:
       '@types/markdown-it': 14.1.1
+      markdown-it: 14.1.0
+
+  '@mdit/plugin-mark@0.12.0(markdown-it@14.1.0)':
+    dependencies:
+      '@types/markdown-it': 14.1.1
+    optionalDependencies:
       markdown-it: 14.1.0
 
   '@nodelib/fs.scandir@2.1.5':

@@ -22,6 +22,7 @@
     "@giscus/vue": "3.0.0",
     "@highcharts/dashboards": "2.1.0",
     "@mdit/plugin-footnote": "0.12.0",
+    "@mdit/plugin-mark": "^0.12.0",
     "@nolebase/vitepress-plugin-git-changelog": "2.2.0",
     "@tsconfig/node20": "20.1.4",
     "@types/fs-extra": "11.0.4",
