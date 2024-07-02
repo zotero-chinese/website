@@ -32,7 +32,7 @@ export default defineConfig({
 
     // Git Changelog
     GitChangelog({
-      includeDirs: ['src/wiki/**/*.md'],
+      include: ['src/wiki/**/*.md'],
       repoURL: () => 'https://github.com/zotero-chinese/wiki',
     }),
     GitChangelogMarkdownSection({
