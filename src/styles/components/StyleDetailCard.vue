@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import DownloadLink from '@theme/components/DownloadLink.vue'
+
 import { useData } from 'vitepress'
 import { data as styles } from '../data/styles.data'
 
@@ -13,15 +15,16 @@ const contributors = [
   ...(style?.contributor?.map(v => v.name) || ''),
 ].join(', ')
 
-const repoU = 'zotero-chinese'
-const repoN = 'styles'
+const repoU = 'redleafnew'
+const repoN = 'Chinese-STD-GB-T-7714-related-csl'
 const rawLink = `https://github.com/${repoU}/${repoN}/blob/main/src/${style?.dir}/${style?.file}`
+const ghLink = `https://raw.githubusercontent.com/${repoU}/${repoN}/main/src/${style?.dir}/${style?.file}`
 const downloadLinks = {
   // https://raw.githubusercontent.com/redleafnew/Chinese-STD-GB-T-7714-related-csl/main/src/accounting-research/accounting-research.csl
-  github: `https://raw.githubusercontent.com/${repoU}/${repoN}/main/src/${style?.dir}/${style?.file}`,
-  gitee: `https://gitee.com/redleafnew00/Chinese-STD-GB-T-7714-related-csl/raw/main/src/${style?.dir}/${style?.file}`,
+  github: ghLink,
+  gitee: `https://gitee.com/redleafnew00/${repoN}/raw/main/src/${style?.dir}/${style?.file}`,
   jsd: `https://cdn.jsdelivr.net/gh/${repoU}/${repoN}@main/src/${style?.dir}/${style?.file}`,
-  ghproxy: `https://mirror.ghproxy.com/?q=${encodeURI(rawLink)}`,
+  ghproxy: `https://ghproxy.com/?q=${encodeURI(ghLink)}`,
   keleAli: `https://oss.wieke.cn/styles/src/${style?.dir}/${style?.file}`,
   keleAzure: `https://oss.wwang.de/styles/src/${style?.dir}/${style?.file}`,
 }
@@ -96,46 +99,51 @@ const styleFormat
       <a href="/user-guide/citation-styles">安装样式文件</a>
       了解详情。
     </p>
-    <div class="custom-block tip">
+    <div class="custom-block info">
       <p class="custom-block-title">
         本站为每一个样式文件都提供了多个下载地址，请选择自己可用的地址。
       </p>
-      <ul>
-        <li>
-          <a :href="downloadLinks.github" target="_blank">从 GitHub 安装样式</a>
-        </li>
-        <li>
-          <a :href="downloadLinks.gitee" target="_blank">从 Gitee 下载样式</a>
-          （请右击->另存为）
-        </li>
-        <li>
-          <a :href="downloadLinks.jsd" target="_blank">从 JsDeliver 下载样式</a>
-          （此地址存在 24 h 延迟）
-        </li>
-        <li>
-          <a :href="downloadLinks.ghproxy" target="_blank">
-            从 GH Proxy 下载样式
-          </a>
-          （请右击->另存为）
-        </li>
-        <li>
-          <a :href="downloadLinks.keleAli" target="_blank">
-            从
-            <code>oss.wieke.cn</code>
-            下载样式
-          </a>
-          （此地址由网友可口可乐提供）
-        </li>
-        <li>
-          <a :href="downloadLinks.keleAzure" target="_blank">
-            从
-            <code>oss.wwang.de</code>
-            下载样式
-          </a>
-          （此地址由网友可口可乐提供）
-        </li>
-        <li><a :href="rawLink">查看源码</a></li>
-      </ul>
+
+      <DownloadLink
+        :downlinks="[
+          {
+            label: '从 GitHub 安装样式',
+            link: downloadLinks.github,
+          },
+          {
+            label: '从 Gitee 安装样式',
+            link: downloadLinks.gitee,
+            useFetch: true,
+          },
+          {
+            label: '从 Js Deliver 安装样式',
+            link: downloadLinks.jsd,
+            useFetch: true,
+          },
+          {
+            label: '从 GitHub Proxy 安装样式',
+            link: downloadLinks.ghproxy,
+            useFetch: true,
+          },
+          {
+            label: '从 oss.wieke.cn 安装样式',
+            link: downloadLinks.keleAli,
+          },
+          {
+            label: '从 oss.wwang.de 安装样式',
+            link: downloadLinks.keleAzure,
+          },
+        ]"
+      />
+
+      <DownloadLink
+        :downlinks="[
+          {
+            label: '查看源码',
+            link: rawLink,
+          },
+        ]"
+      />
     </div>
   </template>
   <template v-else>
