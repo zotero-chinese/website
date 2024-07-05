@@ -12,7 +12,9 @@ package-lock.json
 dist
 **/.obsidian
 
+# 下载的数据
 **/data/*.json
+src/public/contributors_*.svg
 
 # Local Netlify folder
 .netlify
