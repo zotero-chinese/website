@@ -20,7 +20,7 @@ const data_list = [
       'https://raw.githubusercontent.com/zotero-chinese/zotero-plugins/gh-pages/dist/charts.json',
   },
   {
-    local_path: 'src/translators/data/_data/dashboard.json',
+    local_path: 'src/translators/data/_data/charts.json',
     remote_url:
       'https://raw.githubusercontent.com/l0o0/translators_CN/master/data/dashboard.json',
   },
