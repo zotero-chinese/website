@@ -51,7 +51,12 @@ export function MarkdownTransform(): Plugin {
         // CSL 详情页的头部块
         code = code.replace(
           '<!-- PLACEHOLDER FOR WEBSITE - BEFORE FILE -->',
-          `<StyleDetailCard />`,
+          [
+            '<script setup>',
+            'import StyleDetailCard from "../../../components/StyleDetailCard.vue"',
+            '</script>',
+            '<StyleDetailCard />',
+          ].join('\n'),
         )
 
         // CSL 详情页的折叠块

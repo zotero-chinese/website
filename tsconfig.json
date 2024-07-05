@@ -10,7 +10,11 @@
     "paths": {
       // "@/*": ["./src/*"],
       "@theme/*": [".vitepress/theme/*"],
-      "@wiki/*": ["src/wiki/*"]
+      "@data/*": [".vitepress/data/*"],
+      "@wiki/*": ["src/wiki/*"],
+      "@styles/*": ["src/styles/*"],
+      "@translators/*": ["src/translators/*"],
+      "@plugins/*": ["src/plugins/*"]
     },
     "resolveJsonModule": true,
 
