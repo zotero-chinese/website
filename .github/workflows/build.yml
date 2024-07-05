@@ -45,5 +45,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: build-result
-          path: dist
+          path: src/.vitepress/dist
           retention-days: 3

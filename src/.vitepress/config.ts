@@ -14,7 +14,7 @@ export default defineConfig({
   lang: 'zh-CN',
 
   // srcExclude: ["**/wiki/*.md"],
-  outDir: 'dist',
+  // outDir: 'dist',
 
   rewrites: {
     'wiki/:id+': ':id+',
