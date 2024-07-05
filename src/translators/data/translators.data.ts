@@ -3,7 +3,7 @@
 import { existsSync, readFileSync } from 'node:fs'
 import path from 'node:path'
 
-const local_path = path.resolve('src/translators/data/dashboard.json')
+const local_path = path.resolve('src/translators/data/_data/dashboard.json')
 const remote_path
   = 'https://github.com/l0o0/translators_CN/raw/master/data/dashboard.json'
 

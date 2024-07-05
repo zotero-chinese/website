@@ -6,10 +6,10 @@
   "description": "Zotero 中文社区站点",
   "license": "MIT",
   "scripts": {
-    "dev": "vitepress dev",
-    "build": "vitepress build",
+    "dev": "vitepress dev src",
+    "build": "vitepress build src",
     "build:tsc": "vue-tsc",
-    "preview": "vitepress preview",
+    "preview": "vitepress preview src",
     "lint": "eslint . --fix",
     "git:update": "git submodule update --remote --recursive",
     "fetch-data": "node .github/scripts/fetch-data.mjs",

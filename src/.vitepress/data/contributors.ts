@@ -1,5 +1,5 @@
-import { wikiContributors } from '../../src/wiki/.vitepress/contributors'
-import type { WikiContributor } from '../../src/wiki/.vitepress/contributors'
+import { wikiContributors } from '../../wiki/.vitepress/contributors'
+import type { WikiContributor } from '../../wiki/.vitepress/contributors'
 
 export interface SocialEntry {
   type: 'github' | 'twitter' | 'email'

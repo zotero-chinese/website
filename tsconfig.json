@@ -9,8 +9,8 @@
     "moduleResolution": "Bundler",
     "paths": {
       // "@/*": ["./src/*"],
-      "@theme/*": [".vitepress/theme/*"],
-      "@data/*": [".vitepress/data/*"],
+      "@theme/*": ["src/.vitepress/theme/*"],
+      "@data/*": ["src/.vitepress/data/*"],
       "@wiki/*": ["src/wiki/*"],
       "@styles/*": ["src/styles/*"],
       "@translators/*": ["src/translators/*"],
@@ -26,5 +26,5 @@
     "isolatedModules": true,
     "skipLibCheck": true
   },
-  "include": ["env.d.ts", ".vitepress/**/*", "src/**/*"]
+  "include": ["env.d.ts", "src/**/*"]
 }

@@ -5,8 +5,8 @@ import { copyFileSync, writeFileSync } from 'node:fs'
 import { Feed } from 'feed'
 import { type SiteConfig, createContentLoader } from 'vitepress'
 import FastGlob from 'fast-glob'
-import { getGitTimestamp } from '.vitepress/utils/getGitTimestamp'
-import { getDefaultTitle, getTextSummary } from '.vitepress/utils/markdown'
+import { getGitTimestamp } from '../utils/getGitTimestamp'
+import { getDefaultTitle, getTextSummary } from '../utils/markdown'
 
 const siteUrl = 'https://zotero-chinese.com'
 

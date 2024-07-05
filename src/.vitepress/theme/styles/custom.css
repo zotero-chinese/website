@@ -1,0 +1,5 @@
+@import url('../../../wiki/.vitepress/theme/styles/custom.css');
+
+.vp-doc table {
+  display: table;
+}

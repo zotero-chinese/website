@@ -2,7 +2,7 @@
 import { existsSync, readFileSync } from 'node:fs'
 import path from 'node:path'
 
-const local_path = path.resolve('src/plugins/data/charts.json')
+const local_path = path.resolve('src/plugins/_data/data/charts.json')
 const remote_path
   = 'https://raw.githubusercontent.com/zotero-chinese/zotero-plugins/gh-pages/dist/charts.json'
 

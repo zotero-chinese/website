@@ -13,8 +13,7 @@ dist
 **/.obsidian
 
 # 下载的数据
-**/data/*.json
-src/public/contributors_*.svg
+**/data/_data/
 
 # Local Netlify folder
 .netlify
