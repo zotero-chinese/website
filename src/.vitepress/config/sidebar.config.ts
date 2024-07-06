@@ -1,8 +1,9 @@
 import type { DefaultTheme } from 'vitepress'
+import { omit } from 'radash'
 import { sidebar as wikiSideBar } from '../../wiki/.vitepress/config/sidebar'
 
 export const sidebar: DefaultTheme.Sidebar = {
-  ...wikiSideBar,
+  ...(omit(wikiSideBar, ['/contributing/'])),
   // "/styles/detail/": (() => {
   //   return [];
   // })(),
