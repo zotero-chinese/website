@@ -13,7 +13,7 @@ export default defineConfig({
   description: 'Zotero 非官方中文维护小组',
   lang: 'zh-CN',
 
-  // srcExclude: ["**/wiki/*.md"],
+  srcExclude: ['wiki/index.md', 'wiki/README.md'],
   // outDir: 'dist',
 
   rewrites: {

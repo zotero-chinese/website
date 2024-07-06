@@ -23,8 +23,10 @@ export async function buildEnd(config: SiteConfig) {
   })
 
   const paths = await FastGlob.glob('src/wiki/**/*.md', {
-    ignore: ['README.md', 'node_modules'],
+    ignore: ['README.md', '**/node_modules', 'src/wiki/README.md', 'src/wiki/index.md'],
   })
+
+  // console.log(paths)
 
   // 获取每一条路径的 Git 时间
   const updatedDates = await Promise.all(
