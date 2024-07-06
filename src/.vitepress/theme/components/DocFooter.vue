@@ -1,64 +1,87 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useData } from 'vitepress'
+// import LicenseIcon from './icons/LicenseIcon.vue'
+// import CommunityIcon from './icons/CommunityIcon.vue'
+import ContributingIcon from './icons/ContributingIcon.vue'
+import CopyrightIcon from './icons/CopyrightIcon.vue'
 
 const filePath = ref(useData().page.value.filePath)
 </script>
 
 <template>
-  <!-- License -->
-  <div class="doc-before-footer-cc-block mt-10 text-sm font-medium">
-    使用
-    <a
-      v-if="filePath.match('translators/')"
-      class="footer-cc-link"
-      target="_blank"
-      href="https://github.com/l0o0/translators_CN?tab=AGPL-3.0-1-ov-file#readme"
-    >
-      AGPL-3.0
-    </a>
-    <a
-      v-else-if="filePath.match('styles/')"
-      class="footer-cc-link"
-      target="_blank"
-      href="https://creativecommons.org/licenses/by-sa/3.0/deed.zh-hans"
-    >
-      CC BY-SA 3.0
-    </a>
-    <a
-      v-else
-      class="footer-cc-link"
-      target="_blank"
-      href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh-hans"
-    >
-      CC BY-SA 4.0
-    </a>
-    许可协议进行共享
+  <div :key="filePath" class="doc-before-footer">
+    <!-- License -->
+    <div class="doc-before-footer-item">
+      <el-icon><CopyrightIcon /></el-icon>使用&nbsp;
+      <a
+        v-if="filePath.match('translators/')"
+        target="_blank"
+        href="https://github.com/l0o0/translators_CN?tab=AGPL-3.0-1-ov-file#readme"
+      >
+        AGPL-3.0
+      </a>
+      <a
+        v-else-if="filePath.match('styles/')"
+        target="_blank"
+        href="https://creativecommons.org/licenses/by-sa/3.0/deed.zh-hans"
+      >
+        CC BY-SA 3.0
+      </a>
+      <a
+        v-else
+        target="_blank"
+        href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh-hans"
+      >
+        CC BY-SA 4.0
+      </a>
+      &nbsp;许可协议进行共享
+    </div>
+
+    <!-- 贡献指南链接 -->
+    <div class="doc-before-footer-item">
+      <!-- <el-icon><CommunityIcon /></el-icon> -->
+      <el-icon><ContributingIcon /></el-icon>若您有意共建中文社区，请阅读&nbsp;
+      <a href="/contributing/">参与指南</a>
+      <p v-if="filePath.match('wiki/')">
+        &nbsp;或&nbsp;
+        <a href="/contributing/wiki/">文档贡献指南</a>
+      </p>
+    </div>
   </div>
 </template>
 
 <style>
-.doc-before-footer-cc-block {
+.doc-before-footer {
   color: var(--vp-c-text-2);
-  border-top: 1px solid var(--vp-c-divider-light);
-  padding-top: 24px;
+  line-height: 32px;
+  font-size: 14px;
+  align-items: center;
 }
 
-/* 正文结尾的 CC 协议链接基本样式 */
-.footer-cc-link {
-  color: var(--vp-c-text-2);
+.doc-before-footer-item {
+  display: flex;
+  align-items: center;
+}
+
+.doc-before-footer-item .el-icon {
+  margin-right: 8px;
+}
+
+.doc-before-footer-item a {
+  /* color: var(--vp-c-text-2); */
+  color: var(--vp-c-brand-1);
   transition: all 0.3s ease;
+}
+
+.doc-before-footer-item a:hover {
+  /* color: var(--vp-c-text-1); */
+  color: var(--vp-c-brand-1);
   text-decoration: underline;
   text-decoration-color: rgb(114, 114, 114);
 }
 
-/* 正文结尾的 CC 协议链接鼠标 hover 样式 */
-.footer-cc-link:hover {
-  color: var(--vp-c-text-1);
-}
-
-/* 正文结尾的 CC 协议链接暗色模式下鼠标 hover 样式 */
-.dark .footer-cc-link:hover {
+.dark .doc-before-footer-item a:hover {
   color: var(--vp-c-text-1);
 }
 </style>

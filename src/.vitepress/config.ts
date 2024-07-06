@@ -38,7 +38,7 @@ export default defineConfig({
           return `https://github.com/zotero-chinese/website/edit/main/${filePath}`
         }
       },
-      text: '对本页提出修改建议',
+      text: '在 GitHub 上修改此页',
     },
 
     externalLinkIcon: true,
