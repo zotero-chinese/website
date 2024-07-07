@@ -35,7 +35,7 @@ export default defineConfig({
           return `https://github.com/zotero-chinese/wiki/edit/main/${filePath.replace('wiki/', '')}`
         }
         else {
-          return `https://github.com/zotero-chinese/website/edit/main/${filePath}`
+          return `https://github.com/zotero-chinese/website/edit/main/src/${filePath}`
         }
       },
       text: '在 GitHub 上修改此页',
