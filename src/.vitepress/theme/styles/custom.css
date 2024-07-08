@@ -2,7 +2,7 @@
 
 .el-descriptions {
   display: block;
-  overflow-x: scroll;
+  overflow-x: auto;
 }
 
 .el-descriptions table {
