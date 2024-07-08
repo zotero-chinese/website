@@ -1,5 +1,10 @@
 @import url('../../../wiki/.vitepress/theme/styles/custom.css');
 
-.vp-doc table {
+.el-descriptions {
+  display: block;
+  overflow-x: scroll;
+}
+
+.el-descriptions table {
   display: table;
 }
