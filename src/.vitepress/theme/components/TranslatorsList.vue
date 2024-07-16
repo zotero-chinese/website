@@ -4,6 +4,7 @@ import { syncRef, useUrlSearchParams } from '@vueuse/core'
 
 import Search from '@theme/components/Search.vue'
 import TagsFilter from '@theme/components/TagsFilter.vue'
+import MarketToolBar from '@theme/components/MarketToolBar.vue'
 
 import { data } from '@data/translatorsLittle.data'
 
@@ -57,10 +58,10 @@ const filtered = computed(() => {
 </script>
 
 <template>
-  <div class="toolbar">
+  <MarketToolBar>
     <!-- 搜索 -->
     <Search v-model="searchText" placeholder="搜索转换器名称或匹配网址..." />
-  </div>
+  </MarketToolBar>
 
   <!-- 标签筛选 -->
   <TagsFilter v-model="selectedTags" :tags="translatorTypes" />
@@ -87,24 +88,6 @@ const filtered = computed(() => {
 </template>
 
 <style scoped>
-.toolbar {
-  display: flex;
-  justify-content: space-around;
-  padding-bottom: 20px;
-}
-
-.toolbar > * {
-  margin: 0 8px;
-}
-
-.toolbar > :first-child {
-  margin-left: 0;
-}
-
-.toolbar > :last-child {
-  margin-right: 0;
-}
-
 .el-col {
   border-radius: 4px;
   min-height: 36px;

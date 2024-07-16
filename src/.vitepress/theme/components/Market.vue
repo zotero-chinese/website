@@ -2,12 +2,14 @@
 import { useData } from 'vitepress'
 import { defineAsyncComponent, ref } from 'vue'
 
-// ts-ignore data 是 vitepress 的隐式导出
+// @ts-expect-error data 是 vitepress 的隐式导出
 import { data as _pluginUpdateTime } from '@data/update-time.data'
-// ts-ignore data 是 vitepress 的隐式导出
+// @ts-expect-error data 是 vitepress 的隐式导出
 import { data as _updateTime } from '@data/time.data'
 import MarketHero from './MarketHero.vue'
-import HeartFilledIcon from './icons/HeartFilledIcon.vue'
+
+const { frontmatter } = useData()
+const updateTime = frontmatter.value.type === 'plugin' ? _pluginUpdateTime.lastUpdate : _updateTime
 
 const PluginsList = defineAsyncComponent(() =>
   import('./PluginsList.vue'))
@@ -18,10 +20,7 @@ const StylesList = defineAsyncComponent(() =>
 const TranslatorList = defineAsyncComponent(() =>
   import('./TranslatorsList.vue'))
 
-const { frontmatter } = useData()
-const updateTime = frontmatter.type === 'plugin' ? _pluginUpdateTime.lastUpdate : _updateTime
-
-function getComponentByType(type) {
+function getComponentByType(type: string) {
   switch (type) {
     case 'plugin':
       return PluginsList

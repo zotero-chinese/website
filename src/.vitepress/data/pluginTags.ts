@@ -1,6 +1,11 @@
 import type { Tag } from '@theme/components/TagsFilter.vue'
+import type { PluginTagType } from './plugins.data'
 
-export const tags: Tag[] = [
+export interface PluginTag extends Tag {
+  value: PluginTagType
+}
+
+export const tags: PluginTag[] = [
   {
     label: '推荐',
     value: 'favorite',

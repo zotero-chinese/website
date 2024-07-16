@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { TranslatorLittle } from '@data/translator.little.data'
+import type { TranslatorLittle } from '@data/translatorsLittle.data'
 import {
   useItemType,
   useSortedItemTypes,
@@ -7,13 +7,12 @@ import {
 } from '../composables/localize'
 
 const props = defineProps<{ translator: TranslatorLittle }>()
-const translator = props.translator
 
-const sortedItemTypes = translator.itemTypes
+const sortedItemTypes = props.translator.itemTypes
   .map(v => useItemType(v))
   .sort(useSortedItemTypes)
 
-const translatorTypes = useTranslatorType(translator.translatorType)
+const translatorTypes = useTranslatorType(props.translator.translatorType)
 </script>
 
 <template>
@@ -21,7 +20,7 @@ const translatorTypes = useTranslatorType(translator.translatorType)
     <template #header>
       <div class="card-header">
         <b>
-          <el-text tag="b" size="large">{{ translator.zhLabel }}</el-text>
+          <el-text tag="b" size="large">{{ props.translator.zhLabel }}</el-text>
         </b>
       </div>
     </template>
@@ -31,21 +30,21 @@ const translatorTypes = useTranslatorType(translator.translatorType)
         <el-icon>
           <User />
         </el-icon>
-        {{ translator.creator }}
+        {{ props.translator.creator }}
       </el-text>
 
       <el-text class="hanging-indent" style="word-break: break-all">
         <el-icon>
           <Link />
         </el-icon>
-        {{ translator.target }}
+        {{ props.translator.target }}
       </el-text>
 
       <el-text>
         <el-icon>
           <Refresh />
         </el-icon>
-        {{ translator.lastUpdated }}
+        {{ props.translator.lastUpdated }}
       </el-text>
 
       <el-text>

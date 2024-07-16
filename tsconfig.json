@@ -21,9 +21,11 @@
 
     "allowJs": true,
     "strict": true,
+    "declaration": true,
     // "composite": true,
     "noEmit": true,
     "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
     "skipLibCheck": true
   },

@@ -56,12 +56,12 @@ watch(selectedTags, (v) => {
 .el-checkbox-group {
   display: flex;
   justify-content: center;
-  padding-bottom: 20px;
+  padding-bottom: 1rem;
   flex-wrap: wrap;
 }
 
 .el-checkbox {
-  margin: 0px 10px 10px 0px;
+  margin: 0px 0.5rem 1rem 0.5rem;
 }
 
 .el-checkbox > :deep(.el-checkbox__input) {

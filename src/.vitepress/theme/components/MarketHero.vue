@@ -22,7 +22,7 @@ const props = defineProps({
     </div>
 
     <div v-if="actions" class="actions">
-      <div v-for="action in actions" :key="action.link" class="action">
+      <div v-for="action in props.actions" :key="action.link" class="action">
         <VPButton
           tag="a"
           size="medium"

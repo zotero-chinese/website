@@ -4,8 +4,9 @@ import { syncRef, useUrlSearchParams } from '@vueuse/core'
 
 import Search from '@theme/components/Search.vue'
 import TagsFilter from '@theme/components/TagsFilter.vue'
+import MarketToolBar from '@theme/components/MarketToolBar.vue'
 import { data as plugins } from '@data/plugins.data'
-import type { PluginInfo } from '@data/plugins.data'
+import type { PluginInfo, PluginTagType } from '@data/plugins.data'
 import { tags as allTags } from '@data/pluginTags'
 
 import PluginCard from './PluginCard.vue'
@@ -81,13 +82,12 @@ function showDownload(plugin: PluginInfo) {
 </script>
 
 <template>
-  <div class="toolbar">
+  <MarketToolBar>
     <!-- Zotero 版本筛选 -->
     <el-select
       v-model="zotero"
       placeholder="适配 Zotero 版本"
       size="large"
-      style="width: 200px"
     >
       <template #prefix>
         <el-icon>
@@ -104,7 +104,6 @@ function showDownload(plugin: PluginInfo) {
       v-model="sortBy"
       placeholder="排序"
       size="large"
-      style="width: 200px"
     >
       <template #prefix>
         <el-icon>
@@ -119,7 +118,7 @@ function showDownload(plugin: PluginInfo) {
 
     <!-- 搜索 -->
     <Search v-model="searchText" placeholder="搜索插件..." />
-  </div>
+  </MarketToolBar>
 
   <!-- 标签筛选 -->
   <TagsFilter v-model="selectedTags" :tags="allTags" />
@@ -187,21 +186,6 @@ function showDownload(plugin: PluginInfo) {
 </template>
 
 <style scoped>
-.toolbar {
-  display: flex;
-  justify-content: space-around;
-  padding-bottom: 20px;
-}
-.toolbar > * {
-  margin: 0 8px;
-}
-.toolbar > :first-child {
-  margin-left: 0;
-}
-.toolbar > :last-child {
-  margin-right: 0;
-}
-
 .el-col {
   border-radius: 4px;
   min-height: 36px;

@@ -2,7 +2,7 @@
 import { ref, watch } from 'vue'
 import type { PluginInfo } from '@data/plugins.data'
 
-defineProps<{
+const props = defineProps<{
   modelValue: boolean
   selectedPlugin?: PluginInfo
 }>()
@@ -23,7 +23,7 @@ watch(isShowing, (v) => {
       direction="rtl"
       size="50%"
       :lock-scroll="false"
-      :title="selectedPlugin?.name"
+      :title="props.selectedPlugin?.name"
     >
       <div class="desc">
         <el-text>
@@ -62,7 +62,7 @@ watch(isShowing, (v) => {
 
       <div class="cards">
         <el-card
-          v-for="release in selectedPlugin?.releases"
+          v-for="release in props.selectedPlugin?.releases"
           :key="release.targetZoteroVersion"
           shadow="hover"
           class="card"

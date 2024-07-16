@@ -4,6 +4,8 @@ import { syncRef, useUrlSearchParams } from '@vueuse/core'
 
 import Search from '@theme/components/Search.vue'
 import TagsFilter from '@theme/components/TagsFilter.vue'
+import MarketToolBar from '@theme/components/MarketToolBar.vue'
+
 import { data as styles } from '@data/styles.data'
 import StyleListItem from './StyleListItem.vue'
 import StyleListItemPreview from './StyleListItemPreview.vue'
@@ -94,13 +96,12 @@ const filtered = computed(() => {
 </script>
 
 <template>
-  <div class="toolbar">
-    <!-- Zotero 版本筛选 -->
+  <MarketToolBar>
+    <!-- 引文格式 -->
     <el-select
       v-model="format"
       placeholder="引文格式"
       size="large"
-      style="width: 300px"
     >
       <template #prefix>
         <el-icon>
@@ -120,7 +121,6 @@ const filtered = computed(() => {
       v-model="field"
       placeholder="学科分类"
       size="large"
-      style="width: 300px"
     >
       <template #prefix>
         <el-icon>
@@ -139,9 +139,8 @@ const filtered = computed(() => {
     <!-- 工具样式 -->
     <el-select
       v-model="filter"
-      placeholder="引文格式"
+      placeholder="筛选"
       size="large"
-      style="width: 300px"
     >
       <template #prefix>
         <el-icon>
@@ -164,12 +163,12 @@ const filtered = computed(() => {
       active-text="始终显示预览"
       inactive-text="仅在悬浮时显示预览"
     />
-  </div>
+  </MarketToolBar>
 
   <!-- 标签筛选 -->
   <TagsFilter v-model="selectedTags" :tags="allTags" />
 
-  <!-- 插件卡片列表 -->
+  <!-- 列表 -->
   <div class="styles-list vp-doc">
     <p>共加载 {{ filtered.length }} 条样式。</p>
     <ul v-if="!showPreview">
@@ -191,15 +190,6 @@ const filtered = computed(() => {
 </template>
 
 <style scoped>
-.toolbar {
-  display: flex;
-  justify-content: space-around;
-  padding-bottom: 20px;
-}
-.toolbar > * {
-  margin: 0 8px;
-}
-
 @media only screen and (min-width: 800px) {
   .styles-list {
     padding: 0 10rem;
