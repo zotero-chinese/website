@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { useData } from 'vitepress'
-
 import { defineAsyncComponent, ref } from 'vue'
 
 // ts-ignore data 是 vitepress 的隐式导出
@@ -9,8 +8,6 @@ import { data as _pluginUpdateTime } from '../../data/update-time.data'
 import { data as _updateTime } from '../../data/time.data'
 import MarketHero from './MarketHero.vue'
 import HeartFilledIcon from './icons/HeartFilledIcon.vue'
-
-// const loading = ref(true)
 
 const PluginsList = defineAsyncComponent(() =>
   import('./PluginsList.vue'))
@@ -23,6 +20,21 @@ const TranslatorList = defineAsyncComponent(() =>
 
 const { frontmatter } = useData()
 const updateTime = frontmatter.type === 'plugin' ? _pluginUpdateTime.lastUpdate : _updateTime
+
+function getComponentByType(type) {
+  switch (type) {
+    case 'plugin':
+      return PluginsList
+    case 'charts':
+      return PluginsChart
+    case 'csl':
+      return StylesList
+    case 'translator':
+      return TranslatorList
+    default:
+      return null
+  }
+}
 </script>
 
 <template>
@@ -34,15 +46,16 @@ const updateTime = frontmatter.type === 'plugin' ? _pluginUpdateTime.lastUpdate 
     />
 
     <main class="MarketMain">
-      <!-- <div v-if="loading">
-        加载中...
-      </div> -->
-      <client-only>
-        <PluginsList v-if="frontmatter.type === 'plugin'" />
-        <PluginsChart v-if="frontmatter.type === 'charts'" />
-        <StylesList v-if="frontmatter.type === 'csl'" />
-        <TranslatorList v-if="frontmatter.type === 'translator'" />
-      </client-only>
+      <ClientOnly>
+        <Suspense timeout="0">
+          <template #default>
+            <component :is="getComponentByType(frontmatter.type)" :key="frontmatter.type" />
+          </template>
+          <template #fallback>
+            Loading...
+          </template>
+        </Suspense>
+      </ClientOnly>
     </main>
 
     <Content />
