@@ -3,9 +3,9 @@ import { useData } from 'vitepress'
 import { defineAsyncComponent, ref } from 'vue'
 
 // ts-ignore data 是 vitepress 的隐式导出
-import { data as _pluginUpdateTime } from '../../data/update-time.data'
+import { data as _pluginUpdateTime } from '@data/update-time.data'
 // ts-ignore data 是 vitepress 的隐式导出
-import { data as _updateTime } from '../../data/time.data'
+import { data as _updateTime } from '@data/time.data'
 import MarketHero from './MarketHero.vue'
 import HeartFilledIcon from './icons/HeartFilledIcon.vue'
 

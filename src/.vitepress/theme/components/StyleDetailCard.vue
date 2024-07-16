@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useData } from 'vitepress'
-import { data as styles } from '../../data/styles.data'
+import { data as styles } from '@data/styles.data'
 
 const { page } = useData()
 

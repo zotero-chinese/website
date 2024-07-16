@@ -4,9 +4,9 @@ import { syncRef, useUrlSearchParams } from '@vueuse/core'
 
 import Search from '@theme/components/Search.vue'
 import TagsFilter from '@theme/components/TagsFilter.vue'
-import { data as plugins } from '../../data/plugins.data'
-import type { PluginInfo } from '../../data/plugins.data'
-import { tags as allTags } from '../../data/pluginTags'
+import { data as plugins } from '@data/plugins.data'
+import type { PluginInfo } from '@data/plugins.data'
+import { tags as allTags } from '@data/pluginTags'
 
 import PluginCard from './PluginCard.vue'
 import PluginDownloadModal from './PluginDownloadModal.vue'

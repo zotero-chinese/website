@@ -5,7 +5,8 @@ import { syncRef, useUrlSearchParams } from '@vueuse/core'
 import Search from '@theme/components/Search.vue'
 import TagsFilter from '@theme/components/TagsFilter.vue'
 
-import { data } from '../../data/translatorsLittle.data'
+import { data } from '@data/translatorsLittle.data'
+
 import { useItemType, useSortedItemTypes } from '../composables/localize'
 import TranslatorCard from './TranslatorCard.vue'
 

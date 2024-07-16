@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
-import type { PluginInfo } from '../../data/plugins.data'
+import type { PluginInfo } from '@data/plugins.data'
 
 defineProps<{
   modelValue: boolean

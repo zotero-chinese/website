@@ -22,7 +22,9 @@ export default defineConfig({
   },
   resolve: {
     alias: {
+      // @theme -> themeDir is a build-in alias of VitePress
       '@wiki': resolve('src/wiki/'),
+      '@data': resolve('src/.vitepress/data/'),
     },
   },
   plugins: [
