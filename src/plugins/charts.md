@@ -1,18 +1,11 @@
 ---
-title: 插件排行榜
-layout: page
+title: 🤩 Awesome Zotero Plugins
+layout: Market
+type: charts
 sidebar: false
+actions:
+  - text: 🏪 Plugins Store
+    link: /plugins
+  - text: 🤵 Feedback
+    link: https://github.com/zotero-chinese/zotero-plugins
 ---
-
-<!-- markdownlint-disable -->
-
-<script setup>
-import { defineClientComponent } from 'vitepress'
-const PluginsChart = defineClientComponent(() => {
-    return import ("./components/PluginsChart.vue")
-})
-</script>
-
-<ClientOnly>
-    <PluginsChart />
-</ClientOnly>

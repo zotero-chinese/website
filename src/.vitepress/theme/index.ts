@@ -23,6 +23,7 @@ import { contributors } from '../data/contributors'
 import Giscus from './components/Giscus.vue'
 import DocFooter from './components/DocFooter.vue'
 import SvgImage from './components/SvgImage.vue'
+import Market from './components/Market.vue'
 // import HomeSponsors from "./components/HomeSponsors.vue";
 // import AsideSponsors from "./components/AsideSponsors.vue";
 
@@ -39,6 +40,7 @@ export default {
   },
   enhanceApp({ app }) {
     app.component('SvgImage', SvgImage)
+    app.component('Market', Market)
     for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
       app.component(key, component)
     }

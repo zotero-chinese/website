@@ -140,13 +140,13 @@ const translatorTypes = useTranslatorType(translator?.header.translatorType)
                   >
                     <template v-if="attachment.mimeType === 'application/pdf'">
                       <img
-                        src="..\..\wiki\assets\icons\item-type\attachment-pdf.svg"
+                        src="@wiki/assets/icons/item-type/attachment-pdf.svg"
                         class="attachment-icon"
                       >
                     </template>
                     <template v-else>
                       <img
-                        src="..\..\wiki\assets\icons\item-type\attachment-snapshot.svg"
+                        src="@wiki/assets/icons/item-type/attachment-snapshot.svg"
                         class="attachment-icon"
                       >
                     </template>
@@ -173,7 +173,7 @@ const translatorTypes = useTranslatorType(translator?.header.translatorType)
                     shadow="never"
                   >
                     <img
-                      src="..\..\wiki\assets\icons\item-type\note.svg"
+                      src="@wiki/assets/icons/item-type/note.svg"
                       class="attachment-icon"
                     >
                     {{ note }}

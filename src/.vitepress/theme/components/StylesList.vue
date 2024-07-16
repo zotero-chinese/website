@@ -4,7 +4,7 @@ import { syncRef, useUrlSearchParams } from '@vueuse/core'
 
 import Search from '@theme/components/Search.vue'
 import TagsFilter from '@theme/components/TagsFilter.vue'
-import { data as styles } from '../data/styles.data'
+import { data as styles } from '../../data/styles.data'
 import StyleListItem from './StyleListItem.vue'
 import StyleListItemPreview from './StyleListItemPreview.vue'
 

@@ -2,17 +2,17 @@ import fs from 'fs-extra'
 
 // const local_path = path.resolve("src/styles/data/styles.json");
 
-declare const data: Style[]
+declare const data: StyleFullResult[]
 export { data }
 
 export default {
-  watch: ['../detail/src/**/metadata.json'],
+  watch: ['../../styles/detail/**/metadata.json'],
   load(watchedFiles: string[]) {
     // watchFiles 是一个所匹配文件的绝对路径的数组。
 
     return watchedFiles
       .map((file) => {
-        return fs.readJsonSync(file) as Style
+        return fs.readJsonSync(file) as StyleFullResult
       })
       .sort((a, b) => {
         const _a = a.title.match('GB')

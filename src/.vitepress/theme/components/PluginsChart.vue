@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { useData } from 'vitepress'
 import { onMounted } from 'vue'
-import PageHeader from '@theme/components/PageHeader.vue'
 
 import Highcharts from 'highcharts'
 import HighchartsMore from 'highcharts/highcharts-more'
@@ -21,7 +20,7 @@ import DataGrid from '@highcharts/dashboards/datagrid'
 import LayoutModule from '@highcharts/dashboards/modules/layout'
 
 // @ts-expect-error data 是 vitepress 的隐式导出
-import { data as chartsData } from '../data/charts.data'
+import { data as chartsData } from '../../data/charts.data'
 
 HighchartsMore(Highcharts)
 WordCloudGraph(Highcharts)
@@ -83,23 +82,10 @@ function loadChartsJson() {
 </script>
 
 <template>
-  <PageHeader
-    title="🤩 Awesome Zotero Plugins"
-    :actions="[
-      { text: '🏪 Plugins Store', link: '/plugins' },
-      {
-        text: '🤵 Feedback',
-        link: 'https://github.com/zotero-chinese/zotero-plugins',
-      },
-    ]"
-  />
-
   <div
     id="container"
     :class="{ 'highcharts-dark': darkMode, 'highcharts-light': !darkMode }"
-  >
-    Loading ...
-  </div>
+  />
 </template>
 
 <style scope>

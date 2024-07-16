@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { TranslatorLittle } from '@data/translator.little.data'
 import {
   useItemType,
   useSortedItemTypes,

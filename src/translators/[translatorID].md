@@ -14,7 +14,7 @@ comments: false
 <!-- markdownlint-disable -->
 
 <script setup>
-import TranslatorDetails from "./components/TranslatorDetails.vue";
+import TranslatorDetails from "@theme/components/TranslatorDetails.vue";
 </script>
 
 [返回转换器列表](./index.md)

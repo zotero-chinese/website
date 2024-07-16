@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const props = defineProps<{
-  style: Style
+  style: StyleFullResult
 }>()
 const style = props.style
 </script>
