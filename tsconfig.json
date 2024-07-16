@@ -3,6 +3,7 @@
   "compilerOptions": {
     "target": "ESNext",
     "jsx": "preserve",
+    "lib": ["ESNext"],
 
     "baseUrl": ".",
     "module": "ESNext",
@@ -20,11 +21,21 @@
 
     "allowJs": true,
     "strict": true,
+    "declaration": true,
     // "composite": true,
     "noEmit": true,
     "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
     "skipLibCheck": true
   },
-  "include": ["env.d.ts", "src/**/*"]
+  "include": ["env.d.ts", "src/**/*.ts", "src/**/*.d.ts", "src/.vitepress/**/*"],
+  "exclude": [
+    "**/node_modules/**",
+    "**/dist/**",
+    "template",
+    "bin",
+    "docs/snippets",
+    "scripts"
+  ]
 }

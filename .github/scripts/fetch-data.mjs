@@ -5,22 +5,22 @@ import fs from 'fs-extra'
 
 const data_list = [
   {
-    local_path: 'src/plugins/data/_data/plugins.json',
+    local_path: 'src/.vitepress/data/_data/plugins.json',
     remote_url:
       'https://raw.githubusercontent.com/zotero-chinese/zotero-plugins/gh-pages/dist/plugins.json',
   },
   {
-    local_path: 'src/plugins/data/_data/update-time.json',
+    local_path: 'src/.vitepress/data/_data/update-time.json',
     remote_url:
       'https://raw.githubusercontent.com/zotero-chinese/zotero-plugins/gh-pages/dist/shields.json',
   },
   {
-    local_path: 'src/plugins/data/_data/charts.json',
+    local_path: 'src/.vitepress/data/_data/charts.json',
     remote_url:
       'https://raw.githubusercontent.com/zotero-chinese/zotero-plugins/gh-pages/dist/charts.json',
   },
   {
-    local_path: 'src/translators/data/_data/dashboard.json',
+    local_path: 'src/.vitepress/data/_data/dashboard.json',
     remote_url:
       'https://raw.githubusercontent.com/l0o0/translators_CN/master/data/dashboard.json',
   },

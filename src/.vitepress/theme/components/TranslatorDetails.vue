@@ -1,5 +1,10 @@
 <script setup lang="ts">
+// TODO: 解决此文件类型检查错误
+
 import { useData } from 'vitepress'
+import type { Translator } from '@data/translatorsLittle.data'
+import type { Ref } from 'vue'
+import { toRef } from 'vue'
 import {
   useCreatorType,
   useItemField,
@@ -7,8 +12,8 @@ import {
   useTranslatorType,
 } from '../composables/localize'
 
-const translator = useData().params.value?.translator as Translator
-const translatorTypes = useTranslatorType(translator?.header.translatorType)
+const translator = toRef(useData().params.value?.translator) as Ref<Translator | undefined>
+const translatorTypes = useTranslatorType(translator.value?.header.translatorType ?? 0)
 </script>
 
 <template>
@@ -140,13 +145,13 @@ const translatorTypes = useTranslatorType(translator?.header.translatorType)
                   >
                     <template v-if="attachment.mimeType === 'application/pdf'">
                       <img
-                        src="..\..\wiki\assets\icons\item-type\attachment-pdf.svg"
+                        src="@wiki/assets/icons/item-type/attachment-pdf.svg"
                         class="attachment-icon"
                       >
                     </template>
                     <template v-else>
                       <img
-                        src="..\..\wiki\assets\icons\item-type\attachment-snapshot.svg"
+                        src="@wiki/assets/icons/item-type/attachment-snapshot.svg"
                         class="attachment-icon"
                       >
                     </template>
@@ -173,7 +178,7 @@ const translatorTypes = useTranslatorType(translator?.header.translatorType)
                     shadow="never"
                   >
                     <img
-                      src="..\..\wiki\assets\icons\item-type\note.svg"
+                      src="@wiki/assets/icons/item-type/note.svg"
                       class="attachment-icon"
                     >
                     {{ note }}

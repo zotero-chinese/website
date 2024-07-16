@@ -1,4 +1,27 @@
-interface PluginInfoBase {
+/* eslint-disable no-console */
+import { existsSync, readFileSync } from 'node:fs'
+import path from 'node:path'
+
+const local_path = path.resolve('src/.vitepress/data/_data/plugins.json')
+const remote_path
+  = 'https://raw.githubusercontent.com/zotero-chinese/zotero-plugins/gh-pages/dist/plugins.json'
+
+declare const data: PluginInfo[]
+export { data }
+
+export default {
+  async load() {
+    if (existsSync(local_path)) {
+      return JSON.parse(readFileSync(local_path).toString())
+    }
+    else {
+      console.log('Local plugins.json not found, will fetch from remote')
+      return (await fetch(remote_path)).json()
+    }
+  },
+}
+
+export interface PluginInfoBase {
   /**
    * 插件仓库
    *
@@ -15,7 +38,7 @@ interface PluginInfoBase {
   tags: PluginTagType[]
 }
 
-interface ReleaseInfoBase {
+export interface ReleaseInfoBase {
   /**
    * 当前发布版对应的 Zotero 版本
    */
@@ -32,7 +55,7 @@ interface ReleaseInfoBase {
   tagName: 'latest' | 'pre' | string
 }
 
-interface PluginInfo extends PluginInfoBase {
+export interface PluginInfo extends PluginInfoBase {
   /**
    * 插件名称
    */
@@ -52,7 +75,7 @@ interface PluginInfo extends PluginInfoBase {
   }
 }
 
-interface ReleaseInfo extends ReleaseInfoBase {
+export interface ReleaseInfo extends ReleaseInfoBase {
   /**
    * 插件 ID，自 XPI 中提取
    */
@@ -76,7 +99,7 @@ interface ReleaseInfo extends ReleaseInfoBase {
 /**
  * 插件标签
  */
-type PluginTagType =
+export type PluginTagType =
   // 推荐列表
   | 'favorite'
   // 条目元数据维护

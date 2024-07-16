@@ -1,10 +1,11 @@
 import { listify } from 'radash'
 import fs from 'fs-extra'
+import type { Translators } from '@data/translators.data'
 
 export default {
   async paths() {
     const translators = fs.readJsonSync(
-      'src/translators/data/_data/dashboard.json',
+      'src/.vitepress/data/_data/dashboard.json',
     ) as Translators
 
     return listify(translators, (k, v) => ({ ...v, fileName: k })).map(

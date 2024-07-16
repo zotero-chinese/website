@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import { tags as allTags } from '../types/tags'
+import { tags as allTags } from '@data/pluginTags'
+import type { PluginTag } from '@data/pluginTags'
+import type { PluginInfo } from '@data/plugins.data'
 
 const props = defineProps<{
   plugin: PluginInfo
@@ -17,8 +19,8 @@ function showDownload() {
     <template #header>
       <div class="card-header">
         <b>
-          <el-link :href="`https://github.com/${plugin.repo}`" target="_blank">
-            <el-text tag="b" size="large">{{ plugin.name }}</el-text>
+          <el-link :href="`https://github.com/${props.plugin.repo}`" target="_blank">
+            <el-text tag="b" size="large">{{ props.plugin.name }}</el-text>
           </el-link>
         </b>
       </div>
@@ -35,8 +37,8 @@ function showDownload() {
           <el-icon>
             <Avatar />
           </el-icon>
-          <el-link :href="plugin.author.url">
-            {{ plugin.author.name }}
+          <el-link :href="props.plugin.author.url">
+            {{ props.plugin.author.name }}
           </el-link>
         </el-text>
       </el-tooltip>
@@ -51,29 +53,29 @@ function showDownload() {
           <el-icon>
             <StarFilled />
           </el-icon>
-          {{ plugin.stars }}
+          {{ props.plugin.stars }}
         </el-text>
       </el-tooltip>
     </el-space>
 
     <p class="desc">
       <el-text truncated line-clamp="5">
-        {{ plugin.description }}
+        {{ props.plugin.description }}
       </el-text>
     </p>
     <div class="tags">
       <el-tag
-        v-for="tag in plugin.tags"
+        v-for="tag in props.plugin.tags"
         :key="tag"
         :type="tag === 'favorite' ? 'success' : 'info'"
       >
         <el-tooltip
           class="box-item"
           effect="dark"
-          :content="allTags.find((t) => t.value === tag)?.description"
+          :content="allTags.find((t: PluginTag) => t.value === tag)?.description"
           placement="bottom"
         >
-          {{ allTags.find((t) => t.value === tag)?.label }}
+          {{ allTags.find((t: PluginTag) => t.value === tag)?.label }}
         </el-tooltip>
       </el-tag>
     </div>

@@ -3,7 +3,7 @@
 import { existsSync, readFileSync } from 'node:fs'
 import path from 'node:path'
 
-const local_path = path.resolve('src/plugins/data/_data/update-time.json')
+const local_path = path.resolve('src/.vitepress/data/_data/update-time.json')
 const remote_path
   = 'https://raw.githubusercontent.com/zotero-chinese/zotero-plugins/gh-pages/dist/shields.json'
 

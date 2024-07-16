@@ -28,14 +28,6 @@ export function MarkdownTransform(): Plugin {
         '/',
       )
 
-      // wiki 部分贡献指南
-      if (id.match('/wiki/')) {
-        // code = [
-        //   code,
-        //   '<DocInfoCord />',
-        // ].join('\n\n')
-      }
-
       // CSL 样式部分
       if (id.match(/styles\/detail\/.*\.md/)) {
         // 为详情页增加 md 前言
@@ -53,7 +45,7 @@ export function MarkdownTransform(): Plugin {
           '<!-- PLACEHOLDER FOR WEBSITE - BEFORE FILE -->',
           [
             '<script setup>',
-            'import StyleDetailCard from "../../../components/StyleDetailCard.vue"',
+            'import StyleDetailCard from "@theme/components/StyleDetailCard.vue"',
             '</script>',
             '<StyleDetailCard />',
           ].join('\n'),

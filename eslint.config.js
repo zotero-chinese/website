@@ -15,6 +15,6 @@ export default antfu({
     '**/src/styles/detail/**',
     'scripts/**',
     '**/build/**',
-    'dist/**',
+    '**/dist/**',
   ],
 })

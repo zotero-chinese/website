@@ -1,3 +1,4 @@
+import { resolve } from 'node:path'
 import { defineConfig } from 'vite'
 // import type { UserConfig } from "vitepress";
 
@@ -18,6 +19,13 @@ export default defineConfig({
   define: {
     // 启用生产环境构建下激活不匹配的详细警告
     __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: 'true',
+  },
+  resolve: {
+    alias: {
+      // @theme -> themeDir is a build-in alias of VitePress
+      '@wiki': resolve('src/wiki/'),
+      '@data': resolve('src/.vitepress/data/'),
+    },
   },
   plugins: [
     Inspect(),
