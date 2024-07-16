@@ -143,7 +143,7 @@ function showDownload(plugin: PluginInfo) {
   <el-empty v-if="filteredPlugins.length === 0" description="无匹配插件" />
 
   <!-- 下载页面 -->
-  <DownloadModal
+  <PluginDownloadModal
     v-if="isShowDownload"
     v-model="isShowDownload"
     :selected-plugin="selectedPlugin"
