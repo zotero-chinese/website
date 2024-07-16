@@ -102,6 +102,7 @@ function loadChartsJson() {
 .highcharts-dashboards,
 .highcharts-dashboards-wrapper {
   background-color: unset;
+  overflow-x: auto;
 }
 
 .highcharts-color-101 {
