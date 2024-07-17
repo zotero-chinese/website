@@ -1,27 +1,27 @@
 <template>
-  <div class="toolbar">
+  <div class="MarketToolBar">
     <slot />
   </div>
 </template>
 
 <style scoped>
-.toolbar {
+.MarketToolBar {
   display: flex;
   justify-content: space-around;
   padding: 0.5rem 0;
 }
-.toolbar > * {
+.MarketToolBar > * {
   margin: 0.5rem;
 }
-.toolbar > :deep(.el-select) {
-  max-width: 12em;
+.MarketToolBar > :deep(.el-select) {
+  max-width: 13em;
 }
 
 @media only screen and (max-width: 800px) {
-  .toolbar {
+  .MarketToolBar {
     flex-wrap: wrap;
   }
-  .toolbar > :deep(.el-select) {
+  .MarketToolBar > :deep(.el-select) {
     max-width: 100%;
   }
 }
