@@ -12,20 +12,20 @@ export function MarkdownTransform(): Plugin {
 
       // convert links to relative
       code = code.replaceAll(
-        /https?:\/\/zotero-chinese\.com\/user-guide\//g,
-        '/user-guide/',
+        /\]\(https?:\/\/zotero-chinese\.com\/user-guide\//g,
+        '](/user-guide/',
       )
       code = code.replaceAll(
-        /https?:\/\/zotero-chinese\.com\/plugins\/?/g,
-        '/plugins/',
+        /\]\(https?:\/\/zotero-chinese\.com\/plugins\/?/g,
+        '](/plugins/',
       )
       code = code.replaceAll(
-        /https?:\/\/zotero-chinese\.com\/styles\/?/g,
-        '/styles/',
+        /\]\(https?:\/\/zotero-chinese\.com\/styles\/?/g,
+        '](/styles/',
       )
       code = code.replaceAll(
-        /https?:\/\/zotero-chinese\.com\//g,
-        '/',
+        /\]\(https?:\/\/zotero-chinese\.com\//g,
+        '](/',
       )
 
       // CSL 样式部分
