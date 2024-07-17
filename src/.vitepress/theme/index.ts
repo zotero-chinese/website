@@ -43,16 +43,18 @@ export default {
     })
   },
   enhanceApp({ app, router }) {
-    nprogress.configure({ showSpinner: false })
-    const _cacheBeforeRouteChange = router.onBeforeRouteChange
-    const _cacheAfterRouteChange = router.onAfterRouteChanged
-    router.onBeforeRouteChange = (to) => {
-      nprogress.start()
-      _cacheBeforeRouteChange?.(to)
-    }
-    router.onAfterRouteChanged = (to) => {
-      _cacheAfterRouteChange?.(to)
-      nprogress.done()
+    if (!import.meta.env.SSR) {
+      nprogress.configure({ showSpinner: false })
+      const _cacheBeforeRouteChange = router.onBeforeRouteChange
+      const _cacheAfterRouteChange = router.onAfterRouteChanged
+      router.onBeforeRouteChange = (to) => {
+        nprogress.start()
+        _cacheBeforeRouteChange?.(to)
+      }
+      router.onAfterRouteChanged = (to) => {
+        _cacheAfterRouteChange?.(to)
+        nprogress.done()
+      }
     }
 
     app.component('SvgImage', SvgImage)
