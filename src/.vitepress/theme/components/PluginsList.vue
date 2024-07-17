@@ -124,7 +124,7 @@ function showDownload(plugin: PluginInfo) {
   <TagsFilter v-model="selectedTags" :tags="allTags" />
 
   <!-- 插件卡片列表 -->
-  <el-row :gutter="20">
+  <el-row>
     <el-col
       v-for="plugin in filteredPlugins"
       :key="plugin.repo"
@@ -186,15 +186,9 @@ function showDownload(plugin: PluginInfo) {
 </template>
 
 <style scoped>
-.el-col {
-  border-radius: 4px;
-  min-height: 36px;
-  padding-bottom: 20px;
-}
-
 .plugin-list-footer {
   text-align: center;
-  padding-bottom: 2rem;
+  padding-top: 2rem;
   height: 100%;
 }
 </style>

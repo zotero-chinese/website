@@ -92,14 +92,3 @@ watch(isShowing, (v) => {
     </el-drawer>
   </div>
 </template>
-
-<style scoped>
-.card-container {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.card {
-  margin: 6px;
-}
-</style>

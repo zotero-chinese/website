@@ -83,9 +83,7 @@ const translatorTypes = useTranslatorType(props.translator.translatorType)
 }
 
 .tags-container {
-  margin-left: 0.5ch;
   display: inline-flex;
-  gap: 0.5rem;
   flex-wrap: wrap;
 }
 </style>

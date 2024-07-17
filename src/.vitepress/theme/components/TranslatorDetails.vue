@@ -219,9 +219,3 @@ const translatorTypes = useTranslatorType(translator.value?.header.translatorTyp
     </el-timeline>
   </div>
 </template>
-
-<style scoped>
-.no-list ul {
-  list-style: none;
-}
-</style>

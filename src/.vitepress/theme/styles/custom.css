@@ -25,3 +25,11 @@
 .el-icon {
   margin-right: 8px;
 }
+
+ul.el-timeline {
+  list-style: none;
+}
+
+.el-card {
+  margin: 0.5rem;
+}

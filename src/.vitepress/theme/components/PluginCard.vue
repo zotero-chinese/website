@@ -97,8 +97,4 @@ function showDownload() {
   /* max-height: 100px; */
   white-space: normal;
 }
-
-.el-tag {
-  margin: 5px 5px 0px 0px;
-}
 </style>

@@ -37,7 +37,7 @@ function getComponentByType(type: string) {
 </script>
 
 <template>
-  <div class="VPPage">
+  <div class="VPPage Market">
     <MarketHero
       :title="frontmatter.title"
       :description="`更新时间：${updateTime}`"
@@ -63,6 +63,6 @@ function getComponentByType(type: string) {
 
 <style>
 .MarketMain {
-  padding: 0 2rem;
+  padding: 0 2rem 2rem 2rem;
 }
 </style>
