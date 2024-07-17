@@ -53,7 +53,7 @@ function showDownload() {
           <el-icon>
             <StarFilled />
           </el-icon>
-          {{ props.plugin.stars }}
+          <span>{{ props.plugin.stars }}</span>
         </el-text>
       </el-tooltip>
     </el-space>

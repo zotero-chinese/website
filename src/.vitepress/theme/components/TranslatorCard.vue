@@ -30,21 +30,21 @@ const translatorTypes = useTranslatorType(props.translator.translatorType)
         <el-icon>
           <User />
         </el-icon>
-        {{ props.translator.creator }}
+        <span>{{ props.translator.creator }}</span>
       </el-text>
 
       <el-text class="hanging-indent" style="word-break: break-all">
         <el-icon>
           <Link />
         </el-icon>
-        {{ props.translator.target }}
+        <span>{{ props.translator.target }}</span>
       </el-text>
 
       <el-text>
         <el-icon>
           <Refresh />
         </el-icon>
-        {{ props.translator.lastUpdated }}
+        <span>{{ props.translator.lastUpdated }}</span>
       </el-text>
 
       <el-text>
