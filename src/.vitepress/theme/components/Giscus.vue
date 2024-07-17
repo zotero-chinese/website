@@ -1,13 +1,11 @@
 <script setup lang="ts">
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
 import Giscus from '@giscus/vue'
+import { useData } from 'vitepress'
+
 // import "../styles/giscus.dark.css";
 // import "../styles/giscus.light.css";
 
-import { useData } from 'vitepress'
-
-const { frontmatter, title } = useData()
+const { frontmatter, title, isDark } = useData()
 </script>
 
 <template>
@@ -27,7 +25,7 @@ const { frontmatter, title } = useData()
       reactions-enabled="1"
       emit-metadata="0"
       input-position="top"
-      theme="preferred_color_scheme"
+      :theme="isDark ? 'transparent_dark' : 'light'"
       lang="zh-CN"
       loading="lazy"
     />

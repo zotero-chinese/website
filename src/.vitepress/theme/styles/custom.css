@@ -1,4 +1,4 @@
-@import url('../../../wiki/.vitepress/theme/styles/custom.css');
+@import url('@wiki/.vitepress/theme/styles/custom.css');
 
 .el-descriptions {
   display: block;
