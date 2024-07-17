@@ -9,7 +9,7 @@ import './styles/csl-styles.css'
 
 // @ts-expect-error no types
 import nprogress from 'nprogress'
-import 'nprogress/nprogress.css'
+import './styles/nprogress.css'
 
 // element plus icon
 import 'element-plus/theme-chalk/dark/css-vars.css'
