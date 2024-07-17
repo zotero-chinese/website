@@ -56,7 +56,7 @@ watch(selectedTags, (v) => {
 .el-checkbox-group {
   display: flex;
   justify-content: center;
-  padding-bottom: 1rem;
+  padding: 0.5rem 0 0 0;
   flex-wrap: wrap;
 }
 
