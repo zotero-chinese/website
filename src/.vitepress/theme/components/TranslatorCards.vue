@@ -2,8 +2,8 @@
 import { type Ref, computed, ref, toRef } from 'vue'
 import { syncRef, useUrlSearchParams } from '@vueuse/core'
 
-import Search from '@theme/components/Search.vue'
-import TagsFilter from '@theme/components/TagsFilter.vue'
+import MarketSearch from '@theme/components/MarketSearch.vue'
+import MarketTagsFilter from '@theme/components/MarketTagsFilter.vue'
 import MarketToolBar from '@theme/components/MarketToolBar.vue'
 
 import { data } from '@data/translatorsLittle.data'
@@ -60,11 +60,11 @@ const filtered = computed(() => {
 <template>
   <MarketToolBar>
     <!-- 搜索 -->
-    <Search v-model="searchText" placeholder="搜索转换器名称或匹配网址..." />
+    <MarketSearch v-model="searchText" placeholder="搜索转换器名称或匹配网址..." />
   </MarketToolBar>
 
   <!-- 标签筛选 -->
-  <TagsFilter v-model="selectedTags" :tags="translatorTypes" />
+  <MarketTagsFilter v-model="selectedTags" :tags="translatorTypes" />
 
   <!-- 插件卡片列表 -->
   <el-row>

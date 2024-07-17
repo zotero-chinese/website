@@ -2,13 +2,13 @@
 import { type Ref, computed, ref, toRef } from 'vue'
 import { syncRef, useUrlSearchParams } from '@vueuse/core'
 
-import Search from '@theme/components/Search.vue'
-import TagsFilter from '@theme/components/TagsFilter.vue'
+import MarketSearch from '@theme/components/MarketSearch.vue'
+import MarketTagsFilter from '@theme/components/MarketTagsFilter.vue'
 import MarketToolBar from '@theme/components/MarketToolBar.vue'
 
 import { data as styles } from '@data/styles.data'
-import StyleListItem from './StyleListItem.vue'
-import StyleListItemPreview from './StyleListItemPreview.vue'
+import StyleCardWithPop from './StyleCardWithPop.vue'
+import StyleCardWithPreview from './StyleCardWithPreview.vue'
 
 const allTags = [...new Set(styles.flatMap(style => style.tags))]
   .sort((a, b) => a.localeCompare(b, 'zh'))
@@ -153,7 +153,7 @@ const filtered = computed(() => {
     </el-select>
 
     <!-- 搜索 -->
-    <Search v-model="searchText" placeholder="搜索样式名称..." />
+    <MarketSearch v-model="searchText" placeholder="搜索样式名称..." />
 
     <!-- 显示预览 -->
     <el-switch
@@ -166,18 +166,18 @@ const filtered = computed(() => {
   </MarketToolBar>
 
   <!-- 标签筛选 -->
-  <TagsFilter v-model="selectedTags" :tags="allTags" />
+  <MarketTagsFilter v-model="selectedTags" :tags="allTags" />
 
   <!-- 列表 -->
   <div class="styles-list vp-doc">
     <p>共加载 {{ filtered.length }} 条样式。</p>
     <ul v-if="!showPreview">
       <li v-for="style in filtered" :key="style.id">
-        <StyleListItem :style="style" />
+        <StyleCardWithPop :style="style" />
       </li>
     </ul>
     <div v-else>
-      <StyleListItemPreview
+      <StyleCardWithPreview
         v-for="style in filtered"
         :key="style.id"
         :style="style"

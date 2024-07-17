@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useData } from 'vitepress'
-import { defineAsyncComponent, ref } from 'vue'
+import { defineAsyncComponent } from 'vue'
 
 // @ts-expect-error data 是 vitepress 的隐式导出
 import { data as _pluginUpdateTime } from '@data/update-time.data'
@@ -11,25 +11,25 @@ import MarketHero from './MarketHero.vue'
 const { frontmatter } = useData()
 const updateTime = frontmatter.value.type === 'plugin' ? _pluginUpdateTime.lastUpdate : _updateTime
 
-const PluginsList = defineAsyncComponent(() =>
-  import('./PluginsList.vue'))
-const PluginsChart = defineAsyncComponent(() =>
-  import ('./PluginsChart.vue'))
-const StylesList = defineAsyncComponent(() =>
-  import('./StylesList.vue'))
-const TranslatorList = defineAsyncComponent(() =>
-  import('./TranslatorsList.vue'))
+const PluginCards = defineAsyncComponent(() =>
+  import('./PluginCards.vue'))
+const PluginCharts = defineAsyncComponent(() =>
+  import ('./PluginCharts.vue'))
+const StyleCards = defineAsyncComponent(() =>
+  import('./StyleCards.vue'))
+const TranslatorCards = defineAsyncComponent(() =>
+  import('./TranslatorCards.vue'))
 
 function getComponentByType(type: string) {
   switch (type) {
     case 'plugin':
-      return PluginsList
+      return PluginCards
     case 'charts':
-      return PluginsChart
+      return PluginCharts
     case 'csl':
-      return StylesList
+      return StyleCards
     case 'translator':
-      return TranslatorList
+      return TranslatorCards
     default:
       return null
   }

@@ -45,9 +45,9 @@ export function MarkdownTransform(): Plugin {
           '<!-- PLACEHOLDER FOR WEBSITE - BEFORE FILE -->',
           [
             '<script setup>',
-            'import StyleDetailCard from "@theme/components/StyleDetailCard.vue"',
+            'import StyleDetails from "@theme/components/StyleDetails.vue"',
             '</script>',
-            '<StyleDetailCard />',
+            '<StyleDetails />',
           ].join('\n'),
         )
 
