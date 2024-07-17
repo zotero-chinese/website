@@ -43,6 +43,20 @@ export default {
     })
   },
   enhanceApp({ app, router }) {
+    // Vue App Enhance
+    app.component('SvgImage', SvgImage)
+    app.component('Market', Market)
+    for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+      app.component(key, component)
+    }
+
+    app.provide(NolebaseGitChangelogInjectionKey, {
+      mapContributors: contributors,
+    })
+    app.use(NolebaseGitChangelogPlugin)
+
+    // Router Enhance
+    // nprogress
     if (!import.meta.env.SSR) {
       nprogress.configure({ showSpinner: false })
       const _cacheBeforeRouteChange = router.onBeforeRouteChange
@@ -56,16 +70,5 @@ export default {
         nprogress.done()
       }
     }
-
-    app.component('SvgImage', SvgImage)
-    app.component('Market', Market)
-    for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
-      app.component(key, component)
-    }
-
-    app.provide(NolebaseGitChangelogInjectionKey, {
-      mapContributors: contributors,
-    })
-    app.use(NolebaseGitChangelogPlugin)
   },
 } satisfies Theme
