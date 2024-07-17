@@ -40,6 +40,7 @@
     "highcharts-vue": "2.0.1",
     "husky": "9.0.11",
     "lint-staged": "15.2.7",
+    "nprogress": "^0.2.0",
     "radash": "12.1.0",
     "typescript": "5.5.3",
     "unplugin-auto-import": "0.17.8",

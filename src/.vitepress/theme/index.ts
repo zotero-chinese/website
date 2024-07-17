@@ -7,6 +7,10 @@ import './styles/vars.css'
 import './styles/custom.css'
 import './styles/csl-styles.css'
 
+// @ts-expect-error no types
+import nprogress from 'nprogress'
+import 'nprogress/nprogress.css'
+
 // element plus icon
 import 'element-plus/theme-chalk/dark/css-vars.css'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
@@ -38,7 +42,8 @@ export default {
       'doc-after': () => h(Giscus),
     })
   },
-  enhanceApp({ app }) {
+  enhanceApp({ app, router }) {
+    // Vue App Enhance
     app.component('SvgImage', SvgImage)
     app.component('Market', Market)
     for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
@@ -49,5 +54,21 @@ export default {
       mapContributors: contributors,
     })
     app.use(NolebaseGitChangelogPlugin)
+
+    // Router Enhance
+    // nprogress
+    if (!import.meta.env.SSR) {
+      nprogress.configure({ showSpinner: false })
+      const _cacheBeforeRouteChange = router.onBeforeRouteChange
+      const _cacheAfterRouteChange = router.onAfterRouteChanged
+      router.onBeforeRouteChange = (to) => {
+        nprogress.start()
+        _cacheBeforeRouteChange?.(to)
+      }
+      router.onAfterRouteChanged = (to) => {
+        _cacheAfterRouteChange?.(to)
+        nprogress.done()
+      }
+    }
   },
 } satisfies Theme
