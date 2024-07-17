@@ -21,26 +21,24 @@ const translatorTypes = useTranslatorType(translator.value?.header.translatorTyp
 
   <h2>元数据</h2>
   <el-descriptions :column="2" border>
-    <el-descriptions-item label="ID" :span="2" label-class-name="fieldLabel">
+    <el-descriptions-item label="ID" :span="2">
       {{ translator?.header.translatorID }}
     </el-descriptions-item>
 
-    <el-descriptions-item label="标题" :span="2" label-class-name="fieldLabel">
+    <el-descriptions-item label="标题" :span="2">
       {{ translator?.header.label }}，{{ translator?.zhLabel }}
     </el-descriptions-item>
 
-    <el-descriptions-item label="作者" label-class-name="fieldLabel">
+    <el-descriptions-item label="作者">
       {{ translator?.header.creator }}
     </el-descriptions-item>
 
-    <el-descriptions-item label="更新时间" label-class-name="fieldLabel">
+    <el-descriptions-item label="更新时间">
       {{ translator?.header.lastUpdated }}
     </el-descriptions-item>
 
     <el-descriptions-item
       label="类型"
-      class="tags-container"
-      label-class-name="fieldLabel"
     >
       <el-tag
         v-for="(type, index) in translatorTypes"
@@ -52,11 +50,11 @@ const translatorTypes = useTranslatorType(translator.value?.header.translatorTyp
       </el-tag>
     </el-descriptions-item>
 
-    <el-descriptions-item label="优先级" label-class-name="fieldLabel">
+    <el-descriptions-item label="优先级">
       {{ translator?.header.priority }}
     </el-descriptions-item>
 
-    <el-descriptions-item label="目标网址" label-class-name="fieldLabel">
+    <el-descriptions-item label="目标网址">
       {{ translator?.header.target }}
     </el-descriptions-item>
   </el-descriptions>
@@ -105,7 +103,6 @@ const translatorTypes = useTranslatorType(translator.value?.header.translatorTyp
                 :key="creatorIndex"
                 :label="useCreatorType(creator.creatorType)"
                 label-align="right"
-                label-class-name="fieldLabel"
               >
                 <div>
                   {{ creator.lastName }}
@@ -119,7 +116,6 @@ const translatorTypes = useTranslatorType(translator.value?.header.translatorTyp
               <el-descriptions-item
                 :label="useItemField(String(field))"
                 label-align="right"
-                label-class-name="fieldLabel"
               >
                 <div v-if="field === 'itemType'">
                   {{ useItemType(value) }}
@@ -136,30 +132,33 @@ const translatorTypes = useTranslatorType(translator.value?.header.translatorTyp
                   <a :href="value">{{ value }}</a>
                 </div>
 
-                <div v-else-if="field === 'attachments'" class="tags-container">
-                  <el-card
+                <div v-else-if="field === 'attachments'">
+                  <el-tag
                     v-for="(attachment, attachmentIndex) in value"
                     :key="attachmentIndex"
-                    body-style="padding:5px;display:flex;align-items:center;"
-                    shadow="never"
+                    type="info"
+                    effect="plain"
+                    size="large"
                   >
                     <template v-if="attachment.mimeType === 'application/pdf'">
-                      <img
-                        src="@wiki/assets/icons/item-type/attachment-pdf.svg"
-                        class="attachment-icon"
-                      >
+                      <el-icon>
+                        <img
+                          src="@wiki/assets/icons/item-type/attachment-pdf.svg"
+                        >
+                      </el-icon>
                     </template>
                     <template v-else>
-                      <img
-                        src="@wiki/assets/icons/item-type/attachment-snapshot.svg"
-                        class="attachment-icon"
-                      >
+                      <el-icon>
+                        <img
+                          src="@wiki/assets/icons/item-type/attachment-snapshot.svg"
+                        >
+                      </el-icon>
                     </template>
                     {{ attachment.title }}
-                  </el-card>
+                  </el-tag>
                 </div>
 
-                <div v-else-if="field === 'tags'" class="tags-container">
+                <div v-else-if="field === 'tags'">
                   <el-tag
                     v-for="(tag, tagIndex) in value"
                     :key="tagIndex"
@@ -170,19 +169,19 @@ const translatorTypes = useTranslatorType(translator.value?.header.translatorTyp
                   </el-tag>
                 </div>
 
-                <div v-else-if="field === 'notes'" class="tags-container">
-                  <el-card
+                <div v-else-if="field === 'notes'">
+                  <el-tag
                     v-for="(note, noteIndex) in value"
                     :key="noteIndex"
-                    body-style="padding:5px;display:flex;align-items:center;"
-                    shadow="never"
+                    type="info"
+                    effect="plain"
+                    size="large"
                   >
                     <img
                       src="@wiki/assets/icons/item-type/note.svg"
-                      class="attachment-icon"
                     >
                     {{ note }}
-                  </el-card>
+                  </el-tag>
                 </div>
 
                 <div v-else>
@@ -220,25 +219,3 @@ const translatorTypes = useTranslatorType(translator.value?.header.translatorTyp
     </el-timeline>
   </div>
 </template>
-
-<style scoped>
-.no-list ul {
-  list-style: none;
-}
-
-.tags-container {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-}
-
-.attachment-icon {
-  width: 1.2rem;
-  margin-right: 0.5rem;
-  flex-wrap: wrap;
-}
-
-:deep(.fieldLabel) {
-  white-space: nowrap;
-}
-</style>

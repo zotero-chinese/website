@@ -53,7 +53,7 @@ function showDownload() {
           <el-icon>
             <StarFilled />
           </el-icon>
-          {{ props.plugin.stars }}
+          <span>{{ props.plugin.stars }}</span>
         </el-text>
       </el-tooltip>
     </el-space>
@@ -96,9 +96,5 @@ function showDownload() {
 .desc span {
   /* max-height: 100px; */
   white-space: normal;
-}
-
-.el-tag {
-  margin: 5px 5px 0px 0px;
 }
 </style>

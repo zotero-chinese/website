@@ -35,12 +35,6 @@ const { frontmatter, title } = useData()
 </template>
 
 <style>
-#comments::part(iframe) {
-  /* max-width: 640px; */
-  /* margin: auto; */
-  /* display: flex; */
-}
-
 .comments-container {
   /* max-height: 640px; */
   /* overflow-y: scroll; */

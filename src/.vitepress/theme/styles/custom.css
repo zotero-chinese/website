@@ -8,3 +8,28 @@
 .el-descriptions table {
   display: table;
 }
+
+.el-descriptions .el-descriptions__label {
+  white-space: nowrap;
+}
+
+.el-tag {
+  margin: 5px 5px 0px 0px;
+}
+
+.el-tag .el-tag__content {
+  display: inline-flex;
+  align-items: center;
+}
+
+.el-icon {
+  margin-right: 8px;
+}
+
+ul.el-timeline {
+  list-style: none;
+}
+
+.el-card {
+  margin: 0.5rem;
+}

@@ -15,7 +15,7 @@ const props = defineProps({
 </script>
 
 <template>
-  <div class="page-header">
+  <div class="MarketHero">
     <div class="vp-doc">
       <h1>{{ props.title }}</h1>
       <p>{{ props.description }}</p>
@@ -38,10 +38,10 @@ const props = defineProps({
 </template>
 
 <style scoped>
-.page-header {
+.MarketHero {
   height: fit-content;
   text-align: center;
-  padding: 3rem;
+  padding: 3rem 0 2.5rem 0;
 }
 
 .actions {

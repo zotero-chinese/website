@@ -67,7 +67,7 @@ const filtered = computed(() => {
   <TagsFilter v-model="selectedTags" :tags="translatorTypes" />
 
   <!-- 插件卡片列表 -->
-  <el-row :gutter="20">
+  <el-row>
     <el-col
       v-for="translator in filtered"
       :key="translator.translatorID"
@@ -86,11 +86,3 @@ const filtered = computed(() => {
   <!-- 空状态 -->
   <el-empty v-if="filtered.length === 0" description="无匹配项" />
 </template>
-
-<style scoped>
-.el-col {
-  border-radius: 4px;
-  min-height: 36px;
-  padding-bottom: 20px;
-}
-</style>

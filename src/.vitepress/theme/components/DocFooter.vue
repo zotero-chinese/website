@@ -69,10 +69,6 @@ const filePath = ref(useData().page.value.filePath)
   align-items: center;
 }
 
-.doc-before-footer-item .el-icon {
-  margin-right: 8px;
-}
-
 .doc-before-footer-item a {
   /* color: var(--vp-c-text-2); */
   color: var(--vp-c-brand-1);

@@ -8,7 +8,7 @@
 .toolbar {
   display: flex;
   justify-content: space-around;
-  padding-bottom: 1rem;
+  padding: 0.5rem 0;
 }
 .toolbar > * {
   margin: 0.5rem;
