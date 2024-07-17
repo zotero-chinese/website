@@ -1,26 +1,41 @@
 {
-  "extends": ["@tsconfig/node20/tsconfig.json", "@vue/tsconfig/tsconfig.json"],
-  "include": ["env.d.ts", ".vitepress/**/*", "src/**/*"],
+  "extends": ["@tsconfig/node20/tsconfig.json"],
   "compilerOptions": {
-    // "composite": true,
-    "noEmit": true,
-
     "target": "ESNext",
+    "jsx": "preserve",
+    "lib": ["ESNext"],
+
+    "baseUrl": ".",
     "module": "ESNext",
     "moduleResolution": "Bundler",
-    "esModuleInterop": true,
+    "paths": {
+      // "@/*": ["./src/*"],
+      "@theme/*": ["src/.vitepress/theme/*"],
+      "@data/*": ["src/.vitepress/data/*"],
+      "@wiki/*": ["src/wiki/*"],
+      "@styles/*": ["src/styles/*"],
+      "@translators/*": ["src/translators/*"],
+      "@plugins/*": ["src/plugins/*"]
+    },
     "resolveJsonModule": true,
-    "skipLibCheck": true,
 
     "allowJs": true,
     "strict": true,
-    "jsx": "preserve",
-
-    "baseUrl": ".",
-    "paths": {
-      // "@/*": ["./src/*"],
-      "@theme/*": [".vitepress/theme/*"],
-      "@wiki/*": ["src/wiki/*"]
-    }
-  }
+    "declaration": true,
+    // "composite": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "skipLibCheck": true
+  },
+  "include": ["env.d.ts", "src/**/*.ts", "src/**/*.d.ts", "src/.vitepress/**/*"],
+  "exclude": [
+    "**/node_modules/**",
+    "**/dist/**",
+    "template",
+    "bin",
+    "docs/snippets",
+    "scripts"
+  ]
 }

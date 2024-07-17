@@ -12,7 +12,8 @@ package-lock.json
 dist
 **/.obsidian
 
-**/data/*.json
+# 下载的数据
+**/data/_data/
 
 # Local Netlify folder
 .netlify
