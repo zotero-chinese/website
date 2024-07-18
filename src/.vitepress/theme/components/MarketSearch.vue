@@ -41,7 +41,7 @@ function clearSearch() {
   >
     <template #prefix>
       <el-icon>
-        <Search />
+        <i-ep-search />
       </el-icon>
     </template>
   </el-input>

@@ -28,28 +28,28 @@ const translatorTypes = useTranslatorType(props.translator.translatorType)
     <el-space direction="vertical" alignment="normal" fill>
       <el-text class="hanging-indent" style="overflow-wrap: break-word">
         <el-icon>
-          <User />
+          <i-ep-user />
         </el-icon>
         <span>{{ props.translator.creator }}</span>
       </el-text>
 
       <el-text class="hanging-indent" style="word-break: break-all">
         <el-icon>
-          <Link />
+          <i-ep-link />
         </el-icon>
         <span>{{ props.translator.target }}</span>
       </el-text>
 
       <el-text>
         <el-icon>
-          <Refresh />
+          <i-ep-refresh />
         </el-icon>
         <span>{{ props.translator.lastUpdated }}</span>
       </el-text>
 
       <el-text>
         <el-icon>
-          <Aim />
+          <i-ep-aim />
         </el-icon>
         <span class="tags-container">
           <el-tag

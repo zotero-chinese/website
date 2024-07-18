@@ -30,5 +30,16 @@ declare module 'vue' {
     ElTimeline: typeof import('element-plus/es')['ElTimeline']
     ElTimelineItem: typeof import('element-plus/es')['ElTimelineItem']
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
+    IEpAim: typeof import('~icons/ep/aim')['default']
+    IEpAvatar: typeof import('~icons/ep/avatar')['default']
+    IEpFilter: typeof import('~icons/ep/filter')['default']
+    IEpInfoFilled: typeof import('~icons/ep/info-filled')['default']
+    IEpLink: typeof import('~icons/ep/link')['default']
+    IEpRefresh: typeof import('~icons/ep/refresh')['default']
+    IEpSearch: typeof import('~icons/ep/search')['default']
+    IEpSort: typeof import('~icons/ep/sort')['default']
+    IEpStarFilled: typeof import('~icons/ep/star-filled')['default']
+    IEpUser: typeof import('~icons/ep/user')['default']
+    IEpWarnTriangleFilled: typeof import('~icons/ep/warn-triangle-filled')['default']
   }
 }
