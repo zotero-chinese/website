@@ -35,7 +35,7 @@ function showDownload() {
       >
         <el-text>
           <el-icon>
-            <Avatar />
+            <i-ep-avatar />
           </el-icon>
           <el-link :href="props.plugin.author.url">
             {{ props.plugin.author.name }}
@@ -51,7 +51,7 @@ function showDownload() {
       >
         <el-text>
           <el-icon>
-            <StarFilled />
+            <i-ep-star-filled />
           </el-icon>
           <span>{{ props.plugin.stars }}</span>
         </el-text>

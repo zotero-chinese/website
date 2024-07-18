@@ -105,7 +105,7 @@ const filtered = computed(() => {
     >
       <template #prefix>
         <el-icon>
-          <Filter />
+          <i-ep-filter />
         </el-icon>
       </template>
       <el-option label="所有" value="" />
@@ -124,7 +124,7 @@ const filtered = computed(() => {
     >
       <template #prefix>
         <el-icon>
-          <Filter />
+          <i-ep-filter />
         </el-icon>
       </template>
       <el-option label="所有" value="" />
@@ -144,7 +144,7 @@ const filtered = computed(() => {
     >
       <template #prefix>
         <el-icon>
-          <Filter />
+          <i-ep-filter />
         </el-icon>
       </template>
       <el-option label="所有" value="" />

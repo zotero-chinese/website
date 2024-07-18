@@ -28,26 +28,26 @@ watch(isShowing, (v) => {
       <div class="desc">
         <el-text>
           <el-icon>
-            <InfoFilled />
+            <i-ep-info-filled />
           </el-icon>
           本页面为每一个插件都提供了多个下载地址，请逐个尝试选择可用的地址。
         </el-text>
         <el-text>
           <el-icon>
-            <InfoFilled />
+            <i-ep-info-filled />
           </el-icon>
           火狐浏览器用户请通过在链接上右击，选择“另存为”来下载 XPI 包。
         </el-text>
         <el-text>
           <el-icon>
-            <InfoFilled />
+            <i-ep-info-filled />
           </el-icon>
           插件之间可能存在冲突，建议按需安装。
         </el-text>
         <br>
         <el-text type="warning">
           <el-icon>
-            <WarnTriangleFilled />
+            <i-ep-warn-triangle-filled />
           </el-icon>
           Zotero 6 与 Zotero 7 的插件可能互不兼容，请按自己的 Zotero
           版本下载对应的插件版本。查看 Zotero 版本和安装插件步骤请参考：

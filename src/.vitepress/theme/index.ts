@@ -7,19 +7,18 @@ import './styles/vars.css'
 import './styles/custom.css'
 import './styles/csl-styles.css'
 
+// NProgress
 // @ts-expect-error no types
 import nprogress from 'nprogress'
 import './styles/nprogress.css'
 
-// element plus icon
+// Element Plus
+// Dark mode support: https://element-plus.org/zh-CN/guide/dark-mode.html
 import 'element-plus/theme-chalk/dark/css-vars.css'
-import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 
 // Git Changelog
-import {
-  InjectionKey as NolebaseGitChangelogInjectionKey,
-  NolebaseGitChangelogPlugin,
-} from '@nolebase/vitepress-plugin-git-changelog/client'
+// https://nolebase-integrations.ayaka.io/pages/zh-CN/integrations/vitepress-plugin-git-changelog/
+import { NolebaseGitChangelogPlugin } from '@nolebase/vitepress-plugin-git-changelog/client'
 import '@nolebase/vitepress-plugin-git-changelog/client/style.css'
 import { contributors } from '../data/contributors'
 
@@ -46,14 +45,10 @@ export default {
     // Vue App Enhance
     app.component('SvgImage', SvgImage)
     app.component('Market', Market)
-    for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
-      app.component(key, component)
-    }
 
-    app.provide(NolebaseGitChangelogInjectionKey, {
+    app.use(NolebaseGitChangelogPlugin, {
       mapContributors: contributors,
     })
-    app.use(NolebaseGitChangelogPlugin)
 
     // Router Enhance
     // nprogress

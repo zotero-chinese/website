@@ -1,6 +1,5 @@
 import { resolve } from 'node:path'
 import { defineConfig } from 'vite'
-// import type { UserConfig } from "vitepress";
 
 import Inspect from 'vite-plugin-inspect'
 import VueDevTools from 'vite-plugin-vue-devtools'
@@ -8,6 +7,8 @@ import VueDevTools from 'vite-plugin-vue-devtools'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import Icons from 'unplugin-icons/vite'
+import IconsResolver from 'unplugin-icons/resolver'
 
 import {
   GitChangelog,
@@ -33,9 +34,31 @@ export default defineConfig({
     AutoImport({
       resolvers: [ElementPlusResolver()],
     }),
+
+    /**
+     * unplugin-vue-components
+     *
+     * @see https://github.com/unplugin/unplugin-vue-components?tab=readme-ov-file#usage
+     */
     Components({
-      resolvers: [ElementPlusResolver()],
+      dirs: ['src/.vitepress/theme/components'],
+      // allow auto load markdown components under `./src/components/`
+      extensions: ['vue', 'md'],
+      // allow auto import and register components used in markdown
+      include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
+      resolvers: [
+        ElementPlusResolver(),
+        IconsResolver({ prefix: 'i' }),
+      ],
     }),
+
+    /**
+     * unplugin-icons
+     *
+     * @see https://github.com/unplugin/unplugin-icons?tab=readme-ov-file#configuration
+     */
+    Icons(),
+
     MarkdownTransform(),
 
     // Git Changelog

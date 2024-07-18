@@ -91,7 +91,7 @@ function showDownload(plugin: PluginInfo) {
     >
       <template #prefix>
         <el-icon>
-          <Filter />
+          <i-ep-filter />
         </el-icon>
       </template>
       <el-option label="All" value="" />
@@ -107,7 +107,7 @@ function showDownload(plugin: PluginInfo) {
     >
       <template #prefix>
         <el-icon>
-          <Sort />
+          <i-ep-sort />
         </el-icon>
       </template>
       <el-option label="星标量" value="stars" />
