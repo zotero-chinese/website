@@ -12,13 +12,12 @@ interface Post {
 declare const data: Post[]
 export { data }
 
-export default createContentLoader('blog/*.md', {
+export default createContentLoader('blog/post/*.md', {
   // excerpt: true,
   transform(raw): Post[] {
     return raw
       .map(({ url, frontmatter }) => ({
-        title: frontmatter.head.find(e => e[1].property === 'og:title')[1]
-          .content,
+        title: frontmatter.title,
         url,
         date: formatDate(frontmatter.date),
       }))
