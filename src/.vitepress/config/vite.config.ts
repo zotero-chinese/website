@@ -65,13 +65,31 @@ export default defineConfig({
 
     // Git Changelog
     GitChangelog({
-      include: ['src/wiki/**/*.md'],
+      include: ['src/wiki/**/*.md', 'src/styles/detail/src/**/*.csl'],
       repoURL: () => 'https://github.com/zotero-chinese/wiki',
+      rewritePathsBy: {
+        handler: (_commit, path) => {
+          if (path) {
+            // src/styles/detail/src/*/*.csl
+            if (path.match('src/styles/detail/src'))
+              return `${path.substring(0, path.lastIndexOf('/') + 1)}/index.md`
+          }
+          return path
+        },
+      },
       mapAuthors: contributors,
     }),
     GitChangelogMarkdownSection({
-      exclude: id =>
-        !id.match('src/wiki/') || id.endsWith('src/wiki/index.md'),
+      exclude: (id) => {
+        if (id.match('src/wiki/')) {
+          if (id.endsWith('src/wiki/index.md') || id.endsWith('src/wiki/contributors.md'))
+            return true
+          return false
+        }
+        if (id.match('src/styles/detail/src'))
+          return false
+        return true
+      },
     }),
   ],
   ssr: {
@@ -82,4 +100,14 @@ export default defineConfig({
       '@highcharts/dashboards',
     ],
   },
+  // build: {
+  //   rollupOptions: {
+  //     output: {
+  //       manualChunks(id) {
+  //         if (id.includes('virtual:nolebase-git-changelog'))
+  //           return 'git-changelog'
+  //       },
+  //     },
+  //   },
+  // },
 })
