@@ -1,4 +1,4 @@
-import { h } from 'vue'
+import { type Plugin, h } from 'vue'
 import type { Theme } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
 
@@ -20,7 +20,6 @@ import 'element-plus/theme-chalk/dark/css-vars.css'
 // https://nolebase-integrations.ayaka.io/pages/zh-CN/integrations/vitepress-plugin-git-changelog/
 import { NolebaseGitChangelogPlugin } from '@nolebase/vitepress-plugin-git-changelog/client'
 import '@nolebase/vitepress-plugin-git-changelog/client/style.css'
-import { contributors } from '../data/contributors'
 
 // Custom Components
 import Giscus from './components/Giscus.vue'
@@ -46,9 +45,7 @@ export default {
     app.component('SvgImage', SvgImage)
     app.component('Market', Market)
 
-    app.use(NolebaseGitChangelogPlugin, {
-      mapContributors: contributors,
-    })
+    app.use(NolebaseGitChangelogPlugin as Plugin)
 
     // Router Enhance
     // nprogress
