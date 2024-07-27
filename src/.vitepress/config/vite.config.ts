@@ -70,9 +70,10 @@ export default defineConfig({
       rewritePathsBy: {
         handler: (_commit, path) => {
           if (path) {
-            // src/styles/detail/src/*/*.csl
-            if (path.match('src/styles/detail/src'))
-              return `${path.substring(0, path.lastIndexOf('/') + 1)}/index.md`
+            // styles/detail/src/*/*.csl -> styles/detail/src/*/index.md
+            if (path.match('styles/detail/src')) {
+              return `${path.substring(0, path.lastIndexOf('/'))}/index.md`
+            }
           }
           return path
         },
