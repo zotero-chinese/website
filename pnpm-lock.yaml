@@ -9,7 +9,7 @@ importers:
   .:
     devDependencies:
       '@antfu/eslint-config':
-        specifier: ^2.23.2
+        specifier: ^2.24.1
         version: 2.24.1(@vue/compiler-sfc@3.4.35)(eslint-plugin-format@0.1.2(eslint@9.8.0))(eslint@9.8.0)(typescript@5.5.4)
       '@giscus/vue':
         specifier: 3.0.0
@@ -27,8 +27,8 @@ importers:
         specifier: ^0.12.0
         version: 0.12.0(markdown-it@14.1.0)
       '@nolebase/vitepress-plugin-git-changelog':
-        specifier: 2.3.0
-        version: 2.3.0(@algolia/client-search@4.24.0)(@types/node@20.14.13)(async-validator@4.2.5)(nprogress@0.2.0)(postcss@8.4.40)(search-insights@2.13.0)(typescript@5.5.4)
+        specifier: 2.4.0
+        version: 2.4.0(@algolia/client-search@4.24.0)(@types/node@20.14.13)(async-validator@4.2.5)(nprogress@0.2.0)(postcss@8.4.40)(search-insights@2.13.0)(typescript@5.5.4)
       '@tsconfig/node20':
         specifier: 20.1.4
         version: 20.1.4
@@ -90,7 +90,7 @@ importers:
         specifier: 0.18.2
         version: 0.18.2(@vueuse/core@10.11.0(vue@3.4.35(typescript@5.5.4)))(rollup@4.19.0)
       unplugin-icons:
-        specifier: ^0.19.0
+        specifier: ^0.19.1
         version: 0.19.1(@vue/compiler-sfc@3.4.35)(vue-template-compiler@2.7.16)
       unplugin-vue-components:
         specifier: 0.27.3
@@ -719,11 +719,11 @@ packages:
     resolution: {integrity: sha512-oGB+UxlgWcgQkgwo8GcEGwemoTFt3FIO9ababBmaGwXIoBKZ+GTy0pP185beGg7Llih/NSHSV2XAs1lnznocSg==}
     engines: {node: '>= 8'}
 
-  '@nolebase/ui@2.3.0':
-    resolution: {integrity: sha512-bRr4btjjKhmFfbFVzf545cXEu0i+Ggen/QoQOxrbakeuCW6tx9lHClXj4ssIcwjDqsGgx01DCeKpKasPRPCvdA==}
+  '@nolebase/ui@2.4.0':
+    resolution: {integrity: sha512-xkcPq6G1E94PStNQtBQnfDNHqMNRLJLpLNuQA85k8ZazHWu7MiUodrKFYObOkS7NRhQT0bH2jk/Vbi+vskJuZQ==}
 
-  '@nolebase/vitepress-plugin-git-changelog@2.3.0':
-    resolution: {integrity: sha512-z7Ms6Ezq0BNg+Te8L9mfaQikMOdarXvBLgpF7TIos+uOvvzvKf5B6Jwd5gO76noPXUz/Qj/JXZTmbXuwOQFRpQ==}
+  '@nolebase/vitepress-plugin-git-changelog@2.4.0':
+    resolution: {integrity: sha512-7LBojOHiK/s6hxKdAb94ULau1TGfjRks3uYS/zEgK7R+DUpVUbz1fuXc/X+AYwKzErPmEqj/ACK9vjsG2XkcKA==}
 
   '@pkgr/core@0.1.1':
     resolution: {integrity: sha512-cq8o4cWH0ibXh9VGi5P20Tu9XF/0fFXl9EUinr9QfTM7a7p0oTA4iJRCQWppXR1Pg8dSM0UCItCkPwsk9qWWYA==}
@@ -3753,7 +3753,7 @@ snapshots:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.17.1
 
-  '@nolebase/ui@2.3.0(@algolia/client-search@4.24.0)(@types/node@20.14.13)(async-validator@4.2.5)(nprogress@0.2.0)(postcss@8.4.40)(search-insights@2.13.0)(typescript@5.5.4)':
+  '@nolebase/ui@2.4.0(@algolia/client-search@4.24.0)(@types/node@20.14.13)(async-validator@4.2.5)(nprogress@0.2.0)(postcss@8.4.40)(search-insights@2.13.0)(typescript@5.5.4)':
     dependencies:
       '@iconify-json/octicon': 1.1.56
       less: 4.2.0
@@ -3787,10 +3787,10 @@ snapshots:
       - typescript
       - universal-cookie
 
-  '@nolebase/vitepress-plugin-git-changelog@2.3.0(@algolia/client-search@4.24.0)(@types/node@20.14.13)(async-validator@4.2.5)(nprogress@0.2.0)(postcss@8.4.40)(search-insights@2.13.0)(typescript@5.5.4)':
+  '@nolebase/vitepress-plugin-git-changelog@2.4.0(@algolia/client-search@4.24.0)(@types/node@20.14.13)(async-validator@4.2.5)(nprogress@0.2.0)(postcss@8.4.40)(search-insights@2.13.0)(typescript@5.5.4)':
     dependencies:
       '@iconify-json/octicon': 1.1.56
-      '@nolebase/ui': 2.3.0(@algolia/client-search@4.24.0)(@types/node@20.14.13)(async-validator@4.2.5)(nprogress@0.2.0)(postcss@8.4.40)(search-insights@2.13.0)(typescript@5.5.4)
+      '@nolebase/ui': 2.4.0(@algolia/client-search@4.24.0)(@types/node@20.14.13)(async-validator@4.2.5)(nprogress@0.2.0)(postcss@8.4.40)(search-insights@2.13.0)(typescript@5.5.4)
       colorette: 2.0.20
       date-fns: 3.6.0
       defu: 6.1.4
