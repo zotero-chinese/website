@@ -9,6 +9,8 @@ package-lock.json
 **/.vitepress/cache
 **/.vitepress/dist
 **/.vitepress/.temp
+**/.vitepress/**/*.timestamp-*.*
+
 dist
 **/.obsidian
 

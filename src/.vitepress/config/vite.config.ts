@@ -14,6 +14,8 @@ import {
   GitChangelog,
   GitChangelogMarkdownSection,
 } from '@nolebase/vitepress-plugin-git-changelog/vite'
+import { contributors } from '../data/contributors'
+
 import { MarkdownTransform } from '../plugins/markdownTransform'
 
 export default defineConfig({
@@ -65,6 +67,7 @@ export default defineConfig({
     GitChangelog({
       include: ['src/wiki/**/*.md'],
       repoURL: () => 'https://github.com/zotero-chinese/wiki',
+      mapAuthors: contributors,
     }),
     GitChangelogMarkdownSection({
       exclude: id =>
