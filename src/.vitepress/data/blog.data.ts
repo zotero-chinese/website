@@ -12,10 +12,11 @@ interface Post {
 declare const data: Post[]
 export { data }
 
-export default createContentLoader('blog/post/*.md', {
+export default createContentLoader(['blog/posts/*.md', '!blog/posts/_template.md'], {
   // excerpt: true,
   transform(raw): Post[] {
     return raw
+      .filter(({ frontmatter }) => !frontmatter.draft)
       .map(({ url, frontmatter }) => ({
         title: frontmatter.title,
         url,

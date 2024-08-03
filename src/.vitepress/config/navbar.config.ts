@@ -25,6 +25,7 @@ export const nav: DefaultTheme.NavItem[] = [
   {
     text: '社区',
     items: [
+      { text: '博客', link: '/blog/' },
       { text: '关于我们', link: '/about' },
       { text: '贡献者名单', link: '/contributors' },
       { text: '贡献指南', link: '/contributing/' },

@@ -7,6 +7,7 @@ export const sidebar: DefaultTheme.Sidebar = {
   // "/styles/detail/": (() => {
   //   return [];
   // })(),
+  '/blog/': [],
   '/': [
     { text: '关于我们', link: '/about' },
     { text: '贡献者名单', link: '/contributors' },
