@@ -2,17 +2,24 @@ name: CI
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
   workflow_dispatch:
   repository_dispatch:
-    types: [update-content]
+    types:
+      - update-triggered-by-wiki-repo
+      - update-triggered-by-plugins-repo
+      - update-triggered-by-styles-repo
+      - update-triggered-by-translators-repo
+      - update-triggered-by-blog-repo
+      - update-content
 
 permissions:
   contents: write
 
 concurrency:
   group: pages
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 env:
   TZ: Asia/Shanghai
@@ -70,13 +77,6 @@ jobs:
         uses: pnpm/action-setup@v3
         with:
           version: 9
-
-      # - name: Setup Node
-      #   uses: actions/setup-node@v4
-      #   with:
-      #     node-version: 20.x
-      #     registry-url: 'https://registry.npmjs.org'
-      #     cache: pnpm
 
       - name: Install Netlify CLI
         run: pnpm install -g netlify-cli
