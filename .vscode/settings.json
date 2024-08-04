@@ -28,6 +28,11 @@
   // },
   "markdown.updateLinksOnFileMove.enabled": "always",
   "markdown.editor.pasteUrlAsFormattedLink.enabled": "smart",
+  "markdownlint.config": {
+    "MD025": {
+      "front_matter_title": ""
+    }
+  },
 
   /** 文件管理器相关  */
   // "explorer.sortOrder": "mixed",

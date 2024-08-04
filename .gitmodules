@@ -5,3 +5,6 @@
 [submodule "src/styles/detail"]
 	path = src/styles/detail
 	url = https://github.com/zotero-chinese/styles.git
+[submodule "src/blog/blog-repo"]
+	path = src/blog/blog-repo
+	url = https://github.com/zotero-chinese/blog.git

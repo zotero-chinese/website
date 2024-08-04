@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useData } from 'vitepress'
-import { defineAsyncComponent } from 'vue'
+import { computed, defineAsyncComponent } from 'vue'
 
 // @ts-expect-error data 是 vitepress 的隐式导出
 import { data as _pluginUpdateTime } from '@data/update-time.data'
@@ -10,7 +10,8 @@ import MarketHero from './MarketHero.vue'
 import Loading from './Loading.vue'
 
 const { frontmatter } = useData()
-const updateTime = frontmatter.value.type === 'plugin' ? _pluginUpdateTime.lastUpdate : _updateTime
+const updateTime = computed(() => frontmatter.value.type === 'plugin' ? _pluginUpdateTime.lastUpdate : _updateTime)
+const description = computed(() => frontmatter.value.description ?? `更新时间：${updateTime.value}`)
 
 const PluginCards = defineAsyncComponent(() =>
   import('./PluginCards.vue'))
@@ -20,6 +21,8 @@ const StyleCards = defineAsyncComponent(() =>
   import('./StyleCards.vue'))
 const TranslatorCards = defineAsyncComponent(() =>
   import('./TranslatorCards.vue'))
+const BlogIndex = defineAsyncComponent(() =>
+  import('./BlogIndex.vue'))
 
 function getComponentByType(type: string) {
   switch (type) {
@@ -31,6 +34,8 @@ function getComponentByType(type: string) {
       return StyleCards
     case 'translator':
       return TranslatorCards
+    case 'blog':
+      return BlogIndex
     default:
       return null
   }
@@ -41,7 +46,7 @@ function getComponentByType(type: string) {
   <div class="VPPage Market">
     <MarketHero
       :title="frontmatter.title"
-      :description="`更新时间：${updateTime}`"
+      :description="description"
       :actions="frontmatter.actions"
     />
     <main class="MarketMain">

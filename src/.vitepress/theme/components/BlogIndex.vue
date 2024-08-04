@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { data as posts } from './blog.data'
+import { data as posts } from '@data/blog.data'
 
 function getDateTime(time: number) {
   return new Date(time).toISOString()
@@ -7,24 +7,33 @@ function getDateTime(time: number) {
 </script>
 
 <template>
-  <ul class="blog-list">
-    <li v-for="post of posts" :key="post.url" class="blog-entry">
-      <article>
-        <time :datetime="getDateTime(post.date.time)">
-          {{ post.date.string }}
-        </time>
-        <h2 class="title">
-          <a :href="post.url">{{ post.title }}</a>
-        </h2>
-      </article>
-    </li>
-  </ul>
+  <div class="blog-list-warpper vp-doc">
+    <ul v-if="posts.length !== 0" class="blog-list">
+      <li v-for="post of posts" :key="post.url" class="blog-entry">
+        <article>
+          <time :datetime="getDateTime(post.date.time)">
+            {{ post.date.string }}
+          </time>
+          <h2 class="title">
+            <a :href="post.url">{{ post.title }}</a>
+          </h2>
+        </article>
+      </li>
+    </ul>
+
+    <el-empty v-else description="暂无内容" />
+  </div>
 </template>
 
 <style scoped>
 .blog-list {
   list-style-type: none;
-  padding: 0;
+  padding: 0 20% 5em 20%;
+}
+@media only screen and (max-width: 800px) {
+  .blog-list {
+    padding: 0;
+  }
 }
 .blog-entry {
   margin-top: 3em;
