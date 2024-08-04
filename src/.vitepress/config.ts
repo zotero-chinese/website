@@ -19,6 +19,7 @@ export default defineConfig({
   rewrites: {
     'wiki/:id+': ':id+',
     'styles/detail/src/:id+': 'styles/:id+',
+    'blog/blog-repo/posts/:id+': 'blog/posts/:id+',
   },
   cleanUrls: true,
 

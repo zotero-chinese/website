@@ -12,7 +12,7 @@ interface Post {
 declare const data: Post[]
 export { data }
 
-export default createContentLoader(['blog/posts/*.md', '!blog/posts/_template.md'], {
+export default createContentLoader('blog/blog-repo/posts/!(_template|index).md', {
   // excerpt: true,
   transform(raw): Post[] {
     return raw

@@ -8,7 +8,7 @@ function getDateTime(time: number) {
 
 <template>
   <div class="blog-list-warpper vp-doc">
-    <ul class="blog-list">
+    <ul v-if="posts.length !== 0" class="blog-list">
       <li v-for="post of posts" :key="post.url" class="blog-entry">
         <article>
           <time :datetime="getDateTime(post.date.time)">
@@ -20,6 +20,8 @@ function getDateTime(time: number) {
         </article>
       </li>
     </ul>
+
+    <el-empty v-else description="暂无内容" />
   </div>
 </template>
 
