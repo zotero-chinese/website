@@ -19,7 +19,7 @@ export default createContentLoader('blog/blog-repo/posts/!(_template|index).md',
       .filter(({ frontmatter }) => !frontmatter.draft)
       .map(({ url, frontmatter }) => ({
         title: frontmatter.title,
-        url,
+        url: url.replace('/blog-repo', ''),
         date: formatDate(frontmatter.date),
       }))
       .sort((a, b) => b.date.time - a.date.time)
