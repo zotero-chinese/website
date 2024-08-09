@@ -17,7 +17,7 @@ const selectedPlugin = ref(undefined) as Ref<PluginInfo | undefined>
 
 const query = useUrlSearchParams('hash-params', { removeFalsyValues: true })
 const sortBy = toRef(query, 'sort', 'stars') as Ref<string>
-const zotero = toRef(query, 'zotero', '') as Ref<string>
+const zotero = toRef(query, 'zotero', 'zotero7') as Ref<string>
 const searchText = toRef(query, 'search', '') as Ref<string>
 const _selectedTags = toRef(query, 'tags', []) as Ref<string | string[]>
 const selectedTags = ref([]) as Ref<string[]>
@@ -79,6 +79,15 @@ function showDownload(plugin: PluginInfo) {
   selectedPlugin.value = plugin
   isShowDownload.value = true
 }
+
+ElNotification({
+  title: '现默认提供 Zotero 7 插件',
+  dangerouslyUseHTMLString: true,
+  message: 'Zotero 7 现已正式发布，我们推荐所有同学更新到 Zotero 7。<br /><br />插件商店将于秋季学期开学后移除所有尚未支持 Zotero 7 的插件。',
+  type: 'warning',
+  duration: 10000,
+  offset: 60,
+})
 </script>
 
 <template>
