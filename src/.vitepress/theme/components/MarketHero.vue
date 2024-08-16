@@ -15,11 +15,9 @@ const props = defineProps({
 </script>
 
 <template>
-  <div class="MarketHero">
-    <div class="vp-doc">
-      <h1>{{ props.title }}</h1>
-      <p>{{ props.description }}</p>
-    </div>
+  <div class="MarketHero vp-doc">
+    <h1>{{ props.title }}</h1>
+    <p>{{ props.description }}</p>
 
     <div v-if="actions" class="actions">
       <div v-for="action in props.actions" :key="action.link" class="action">
@@ -40,8 +38,10 @@ const props = defineProps({
 <style scoped>
 .MarketHero {
   height: fit-content;
-  text-align: center;
   padding: 3rem 0 2.5rem 0;
+}
+.MarketHero * {
+  text-align: center;
 }
 
 .actions {
@@ -49,9 +49,11 @@ const props = defineProps({
   flex-wrap: wrap;
   justify-content: center;
 }
-
 .action {
   flex-shrink: 0;
   padding: 6px;
+}
+.actions a {
+  text-decoration: none;
 }
 </style>

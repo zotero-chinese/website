@@ -33,3 +33,15 @@ ul.el-timeline {
 .el-card {
   margin: 0.5rem;
 }
+
+.footnotes {
+  font-size: small;
+}
+.footnotes p {
+  line-height: 1.5rem;
+}
+
+.vp-doc li,
+.vp-doc p {
+  text-align: justify;
+}
