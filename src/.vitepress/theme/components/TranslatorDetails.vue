@@ -74,7 +74,7 @@ const translatorTypes = useTranslatorType(translator.value?.header.translatorTyp
         {{
           testCase.items === "multiple"
             ? "multiple"
-            : testCase.items[0].itemType
+            : testCase.items[0]?.itemType ?? "空"
         }}
       </template>
     </summary>
