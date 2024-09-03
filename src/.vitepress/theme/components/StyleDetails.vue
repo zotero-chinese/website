@@ -19,7 +19,9 @@ const rawLink = `https://github.com/${repoU}/${repoN}/blob/main/src/${style?.dir
 const downloadLinks = {
   // https://raw.githubusercontent.com/redleafnew/Chinese-STD-GB-T-7714-related-csl/main/src/accounting-research/accounting-research.csl
   github: `https://raw.githubusercontent.com/${repoU}/${repoN}/main/src/${style?.dir}/${style?.file}`,
+  github_connector: `${rawLink}#importConfirm`,
   gitee: `https://gitee.com/redleafnew00/Chinese-STD-GB-T-7714-related-csl/raw/main/src/${style?.dir}/${style?.file}`,
+  gitee_connector: `https://gitee.com/redleafnew00/Chinese-STD-GB-T-7714-related-csl/blob/main/src/${style?.dir}/${style?.file}#importConfirm`,
   jsd: `https://cdn.jsdelivr.net/gh/${repoU}/${repoN}@main/src/${style?.dir}/${style?.file}`,
   ghproxy: `https://mirror.ghproxy.com/?q=${encodeURI(rawLink)}`,
   keleAli: `https://oss.wieke.cn/styles/src/${style?.dir}/${style?.file}`,
@@ -91,52 +93,76 @@ const styleFormat
       下载样式
       <a class="header-anchor" href="#link" aria-label="Permalink to link" />
     </h2>
-    <p>
-      请确保 Zotero 正在运行，点击下面任意安装链接以安装样式，请参阅
-      <a href="/user-guide/citation-styles">安装样式文件</a>
-      了解详情。
-    </p>
     <div class="custom-block tip">
       <p class="custom-block-title">
+        提示
+      </p>
+      <p>
+        请优先参阅
+        「<a href="/user-guide/citation-styles">安装样式文件</a>」
+        以了解样式文件安装步骤和常见问题。
+      </p>
+      <p>请确保 Zotero 正在运行，点击下面任意安装链接以安装样式。</p>
+      <p>
         本站为每一个样式文件都提供了多个下载地址，请选择自己可用的地址。
       </p>
-      <ul>
-        <li>
-          <a :href="downloadLinks.github" target="_blank">从 GitHub 安装样式</a>
-        </li>
-        <li>
-          <a :href="downloadLinks.gitee" target="_blank">从 Gitee 下载样式</a>
-          （请右击->另存为）
-        </li>
-        <li>
-          <a :href="downloadLinks.jsd" target="_blank">从 JsDeliver 下载样式</a>
-          （此地址存在 24 h 延迟）
-        </li>
-        <li>
-          <a :href="downloadLinks.ghproxy" target="_blank">
-            从 GH Proxy 下载样式
-          </a>
-          （请右击->另存为）
-        </li>
-        <li>
-          <a :href="downloadLinks.keleAli" target="_blank">
-            从
-            <code>oss.wieke.cn</code>
-            下载样式
-          </a>
-          （此地址由网友可口可乐提供）
-        </li>
-        <li>
-          <a :href="downloadLinks.keleAzure" target="_blank">
-            从
-            <code>oss.wwang.de</code>
-            下载样式
-          </a>
-          （此地址由网友可口可乐提供）
-        </li>
-        <li><a :href="rawLink">查看源码</a></li>
-      </ul>
     </div>
+
+    以下地址请直接单击打开后，通过 Zotero Connector 直接安装：
+    <ul>
+      <li>
+        <a :href="downloadLinks.github_connector" target="_blank">从 GitHub 安装样式</a>
+      </li>
+      <li>
+        <a :href="downloadLinks.gitee_connector" target="_blank">从 Gitee 安装样式</a>
+      </li>
+    </ul>
+
+    以下地址请单击链接下载文件后，手动安装：
+    <ul>
+      <li>
+        <a :href="downloadLinks.jsd" target="_blank">从 JsDeliver 下载样式</a>
+        （此地址存在 24 h 延迟）
+      </li>
+      <li>
+        <a :href="downloadLinks.keleAli" target="_blank">
+          从
+          <code>oss.wieke.cn</code>
+          下载样式
+        </a>
+        （此地址由网友可口可乐提供）
+      </li>
+      <li>
+        <a :href="downloadLinks.keleAzure" target="_blank">
+          从
+          <code>oss.wwang.de</code>
+          下载样式
+        </a>
+        （此地址由网友可口可乐提供）
+      </li>
+    </ul>
+
+    以下地址请「右击->另存为」下载文件后，手动安装：
+    <ul>
+      <li>
+        <a :href="downloadLinks.github" target="_blank">从 GitHub 下载样式</a>
+      </li>
+      <li>
+        <a :href="downloadLinks.gitee" target="_blank">从 Gitee 下载样式</a>
+      </li>
+      <li>
+        <a :href="downloadLinks.ghproxy" target="_blank">
+          从 GH Proxy 下载样式
+        </a>
+      </li>
+    </ul>
+
+    查看源码：
+    <ul>
+      <li>
+        <a :href="rawLink" target="_blank">在 GitHub 上查看源码</a>
+      </li>
+    </ul>
   </template>
   <template v-else>
     未找到此条目。
