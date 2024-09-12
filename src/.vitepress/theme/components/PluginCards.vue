@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type Ref, computed, ref, toRef } from 'vue'
+import { type Ref, computed, ref, toRef, watch } from 'vue'
 import { syncRef, useUrlSearchParams } from '@vueuse/core'
 
 import MarketSearch from '@theme/components/MarketSearch.vue'
@@ -80,13 +80,17 @@ function showDownload(plugin: PluginInfo) {
   isShowDownload.value = true
 }
 
-ElNotification({
-  title: '现默认提供 Zotero 7 插件',
-  dangerouslyUseHTMLString: true,
-  message: 'Zotero 7 现已正式发布，我们推荐所有同学更新到 Zotero 7。<br /><br />请查阅 <a href="/blog/posts/hello-zotero-7" class="el-link el-link--primary is-underline">Zotero 7 更新指南</a>。<br /><br />插件商店将于秋季学期开学后移除所有尚未支持 Zotero 7 的插件。',
-  type: 'warning',
-  duration: 10000,
-  offset: 60,
+watch(zotero, (zotero) => {
+  if (zotero === 'zotero6') {
+    ElNotification({
+      title: '现仅提供 Zotero 7 插件',
+      dangerouslyUseHTMLString: true,
+      message: 'Zotero 7 现已正式发布，我们推荐所有同学更新到 Zotero 7。<br /><br />请查阅 <a href="/blog/posts/hello-zotero-7" class="el-link el-link--primary is-underline">Zotero 7 更新指南</a>。',
+      type: 'warning',
+      duration: 10000,
+      offset: 60,
+    })
+  }
 })
 </script>
 
