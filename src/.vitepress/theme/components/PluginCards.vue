@@ -83,7 +83,7 @@ function showDownload(plugin: PluginInfo) {
 watch(zotero, (zotero) => {
   if (zotero === 'zotero6') {
     ElNotification({
-      title: '现仅提供 Zotero 7 插件',
+      title: '推荐升级到 Zotero 7',
       dangerouslyUseHTMLString: true,
       message: 'Zotero 7 现已正式发布，我们推荐所有同学更新到 Zotero 7。<br /><br />请查阅 <a href="/blog/posts/hello-zotero-7" class="el-link el-link--primary is-underline">Zotero 7 更新指南</a>。',
       type: 'warning',
