@@ -17,7 +17,7 @@
     "prepare": "husky"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^2.24.1",
+    "@antfu/eslint-config": "^3.0.0",
     "@giscus/vue": "3.0.0",
     "@highcharts/dashboards": "2.3.0",
     "@iconify-json/ep": "^1.1.15",
