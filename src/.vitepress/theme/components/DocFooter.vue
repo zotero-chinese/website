@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import { useData } from 'vitepress'
+import { ref } from 'vue'
 // import LicenseIcon from './icons/LicenseIcon.vue'
 // import CommunityIcon from './icons/CommunityIcon.vue'
 import ContributingIcon from './icons/ContributingIcon.vue'

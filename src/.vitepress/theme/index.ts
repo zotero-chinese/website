@@ -1,6 +1,6 @@
-import { type Plugin, h } from 'vue'
 import type { Theme } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
+import { h, type Plugin } from 'vue'
 
 // CSS
 import './styles/vars.css'
@@ -19,13 +19,13 @@ import 'element-plus/theme-chalk/dark/css-vars.css'
 // Git Changelog
 // https://nolebase-integrations.ayaka.io/pages/zh-CN/integrations/vitepress-plugin-git-changelog/
 import { NolebaseGitChangelogPlugin } from '@nolebase/vitepress-plugin-git-changelog/client'
-import '@nolebase/vitepress-plugin-git-changelog/client/style.css'
+import DocFooter from './components/DocFooter.vue'
 
+import '@nolebase/vitepress-plugin-git-changelog/client/style.css'
 // Custom Components
 import Giscus from './components/Giscus.vue'
-import DocFooter from './components/DocFooter.vue'
-import SvgImage from './components/SvgImage.vue'
 import Market from './components/Market.vue'
+import SvgImage from './components/SvgImage.vue'
 // import HomeSponsors from "./components/HomeSponsors.vue";
 // import AsideSponsors from "./components/AsideSponsors.vue";
 

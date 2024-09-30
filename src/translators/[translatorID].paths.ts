@@ -1,6 +1,6 @@
-import { listify } from 'radash'
-import fs from 'fs-extra'
 import type { Translators } from '@data/translators.data'
+import fs from 'fs-extra'
+import { listify } from 'radash'
 
 export default {
   async paths() {

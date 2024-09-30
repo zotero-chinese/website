@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { tags as allTags } from '@data/pluginTags'
-import type { PluginTag } from '@data/pluginTags'
 import type { PluginInfo } from '@data/plugins.data'
+import type { PluginTag } from '@data/pluginTags'
+import { tags as allTags } from '@data/pluginTags'
 
 const props = defineProps<{
   plugin: PluginInfo

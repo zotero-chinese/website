@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { type Ref, computed, ref, toRef } from 'vue'
-import { syncRef, useUrlSearchParams } from '@vueuse/core'
-
+import { data as styles } from '@data/styles.data'
 import MarketSearch from '@theme/components/MarketSearch.vue'
+
 import MarketTagsFilter from '@theme/components/MarketTagsFilter.vue'
 import MarketToolBar from '@theme/components/MarketToolBar.vue'
+import { syncRef, useUrlSearchParams } from '@vueuse/core'
 
-import { data as styles } from '@data/styles.data'
+import { computed, type Ref, ref, toRef } from 'vue'
 import StyleCardWithPop from './StyleCardWithPop.vue'
 import StyleCardWithPreview from './StyleCardWithPreview.vue'
 

@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import { type Ref, computed, ref, toRef } from 'vue'
-import { syncRef, useUrlSearchParams } from '@vueuse/core'
-
+import { data } from '@data/translatorsLittle.data'
 import MarketSearch from '@theme/components/MarketSearch.vue'
 import MarketTagsFilter from '@theme/components/MarketTagsFilter.vue'
 import MarketToolBar from '@theme/components/MarketToolBar.vue'
 
-import { data } from '@data/translatorsLittle.data'
+import { syncRef, useUrlSearchParams } from '@vueuse/core'
+import { computed, type Ref, ref, toRef } from 'vue'
 
 import { useItemType, useSortedItemTypes } from '../composables/localize'
 import TranslatorCard from './TranslatorCard.vue'

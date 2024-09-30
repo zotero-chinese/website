@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import path from 'node:path'
 import { exit } from 'node:process'
 import fs from 'fs-extra'

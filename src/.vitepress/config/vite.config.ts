@@ -1,21 +1,20 @@
 import { resolve } from 'node:path'
-import { defineConfig } from 'vite'
-
-import Inspect from 'vite-plugin-inspect'
-import VueDevTools from 'vite-plugin-vue-devtools'
-
-import AutoImport from 'unplugin-auto-import/vite'
-import Components from 'unplugin-vue-components/vite'
-import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
-import Icons from 'unplugin-icons/vite'
-import IconsResolver from 'unplugin-icons/resolver'
-
 import {
   GitChangelog,
   GitChangelogMarkdownSection,
 } from '@nolebase/vitepress-plugin-git-changelog/vite'
-import { contributors } from '../data/contributors'
 
+import AutoImport from 'unplugin-auto-import/vite'
+import IconsResolver from 'unplugin-icons/resolver'
+
+import Icons from 'unplugin-icons/vite'
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import Components from 'unplugin-vue-components/vite'
+import { defineConfig } from 'vite'
+import Inspect from 'vite-plugin-inspect'
+import VueDevTools from 'vite-plugin-vue-devtools'
+
+import { contributors } from '../data/contributors'
 import { MarkdownTransform } from '../plugins/markdownTransform'
 
 export default defineConfig({

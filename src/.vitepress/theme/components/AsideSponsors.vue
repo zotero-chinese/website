@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { computed } from 'vue'
 import { VPDocAsideSponsors } from 'vitepress/theme'
+import { computed } from 'vue'
 import { useSponsor } from '../composables/sponsor'
 
 const { data } = useSponsor()
@@ -64,12 +64,7 @@ const sponsors = computed(() => {
   transform: scale(1.75);
 }
 .viteconf .heading {
-  background-image: linear-gradient(
-    120deg,
-    #b047ff 16%,
-    var(--vp-c-brand-lighter),
-    var(--vp-c-brand-lighter)
-  );
+  background-image: linear-gradient(120deg, #b047ff 16%, var(--vp-c-brand-lighter), var(--vp-c-brand-lighter));
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;

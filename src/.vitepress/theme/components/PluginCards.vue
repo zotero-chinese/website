@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { type Ref, computed, ref, toRef, watch } from 'vue'
-import { syncRef, useUrlSearchParams } from '@vueuse/core'
+import type { PluginInfo, PluginTagType } from '@data/plugins.data'
+import { data as plugins } from '@data/plugins.data'
 
+import { tags as allTags } from '@data/pluginTags'
 import MarketSearch from '@theme/components/MarketSearch.vue'
 import MarketTagsFilter from '@theme/components/MarketTagsFilter.vue'
 import MarketToolBar from '@theme/components/MarketToolBar.vue'
-import { data as plugins } from '@data/plugins.data'
-import type { PluginInfo, PluginTagType } from '@data/plugins.data'
-import { tags as allTags } from '@data/pluginTags'
+import { syncRef, useUrlSearchParams } from '@vueuse/core'
+import { computed, type Ref, ref, toRef, watch } from 'vue'
 
 import PluginCard from './PluginCard.vue'
 import PluginDownloadModal from './PluginDownloadModal.vue'

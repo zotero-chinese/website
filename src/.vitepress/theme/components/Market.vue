@@ -6,8 +6,8 @@ import { computed, defineAsyncComponent } from 'vue'
 import { data as _pluginUpdateTime } from '@data/update-time.data'
 // @ts-expect-error data 是 vitepress 的隐式导出
 import { data as _updateTime } from '@data/time.data'
-import MarketHero from './MarketHero.vue'
 import Loading from './Loading.vue'
+import MarketHero from './MarketHero.vue'
 
 const { frontmatter } = useData()
 const updateTime = computed(() => frontmatter.value.type === 'plugin' ? _pluginUpdateTime.lastUpdate : _updateTime)

@@ -1,10 +1,10 @@
 <script setup lang="ts">
 // TODO: 解决此文件类型检查错误
 
-import { useData } from 'vitepress'
-import type { Ref } from 'vue'
-import { toRef } from 'vue'
 import type { Translator } from '@data/translatorsLittle.data'
+import type { Ref } from 'vue'
+import { useData } from 'vitepress'
+import { toRef } from 'vue'
 import {
   useCreatorType,
   useItemField,

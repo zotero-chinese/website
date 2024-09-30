@@ -1,10 +1,8 @@
-/* eslint-disable no-console */
-
-import path from 'node:path'
 import { copyFileSync, writeFileSync } from 'node:fs'
-import { Feed } from 'feed'
-import { type SiteConfig, createContentLoader } from 'vitepress'
+import path from 'node:path'
 import FastGlob from 'fast-glob'
+import { Feed } from 'feed'
+import { createContentLoader, type SiteConfig } from 'vitepress'
 import { getGitTimestamp } from '../utils/getGitTimestamp'
 import { getDefaultTitle, getTextSummary } from '../utils/markdown'
 

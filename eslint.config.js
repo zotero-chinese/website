@@ -13,6 +13,7 @@ export default antfu({
     '**/node_modules/**',
     '**/src/wiki/**',
     '**/src/styles/detail/**',
+    '**/src/blog/**',
     'scripts/**',
     '**/build/**',
     '**/dist/**',

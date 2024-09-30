@@ -1,23 +1,23 @@
 <script setup lang="ts">
-import { useData } from 'vitepress'
-import { onMounted } from 'vue'
-
-import Highcharts from 'highcharts'
-import HighchartsMore from 'highcharts/highcharts-more'
-import WordCloudGraph from 'highcharts/modules/wordcloud'
-import HighchartsBoost from 'highcharts/modules/boost'
-import HighStock from 'highcharts/modules/stock'
-import MouseWheelZoom from 'highcharts/modules/mouse-wheel-zoom'
-import ParallelCoordinates from 'highcharts/modules/parallel-coordinates'
-import VariablePieGraph from 'highcharts/modules/variable-pie'
-import HighchartsExporting from 'highcharts/modules/exporting'
-import HighchartsExportData from 'highcharts/modules/export-data'
-import NoDataToDisplay from 'highcharts/modules/no-data-to-display'
-
-import Dashboards from '@highcharts/dashboards'
 import type { Board } from '@highcharts/dashboards'
+import Dashboards from '@highcharts/dashboards'
+
 import DataGrid from '@highcharts/dashboards/datagrid'
 import LayoutModule from '@highcharts/dashboards/modules/layout'
+import Highcharts from 'highcharts'
+import HighchartsMore from 'highcharts/highcharts-more'
+import HighchartsBoost from 'highcharts/modules/boost'
+import HighchartsExportData from 'highcharts/modules/export-data'
+import HighchartsExporting from 'highcharts/modules/exporting'
+import MouseWheelZoom from 'highcharts/modules/mouse-wheel-zoom'
+import NoDataToDisplay from 'highcharts/modules/no-data-to-display'
+import ParallelCoordinates from 'highcharts/modules/parallel-coordinates'
+import HighStock from 'highcharts/modules/stock'
+
+import VariablePieGraph from 'highcharts/modules/variable-pie'
+import WordCloudGraph from 'highcharts/modules/wordcloud'
+import { useData } from 'vitepress'
+import { onMounted } from 'vue'
 
 // @ts-expect-error data 是 vitepress 的隐式导出
 import { data as chartsData } from '@data/charts.data'
