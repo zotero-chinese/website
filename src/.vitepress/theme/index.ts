@@ -45,7 +45,9 @@ export default {
     app.component('SvgImage', SvgImage)
     app.component('Market', Market)
 
-    app.use(NolebaseGitChangelogPlugin as Plugin)
+    app.use(NolebaseGitChangelogPlugin as Plugin, {
+      displayAuthorsInsideCommitLine: true,
+    })
 
     // Router Enhance
     // nprogress
