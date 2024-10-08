@@ -2,7 +2,7 @@
 import { data as posts } from '@data/blog.data'
 
 function getDateTime(time: number) {
-  return new Date(time).toISOString()
+  return new Date(time).toLocaleString('zh-CN')
 }
 </script>
 

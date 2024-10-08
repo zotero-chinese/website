@@ -27,11 +27,10 @@ export default createContentLoader('blog/blog-repo/posts/!(_template|index).md',
 })
 
 function formatDate(raw: string): Post['date'] {
-  const date = new Date(raw)
-  date.setUTCHours(12)
+  const date = new Date(`${raw} UTC+8`)
   return {
     time: +date,
-    string: date.toLocaleDateString('en-US', {
+    string: date.toLocaleDateString('zh-CN', {
       year: 'numeric',
       month: 'long',
       day: 'numeric',
