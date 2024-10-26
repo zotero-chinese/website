@@ -4,6 +4,7 @@ import type { PluginTag } from '@data/pluginTags'
 import { tags as allTags } from '@data/pluginTags'
 import { useClipboard } from '@vueuse/core'
 import GitHubIcon from './icons/GitHubIcon.vue'
+import ShareIcon from './icons/ShareIcon.vue'
 
 const props = defineProps<{
   plugin: PluginInfo
@@ -121,7 +122,7 @@ function copyLink() {
 
         <el-tooltip content="复制链接以分享">
           <el-button @click="copyLink">
-            <IEpLink />
+            <el-icon><ShareIcon /></el-icon>
           </el-button>
         </el-tooltip>
       </div>
