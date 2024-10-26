@@ -3,6 +3,7 @@ import type { PluginInfo } from '@data/plugins.data'
 import type { PluginTag } from '@data/pluginTags'
 import { tags as allTags } from '@data/pluginTags'
 import { useClipboard } from '@vueuse/core'
+import DownloadIcon from './icons/DownloadIcon.vue'
 import GitHubIcon from './icons/GitHubIcon.vue'
 import ShareIcon from './icons/ShareIcon.vue'
 
@@ -103,7 +104,7 @@ function copyLink() {
 
     <template #footer>
       <div class="footer_left">
-        <el-button type="primary" @click="showDownload">
+        <el-button type="primary" :icon="DownloadIcon" :auto-insert-space="true" @click="showDownload">
           下载
         </el-button>
       </div>
@@ -120,7 +121,7 @@ function copyLink() {
           </el-button>
         </el-tooltip>
 
-        <el-tooltip content="复制链接以分享">
+        <el-tooltip content="复制分享链接">
           <el-button @click="copyLink">
             <el-icon><ShareIcon /></el-icon>
           </el-button>
