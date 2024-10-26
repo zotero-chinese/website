@@ -22,7 +22,7 @@ watch(isShowing, (v) => {
       v-model="isShowing"
       direction="rtl"
       size="50%"
-      :lock-scroll="false"
+      :lock-scroll="true"
       :title="props.selectedPlugin?.name"
     >
       <div class="desc">
