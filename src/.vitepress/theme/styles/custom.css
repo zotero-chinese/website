@@ -30,8 +30,10 @@
   align-items: center;
 }
 
-.el-icon {
-  margin-right: 8px;
+.el-icon + span,
+.el-icon + p,
+.el-icon + a {
+  margin-left: 8px;
 }
 
 ul.el-timeline {

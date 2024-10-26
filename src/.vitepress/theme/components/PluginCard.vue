@@ -2,6 +2,10 @@
 import type { PluginInfo } from '@data/plugins.data'
 import type { PluginTag } from '@data/pluginTags'
 import { tags as allTags } from '@data/pluginTags'
+import { useClipboard } from '@vueuse/core'
+import DownloadIcon from './icons/DownloadIcon.vue'
+import GitHubIcon from './icons/GitHubIcon.vue'
+import ShareIcon from './icons/ShareIcon.vue'
 
 const props = defineProps<{
   plugin: PluginInfo
@@ -12,6 +16,26 @@ const emits = defineEmits(['showDownload'])
 function showDownload() {
   emits('showDownload', props.plugin)
 }
+
+function copyLink() {
+  const base = `${window.location.origin}${window.location.pathname}`
+  const link = `${base}#search=${encodeURI(props.plugin.name)}`
+  const { copy, copied, isSupported } = useClipboard({ source: link })
+
+  if (!isSupported) {
+    ElMessage({
+      message: '您的浏览器不支持剪贴板接口，请手动复制。',
+      type: 'error',
+    })
+  }
+  copy(link)
+  if (copied) {
+    ElMessage({
+      message: '复制成功！',
+      type: 'success',
+    })
+  }
+}
 </script>
 
 <template>
@@ -19,9 +43,7 @@ function showDownload() {
     <template #header>
       <div class="card-header">
         <b>
-          <el-link :href="`https://github.com/${props.plugin.repo}`" target="_blank">
-            <el-text tag="b" size="large">{{ props.plugin.name }}</el-text>
-          </el-link>
+          <el-text tag="b" size="large">{{ props.plugin.name }}</el-text>
         </b>
       </div>
     </template>
@@ -81,9 +103,30 @@ function showDownload() {
     </div>
 
     <template #footer>
-      <el-button type="primary" @click="showDownload">
-        下载
-      </el-button>
+      <div class="footer_left">
+        <el-button type="primary" :icon="DownloadIcon" :auto-insert-space="true" @click="showDownload">
+          下载
+        </el-button>
+      </div>
+
+      <div class="footer_right">
+        <el-tooltip content="访问插件主页">
+          <el-button
+            tag="a"
+            :href="`https://github.com/${props.plugin.repo}#readme`"
+            target="_blank"
+          >
+            <el-icon><GitHubIcon /></el-icon>
+            <!-- <el-icon><IEpDocument /></el-icon> -->
+          </el-button>
+        </el-tooltip>
+
+        <el-tooltip content="复制分享链接">
+          <el-button @click="copyLink">
+            <el-icon><ShareIcon /></el-icon>
+          </el-button>
+        </el-tooltip>
+      </div>
     </template>
   </el-card>
 </template>
@@ -96,5 +139,11 @@ function showDownload() {
 .desc span {
   /* max-height: 100px; */
   white-space: normal;
+}
+
+:deep(.el-card__footer) {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 </style>
