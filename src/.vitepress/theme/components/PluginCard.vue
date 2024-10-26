@@ -16,7 +16,7 @@ function showDownload() {
 }
 
 function copyLink() {
-  const base = 'https://zotero-chinese.com/plugins/'
+  const base = `${window.location.origin}${window.location.pathname}` ?? 'https://zotero-chinese.com/plugins/'
   const link = `${base}#search=${encodeURI(props.plugin.name)}`
   const { copy, copied, isSupported } = useClipboard({ source: link })
 
