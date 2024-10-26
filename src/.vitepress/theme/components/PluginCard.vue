@@ -16,13 +16,13 @@ function showDownload() {
 }
 
 function copyLink() {
-  const base = `${window.location.origin}${window.location.pathname}` ?? 'https://zotero-chinese.com/plugins/'
+  const base = `${window.location.origin}${window.location.pathname}`
   const link = `${base}#search=${encodeURI(props.plugin.name)}`
   const { copy, copied, isSupported } = useClipboard({ source: link })
 
   if (!isSupported) {
     ElMessage({
-      message: '您的浏览器不支持剪贴板接口，请手动复制：',
+      message: '您的浏览器不支持剪贴板接口，请手动复制。',
       type: 'error',
     })
   }
@@ -119,7 +119,7 @@ function copyLink() {
           </el-button>
         </el-tooltip>
 
-        <el-tooltip content="复制链接">
+        <el-tooltip content="复制链接以分享">
           <el-button @click="copyLink">
             <IEpLink />
           </el-button>
