@@ -4,3 +4,4 @@
 # https://github.com/zotero-chinese/website/issues/100
 https://zotero-zh.netlify.app/* https://zotero-chinese.com/:splat 301!
 https://main--zotero-zh.netlify.app/* https://zotero-chinese.com/:splat 301!
+https://gh-pages--zotero-zh.netlify.app/* https://zotero-chinese.com/:splat 301!

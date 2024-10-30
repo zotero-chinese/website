@@ -46,7 +46,7 @@ jobs:
         uses: nwtgck/actions-netlify@v3.0
         with:
           publish-dir: dist
-          deploy-message: Deploy from GitHub Actions
+          deploy-message: 'Deploy from GitHub Actions PR #${{ env.PR_NUM }}'
           production-deploy: false
           alias: deploy-preview-${{ env.PR_NUM }}
           enable-commit-comment: false
