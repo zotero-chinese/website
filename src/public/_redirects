@@ -1,0 +1,6 @@
+# https://docs.netlify.com/routing/redirects/#syntax-for-the-redirects-file
+
+# Redirect netlify users to main domin
+# https://github.com/zotero-chinese/website/issues/100
+https://zotero-zh.netlify.app/* https://zotero-chinese.com/:splat 301!
+https://main--zotero-zh.netlify.app/* https://zotero-chinese.com/:splat 301!
