@@ -50,7 +50,7 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4.6.8
         with:
           repository-name: zotero-chinese/zotero-chinese.github.io
-          branch: main
+          branch: gh-pages
           folder: dist
           single-commit: true
           token: ${{ secrets.ACCESS_TOKEN }}
