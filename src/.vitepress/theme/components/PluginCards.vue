@@ -87,26 +87,9 @@ const filteredPlugins = computed(() => {
   return filtered
 })
 
-// 获取所有作者并去重
 const authors = computed(() => {
   return [...new Set(plugins.map(plugin => plugin.author.name))].sort()
 })
-// const authors = computed(() => {
-//   const uniqueAuthors = new Map<string, { name: string; url?: string }>()
-//   plugins.forEach(plugin => {
-//     if (!uniqueAuthors.has(plugin.author.name)) {
-//       uniqueAuthors.set(plugin.author.name, plugin.author)
-//     }
-//   })
-//   return Array.from(uniqueAuthors.values()).sort()
-// })
-
-// 获取当前选中作者的信息
-// const selectedAuthorInfo = computed(() => {
-//   if (!selectedAuthor.value)
-//     return null
-//   return plugins.find(plugin => plugin.author.name === selectedAuthor.value)?.author
-// })
 
 function showDownload(plugin: PluginInfo) {
   selectedPlugin.value = plugin
