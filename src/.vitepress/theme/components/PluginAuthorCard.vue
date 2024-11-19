@@ -136,7 +136,7 @@ const totalStars = computed(() =>
   top: 50%;
   right: 5rem;
   transform: translateY(-50%);
-  font-family: 'French Script MT', 'Lucida Calligraphy', 'Apple Chancery', cursive;
+  font-family: 'French Script MT', 'Brush Script MT', 'Lucida Calligraphy', 'Apple Chancery', 'Times New Roman';
   font-size: 3rem;
   font-weight: bold;
   font-style: italic;
