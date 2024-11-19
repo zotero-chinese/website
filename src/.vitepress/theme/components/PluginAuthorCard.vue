@@ -15,7 +15,6 @@ const selectedAuthorInfo = computed(() => {
   return props.plugins.find(plugin => plugin.author.name === props.authorName)?.author
 })
 
-// 计算属性
 const pluginCount = computed(() => props.plugins.length)
 const totalStars = computed(() =>
   props.plugins.reduce((sum, plugin) => sum + (plugin.stars || 0), 0),
@@ -25,7 +24,6 @@ const totalStars = computed(() =>
 <template>
   <el-card v-if="selectedAuthorInfo" class="author-card" shadow="hover">
     <div class="card-content">
-      <!-- 清除筛选按钮 -->
       <el-button
         class="close-btn"
         size="small"
@@ -136,7 +134,7 @@ const totalStars = computed(() =>
   top: 50%;
   right: 5rem;
   transform: translateY(-50%);
-  font-family: 'French Script MT', 'Brush Script MT', 'Lucida Calligraphy', 'Apple Chancery', 'Times New Roman';
+  font-family: 'French Script MT', 'Apple Chancery', 'Lucida Calligraphy', Cursive, 'Brush Script MT', 'Times New Roman';
   font-size: 3rem;
   font-weight: bold;
   font-style: italic;
