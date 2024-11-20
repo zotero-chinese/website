@@ -15,15 +15,13 @@ const contributors = [
 
 const repoU = 'zotero-chinese'
 const repoN = 'styles'
-const rawLink = `https://github.com/${repoU}/${repoN}/blob/main/src/${style?.dir}/${style?.file}`
+const blobLink = `https://github.com/${repoU}/${repoN}/blob/main/src/${style?.dir}/${style?.file}`
 const downloadLinks = {
   // https://raw.githubusercontent.com/redleafnew/Chinese-STD-GB-T-7714-related-csl/main/src/accounting-research/accounting-research.csl
   github: `https://raw.githubusercontent.com/${repoU}/${repoN}/main/src/${style?.dir}/${style?.file}`,
-  github_connector: `${rawLink}#importConfirm`,
   gitee: `https://gitee.com/redleafnew00/Chinese-STD-GB-T-7714-related-csl/raw/main/src/${style?.dir}/${style?.file}`,
-  gitee_connector: `https://gitee.com/redleafnew00/Chinese-STD-GB-T-7714-related-csl/blob/main/src/${style?.dir}/${style?.file}#importConfirm`,
   jsd: `https://cdn.jsdelivr.net/gh/${repoU}/${repoN}@main/src/${style?.dir}/${style?.file}`,
-  ghproxy: `https://mirror.ghproxy.com/?q=${encodeURI(rawLink)}`,
+  ghproxy: `https://mirror.ghproxy.com/?q=${encodeURI(blobLink)}`,
   keleAli: `https://oss.wieke.cn/styles/src/${style?.dir}/${style?.file}`,
   keleAzure: `https://oss.wwang.de/styles/src/${style?.dir}/${style?.file}`,
 }
@@ -108,17 +106,27 @@ const styleFormat
       </p>
     </div>
 
-    以下地址请直接单击打开后，通过 Zotero Connector 直接安装：
+    <h3 id="install">
+      直接安装
+      <a class="header-anchor" href="#link" aria-label="Permalink to install" />
+    </h3>
+
+    <p>单击以下任一链接，通过 Zotero Connector 直接安装：</p>
     <ul>
       <li>
-        <a :href="downloadLinks.github_connector" target="_blank">从 GitHub 安装样式</a>
+        <a :href="downloadLinks.github" target="_blank">从 GitHub 安装样式</a>
       </li>
       <li>
-        <a :href="downloadLinks.gitee_connector" target="_blank">从 Gitee 安装样式</a>
+        <a :href="downloadLinks.gitee" target="_blank">从 Gitee 安装样式</a>
       </li>
     </ul>
 
-    以下地址请单击链接下载文件后，手动安装：
+    <h3 id="download">
+      备用链接
+      <a class="header-anchor" href="#link" aria-label="Permalink to download" />
+    </h3>
+
+    <p>单击以下任一链接，若未执行自动安装请下载后手动安装：</p>
     <ul>
       <li>
         <a :href="downloadLinks.jsd" target="_blank">从 JsDeliver 下载样式</a>
@@ -140,27 +148,16 @@ const styleFormat
         </a>
         （此地址由网友可口可乐提供）
       </li>
-    </ul>
-
-    以下地址请「右击->另存为」下载文件后，手动安装：
-    <ul>
       <li>
-        <a :href="downloadLinks.github" target="_blank">从 GitHub 下载样式</a>
-      </li>
-      <li>
-        <a :href="downloadLinks.gitee" target="_blank">从 Gitee 下载样式</a>
-      </li>
-      <li>
-        <a :href="downloadLinks.ghproxy" target="_blank">
-          从 GH Proxy 下载样式
-        </a>
+        <a :href="downloadLinks.ghproxy" target="_blank">从 GH Proxy 下载样式</a>
+        （需「右击->另存为」下载文件）
       </li>
     </ul>
 
     查看源码：
     <ul>
       <li>
-        <a :href="rawLink" target="_blank">在 GitHub 上查看源码</a>
+        <a :href="blobLink" target="_blank">在 GitHub 上查看源码</a>
       </li>
     </ul>
   </template>
