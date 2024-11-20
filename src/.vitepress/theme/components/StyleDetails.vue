@@ -126,7 +126,7 @@ const styleFormat
       <a class="header-anchor" href="#link" aria-label="Permalink to download" />
     </h3>
 
-    单击以下任一链接，若未执行自动安装请下载后手动安装：
+    <p>单击以下任一链接，若未执行自动安装请下载后手动安装：</p>
     <ul>
       <li>
         <a :href="downloadLinks.jsd" target="_blank">从 JsDeliver 下载样式</a>
