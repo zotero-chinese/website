@@ -111,7 +111,7 @@ const styleFormat
       <a class="header-anchor" href="#link" aria-label="Permalink to install" />
     </h3>
 
-    单击以下任一链接，通过 Zotero Connector 直接安装：
+    <p>单击以下任一链接，通过 Zotero Connector 直接安装：</p>
     <ul>
       <li>
         <a :href="downloadLinks.github" target="_blank">从 GitHub 安装样式</a>
