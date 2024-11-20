@@ -7,6 +7,7 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    ElAvatar: typeof import('element-plus/es')['ElAvatar']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCard: typeof import('element-plus/es')['ElCard']
     ElCheckbox: typeof import('element-plus/es')['ElCheckbox']
@@ -24,6 +25,7 @@ declare module 'vue' {
     ElRow: typeof import('element-plus/es')['ElRow']
     ElSelect: typeof import('element-plus/es')['ElSelect']
     ElSpace: typeof import('element-plus/es')['ElSpace']
+    ElStatistic: typeof import('element-plus/es')['ElStatistic']
     ElSwitch: typeof import('element-plus/es')['ElSwitch']
     ElTag: typeof import('element-plus/es')['ElTag']
     ElText: typeof import('element-plus/es')['ElText']
@@ -32,6 +34,7 @@ declare module 'vue' {
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
     IEpAim: typeof import('~icons/ep/aim')['default']
     IEpAvatar: typeof import('~icons/ep/avatar')['default']
+    IEpCloseBold: typeof import('~icons/ep/close-bold')['default']
     IEpFilter: typeof import('~icons/ep/filter')['default']
     IEpInfoFilled: typeof import('~icons/ep/info-filled')['default']
     IEpLink: typeof import('~icons/ep/link')['default']

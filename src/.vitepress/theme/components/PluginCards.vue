@@ -9,6 +9,7 @@ import MarketToolBar from '@theme/components/MarketToolBar.vue'
 import { syncRef, useUrlSearchParams } from '@vueuse/core'
 import { computed, type Ref, ref, toRef, watch } from 'vue'
 
+import PluginAuthorCard from './PluginAuthorCard.vue'
 import PluginCard from './PluginCard.vue'
 import PluginDownloadModal from './PluginDownloadModal.vue'
 
@@ -19,6 +20,8 @@ const query = useUrlSearchParams('hash-params', { removeFalsyValues: true })
 const sortBy = toRef(query, 'sort', 'stars') as Ref<string>
 const zotero = toRef(query, 'zotero', 'zotero7') as Ref<string>
 const searchText = toRef(query, 'search', '') as Ref<string>
+const selectedAuthor = toRef(query, 'author', '') as Ref<string>
+
 const _selectedTags = toRef(query, 'tags', []) as Ref<string | string[]>
 const selectedTags = ref([]) as Ref<string[]>
 // 将 urlSearchParams.tags 由 string | string[] 转为 string[]
@@ -41,6 +44,8 @@ const filteredPlugins = computed(() => {
       )
     })
   }
+
+  // 筛选关键词
   if (searchText.value !== '') {
     const searchTextLower = searchText.value.toLowerCase()
     filtered = filtered.filter((plugin) => {
@@ -60,6 +65,13 @@ const filteredPlugins = computed(() => {
     })
   }
 
+  // 筛选作者
+  if (selectedAuthor.value !== '') {
+    filtered = filtered.filter((plugin) => {
+      return plugin.author.name === selectedAuthor.value
+    })
+  }
+
   // 排序
   if (sortBy.value === 'name') {
     return filtered.slice().sort((a, b) => a.name.localeCompare(b.name))
@@ -75,9 +87,21 @@ const filteredPlugins = computed(() => {
   return filtered
 })
 
+const authors = computed(() => {
+  return [...new Set(plugins.map(plugin => plugin.author.name))].sort()
+})
+
 function showDownload(plugin: PluginInfo) {
   selectedPlugin.value = plugin
   isShowDownload.value = true
+}
+
+function setAuthorFilter(author: string) {
+  selectedAuthor.value = author
+}
+
+function clearAuthorFilter() {
+  selectedAuthor.value = ''
 }
 
 watch(zotero, (zotero) => {
@@ -129,12 +153,41 @@ watch(zotero, (zotero) => {
       <el-option label="最后更新时间" value="lastUpdated" disabled />
     </el-select>
 
+    <!-- 作者筛选 -->
+    <el-select
+      v-model="selectedAuthor"
+      placeholder="作者"
+      size="large"
+      clearable
+    >
+      <template #prefix>
+        <el-icon>
+          <i-ep-user />
+        </el-icon>
+      </template>
+      <el-option key="all" label="所有" value="" />
+      <el-option
+        v-for="author in authors"
+        :key="author"
+        :label="author"
+        :value="author"
+      />
+    </el-select>
+
     <!-- 搜索 -->
     <MarketSearch v-model="searchText" placeholder="搜索插件..." />
   </MarketToolBar>
 
   <!-- 标签筛选 -->
   <MarketTagsFilter v-model="selectedTags" :tags="allTags" />
+
+  <!-- 作者信息卡片 -->
+  <PluginAuthorCard
+    v-if="selectedAuthor"
+    :author-name="selectedAuthor"
+    :plugins="filteredPlugins"
+    @clear="clearAuthorFilter"
+  />
 
   <!-- 插件卡片列表 -->
   <el-row>
@@ -147,7 +200,11 @@ watch(zotero, (zotero) => {
       :lg="6"
       :xl="4"
     >
-      <PluginCard :plugin="plugin" @show-download="showDownload" />
+      <PluginCard
+        :plugin="plugin"
+        @show-download="showDownload"
+        @filter-by-author="setAuthorFilter"
+      />
     </el-col>
   </el-row>
 

@@ -11,10 +11,14 @@ const props = defineProps<{
   plugin: PluginInfo
 }>()
 
-const emits = defineEmits(['showDownload'])
+const emits = defineEmits(['showDownload', 'filterByAuthor'])
 
 function showDownload() {
   emits('showDownload', props.plugin)
+}
+
+function filterByAuthor() {
+  emits('filterByAuthor', props.plugin.author.name)
 }
 
 function copyLink() {
@@ -52,14 +56,14 @@ function copyLink() {
       <el-tooltip
         class="box-item"
         effect="dark"
-        content="插件作者"
+        content="查看该作者所有插件"
         placement="bottom"
       >
         <el-text>
           <el-icon>
             <i-ep-avatar />
           </el-icon>
-          <el-link :href="props.plugin.author.url">
+          <el-link @click.prevent="filterByAuthor">
             {{ props.plugin.author.name }}
           </el-link>
         </el-text>
