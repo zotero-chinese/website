@@ -64,7 +64,7 @@ export function MarkdownTransform(): Plugin {
 
         // escape: （张三，2008）<sup>[1](42)</sup>
         code = code.replaceAll(
-          /\[(.+)\]\((.*\))/g,
+          /\[(.+)\]\((.*)\)/g,
           '\\[$1\\]\\($2\\)'
         )
       }
