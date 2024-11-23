@@ -118,7 +118,14 @@ export default defineConfig({
   },
 
   markdown,
-
+  ignoreDeadLinks: [
+    // ignore all links only include number
+    // it may be csl preview citation result -> （张三，2008）<sup>[1](42)</sup>
+    '/^\.\/\d*/',
+    // ignore all localhost links
+    /^https?:\/\/localhost/
+  ],
+  
   buildEnd,
 
   vite,
