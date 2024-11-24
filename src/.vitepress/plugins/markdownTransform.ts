@@ -61,6 +61,12 @@ export function MarkdownTransform(): Plugin {
             '<!-- PLACEHOLDER FOR WEBSITE - AFTER RESULT -->',
             ':::\n\n',
           )
+
+        // escape: （张三，2008）<sup>[1](42)</sup>
+        code = code.replaceAll(
+          /\[(.+)\]\((.*)\)/g,
+          '\\[$1\\]\\($2\\)'
+        )
       }
 
       return code
