@@ -118,6 +118,8 @@ export type PluginTagType =
   | 'visualization'
   // 第三方软件集成
   | 'integration'
+  // ai
+  | 'ai'
   // 字处理软件集成或增强
   | 'writing'
   // 开发者工具

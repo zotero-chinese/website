@@ -53,6 +53,11 @@ export const tags: PluginTag[] = [
     description: '与第三方软件集成，如 LaTeX、Obsidian、Notion 等',
   },
   {
+    label: 'AI 集成',
+    value: 'ai',
+    description: '与 AI 模型集成',
+  },
+  {
     label: '写作增强',
     value: 'writing',
     description: '增强 Zotero 在 Word 等字处理软件的使用体验',
