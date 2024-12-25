@@ -23,8 +23,10 @@ Zotero 中文社区官方网站源码。
 # Clone 子模块是不可省略的
 git clone --recursive https://github.com/zotero-chinese/website.git
 
+# Enable pnpm
+corepack enable
+
 # Install deps
-npm install -g pnpm
 pnpm install
 
 # Fetch data
@@ -37,7 +39,7 @@ pnpm dev
 pnpm build
 
 # Lint
-pnpm lint:prettier
+pnpm lint
 ```
 
 ## 贡献者
