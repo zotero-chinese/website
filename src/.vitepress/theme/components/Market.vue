@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { useData } from 'vitepress'
-import { computed, defineAsyncComponent } from 'vue'
-
-// @ts-expect-error data 是 vitepress 的隐式导出
-import { data as _pluginUpdateTime } from '@data/update-time.data'
 // @ts-expect-error data 是 vitepress 的隐式导出
 import { data as _updateTime } from '@data/time.data'
+// @ts-expect-error data 是 vitepress 的隐式导出
+import { data as _pluginUpdateTime } from '@data/update-time.data'
+
+import { useData } from 'vitepress'
+import { computed, defineAsyncComponent } from 'vue'
 import Loading from './Loading.vue'
 import MarketHero from './MarketHero.vue'
 

@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import type { Board } from '@highcharts/dashboards'
-import Dashboards from '@highcharts/dashboards'
+// @ts-expect-error data 是 vitepress 的隐式导出
+import { data as chartsData } from '@data/charts.data'
 
+import Dashboards from '@highcharts/dashboards'
 import DataGrid from '@highcharts/dashboards/datagrid'
 import LayoutModule from '@highcharts/dashboards/modules/layout'
 import Highcharts from 'highcharts'
@@ -13,14 +15,11 @@ import MouseWheelZoom from 'highcharts/modules/mouse-wheel-zoom'
 import NoDataToDisplay from 'highcharts/modules/no-data-to-display'
 import ParallelCoordinates from 'highcharts/modules/parallel-coordinates'
 import HighStock from 'highcharts/modules/stock'
-
 import VariablePieGraph from 'highcharts/modules/variable-pie'
 import WordCloudGraph from 'highcharts/modules/wordcloud'
+
 import { useData } from 'vitepress'
 import { onMounted } from 'vue'
-
-// @ts-expect-error data 是 vitepress 的隐式导出
-import { data as chartsData } from '@data/charts.data'
 
 HighchartsMore(Highcharts)
 WordCloudGraph(Highcharts)
@@ -69,7 +68,6 @@ function loadChartsJson() {
     chartsData.components[1].chartOptions!.plotOptions!.series.point!
       .events as any
   ).click = function (this: any) {
-  // @ts-expect-error 存在此方法
     location.href = `https://github.com/${this.custom.repo}`
   }
   // eslint-disable-next-line no-console

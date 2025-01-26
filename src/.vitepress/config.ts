@@ -120,9 +120,9 @@ export default defineConfig({
   markdown,
   ignoreDeadLinks: [
     // ignore all localhost links
-    /^https?:\/\/localhost/
+    /^https?:\/\/localhost/,
   ],
-  
+
   buildEnd,
 
   vite,
