@@ -8,6 +8,7 @@ import { h, type Plugin } from 'vue'
 import DocFooter from './components/DocFooter.vue'
 import Giscus from './components/Giscus.vue'
 import Market from './components/Market.vue'
+import NewYear from './components/NewYear.vue'
 import SvgImage from './components/SvgImage.vue'
 
 // CSS
@@ -23,6 +24,7 @@ export default {
   Layout() {
     return h(DefaultTheme.Layout, null, {
       // https://vitepress.dev/guide/extending-default-theme#layout-slots
+      'layout-top': () => h(NewYear),
       'doc-footer-before': () => [h(DocFooter)],
       // "home-features-after": () => h(HomeSponsors),
       // "aside-ads-before": () => h(AsideSponsors),
