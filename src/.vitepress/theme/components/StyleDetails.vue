@@ -26,7 +26,7 @@ const downloadLinks = {
   keleAzure: `https://oss.wwang.de/styles/src/${style?.dir}/${style?.file}`,
 }
 
-const styleClass = style?.style_class === 'in-text' ? '行间引注' : '脚注'
+const styleClass = style?.style_class === 'in-text' ? '文内引注' : '脚注'
 
 const styleFormatMap: { [key: string]: string } = {
   'author': '著者',
