@@ -21,7 +21,7 @@ const downloadLinks = {
   github: `https://raw.githubusercontent.com/${repoU}/${repoN}/main/src/${style?.dir}/${style?.file}`,
   gitee: `https://gitee.com/redleafnew00/Chinese-STD-GB-T-7714-related-csl/raw/main/src/${style?.dir}/${style?.file}`,
   jsd: `https://cdn.jsdelivr.net/gh/${repoU}/${repoN}@main/src/${style?.dir}/${style?.file}`,
-  ghproxy: `https://mirror.ghproxy.com/?q=${encodeURI(blobLink)}`,
+  ghproxy: `https://ghfast.top/?q=${encodeURI(blobLink)}`,
   keleAli: `https://oss.wieke.cn/styles/src/${style?.dir}/${style?.file}`,
   keleAzure: `https://oss.wwang.de/styles/src/${style?.dir}/${style?.file}`,
 }
