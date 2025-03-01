@@ -20,20 +20,17 @@ jobs:
           fetch-depth: 0
           submodules: recursive
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v3
-        with:
-          version: 9
-
-      - name: Setup Node
+      - name: Install Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20.x
           registry-url: 'https://registry.npmjs.org'
           cache: pnpm
 
-      - name: Install deps
-        run: pnpm install
+      - name: Install dependencies
+        run: |
+          corepack enable
+          pnpm i
 
       - name: Build
         run: |

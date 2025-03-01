@@ -10,8 +10,30 @@ permissions:
 
 jobs:
   build:
-    name: 构建文档
+    name: 构建
     uses: ./.github/workflows/build.yml
+
+  lint:
+    name: 检查
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          registry-url: 'https://registry.npmjs.org'
+          cache: pnpm
+
+      - name: Install dependencies
+        run: |
+          corepack enable
+          pnpm i
+
+      - name: Lint
+        run: pnpm lint
 
   upload:
     name: 上传运行信息
