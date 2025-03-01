@@ -93,6 +93,7 @@
     "json",
     "jsonc",
     "yaml",
+    "yml",
     "toml",
     "xml",
     "gql",

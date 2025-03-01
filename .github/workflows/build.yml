@@ -20,6 +20,9 @@ jobs:
           fetch-depth: 0
           submodules: recursive
 
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
@@ -28,9 +31,7 @@ jobs:
           cache: pnpm
 
       - name: Install dependencies
-        run: |
-          corepack enable
-          pnpm i
+        run: pnpm i
 
       - name: Build
         run: |
