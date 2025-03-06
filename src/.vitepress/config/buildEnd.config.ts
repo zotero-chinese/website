@@ -1,8 +1,9 @@
+import type { SiteConfig } from 'vitepress'
 import { copyFileSync, writeFileSync } from 'node:fs'
 import path from 'node:path'
 import FastGlob from 'fast-glob'
 import { Feed } from 'feed'
-import { createContentLoader, type SiteConfig } from 'vitepress'
+import { createContentLoader } from 'vitepress'
 import { getGitTimestamp } from '../utils/getGitTimestamp'
 import { getDefaultTitle, getTextSummary } from '../utils/markdown'
 

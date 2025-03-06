@@ -1,9 +1,11 @@
 import type { Theme } from 'vitepress'
+import type { Plugin } from 'vue'
+
 import { NolebaseGitChangelogPlugin } from '@nolebase/vitepress-plugin-git-changelog/client'
 // @ts-expect-error no types
 import nprogress from 'nprogress'
 import DefaultTheme from 'vitepress/theme'
-import { h, type Plugin } from 'vue'
+import { h } from 'vue'
 
 import DocFooter from './components/DocFooter.vue'
 import Giscus from './components/Giscus.vue'
