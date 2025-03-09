@@ -81,7 +81,7 @@ watch(isShowing, (v) => {
 
       <p>插件版本：{{ release.xpiVersion }}</p>
       <p>发布时间：{{ new Date(release.releaseDate).toLocaleString() }}</p>
-      <p>下载量：{{ release.downloadCount }}</p>
+      <p>下载量：{{ release.downloadCount === 0 ? "无法获取" : release.downloadCount }}</p>
       <p>下载链接:</p>
       <el-button
         v-for="(value, key) in release.xpiDownloadUrl"
