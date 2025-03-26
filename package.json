@@ -21,7 +21,7 @@
   "devDependencies": {
     "@antfu/eslint-config": "^4.6.0",
     "@giscus/vue": "3.1.1",
-    "@highcharts/dashboards": "2.3.0",
+    "@highcharts/dashboards": "3.2.0",
     "@iconify-json/ep": "^1.2.2",
     "@mdit/plugin-footnote": "0.16.0",
     "@mdit/plugin-mark": "^0.16.0",
