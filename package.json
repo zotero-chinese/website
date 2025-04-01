@@ -30,7 +30,7 @@
     "@types/fs-extra": "11.0.4",
     "@types/node": "22.13.7",
     "@vitejs/plugin-vue": "5.2.1",
-    "@vueuse/core": "12.7.0",
+    "@vueuse/core": "13.0.0",
     "element-plus": "2.9.5",
     "eslint": "9.21.0",
     "eslint-plugin-format": "^1.0.1",
