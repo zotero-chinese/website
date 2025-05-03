@@ -45,7 +45,8 @@ export default defineConfig({
     externalLinkIcon: true,
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/zotero-chinese/' },
+      // 由于 VitePress 的社交媒体链接不支持动态生成，我们自行实现了 GitHub 图标，故无需再次设置
+      // { icon: 'github', link: 'https://github.com/zotero-chinese/' },
       { icon: { svg: RssIcon }, link: '/feed.xml', ariaLabel: 'RSS Feed' },
     ],
 
@@ -83,7 +84,7 @@ export default defineConfig({
     },
 
     footer: {
-      message: `本工作以 知识共享 署名-相同方式共享 和 MIT 协议共享`,
+      message: `本工作以 知识共享 署名 - 相同方式共享 和 MIT 协议共享`,
       copyright: '版权所有 © 2020-至今 Zotero 中文社区及其贡献者',
     },
 

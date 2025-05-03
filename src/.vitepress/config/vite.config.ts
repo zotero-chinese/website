@@ -1,19 +1,14 @@
 import { resolve } from 'node:path'
-import {
-  GitChangelog,
-  GitChangelogMarkdownSection,
-} from '@nolebase/vitepress-plugin-git-changelog/vite'
-
+import { fileURLToPath } from 'node:url'
+import { GitChangelog, GitChangelogMarkdownSection } from '@nolebase/vitepress-plugin-git-changelog/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import IconsResolver from 'unplugin-icons/resolver'
-
 import Icons from 'unplugin-icons/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import Components from 'unplugin-vue-components/vite'
 import { defineConfig } from 'vite'
 import Inspect from 'vite-plugin-inspect'
 import VueDevTools from 'vite-plugin-vue-devtools'
-
 import { contributors } from '../data/contributors'
 import { MarkdownTransform } from '../plugins/markdownTransform'
 
@@ -23,11 +18,23 @@ export default defineConfig({
     __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: 'true',
   },
   resolve: {
-    alias: {
+    alias: [
+      {
       // @theme -> themeDir is a build-in alias of VitePress
-      '@wiki': resolve('src/wiki/'),
-      '@data': resolve('src/.vitepress/data/'),
-    },
+        find: '@wiki',
+        replacement: resolve('src/wiki/'),
+      },
+      {
+
+        find: '@data',
+        replacement: resolve('src/.vitepress/data/'),
+      },
+      // 覆盖 VitePress 内置的社交链接组件
+      {
+        find: /^\.\/VPSocialLinks\.vue$/,
+        replacement: fileURLToPath(new URL('../theme/components/NavSocialLinks.vue', import.meta.url)),
+      },
+    ],
   },
   plugins: [
     Inspect(),
@@ -79,6 +86,11 @@ export default defineConfig({
       'highcharts',
       'highcharts-vue',
       '@highcharts/dashboards',
+    ],
+  },
+  optimizeDeps: {
+    include: [
+      'element-plus',
     ],
   },
 })
