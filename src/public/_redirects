@@ -5,3 +5,7 @@
 https://zotero-zh.netlify.app/* https://zotero-chinese.com/:splat 301!
 https://main--zotero-zh.netlify.app/* https://zotero-chinese.com/:splat 301!
 https://gh-pages--zotero-zh.netlify.app/* https://zotero-chinese.com/:splat 301!
+
+# https://github.com/okineadev/vitepress-plugin-llms?tab=readme-ov-file#netlify
+/llms-full.md    /llms-full.txt 200!
+/llms-full.txt   /llms-full.txt 200!
