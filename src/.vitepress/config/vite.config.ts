@@ -9,6 +9,7 @@ import Components from 'unplugin-vue-components/vite'
 import { defineConfig } from 'vite'
 import Inspect from 'vite-plugin-inspect'
 import VueDevTools from 'vite-plugin-vue-devtools'
+import llmstxt from 'vitepress-plugin-llms'
 import { contributors } from '../data/contributors'
 import { MarkdownTransform } from '../plugins/markdownTransform'
 
@@ -78,6 +79,10 @@ export default defineConfig({
     GitChangelogMarkdownSection({
       exclude: id =>
         !id.match('src/wiki/') || id.endsWith('src/wiki/index.md'),
+    }),
+
+    llmstxt({
+      ignoreFiles: ['translators/**', 'styles/**', 'plugins/**'],
     }),
   ],
   ssr: {
