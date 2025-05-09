@@ -56,6 +56,9 @@ jobs:
           token: ${{ secrets.ACCESS_TOKEN }}
           git-config-name: github-actions[bot]
           git-config-email: github-actions[bot]@users.noreply.github.com
+          clean-exclude: |
+            .nojekyll
+            CNAME
 
   # 当前将 netlify 链接到 zotero-chinese.github.io 仓库的 main 分支，启用自动构建，故无需此任务
   # deploy-netlify:
