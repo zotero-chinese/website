@@ -18,8 +18,8 @@ importers:
         specifier: 3.1.1
         version: 3.1.1(vue@3.5.13(typescript@5.8.3))
       '@highcharts/dashboards':
-        specifier: 2.3.0
-        version: 2.3.0(highcharts@11.4.8)
+        specifier: 3.3.0
+        version: 3.3.0(highcharts@11.4.8)
       '@iconify-json/ep':
         specifier: ^1.2.2
         version: 1.2.2
@@ -695,8 +695,8 @@ packages:
     peerDependencies:
       vue: '>=3.2.0'
 
-  '@highcharts/dashboards@2.3.0':
-    resolution: {integrity: sha512-YWL0OLsXk+uGhJ5GaA3q+kq5/AJ/FxN9o6SgCBBIkcogTlnWVTgpy/TBh+xDqlea0+Er5p8pL7HPwNuFn5wyIw==}
+  '@highcharts/dashboards@3.3.0':
+    resolution: {integrity: sha512-WuVj9dFADpjfKLuMwDys31TmRAF8hfS7ln5qUOs57gwh0Rcc/8qn8k+ABvXVUBNbuAEUV5Z3MHG8HHJP9EMFQA==}
     peerDependencies:
       highcharts: '>=10.0.0'
 
@@ -4187,7 +4187,7 @@ snapshots:
       giscus: 1.6.0
       vue: 3.5.13(typescript@5.8.3)
 
-  '@highcharts/dashboards@2.3.0(highcharts@11.4.8)':
+  '@highcharts/dashboards@3.3.0(highcharts@11.4.8)':
     dependencies:
       highcharts: 11.4.8
 
