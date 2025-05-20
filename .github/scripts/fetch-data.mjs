@@ -1,5 +1,7 @@
+// @ts-check
 import path from 'node:path'
 import fs from 'fs-extra'
+import { ofetch } from 'ofetch'
 
 const data_list = [
   {
@@ -25,7 +27,12 @@ const data_list = [
 ]
 
 for (const d of data_list) {
-  const data = await (await fetch(d.remote_url)).json()
+  const data = await ofetch(d.remote_url, {
+    parseResponse: JSON.parse,
+    retry: 3,
+    retryDelay: 500, // ms
+    retryStatusCodes: [404, 500], // response status codes to retry
+  })
   fs.outputJSONSync(path.resolve(d.local_path), data)
   console.log(`Download ${d.local_path} success!`)
 }
@@ -55,8 +62,13 @@ const contributors_list = [
 ]
 
 for (const d of contributors_list) {
-  const data = await (await fetch(d.remote_url)).text()
-  fs.outputFileSync(path.resolve(d.local_path), data)
+  const data = (await ofetch(d.remote_url), {
+    parseResponse: txt => txt,
+    retry: 3,
+    retryDelay: 500, // ms
+    retryStatusCodes: [404, 500], // response status codes to retry
+  })
+  fs.outputJSONSync(path.resolve(d.local_path), data)
   console.log(`Download ${d.local_path} success!`)
 }
 

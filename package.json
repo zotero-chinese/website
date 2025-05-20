@@ -43,6 +43,7 @@
     "husky": "9.1.7",
     "lint-staged": "15.5.1",
     "nprogress": "^0.2.0",
+    "ofetch": "^1.4.1",
     "radash": "12.1.0",
     "typescript": "5.8.3",
     "unplugin-auto-import": "19.1.2",
