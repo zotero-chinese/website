@@ -1,5 +1,4 @@
 import path from 'node:path'
-import { exit } from 'node:process'
 import fs from 'fs-extra'
 
 const data_list = [
@@ -25,11 +24,11 @@ const data_list = [
   },
 ]
 
-const tasks_data = data_list.map(async (d) => {
+for (const d of data_list) {
   const data = await (await fetch(d.remote_url)).json()
   fs.outputJSONSync(path.resolve(d.local_path), data)
   console.log(`Download ${d.local_path} success!`)
-})
+}
 
 // Contributors images
 const contributors_list = [
@@ -55,19 +54,10 @@ const contributors_list = [
   // },
 ]
 
-const tasks_contributors = contributors_list.map(async (d) => {
+for (const d of contributors_list) {
   const data = await (await fetch(d.remote_url)).text()
   fs.outputFileSync(path.resolve(d.local_path), data)
   console.log(`Download ${d.local_path} success!`)
-})
+}
 
-const tasks = [...tasks_data, ...tasks_contributors]
-
-Promise.all(tasks)
-  .then(() => {
-    console.log('Done!')
-  })
-  .catch((e) => {
-    console.error(e)
-    exit(1)
-  })
+console.log('Done!')

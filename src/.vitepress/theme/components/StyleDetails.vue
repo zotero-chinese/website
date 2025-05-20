@@ -19,7 +19,7 @@ const blobLink = `https://github.com/${repoU}/${repoN}/blob/main/src/${style?.di
 const downloadLinks = {
   // https://raw.githubusercontent.com/redleafnew/Chinese-STD-GB-T-7714-related-csl/main/src/accounting-research/accounting-research.csl
   github: `https://raw.githubusercontent.com/${repoU}/${repoN}/main/src/${style?.dir}/${style?.file}`,
-  gitee: `https://gitee.com/redleafnew00/Chinese-STD-GB-T-7714-related-csl/raw/main/src/${style?.dir}/${style?.file}`,
+  gitee: `https://gitee.com/zotero-chinese-x/styles/raw/main/src/${style?.dir}/${style?.file}`,
   jsd: `https://cdn.jsdelivr.net/gh/${repoU}/${repoN}@main/src/${style?.dir}/${style?.file}`,
   ghproxy: `https://ghfast.top/?q=${encodeURI(blobLink)}`,
   keleAli: `https://oss.wieke.cn/styles/src/${style?.dir}/${style?.file}`,
