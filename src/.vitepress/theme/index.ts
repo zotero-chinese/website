@@ -48,12 +48,12 @@ export default {
     if (!import.meta.env.SSR) {
       nprogress.configure({ showSpinner: false })
       const _cacheBeforeRouteChange = router.onBeforeRouteChange
-      const _cacheAfterRouteChange = router.onAfterRouteChanged
+      const _cacheAfterRouteChange = router.onAfterRouteChange
       router.onBeforeRouteChange = (to) => {
         nprogress.start()
         _cacheBeforeRouteChange?.(to)
       }
-      router.onAfterRouteChanged = (to) => {
+      router.onAfterRouteChange = (to) => {
         _cacheAfterRouteChange?.(to)
         nprogress.done()
       }
