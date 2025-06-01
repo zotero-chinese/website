@@ -41,7 +41,7 @@
     "highcharts": "11.4.8",
     "highcharts-vue": "2.0.1",
     "husky": "9.1.7",
-    "lint-staged": "15.5.1",
+    "lint-staged": "16.1.0",
     "nprogress": "^0.2.0",
     "ofetch": "^1.4.1",
     "radash": "12.1.0",
