@@ -19,7 +19,7 @@ importers:
         version: 3.1.1(vue@3.5.16(typescript@5.8.3))
       '@highcharts/dashboards':
         specifier: 2.3.0
-        version: 2.3.0(highcharts@11.4.8)
+        version: 2.3.0(highcharts@12.2.0)
       '@iconify-json/ep':
         specifier: ^1.2.2
         version: 1.2.2
@@ -69,11 +69,11 @@ importers:
         specifier: 11.3.0
         version: 11.3.0
       highcharts:
-        specifier: 11.4.8
-        version: 11.4.8
+        specifier: 12.2.0
+        version: 12.2.0
       highcharts-vue:
         specifier: 2.0.1
-        version: 2.0.1(highcharts@11.4.8)(vue@3.5.16(typescript@5.8.3))
+        version: 2.0.1(highcharts@12.2.0)(vue@3.5.16(typescript@5.8.3))
       husky:
         specifier: 9.1.7
         version: 9.1.7
@@ -2249,8 +2249,8 @@ packages:
       highcharts: '>=5.0.0'
       vue: '>=3.0.0'
 
-  highcharts@11.4.8:
-    resolution: {integrity: sha512-5Tke9LuzZszC4osaFisxLIcw7xgNGz4Sy3Jc9pRMV+ydm6sYqsPYdU8ELOgpzGNrbrRNDRBtveoR5xS3SzneEA==}
+  highcharts@12.2.0:
+    resolution: {integrity: sha512-UUN+osTP3aeGc4KmoMuWAjzpKif8GYHFozzYI4O8h1ILGof25M/ZGBpXLvgqf1z0LVh7N9eG7i0HnzMfjcR4nA==}
 
   hookable@5.5.3:
     resolution: {integrity: sha512-Yc+BQe8SvoXH1643Qez1zqLRmbA5rCL+sSmk6TVos0LWVfNIB7PGncdlId77WzLGSIB5KaWgTaNTs2lNVEI6VQ==}
@@ -4297,9 +4297,9 @@ snapshots:
       giscus: 1.6.0
       vue: 3.5.16(typescript@5.8.3)
 
-  '@highcharts/dashboards@2.3.0(highcharts@11.4.8)':
+  '@highcharts/dashboards@2.3.0(highcharts@12.2.0)':
     dependencies:
-      highcharts: 11.4.8
+      highcharts: 12.2.0
 
   '@humanfs/core@0.19.1': {}
 
@@ -5923,12 +5923,12 @@ snapshots:
 
   he@1.2.0: {}
 
-  highcharts-vue@2.0.1(highcharts@11.4.8)(vue@3.5.16(typescript@5.8.3)):
+  highcharts-vue@2.0.1(highcharts@12.2.0)(vue@3.5.16(typescript@5.8.3)):
     dependencies:
-      highcharts: 11.4.8
+      highcharts: 12.2.0
       vue: 3.5.16(typescript@5.8.3)
 
-  highcharts@11.4.8: {}
+  highcharts@12.2.0: {}
 
   hookable@5.5.3: {}
 
