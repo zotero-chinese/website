@@ -36,7 +36,7 @@
     "eslint-plugin-format": "^1.0.1",
     "execa": "9.5.2",
     "fast-glob": "^3.3.3",
-    "feed": "4.2.2",
+    "feed": "5.1.0",
     "fs-extra": "11.3.0",
     "highcharts": "11.4.8",
     "highcharts-vue": "2.0.1",
