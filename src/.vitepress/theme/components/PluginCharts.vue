@@ -7,35 +7,24 @@ import Dashboards from '@highcharts/dashboards'
 import DataGrid from '@highcharts/dashboards/datagrid'
 import LayoutModule from '@highcharts/dashboards/modules/layout'
 import Highcharts from 'highcharts'
-import HighchartsMore from 'highcharts/highcharts-more'
-import HighchartsBoost from 'highcharts/modules/boost'
-import HighchartsExportData from 'highcharts/modules/export-data'
-import HighchartsExporting from 'highcharts/modules/exporting'
-import MouseWheelZoom from 'highcharts/modules/mouse-wheel-zoom'
-import NoDataToDisplay from 'highcharts/modules/no-data-to-display'
-import ParallelCoordinates from 'highcharts/modules/parallel-coordinates'
-import HighStock from 'highcharts/modules/stock'
-import VariablePieGraph from 'highcharts/modules/variable-pie'
-import WordCloudGraph from 'highcharts/modules/wordcloud'
-
 import { useData } from 'vitepress'
 import { onMounted } from 'vue'
+import 'highcharts/highcharts-more'
+import 'highcharts/modules/boost'
+import 'highcharts/modules/export-data'
+import 'highcharts/modules/exporting'
+import 'highcharts/modules/mouse-wheel-zoom'
+import 'highcharts/modules/no-data-to-display'
+import 'highcharts/modules/parallel-coordinates'
+import 'highcharts/modules/stock'
+import 'highcharts/modules/variable-pie'
+import 'highcharts/modules/wordcloud'
 
-HighchartsMore(Highcharts)
-WordCloudGraph(Highcharts)
-HighchartsBoost(Highcharts)
-HighStock(Highcharts)
-MouseWheelZoom(Highcharts)
-ParallelCoordinates(Highcharts)
-VariablePieGraph(Highcharts)
-HighchartsExporting(Highcharts)
-HighchartsExportData(Highcharts)
-NoDataToDisplay(Highcharts)
 LayoutModule(Dashboards)
 Dashboards.HighchartsPlugin.custom.connectHighcharts(Highcharts)
-Dashboards.DataGridPlugin.custom.connectDataGrid(DataGrid)
+Dashboards.GridPlugin.custom.connectGrid(DataGrid)
 Dashboards.PluginHandler.addPlugin(Dashboards.HighchartsPlugin)
-Dashboards.PluginHandler.addPlugin(Dashboards.DataGridPlugin)
+Dashboards.PluginHandler.addPlugin(Dashboards.GridPlugin)
 
 const darkMode = useData().isDark
 

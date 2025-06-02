@@ -21,7 +21,7 @@
   "devDependencies": {
     "@antfu/eslint-config": "^4.13.2",
     "@giscus/vue": "3.1.1",
-    "@highcharts/dashboards": "2.3.0",
+    "@highcharts/dashboards": "3.3.0",
     "@iconify-json/ep": "^1.2.2",
     "@mdit/plugin-footnote": "0.21.0",
     "@mdit/plugin-mark": "^0.21.0",
@@ -38,7 +38,7 @@
     "fast-glob": "^3.3.3",
     "feed": "4.2.2",
     "fs-extra": "11.3.0",
-    "highcharts": "11.4.8",
+    "highcharts": "12.2.0",
     "highcharts-vue": "2.0.1",
     "husky": "9.1.7",
     "lint-staged": "16.1.0",
