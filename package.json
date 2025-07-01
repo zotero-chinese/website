@@ -29,7 +29,7 @@
     "@tsconfig/node20": "20.1.5",
     "@types/fs-extra": "11.0.4",
     "@types/node": "22.15.29",
-    "@vitejs/plugin-vue": "5.2.4",
+    "@vitejs/plugin-vue": "6.0.0",
     "@vueuse/core": "13.3.0",
     "element-plus": "2.9.11",
     "eslint": "9.28.0",
