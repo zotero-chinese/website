@@ -1,9 +1,9 @@
-name: 部署 (预览环境) 后处理
+name: deploy-preview
 
 on:
   workflow_run:
     workflows:
-      - 部署预览
+      - ci-pr
     types:
       - completed
 
