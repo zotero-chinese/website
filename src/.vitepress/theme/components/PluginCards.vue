@@ -112,6 +112,17 @@ watch(zotero, (zotero) => {
       offset: 60,
     })
   }
+
+  if (zotero === 'zotero8') {
+    ElNotification({
+      title: '建议使用 Zotero 7',
+      dangerouslyUseHTMLString: true,
+      message: 'Zotero 8 目前仍处于开发测试阶段，我们建议使用稳定版 Zotero 7 而不是测试版。',
+      type: 'warning',
+      duration: 10000,
+      offset: 60,
+    })
+  }
 })
 </script>
 
