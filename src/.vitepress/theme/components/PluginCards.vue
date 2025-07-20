@@ -38,11 +38,7 @@ const filteredPlugins = computed(() => {
   // 筛选 Zotero 版本
   if (zotero.value !== '') {
     filtered = filtered.filter((plugin) => {
-      return plugin.releases.some(
-        release =>
-          release.targetZoteroVersion
-          === (zotero.value === 'zotero6' ? '6' : '7'),
-      )
+      return plugin.releases.some(release => release.targetZoteroVersion === `zotero${zotero.value}`)
     })
   }
 
@@ -135,6 +131,7 @@ watch(zotero, (zotero) => {
       <el-option label="All" value="" />
       <el-option label="Zotero 6" value="zotero6" />
       <el-option label="Zotero 7" value="zotero7" />
+      <el-option label="Zotero 8" value="zotero8" />
     </el-select>
 
     <!-- 排序 -->
