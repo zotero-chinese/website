@@ -38,7 +38,7 @@ const filteredPlugins = computed(() => {
   // 筛选 Zotero 版本
   if (zotero.value !== '') {
     filtered = filtered.filter((plugin) => {
-      return plugin.releases.some(release => release.targetZoteroVersion === `zotero${zotero.value}`)
+      return plugin.releases.some(release => release.targetZoteroVersion === `${zotero.value.replace('zotero', '')}`)
     })
   }
 
