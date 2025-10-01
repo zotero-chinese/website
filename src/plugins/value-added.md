@@ -25,7 +25,6 @@
 :::
 
 - Magic for Zotero
-
   - 描述：全文翻译、文献总结等
   - 开发者：若干位 Zotero 开源插件的作者联合开发和运营
   - 官网：<https://wiki.magiczotero.top/article/magic>
