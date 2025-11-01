@@ -28,7 +28,7 @@
     "@nolebase/vitepress-plugin-git-changelog": "2.18.2",
     "@tsconfig/node20": "20.1.6",
     "@types/fs-extra": "11.0.4",
-    "@types/node": "22.18.8",
+    "@types/node": "24.9.2",
     "@vitejs/plugin-vue": "6.0.1",
     "@vueuse/core": "14.0.0",
     "element-plus": "2.11.4",
