@@ -39,6 +39,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+        with:
+          repository: zotero-chinese/zotero-chinese.github.io
+          token: ${{ secrets.ACCESS_TOKEN }}
 
       - name: Download Build Output
         uses: actions/download-artifact@v6
