@@ -4,8 +4,7 @@ title: Zotero 中文社区
 titleTemplate: Zotero 中文维护小组
 
 hero:
-  name: Zotero
-  text: 非官方中文社区
+  name: Zotero 中文社区
   tagline: 这里是由志愿者组成的 Zotero 中文小组，我们主要维护 Zotero 中文文档、中文社区生态等。
   image:
     src: /logo.png

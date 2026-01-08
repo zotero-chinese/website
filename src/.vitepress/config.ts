@@ -10,7 +10,7 @@ const RssIcon = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www
 
 export default defineConfig({
   title: 'Zotero 中文社区',
-  description: 'Zotero 非官方中文维护小组',
+  description: 'Zotero 中文维护小组',
   lang: 'zh-CN',
 
   srcExclude: [

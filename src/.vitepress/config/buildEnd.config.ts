@@ -12,7 +12,7 @@ const siteUrl = 'https://zotero-chinese.com'
 export async function buildEnd(config: SiteConfig) {
   const feed = new Feed({
     title: 'Zotero 中文社区',
-    description: '非官方 Zotero 中文维护小组',
+    description: 'Zotero 中文维护小组',
     id: siteUrl,
     link: siteUrl,
     language: 'zh',
