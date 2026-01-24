@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Announcement } from '../composables/announcements'
 import { data as posts } from '@data/blog.data'
-import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
+import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { announcements } from '../composables/announcements'
 import { useBannerDismiss } from '../composables/useBannerDismiss'
 
@@ -105,7 +105,7 @@ function startAutoScroll() {
   if (hasMultipleItems.value && !autoScrollInterval.value) {
     autoScrollInterval.value = setInterval(() => {
       nextPage()
-    }, 100000000000)
+    }, 10000)
   }
 }
 
@@ -128,10 +128,17 @@ onMounted(() => {
     showBanner.value = true
     startAutoScroll()
   }
+  // 设置初始CSS变量
+  document.documentElement.style.setProperty('--vp-layout-top-height', showBanner.value ? '50px' : '0px')
+})
+
+watch(showBanner, (newVal) => {
+  document.documentElement.style.setProperty('--vp-layout-top-height', newVal ? '50px' : '0px')
 })
 
 onBeforeUnmount(() => {
   stopAutoScroll()
+  document.documentElement.style.setProperty('--vp-layout-top-height', '0px')
 })
 </script>
 
@@ -166,12 +173,6 @@ onBeforeUnmount(() => {
     </button>
   </div>
 </template>
-
-<style>
-* {
-  --vp-layout-top-height: 50px;
-}
-</style>
 
 <style scoped>
 .banner {
