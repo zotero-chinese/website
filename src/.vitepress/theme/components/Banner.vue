@@ -3,7 +3,6 @@ import type { Announcement } from '../composables/announcements'
 import { data as posts } from '@data/blog.data'
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { announcements } from '../composables/announcements'
-import { useBannerDismiss } from '../composables/useBannerDismiss'
 
 interface BannerItem {
   id: string
@@ -11,9 +10,17 @@ interface BannerItem {
   data: any
 }
 
-const { showBanner } = useBannerDismiss('banner-dismissed', false)
+const showBanner = ref(true)
+const LOCAL_STORAGE_KEY = 'banner-dismissed-items'
+
 const currentIndex = ref(0)
 const autoScrollInterval = ref<NodeJS.Timeout | null>(null)
+
+// 获取已关闭的项目 ID 列表
+function getDismissedItems(): Set<string> {
+  const dismissed = localStorage.getItem(LOCAL_STORAGE_KEY)
+  return dismissed ? new Set(JSON.parse(dismissed)) : new Set()
+}
 
 // 检查公告是否在有效期内
 function isAnnouncementValid(announcement: Announcement): boolean {
@@ -41,29 +48,38 @@ const validAnnouncements = computed(() => {
 // 组合所有项目（博客 + 公告）
 const bannerItems = computed<BannerItem[]>(() => {
   const items: BannerItem[] = []
+  const dismissedItems = getDismissedItems()
 
   // 添加最近的博客文章
   const now = Date.now()
-  const oneMonthAgo = now - 30 * 24 * 60 * 60 * 1000
+  const oneMonthAgo = now - 14 * 24 * 60 * 60 * 1000
   const recentPosts = posts.filter(post => post.date.time > oneMonthAgo)
 
   if (recentPosts.length > 0) {
-    recentPosts.forEach((post, index) => {
-      items.push({
-        id: `blog-${index}`,
-        type: 'blog',
-        data: post,
-      })
+    recentPosts.forEach((post) => {
+      // 使用博文发布时间作为稳定的 ID
+      const itemId = `blog-${post.date.time}`
+      if (!dismissedItems.has(itemId)) {
+        items.push({
+          id: itemId,
+          type: 'blog',
+          data: post,
+        })
+      }
     })
   }
 
   // 添加有效的公告
-  validAnnouncements.value.forEach((announcement, index) => {
-    items.push({
-      id: `announcement-${index}`,
-      type: 'announcement',
-      data: announcement,
-    })
+  validAnnouncements.value.forEach((announcement) => {
+    // 使用公告起始时间作为稳定的 ID
+    const itemId = `announcement-${announcement.startDate}`
+    if (!dismissedItems.has(itemId)) {
+      items.push({
+        id: itemId,
+        type: 'announcement',
+        data: announcement,
+      })
+    }
   })
 
   return items
@@ -95,8 +111,13 @@ function prevPage() {
 
 // 关闭横幅
 function dismissBanner() {
+  if (currentItem.value) {
+    // 将当前项目添加到已关闭列表
+    const dismissedItems = getDismissedItems()
+    dismissedItems.add(currentItem.value.id)
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(Array.from(dismissedItems)))
+  }
   showBanner.value = false
-  localStorage.setItem('banner-dismissed', 'true')
   stopAutoScroll()
 }
 
@@ -124,9 +145,13 @@ function resetAutoScroll() {
 }
 
 onMounted(() => {
+  // 如果有需要显示的项目，则显示；否则隐藏
   if (bannerItems.value.length > 0) {
     showBanner.value = true
     startAutoScroll()
+  }
+  else {
+    showBanner.value = false
   }
   // 设置初始CSS变量
   document.documentElement.style.setProperty('--vp-layout-top-height', showBanner.value ? '50px' : '0px')
@@ -147,7 +172,7 @@ onBeforeUnmount(() => {
     <div class="banner-content">
       <!-- 博客内容 -->
       <template v-if="currentItem.type === 'blog'">
-        <span>📢 博客有新更新：</span>
+        <span>📢 社区博客有更新：</span>
         <a :href="currentItem.data.url" class="banner-link">{{ currentItem.data.title }}</a>
       </template>
 
@@ -199,8 +224,6 @@ onBeforeUnmount(() => {
 
 .banner.banner-announcement {
   background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-  font-size: 16px;
-  letter-spacing: 0.5px;
 }
 
 .banner-content {
