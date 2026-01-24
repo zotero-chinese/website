@@ -18,6 +18,9 @@ const autoScrollInterval = ref<NodeJS.Timeout | null>(null)
 
 // 获取已关闭的项目 ID 列表
 function getDismissedItems(): Set<string> {
+  if (typeof window === 'undefined') {
+    return new Set()
+  }
   const dismissed = localStorage.getItem(LOCAL_STORAGE_KEY)
   return dismissed ? new Set(JSON.parse(dismissed)) : new Set()
 }
