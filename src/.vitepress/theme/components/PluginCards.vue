@@ -19,7 +19,7 @@ const selectedPlugin = ref(undefined) as Ref<PluginInfo | undefined>
 
 const query = useUrlSearchParams('hash-params', { removeFalsyValues: true })
 const sortBy = toRef(query, 'sort', 'stars') as Ref<string>
-const zotero = toRef(query, 'zotero', 'zotero7') as Ref<string>
+const zotero = toRef(query, 'zotero', 'zotero8') as Ref<string>
 const searchText = toRef(query, 'search', '') as Ref<string>
 const selectedAuthor = toRef(query, 'author', '') as Ref<string>
 
@@ -113,11 +113,11 @@ watch(zotero, (zotero) => {
     })
   }
 
-  if (zotero === 'zotero8') {
+  if (zotero === 'zotero7') {
     ElNotification({
-      title: '建议使用 Zotero 7',
+      title: '建议使用 Zotero 8',
       dangerouslyUseHTMLString: true,
-      message: 'Zotero 8 目前仍处于开发测试阶段，我们建议使用稳定版 Zotero 7 而不是测试版。',
+      message: 'Zotero 8 现已正式发布，我们推荐所有同学更新到 Zotero 8。<br /><br />请查阅 <a href="/blog/posts/zotero-8" class="el-link el-link--primary is-underline">Zotero 8 更新指南</a>。',
       type: 'warning',
       duration: 10000,
       offset: 60,
