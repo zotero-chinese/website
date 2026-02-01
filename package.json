@@ -26,7 +26,7 @@
     "@mdit/plugin-footnote": "0.22.3",
     "@mdit/plugin-mark": "^0.22.1",
     "@nolebase/vitepress-plugin-git-changelog": "2.18.2",
-    "@tsconfig/node20": "20.1.8",
+    "@tsconfig/node22": "22.0.0",
     "@types/fs-extra": "11.0.4",
     "@types/node": "24.10.1",
     "@vitejs/plugin-vue": "6.0.2",
