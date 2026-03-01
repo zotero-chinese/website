@@ -33,7 +33,7 @@
     "@vueuse/core": "14.2.1",
     "element-plus": "2.13.3",
     "eslint": "9.39.3",
-    "eslint-plugin-format": "^1.5.0",
+    "eslint-plugin-format": "^2.0.1",
     "execa": "9.6.1",
     "fast-glob": "^3.3.3",
     "feed": "5.2.0",
