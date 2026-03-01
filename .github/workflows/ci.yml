@@ -44,7 +44,7 @@ jobs:
           token: ${{ secrets.ACCESS_TOKEN }}
 
       - name: Download Build Output
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
         with:
           name: build-result
           path: dist
