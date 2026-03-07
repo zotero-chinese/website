@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { PluginInfo } from '@data/plugins.data'
+import { usePluginLocale } from '@theme/composables/usePluginLocale'
 import { ref, watch } from 'vue'
 
 const props = defineProps<{
@@ -9,6 +10,7 @@ const props = defineProps<{
 
 const emits = defineEmits(['update:modelValue'])
 
+const locale = usePluginLocale()
 const isShowing = ref(true)
 
 watch(isShowing, (v) => {
@@ -39,29 +41,28 @@ watch(isShowing, (v) => {
         <el-icon>
           <i-ep-info-filled />
         </el-icon>
-        本页面为每一个插件都提供了多个下载地址，请逐个尝试选择可用的地址。
+        {{ locale.downloadTips1 }}
       </el-text>
       <el-text>
         <el-icon>
           <i-ep-info-filled />
         </el-icon>
-        火狐浏览器用户请通过在链接上右击，选择“另存为”来下载 XPI 包。
+        {{ locale.downloadTips2 }}
       </el-text>
       <el-text>
         <el-icon>
           <i-ep-info-filled />
         </el-icon>
-        插件之间可能存在冲突，建议按需安装。
+        {{ locale.downloadTips3 }}
       </el-text>
       <br>
       <el-text type="warning">
         <el-icon>
           <i-ep-warn-triangle-filled />
         </el-icon>
-        Zotero 6 与 Zotero 7 的插件可能互不兼容，请按自己的 Zotero
-        版本下载对应的插件版本。查看 Zotero 版本和安装插件步骤请参考：
+        {{ locale.downloadWarning }}
         <a href="/user-guide/plugins/about-plugin" type="danger">
-          关于 Zotero 插件 - 安装插件
+          {{ locale.compatibilityWarning }}
         </a>
         。
       </el-text>
@@ -75,14 +76,14 @@ watch(isShowing, (v) => {
     >
       <template #header>
         <div class="card-header">
-          <span>下载适配 Zotero {{ release.targetZoteroVersion }} 的插件</span>
+          <span>{{ locale.downloadForZotero.replace('\{\{ version \}\}', release.targetZoteroVersion) }}</span>
         </div>
       </template>
 
-      <p>插件版本：{{ release.xpiVersion }}</p>
-      <p>发布时间：{{ new Date(release.releaseDate).toLocaleString() }}</p>
-      <p>下载量：{{ release.downloadCount === 0 ? "无法获取" : release.downloadCount }}</p>
-      <p>下载链接:</p>
+      <p>{{ locale.pluginVersion }}{{ release.xpiVersion }}</p>
+      <p>{{ locale.releaseDate }}{{ new Date(release.releaseDate).toLocaleString() }}</p>
+      <p>{{ locale.downloadCount }}{{ release.downloadCount === 0 ? locale.cantGetDownloadCount : release.downloadCount }}</p>
+      <p>{{ locale.downloadLink }}</p>
       <el-button
         v-for="(value, key) in release.xpiDownloadUrl"
         :key="key"

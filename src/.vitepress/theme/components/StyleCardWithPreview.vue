@@ -5,7 +5,7 @@ const props = defineProps<{
 </script>
 
 <template>
-  <a :href="props.style.dir">
+  <a :href="`/styles/${props.style.dir}`">
     <h2>{{ props.style.title }}</h2>
   </a>
   <div class="csl-preview">

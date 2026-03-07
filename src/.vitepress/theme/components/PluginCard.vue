@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import type { PluginInfo } from '@data/plugins.data'
 import type { PluginTag } from '@data/pluginTags'
-import { tags as allTags } from '@data/pluginTags'
+import { getPluginTags } from '@data/pluginTags'
+import { usePluginLocale } from '@theme/composables/usePluginLocale'
 import { useClipboard } from '@vueuse/core'
+import { useData } from 'vitepress'
+import { computed } from 'vue'
 import DownloadIcon from './icons/DownloadIcon.vue'
 import GitHubIcon from './icons/GitHubIcon.vue'
 import ShareIcon from './icons/ShareIcon.vue'
@@ -12,6 +15,10 @@ const props = defineProps<{
 }>()
 
 const emits = defineEmits(['showDownload', 'filterByAuthor'])
+
+const locale = usePluginLocale()
+const { lang } = useData()
+const allTags = computed(() => getPluginTags(lang.value))
 
 function showDownload() {
   emits('showDownload', props.plugin)
@@ -28,14 +35,14 @@ function copyLink() {
 
   if (!isSupported) {
     ElMessage({
-      message: '您的浏览器不支持剪贴板接口，请手动复制。',
+      message: locale.value.copyFailed,
       type: 'error',
     })
   }
   copy(link)
   if (copied) {
     ElMessage({
-      message: '复制成功！',
+      message: locale.value.copySucessfully,
       type: 'success',
     })
   }
@@ -56,7 +63,7 @@ function copyLink() {
       <el-tooltip
         class="box-item"
         effect="dark"
-        content="查看该作者所有插件"
+        :content="locale.viewAuthorPlugins"
         placement="bottom"
       >
         <el-text>
@@ -72,7 +79,7 @@ function copyLink() {
       <el-tooltip
         class="box-item"
         effect="dark"
-        content="插件星标量"
+        :content="locale.pluginStars"
         placement="bottom"
       >
         <el-text>
@@ -109,12 +116,12 @@ function copyLink() {
     <template #footer>
       <div class="footer_left">
         <el-button type="primary" :icon="DownloadIcon" :auto-insert-space="true" @click="showDownload">
-          下载
+          {{ locale.download }}
         </el-button>
       </div>
 
       <div class="footer_right">
-        <el-tooltip content="访问插件主页">
+        <el-tooltip :content="locale.visitHomepage">
           <el-button
             tag="a"
             :href="`https://github.com/${props.plugin.repo}#readme`"
@@ -125,7 +132,7 @@ function copyLink() {
           </el-button>
         </el-tooltip>
 
-        <el-tooltip content="复制分享链接">
+        <el-tooltip :content="locale.copyShareLink">
           <el-button @click="copyLink">
             <el-icon><ShareIcon /></el-icon>
           </el-button>

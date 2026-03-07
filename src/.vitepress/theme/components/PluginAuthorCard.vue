@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { PluginInfo } from '@data/plugins.data'
+import { usePluginLocale } from '@theme/composables/usePluginLocale'
 import { computed } from 'vue'
 
 const props = defineProps<{
@@ -8,6 +9,8 @@ const props = defineProps<{
 }>()
 
 const _emits = defineEmits(['clear'])
+
+const locale = usePluginLocale()
 
 const selectedAuthorInfo = computed(() => {
   if (!props.authorName)
@@ -51,15 +54,15 @@ const totalStars = computed(() =>
         <div class="info">
           <h3>{{ selectedAuthorInfo.name }}</h3>
           <el-link :href="selectedAuthorInfo.url" target="_blank" type="primary">
-            作者主页
+            {{ locale.authorHomepage }}
           </el-link>
         </div>
       </div>
 
       <div class="statistic">
-        <el-statistic title="已发布插件" :value="pluginCount" />
+        <el-statistic :title="locale.publishedPlugins" :value="pluginCount" />
 
-        <el-statistic title="收到星标" :value="totalStars" />
+        <el-statistic :title="locale.receivedStars" :value="totalStars" />
       </div>
 
       <div class="watermark">
