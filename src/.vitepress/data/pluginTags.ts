@@ -73,3 +73,81 @@ export const tags: PluginTag[] = [
     description: '不在以上分类中的其他插件',
   },
 ]
+
+export const tagsEn: PluginTag[] = [
+  {
+    label: 'Recommended',
+    value: 'favorite',
+    description: 'High-quality plugins we recommend! These plugins typically solve common pain points and are well-maintained',
+  },
+  {
+    label: 'Item Metadata',
+    value: 'metadata',
+    description: 'Maintain item metadata, manage library items, etc.',
+  },
+  {
+    label: 'UI/UX',
+    value: 'interface',
+    description: 'UI beautification, interaction optimization',
+  },
+  {
+    label: 'Attachment Management',
+    value: 'attachment',
+    description: 'Manage PDFs, DOCX and other attachments',
+  },
+  {
+    label: 'Note Enhancement',
+    value: 'notes',
+    description: 'Improve Zotero note-taking experience',
+  },
+  {
+    label: 'Reader Enhancement',
+    value: 'reader',
+    description: 'Enhance PDF reader experience',
+  },
+  {
+    label: 'Productivity',
+    value: 'productivity',
+    description: 'Productivity tools and utilities',
+  },
+  {
+    label: 'Visualization',
+    value: 'visualization',
+    description: 'Library visualization tools',
+  },
+  {
+    label: '3rd-party Integration',
+    value: 'integration',
+    description: 'Integrate with third-party software like LaTeX, Obsidian, Notion, etc.',
+  },
+  {
+    label: 'AI Integration',
+    value: 'ai',
+    description: 'Integration with AI models',
+  },
+  {
+    label: 'Writing Enhancement',
+    value: 'writing',
+    description: 'Enhance Zotero experience in Word and other word processors',
+  },
+  {
+    label: 'Developer Tools',
+    value: 'developer',
+    description: 'Plugins for developers; regular users can ignore',
+  },
+  {
+    label: 'Others',
+    value: 'others',
+    description: 'Other plugins not in the above categories',
+  },
+]
+
+export function getPluginTags(lang: string): PluginTag[] {
+  const fallbackLang = lang.split('-')[0]
+
+  if (fallbackLang === 'en') {
+    return tagsEn
+  }
+
+  return tags
+}

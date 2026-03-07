@@ -2,7 +2,7 @@ import { defineConfig } from 'vitepress'
 import { buildEnd } from './config/buildEnd.config'
 import { head } from './config/head.config'
 import { markdown } from './config/markdown.config'
-import { nav } from './config/navbar.config'
+import { nav, navEn } from './config/navbar.config'
 import { sidebar } from './config/sidebar.config'
 import vite from './config/vite.config'
 
@@ -26,15 +26,54 @@ export default defineConfig({
     'wiki/:id+': ':id+',
     'styles/detail/src/:id+': 'styles/:id+',
     'blog/blog-repo/posts/:id+': 'blog/posts/:id+',
+
+    // 'en/:id+': '/:id+',
+    'en/wiki/:id+': ':id+',
+    // 'en/styles/detail/src/:id+': '/styles/:id+',
+    // 'en/blog/blog-repo/posts/:id+': '/blog/posts/:id+',
   },
   cleanUrls: true,
+
+  locales: {
+    root: {
+      label: '中文',
+      lang: 'zh-CN',
+      title: 'Zotero 中文社区',
+      description: 'Zotero 中文维护小组',
+      themeConfig: {
+        nav,
+        sidebar,
+      },
+    },
+    en: {
+      label: 'English',
+      lang: 'en-US',
+      title: 'Zotero Chinese Community',
+      description: 'Zotero Chinese Community Maintenance Team',
+      link: '/en/',
+      themeConfig: {
+        nav: navEn,
+        sidebar,
+
+        notFound: {
+          title: 'Page Not Found',
+          quote: 'NOTE: Some pages are only available in Chinese!',
+          link: '/en/',
+          linkText: 'Take me home',
+        },
+
+        footer: {
+          message: `This work is shared under the Creative Commons Attribution-ShareAlike and MIT licenses.`,
+          copyright: 'Copyright © 2020-present Zotero Chinese Community and its contributors',
+        },
+      },
+    },
+  },
 
   head,
 
   themeConfig: {
     logo: '/logo.png',
-    nav,
-    sidebar,
 
     editLink: {
       pattern: ({ filePath }) => {
@@ -69,7 +108,7 @@ export default defineConfig({
           return html
         },
         locales: {
-          zh: {
+          root: {
             translations: {
               button: {
                 buttonText: '搜索文档',
@@ -81,6 +120,22 @@ export default defineConfig({
                 footer: {
                   selectText: '选择',
                   navigateText: '切换',
+                },
+              },
+            },
+          },
+          en: {
+            translations: {
+              button: {
+                buttonText: 'Search',
+                buttonAriaLabel: 'Search',
+              },
+              modal: {
+                noResultsText: 'No results found',
+                resetButtonTitle: 'Clear search',
+                footer: {
+                  selectText: 'to select',
+                  navigateText: 'to navigate',
                 },
               },
             },
@@ -103,14 +158,6 @@ export default defineConfig({
       label: '页面导航',
       level: [2, 3],
     },
-
-    // lastUpdated: {
-    //   text: "最后更新于",
-    //   formatOptions: {
-    //     dateStyle: "short",
-    //     timeStyle: "medium",
-    //   },
-    // },
 
     returnToTopLabel: '回到顶部',
     sidebarMenuLabel: '菜单',

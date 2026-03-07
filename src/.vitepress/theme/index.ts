@@ -1,17 +1,14 @@
 import type { Theme } from 'vitepress'
 import type { Plugin } from 'vue'
-
 import { NolebaseGitChangelogPlugin } from '@nolebase/vitepress-plugin-git-changelog/client'
+
 // @ts-expect-error no types
 import nprogress from 'nprogress'
 import DefaultTheme from 'vitepress/theme'
-import { h } from 'vue'
-
-import Banner from './components/Banner.vue'
-import DocFooter from './components/DocFooter.vue'
-import Giscus from './components/Giscus.vue'
 import Market from './components/Market.vue'
+
 import SvgImage from './components/SvgImage.vue'
+import Layout from './Layout.vue'
 
 // CSS
 import './styles/vars.css'
@@ -23,16 +20,7 @@ import '@nolebase/vitepress-plugin-git-changelog/client/style.css'
 
 export default {
   extends: DefaultTheme,
-  Layout() {
-    return h(DefaultTheme.Layout, null, {
-      // https://vitepress.dev/guide/extending-default-theme#layout-slots
-      'layout-top': () => h(Banner),
-      'doc-footer-before': () => [h(DocFooter)],
-      // "home-features-after": () => h(HomeSponsors),
-      // "aside-ads-before": () => h(AsideSponsors),
-      'doc-after': () => h(Giscus),
-    })
-  },
+  Layout,
   enhanceApp({ app, router }) {
     // Vue App Enhance
     app.component('SvgImage', SvgImage)

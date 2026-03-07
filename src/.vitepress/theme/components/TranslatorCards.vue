@@ -78,7 +78,7 @@ const filtered = computed(() => {
       :lg="6"
       :xl="4"
     >
-      <a :href="translator.translatorID">
+      <a :href="`/translators/${translator.translatorID}`">
         <TranslatorCard :translator="translator" />
       </a>
     </el-col>
