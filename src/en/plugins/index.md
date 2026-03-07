@@ -8,9 +8,9 @@ actions:
     - text: 🏪 Request Plugin Listing
       link: https://github.com/zotero-chinese/zotero-plugins
     - text: 🏆 Plugin Rankings
-      link: ./charts
-    - text: Premium Plugins
-      link: ./value-added
-    - text: Unmaintained Plugins
-      link: ./deprecated
+      link: /plugins/charts
+    - text: Premium Plugins (in Chinese)
+      link: /plugins/value-added
+    - text: Unmaintained Plugins (in Chinese)
+      link: /plugins/deprecated
 ---
