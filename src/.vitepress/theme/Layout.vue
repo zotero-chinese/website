@@ -7,6 +7,10 @@ import Banner from './components/Banner.vue'
 import DocFooter from './components/DocFooter.vue'
 import Giscus from './components/Giscus.vue'
 
+import { useLanguageNotification } from './composables/useLanguageNotification'
+
+useLanguageNotification()
+
 // https://vitepress.dev/guide/extending-default-theme#layout-slots
 const { Layout } = DefaultTheme
 
