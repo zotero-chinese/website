@@ -43,7 +43,7 @@ export const navEn: DefaultTheme.NavItem[] = [
     items: [
       {
         text: 'Plugin Development',
-        link: 'https://windingwind.github.io/doc-for-zotero-plugin-dev/',
+        link: 'https://zotero-plugin.dev',
       },
       {
         text: 'CSL Development',
