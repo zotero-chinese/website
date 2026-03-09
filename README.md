@@ -22,6 +22,7 @@ Zotero 中文社区官方网站源码。
 ```bash
 # Clone 子模块是不可省略的
 git clone --recursive https://github.com/zotero-chinese/website.git
+cd website
 
 # Enable pnpm
 corepack enable
