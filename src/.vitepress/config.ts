@@ -40,6 +40,12 @@ export default defineConfig({
       lang: 'zh-CN',
       title: 'Zotero 中文社区',
       description: 'Zotero 中文维护小组',
+      head: [
+        ...head,
+        ['meta', { property: 'keywords', content: 'Zotero, Zotero中文, Zotero 中文社区, Zotero 教程, Zotero 插件, 插件商店, CSL 样式, 中文引用格式, Translator' }],
+        ['meta', { property: 'og:title', content: 'Zotero 中文社区' }],
+        ['meta', { property: 'og:description', content: 'Zotero 中文使用手册、插件商店、CSL 样式、Translator 及开发者文档' }],
+      ],
       themeConfig: {
         nav,
         sidebar,
@@ -49,7 +55,13 @@ export default defineConfig({
       label: 'English',
       lang: 'en-US',
       title: 'Zotero Chinese Community',
-      description: 'Zotero Chinese Community Maintenance Team',
+      description: 'Zotero Chinese Community Maintenance Team, Zotero Plugin Market, CSL-M Styles.',
+      head: [
+        ...head,
+        ['meta', { property: 'keywords', content: 'Zotero, Zotero Chinese, Zotero Plugin, Zotero Plugin Store, Zotero Plugin Market, Zotero Plugin Marketplace, Zotero Chinese CSL Style' }],
+        ['meta', { property: 'og:title', content: 'Zotero Chinese Community' }],
+        ['meta', { property: 'og:description', content: 'Zotero Chinese Community, Zotero Plugin Store, Zotero Plugin Market, Zotero Chinese CSL Style' }],
+      ],
       link: '/en/',
       themeConfig: {
         nav: navEn,
@@ -69,8 +81,6 @@ export default defineConfig({
       },
     },
   },
-
-  head,
 
   themeConfig: {
     logo: '/logo.png',
