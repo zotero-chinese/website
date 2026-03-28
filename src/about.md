@@ -29,3 +29,7 @@ Zotero 中文小组的成立旨在满足中文用户对文献管理工具 Zotero
 | 2020-08-22 | CSL，文档 | @ZMAlt                  | 建立 `ZMAlt/CSL-Chinese` 仓库，翻译 CSL 规范中文译文                                                                       |
 | 2019-11-22 | 社群      | @l0o0                   | 建立 QQ 群“Zotero 中文插件”，群号 913637964                                                                                |
 | 2019-11-21 | 转换器    | @l0o0                   | 建立 `l0o0/translators_CN` 仓库                                                                                            |
+
+## 商标
+
+Zotero® 是 Corporation for Digital Scholarship 的注册商标。本社区与 Corporation for Digital Scholarship 无从属关系，亦非其官方社区。

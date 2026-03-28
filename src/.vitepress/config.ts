@@ -49,6 +49,11 @@ export default defineConfig({
       themeConfig: {
         nav,
         sidebar,
+
+        footer: {
+          message: `Zotero 是 Corporation for Digital Scholarship 的注册商标，本站与该机构无从属或关联关系`,
+          copyright: '本工作以 知识共享 署名 - 相同方式共享 和 MIT 协议共享，版权所有 © 2020-至今 Zotero 中文社区及其贡献者',
+        },
       },
     },
     en: {
@@ -75,8 +80,8 @@ export default defineConfig({
         },
 
         footer: {
-          message: `This work is shared under the Creative Commons Attribution-ShareAlike and MIT licenses.`,
-          copyright: 'Copyright © 2020-present Zotero Chinese Community and its contributors',
+          message: `Zotero is a registered trademark of the Corporation for Digital Scholarship. This site is not affiliated with or endorsed by Corporation for Digital Scholarship.`,
+          copyright: 'This work is shared under the CC BY-SA and MIT licenses. Copyright © 2020-present Zotero Chinese Community and its contributors.',
         },
       },
     },
@@ -152,11 +157,6 @@ export default defineConfig({
           },
         },
       },
-    },
-
-    footer: {
-      message: `本工作以 知识共享 署名 - 相同方式共享 和 MIT 协议共享`,
-      copyright: '版权所有 © 2020-至今 Zotero 中文社区及其贡献者',
     },
 
     docFooter: {
