@@ -46,7 +46,7 @@
     "ofetch": "^1.5.1",
     "oxc-minify": "^0.115.0",
     "radash": "12.1.1",
-    "typescript": "5.9.3",
+    "typescript": "6.0.2",
     "unplugin-auto-import": "21.0.0",
     "unplugin-icons": "^23.0.1",
     "unplugin-vue-components": "32.0.0",
