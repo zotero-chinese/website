@@ -7,7 +7,7 @@ export function MarkdownTransform(): Plugin {
     async transform(code, id) {
       // id 为文件磁盘绝对路径
 
-      if (!id.match(/\.md\b/))
+      if (!/\.md\b/.test(id))
         return null
 
       // convert links to relative
@@ -29,7 +29,7 @@ export function MarkdownTransform(): Plugin {
       )
 
       // CSL 样式部分
-      if (id.match(/styles\/detail\/.*\.md/)) {
+      if (/styles\/detail\/.*\.md/.test(id)) {
         // 为详情页增加 md 前言
         code = [
           '---',

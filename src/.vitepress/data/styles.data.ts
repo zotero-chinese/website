@@ -10,15 +10,15 @@ function getSortKeys(title: string): string[] {
 
   // 先按照样式类型排序
   let style_type = 'c'
-  if (title.match(/(法学引注手册|中国高等学校自然科学学报编排规范|综合性期刊文献引证技术规范)/)) {
+  if (/法学引注手册|中国高等学校自然科学学报编排规范|综合性期刊文献引证技术规范/.test(title)) {
     // 综合性样式在最前
     style_type = 'a'
   }
-  else if (title.match(/GB/)) {
+  else if (/GB/.test(title)) {
     // 国标
     style_type = 'b'
   }
-  else if (title.match(/^导出/)) {
+  else if (title.startsWith('导出')) {
     style_type = 'z'
   }
   keys.push(style_type)
