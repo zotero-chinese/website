@@ -100,7 +100,7 @@ watch(isShowing, (v) => {
             text
             bg
           >
-            {{ key }}
+            {{ key === 'github' ? 'Official Channel' : `${key}` }}
           </el-button>
         </li>
       </ul>

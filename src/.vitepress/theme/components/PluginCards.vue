@@ -155,6 +155,7 @@ watch(zotero, (zotero) => {
       <el-option label="Zotero 7" value="zotero7" />
       <el-option label="Zotero 8" value="zotero8" />
       <el-option label="Zotero 9" value="zotero9" />
+      <el-option label="Zotero 10" value="zotero10" />
     </el-select>
 
     <!-- 排序 -->
