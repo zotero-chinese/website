@@ -13,9 +13,6 @@ export interface PluginLocaleData {
 
   // Zotero options
   zoteroAll: string
-  zotero6: string
-  zotero7: string
-  zotero8: string
 
   // Author options
   authorAll: string
@@ -46,6 +43,7 @@ export interface PluginLocaleData {
   downloadLinks: string
   cantGetDownloadCount: string
   downloadForZotero: string
+  range: string
 
   // Notification
   upgradeToZotero7Title: string
@@ -80,9 +78,6 @@ export const zhLocale: PluginLocaleData = {
 
   // Zotero options
   zoteroAll: 'All',
-  zotero6: 'Zotero 6',
-  zotero7: 'Zotero 7',
-  zotero8: 'Zotero 8',
 
   // Author options
   authorAll: '所有',
@@ -106,7 +101,7 @@ export const zhLocale: PluginLocaleData = {
   downloadTips2: '火狐浏览器用户请通过在链接上右击，选择"另存为"来下载 XPI 包。',
   downloadTips3: '插件之间可能存在冲突，建议按需安装。',
   downloadWarning:
-    'Zotero 6 与 Zotero 7 的插件可能互不兼容，请按自己的 Zotero 版本下载对应的插件版本。查看 Zotero 版本和安装插件步骤请参考：',
+    '针对不同 Zotero 版本的插件可能互不兼容，请按自己的 Zotero 版本下载对应的插件版本。查看 Zotero 版本和安装插件步骤请参考：',
   pluginVersion: '插件版本：',
   releaseDate: '发布时间：',
   downloadCount: '下载量：',
@@ -114,6 +109,7 @@ export const zhLocale: PluginLocaleData = {
   downloadLinks: '下载链接',
   cantGetDownloadCount: '无法获取',
   downloadForZotero: '下载适配 Zotero {{ version }} 的插件',
+  range: '兼容性：',
 
   // Notification
   upgradeToZotero7Title: '推荐升级到 Zotero 7',
@@ -152,9 +148,6 @@ export const enLocale: PluginLocaleData = {
 
   // Zotero options
   zoteroAll: 'All',
-  zotero6: 'Zotero 6',
-  zotero7: 'Zotero 7',
-  zotero8: 'Zotero 8',
 
   // Author options
   authorAll: 'All',
@@ -178,7 +171,7 @@ export const enLocale: PluginLocaleData = {
   downloadTips2: 'Firefox users can right-click the link and select "Save As" to download the XPI package.',
   downloadTips3: 'Plugins may conflict with each other. Install only what you need.',
   downloadWarning:
-    'Plugins for Zotero 6 and Zotero 7 may be incompatible. Please download the version corresponding to your Zotero version. For information about checking your Zotero version and installing plugins, please refer to:',
+    'Plugins for different Zotero versions may be incompatible. Please download the version corresponding to your Zotero version. For information about checking your Zotero version and installing plugins, please refer to:',
   pluginVersion: 'Plugin Version: ',
   releaseDate: 'Release Date: ',
   downloadCount: 'Downloads: ',
@@ -186,6 +179,7 @@ export const enLocale: PluginLocaleData = {
   downloadLinks: 'Download Links',
   cantGetDownloadCount: 'Unable to fetch',
   downloadForZotero: 'Download plugin for Zotero {{ version }}',
+  range: 'Compatibility: ',
 
   // Notification
   upgradeToZotero7Title: 'Upgrade to Zotero 7 Recommended',

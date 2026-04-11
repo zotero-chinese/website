@@ -100,15 +100,15 @@ function copyLink() {
       <el-tag
         v-for="tag in props.plugin.tags"
         :key="tag"
-        :type="tag === 'favorite' ? 'success' : 'info'"
+        :type="tag.startsWith('favorite') ? 'success' : 'info'"
       >
         <el-tooltip
           class="box-item"
           effect="dark"
-          :content="allTags.find((t: PluginTag) => t.value === tag)?.description"
+          :content="allTags.find((t: PluginTag) => t.value === tag.replace(/_zh|_en/, ''))?.description"
           placement="bottom"
         >
-          {{ allTags.find((t: PluginTag) => t.value === tag)?.label }}
+          {{ allTags.find((t: PluginTag) => t.value === tag.replace(/_zh|_en/, ''))?.label }}
         </el-tooltip>
       </el-tag>
     </div>

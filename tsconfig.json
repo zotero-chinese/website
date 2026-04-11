@@ -5,17 +5,16 @@
     "jsx": "preserve",
     "lib": ["ESNext", "DOM"],
 
-    "baseUrl": ".",
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "paths": {
       // "@/*": ["./src/*"],
-      "@theme/*": ["src/.vitepress/theme/*"],
-      "@data/*": ["src/.vitepress/data/*"],
-      "@wiki/*": ["src/wiki/*"],
-      "@styles/*": ["src/styles/*"],
-      "@translators/*": ["src/translators/*"],
-      "@plugins/*": ["src/plugins/*"]
+      "@theme/*": ["./src/.vitepress/theme/*"],
+      "@data/*": ["./src/.vitepress/data/*"],
+      "@wiki/*": ["./src/wiki/*"],
+      "@styles/*": ["./src/styles/*"],
+      "@translators/*": ["./src/translators/*"],
+      "@plugins/*": ["./src/plugins/*"]
     },
     "resolveJsonModule": true,
 

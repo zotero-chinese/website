@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { PluginInfo, PluginTagType } from '@data/plugins.data'
+import type { PluginInfo } from '@data/plugins.data'
 import type { Ref } from 'vue'
 
 import { data as plugins } from '@data/plugins.data'
@@ -26,7 +26,7 @@ const allTags = computed(() => getPluginTags(lang.value))
 
 const query = useUrlSearchParams('hash-params', { removeFalsyValues: true })
 const sortBy = toRef(query, 'sort', 'stars') as Ref<string>
-const zotero = toRef(query, 'zotero', 'zotero8') as Ref<string>
+const zotero = toRef(query, 'zotero', 'zotero9') as Ref<string>
 const searchText = toRef(query, 'search', '') as Ref<string>
 const selectedAuthor = toRef(query, 'author', '') as Ref<string>
 
@@ -63,8 +63,12 @@ const filteredPlugins = computed(() => {
   // 筛选标签
   if (selectedTags.value.length !== 0) {
     filtered = filtered.filter((plugin) => {
+      const langSuffix = lang.value.startsWith('en') ? '_en' : '_zh'
       return selectedTags.value.every(tag =>
-        plugin.tags.includes(tag as PluginTagType),
+        plugin.tags?.some(t =>
+          t === tag
+          || t === `${tag}${langSuffix}`,
+        ),
       )
     })
   }
@@ -147,9 +151,10 @@ watch(zotero, (zotero) => {
         </el-icon>
       </template>
       <el-option :label="locale.zoteroAll" value="" />
-      <el-option :label="locale.zotero6" value="zotero6" />
-      <el-option :label="locale.zotero7" value="zotero7" />
-      <el-option :label="locale.zotero8" value="zotero8" />
+      <el-option label="Zotero 6" value="zotero6" />
+      <el-option label="Zotero 7" value="zotero7" />
+      <el-option label="Zotero 8" value="zotero8" />
+      <el-option label="Zotero 9" value="zotero9" />
     </el-select>
 
     <!-- 排序 -->

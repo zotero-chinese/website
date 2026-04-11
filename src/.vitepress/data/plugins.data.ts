@@ -1,8 +1,10 @@
+/* eslint-disable ts/no-use-before-define */
 /* eslint-disable no-console */
 import { existsSync, readFileSync } from 'node:fs'
 import path from 'node:path'
 
 const local_path = path.resolve('src/.vitepress/data/_data/plugins.json')
+// eslint-disable-next-line unused-imports/no-unused-vars
 const remote_path
   = 'https://raw.githubusercontent.com/zotero-chinese/zotero-plugins/gh-pages/dist/plugins.json'
 
@@ -11,15 +13,52 @@ export { data }
 
 export default {
   async load() {
+    let data: PluginInfo[]
     if (existsSync(local_path)) {
-      return JSON.parse(readFileSync(local_path).toString())
+      data = JSON.parse(readFileSync(local_path).toString())
     }
     else {
       console.log('Local plugins.json not found, will fetch from remote')
-      return (await fetch(remote_path)).json()
+      // data = (await fetch(remote_path)).json() as Promise<PluginInfo[]>
+      data = []
     }
+
+    return data.map((p) => {
+      // 移除一些对网站侧无用的数据以减小 chunks
+      delete p.star
+
+      p.tags = [
+        ...(fav.includes(p.repo) ? ['favorite'] : []),
+        ...(fav4zh.includes(p.repo) ? ['favorite_zh'] : []),
+        ...(fav4en.includes(p.repo) ? ['favorite_en'] : []),
+        ...(![...fav, ...fav4zh, ...fav4en].includes(p.repo) && p.recommended) ? ['favorite_en'] : [],
+        ...p.tags || [],
+      ] as PluginInfo['tags']
+
+      p.releases.map((r) => {
+        delete r.name
+        delete r.description
+        return r
+      })
+
+      return p
+    })
   },
 }
+
+const fav = [
+  'windingwind/zotero-pdf-translate',
+  'windingwind/zotero-better-notes',
+  'northword/zotero-format-metadata',
+]
+
+const fav4zh = [
+  'l0o0/jasminum',
+]
+
+const fav4en = [
+  '',
+]
 
 export interface PluginInfoBase {
   /**
@@ -36,6 +75,7 @@ export interface PluginInfoBase {
   releases: ReleaseInfoBase[]
 
   tags: PluginTagType[]
+  recommended: boolean
 }
 
 export interface ReleaseInfoBase {
@@ -65,7 +105,7 @@ export interface PluginInfo extends PluginInfoBase {
   /**
    * @deprecated Please use stars instead.
    */
-  star: number
+  star?: number
   stars: number
   watchers: number
   author: {
@@ -86,14 +126,19 @@ export interface ReleaseInfo extends ReleaseInfoBase {
   xpiVersion: string
   xpiDownloadUrl: {
     github: string
-    gitee: string
+    gitee?: string
     ghProxy: string
-    jsdeliver: string
+    jsdeliver?: string
     kgithub: string
   }
   releaseDate: string
   downloadCount: number
   assetId: number
+  minZoteroVersion: string
+  maxZoteroVersion: string
+
+  name?: string
+  description?: string
 }
 
 /**
@@ -126,3 +171,4 @@ export type PluginTagType
     | 'developer'
   // 其他
     | 'others'
+    | 'utility'

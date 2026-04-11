@@ -80,20 +80,30 @@ watch(isShowing, (v) => {
         </div>
       </template>
 
-      <p>{{ locale.pluginVersion }}{{ release.xpiVersion }}</p>
-      <p>{{ locale.releaseDate }}{{ new Date(release.releaseDate).toLocaleString() }}</p>
-      <p>{{ locale.downloadCount }}{{ release.downloadCount === 0 ? locale.cantGetDownloadCount : release.downloadCount }}</p>
-      <p>{{ locale.downloadLink }}</p>
-      <el-button
-        v-for="(value, key) in release.xpiDownloadUrl"
-        :key="key"
-        tag="a"
-        :href="value"
-        text
-        bg
-      >
-        {{ key }}
-      </el-button>
+      <ul>
+        <li>{{ locale.pluginVersion }}{{ release.xpiVersion }}</li>
+        <li>{{ locale.releaseDate }}{{ new Date(release.releaseDate).toLocaleString() }}</li>
+        <li>{{ locale.range }}Zotero {{ release.minZoteroVersion }} — {{ release.maxZoteroVersion }}</li>
+        <li>
+          {{ locale.downloadCount }}
+          <img alt="GitHub Downloads (all assets, specific tag)" :src="`https://img.shields.io/github/downloads/${props.selectedPlugin?.repo!}/${release.tagName}/total`">
+
+        <!-- {{ release.downloadCount === 0 ? locale.cantGetDownloadCount : release.downloadCount }} -->
+        </li>
+        <li>
+          {{ locale.downloadLink }}
+          <el-button
+            v-for="(value, key) in release.xpiDownloadUrl"
+            :key="key"
+            tag="a"
+            :href="value"
+            text
+            bg
+          >
+            {{ key }}
+          </el-button>
+        </li>
+      </ul>
     </el-card>
   </el-drawer>
 </template>
@@ -103,8 +113,16 @@ watch(isShowing, (v) => {
   line-height: 24px;
   font-size: var(--vp-custom-block-font-size);
 }
-.card p {
-  margin: 8px 0;
-  line-height: 24px;
+.card ul {
+  margin: 0;
+}
+.card li {
+  height: 24px;
+}
+.card li img {
+  vertical-align: sub;
+  max-height: 20px;
+  display: inline;
+  margin: 0px 0px;
 }
 </style>

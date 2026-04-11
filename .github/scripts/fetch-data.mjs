@@ -7,7 +7,8 @@ const data_list = [
   {
     local_path: 'src/.vitepress/data/_data/plugins.json',
     remote_url:
-      'https://raw.githubusercontent.com/zotero-chinese/zotero-plugins/gh-pages/dist/plugins.json',
+      // 'https://raw.githubusercontent.com/zotero-chinese/zotero-plugins/gh-pages/dist/plugins.json',
+      'https://github.com/syt2/zotero-addons-scraper/releases/latest/download/addon_infos.json',
   },
   {
     local_path: 'src/.vitepress/data/_data/update-time.json',
