@@ -10,7 +10,7 @@ import Loading from './Loading.vue'
 import MarketHero from './MarketHero.vue'
 
 const { frontmatter } = useData()
-const updateTime = computed(() => frontmatter.value.type === 'plugin' ? _pluginUpdateTime.lastUpdate : _updateTime)
+const updateTime = computed(() => frontmatter.value.type === 'plugin' ? new Date(_pluginUpdateTime.publishedAt).toLocaleString('zh-CN') : _updateTime)
 const description = computed(() => frontmatter.value.description ?? `${updateTime.value}`)
 
 const PluginCards = defineAsyncComponent(() =>
