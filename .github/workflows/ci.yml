@@ -13,6 +13,10 @@ on:
       - update-triggered-by-translators-repo
       - update-triggered-by-blog-repo
       - update-content
+  schedule:
+    # https://github.com/syt2/zotero-addons-scraper/blob/master/.github/workflows/main.yml
+    # '25 4,7,10,14,19,23 * * *'
+    - cron: '50 4,7,10,14,19,23 * * *' # +8(beijing)
 
 permissions:
   contents: write
