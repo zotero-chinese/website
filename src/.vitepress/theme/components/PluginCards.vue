@@ -28,7 +28,7 @@ const allTags = computed(() => getPluginTags(lang.value))
 const query = useUrlSearchParams('hash-params', { removeFalsyValues: true })
 const sortBy = toRef(query, 'sort', 'stars') as Ref<string>
 const zotero = toRef(query, 'zotero', String(LATEST_ZOTERO_BETA_VERSION - 1)) as Ref<string>
-const allSupportedZotero = Array.from({ length: LATEST_ZOTERO_BETA_VERSION - 5 }, (_, i) => i + 6)
+const allSupportedZotero = Array.from({ length: LATEST_ZOTERO_BETA_VERSION - 5 }, (_, i) => String(i + 6))
 const searchText = toRef(query, 'search', '') as Ref<string>
 const selectedAuthor = toRef(query, 'author', '') as Ref<string>
 
