@@ -109,7 +109,7 @@ export const zhLocale: PluginLocaleData = {
   downloadLinks: '下载链接',
   cantGetDownloadCount: '无法获取',
   downloadForZotero: '下载适配 Zotero {{ version }} 的插件',
-  range: '兼容性：',
+  range: '兼容性声明：',
 
   // Notification
   upgradeToZotero7Title: '推荐升级到 Zotero 7',

@@ -44,9 +44,12 @@ const filteredPlugins = computed(() => {
 
   // 筛选 Zotero 版本
   if (zotero.value !== '') {
-    filtered = filtered.filter((plugin) => {
-      return plugin.releases.some(release => release.targetZoteroVersion === `${zotero.value.replace('zotero', '')}`)
-    })
+    const selectedVersion = +zotero.value.replace('zotero', '')
+    filtered = filtered.filter(p =>
+      p.releases.some(r =>
+        r.targetZoteroVersion.split(',').some(v => +v.trim() === selectedVersion),
+      ),
+    )
   }
 
   // 筛选关键词

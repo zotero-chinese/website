@@ -76,7 +76,7 @@ watch(isShowing, (v) => {
     >
       <template #header>
         <div class="card-header">
-          <span>{{ locale.downloadForZotero.replace('\{\{ version \}\}', release.targetZoteroVersion) }}</span>
+          <span>{{ locale.downloadForZotero.replace('\{\{ version \}\}', release.targetZoteroVersion.replaceAll(',', ', ')) }}</span>
         </div>
       </template>
 
@@ -87,8 +87,6 @@ watch(isShowing, (v) => {
         <li>
           {{ locale.downloadCount }}
           <img alt="GitHub Downloads (all assets, specific tag)" :src="`https://img.shields.io/github/downloads/${props.selectedPlugin?.repo!}/${release.tagName}/total`">
-
-        <!-- {{ release.downloadCount === 0 ? locale.cantGetDownloadCount : release.downloadCount }} -->
         </li>
         <li>
           {{ locale.downloadLink }}

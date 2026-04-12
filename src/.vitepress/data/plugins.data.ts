@@ -8,8 +8,48 @@ const local_path = path.resolve('src/.vitepress/data/_data/plugins.json')
 const remote_path
   = 'https://raw.githubusercontent.com/zotero-chinese/zotero-plugins/gh-pages/dist/plugins.json'
 
+const LATEST_ZOTERO_BETA_VERSION = 10
+
 declare const data: PluginInfo[]
 export { data }
+
+function mergeReleasesByXpiVersion(releases: ReleaseInfo[]): ReleaseInfo[] {
+  const groupByXpiVersion = new Map<string, ReleaseInfo[]>()
+
+  // 按xpiVersion分组
+  for (const release of releases) {
+    const key = release.xpiVersion
+    if (!groupByXpiVersion.has(key)) {
+      groupByXpiVersion.set(key, [])
+    }
+    groupByXpiVersion.get(key)!.push(release)
+  }
+
+  const result: ReleaseInfo[] = []
+  for (const [_xpiVersion, group] of groupByXpiVersion.entries()) {
+    const merged = group[0]
+
+    if (group.length > 1) {
+      const versions = group
+        .map(r => Number.parseInt(r.targetZoteroVersion, 10))
+        .filter(v => !Number.isNaN(v))
+        .sort((a, b) => a - b)
+
+      if (versions.length > 0) {
+        merged.targetZoteroVersion = versions
+        // 爬虫仓库提前写到了 v11，但部分插件的 strict_max_version 写的过大
+        // 导致网站侧出现了 Zotero 11 的信息，容易造成误导
+          .filter(v => v <= LATEST_ZOTERO_BETA_VERSION)
+          .map(String)
+          .join(',')
+      }
+    }
+
+    result.push(merged)
+  }
+
+  return result
+}
 
 export default {
   async load() {
@@ -35,11 +75,12 @@ export default {
         ...p.tags || [],
       ] as PluginInfo['tags']
 
-      p.releases.map((r) => {
-        delete r.name
-        delete r.description
-        return r
-      })
+      p.releases = mergeReleasesByXpiVersion(p.releases)
+        .map((r) => {
+          delete r.name
+          delete r.description
+          return r
+        })
 
       return p
     })
