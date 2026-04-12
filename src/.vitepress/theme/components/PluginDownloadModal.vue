@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { PluginInfo } from '@data/plugins.data'
+import { LATEST_ZOTERO_BETA_VERSION } from '@data/constant'
 import { usePluginLocale } from '@theme/composables/usePluginLocale'
 import { ref, watch } from 'vue'
 
@@ -11,6 +12,17 @@ const props = defineProps<{
 const emits = defineEmits(['update:modelValue'])
 
 const locale = usePluginLocale()
+
+function getTargetZoteroVersions(release: PluginInfo['releases'][0]) {
+  return locale.value.downloadForZotero
+    .replace(
+      '\{\{ version \}\}',
+      release.targetZoteroVersion
+        .replaceAll(',', ', ')
+        .replace(`${LATEST_ZOTERO_BETA_VERSION}`, `${LATEST_ZOTERO_BETA_VERSION}-beta`),
+    )
+}
+
 const isShowing = ref(true)
 
 watch(isShowing, (v) => {
@@ -76,7 +88,7 @@ watch(isShowing, (v) => {
     >
       <template #header>
         <div class="card-header">
-          <span>{{ locale.downloadForZotero.replace('\{\{ version \}\}', release.targetZoteroVersion.replaceAll(',', ', ')) }}</span>
+          <span>{{ getTargetZoteroVersions(release) }}</span>
         </div>
       </template>
 

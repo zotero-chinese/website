@@ -2,6 +2,7 @@
 import type { PluginInfo } from '@data/plugins.data'
 import type { Ref } from 'vue'
 
+import { LATEST_ZOTERO_BETA_VERSION } from '@data/constant'
 import { data as plugins } from '@data/plugins.data'
 import { getPluginTags } from '@data/pluginTags'
 import MarketSearch from '@theme/components/MarketSearch.vue'
@@ -9,8 +10,8 @@ import MarketTagsFilter from '@theme/components/MarketTagsFilter.vue'
 import MarketToolBar from '@theme/components/MarketToolBar.vue'
 import { usePluginLocale } from '@theme/composables/usePluginLocale'
 import { syncRef, useUrlSearchParams } from '@vueuse/core'
-import { useData } from 'vitepress'
 
+import { useData } from 'vitepress'
 import { computed, ref, toRef, watch } from 'vue'
 import PluginAuthorCard from './PluginAuthorCard.vue'
 import PluginCard from './PluginCard.vue'
@@ -26,7 +27,8 @@ const allTags = computed(() => getPluginTags(lang.value))
 
 const query = useUrlSearchParams('hash-params', { removeFalsyValues: true })
 const sortBy = toRef(query, 'sort', 'stars') as Ref<string>
-const zotero = toRef(query, 'zotero', 'zotero9') as Ref<string>
+const zotero = toRef(query, 'zotero', String(LATEST_ZOTERO_BETA_VERSION - 1)) as Ref<string>
+const allSupportedZotero = Array.from({ length: LATEST_ZOTERO_BETA_VERSION - 5 }, (_, i) => i + 6)
 const searchText = toRef(query, 'search', '') as Ref<string>
 const selectedAuthor = toRef(query, 'author', '') as Ref<string>
 
@@ -44,7 +46,7 @@ const filteredPlugins = computed(() => {
 
   // 筛选 Zotero 版本
   if (zotero.value !== '') {
-    const selectedVersion = +zotero.value.replace('zotero', '')
+    const selectedVersion = +zotero.value
     filtered = filtered.filter(p =>
       p.releases.some(r =>
         r.targetZoteroVersion.split(',').some(v => +v.trim() === selectedVersion),
@@ -154,11 +156,7 @@ watch(zotero, (zotero) => {
         </el-icon>
       </template>
       <el-option :label="locale.zoteroAll" value="" />
-      <el-option label="Zotero 6" value="zotero6" />
-      <el-option label="Zotero 7" value="zotero7" />
-      <el-option label="Zotero 8" value="zotero8" />
-      <el-option label="Zotero 9" value="zotero9" />
-      <el-option label="Zotero 10" value="zotero10" />
+      <el-option v-for="v in allSupportedZotero" :key="v" :label="`Zotero ${v}`" :value="v" />
     </el-select>
 
     <!-- 排序 -->

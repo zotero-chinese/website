@@ -1,0 +1,1 @@
+export const LATEST_ZOTERO_BETA_VERSION = 10
