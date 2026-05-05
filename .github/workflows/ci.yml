@@ -78,19 +78,12 @@ jobs:
           path: dist
 
       - name: Deploy to Server via SSH
-        uses: easingthemes/ssh-deploy@main
-        env:
+        uses: easingthemes/ssh-deploy@v5.1.0
+        with:
           SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
           REMOTE_HOST: ${{ secrets.SERVER_HOST }}
           REMOTE_USER: ${{ secrets.SERVER_USER }}
+          SOURCE: dist/
           TARGET: ${{ secrets.SERVER_PATH }}
-        with:
-          source: dist/
-          target: ${{ secrets.SERVER_PATH }}
-          exclude: ''
-          strip_components: 0
-          timeout: 300
-          command: |
-            # 部署后执行的命令（可选）
-            # 例如重启 nginx：sudo systemctl reload nginx
+          SCRIPT_AFTER: |
             echo "Deployment completed at $(date)"
