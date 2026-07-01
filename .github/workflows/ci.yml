@@ -42,7 +42,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           repository: zotero-chinese/zotero-chinese.github.io
           token: ${{ secrets.ACCESS_TOKEN }}
