@@ -24,8 +24,8 @@ importers:
         specifier: ^1.2.4
         version: 1.2.4
       '@mdit/plugin-footnote':
-        specifier: 0.23.2
-        version: 0.23.2(markdown-it@14.1.0)
+        specifier: 1.0.0
+        version: 1.0.0(markdown-it@14.1.0)
       '@mdit/plugin-mark':
         specifier: ^0.23.2
         version: 0.23.2(markdown-it@14.1.0)
@@ -576,11 +576,11 @@ packages:
       markdown-it:
         optional: true
 
-  '@mdit/plugin-footnote@0.23.2':
-    resolution: {integrity: sha512-zE2jAx1KX1ZLuF0v4t2VwgrsfSYHRr23n5viRcxyF2tnbBKLJA38Pmk7jrKfKK9akZVD32zRzZWGrRF39TPXqw==}
-    engines: {node: '>= 20'}
+  '@mdit/plugin-footnote@1.0.0':
+    resolution: {integrity: sha512-3aPNfi62yHh6V7ywtR5WLJQTSdBzPuj84/nvlZbMMiEwJIeCMETif8I1406XnEupGZo9jJCjGQ66gpkNro8z7w==}
+    engines: {node: '>=22'}
     peerDependencies:
-      markdown-it: ^14.1.0
+      markdown-it: ^14.2.0
 
   '@mdit/plugin-inline-rule@0.23.2':
     resolution: {integrity: sha512-+w8ORGQ08zgY61Vz/9xHKwpMitCV7pdI80MOq03tlZQRUANUQRaM3mnA6/B51bzubJvnB8NPQdRAJ2Mwt6ZILg==}
@@ -4018,7 +4018,7 @@ snapshots:
     optionalDependencies:
       markdown-it: 14.1.0
 
-  '@mdit/plugin-footnote@0.23.2(markdown-it@14.1.0)':
+  '@mdit/plugin-footnote@1.0.0(markdown-it@14.1.0)':
     dependencies:
       '@types/markdown-it': 14.1.2
       markdown-it: 14.1.0
@@ -4437,8 +4437,8 @@ snapshots:
 
   '@typescript-eslint/project-service@8.56.1(typescript@6.0.3)':
     dependencies:
-      '@typescript-eslint/tsconfig-utils': 8.59.1(typescript@6.0.3)
-      '@typescript-eslint/types': 8.59.1
+      '@typescript-eslint/tsconfig-utils': 8.62.1(typescript@6.0.3)
+      '@typescript-eslint/types': 8.62.1
       debug: 4.4.3
       typescript: 6.0.3
     transitivePeerDependencies:
