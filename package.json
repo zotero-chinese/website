@@ -24,7 +24,7 @@
     "@highcharts/dashboards": "3.6.0",
     "@iconify-json/ep": "^1.2.4",
     "@mdit/plugin-footnote": "1.0.0",
-    "@mdit/plugin-mark": "^0.23.2",
+    "@mdit/plugin-mark": "^1.0.0",
     "@nolebase/vitepress-plugin-git-changelog": "2.18.2",
     "@tsconfig/node24": "24.0.4",
     "@types/fs-extra": "11.0.4",
