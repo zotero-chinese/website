@@ -58,11 +58,6 @@
     "vue": "3.5.39",
     "vue-tsc": "3.3.6"
   },
-  "pnpm": {
-    "overrides": {
-      "vite": "^8.0.10"
-    }
-  },
   "lint-staged": {
     "*.*": "eslint --fix"
   }
