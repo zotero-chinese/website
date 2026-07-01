@@ -27,8 +27,8 @@ importers:
         specifier: 1.0.0
         version: 1.0.0(markdown-it@14.1.0)
       '@mdit/plugin-mark':
-        specifier: ^0.23.2
-        version: 0.23.2(markdown-it@14.1.0)
+        specifier: ^1.0.0
+        version: 1.0.0(markdown-it@14.1.0)
       '@nolebase/vitepress-plugin-git-changelog':
         specifier: 2.18.2
         version: 2.18.2(vitepress@2.0.0-alpha.17(@types/node@24.13.2)(async-validator@4.2.5)(change-case@5.4.4)(less@4.4.0)(nprogress@0.2.0)(oxc-minify@0.138.0)(postcss@8.5.16)(typescript@6.0.3)(yaml@2.9.0))(vue@3.5.39(typescript@6.0.3))
@@ -567,11 +567,11 @@ packages:
   '@lit/reactive-element@2.0.4':
     resolution: {integrity: sha512-GFn91inaUa2oHLak8awSIigYz0cU0Payr1rcFsrkf5OJ5eSPxElyZfKh0f2p9FsTiZWXQdWGJeXZICEfXXYSXQ==}
 
-  '@mdit/helper@0.23.2':
-    resolution: {integrity: sha512-w4oja7kZYnkSiodfn4Neg1gmlIkvQtmCBJTLvLFOaET7xt8KomDNPQeumpGobQ9dWkXFqBKHlxjTYgroPH+CvA==}
-    engines: {node: '>= 20'}
+  '@mdit/helper@1.0.0':
+    resolution: {integrity: sha512-41xcry30Rw4vQytu9BNuofzAdHyeiTmJzJrzE3t3gGkfs+e/0Jxd/yctNwWV3cItYcWOQ03vjMV9fmhXQE0FSQ==}
+    engines: {node: '>=22'}
     peerDependencies:
-      markdown-it: ^14.1.0
+      markdown-it: ^14.2.0
     peerDependenciesMeta:
       markdown-it:
         optional: true
@@ -582,20 +582,20 @@ packages:
     peerDependencies:
       markdown-it: ^14.2.0
 
-  '@mdit/plugin-inline-rule@0.23.2':
-    resolution: {integrity: sha512-+w8ORGQ08zgY61Vz/9xHKwpMitCV7pdI80MOq03tlZQRUANUQRaM3mnA6/B51bzubJvnB8NPQdRAJ2Mwt6ZILg==}
-    engines: {node: '>= 20'}
+  '@mdit/plugin-inline-rule@1.0.0':
+    resolution: {integrity: sha512-PJ2Kbk4vtzXHvwDtjv9n3LLKFoOh+LdlGv0yhFWPL3lsgg2u7ZqbVuM93o7sEf6tpkjIJMcAVqoTzPZZGLwp0w==}
+    engines: {node: '>=22'}
     peerDependencies:
-      markdown-it: ^14.1.0
+      markdown-it: ^14.2.0
     peerDependenciesMeta:
       markdown-it:
         optional: true
 
-  '@mdit/plugin-mark@0.23.2':
-    resolution: {integrity: sha512-j/icOo3K55IkO2TbK26PpumNFzJ1+iSNGc4r29E1iamO8pA6iouVLdzawTAwQ4uQPrQW//JovgoUjWycnoBGKQ==}
-    engines: {node: '>= 20'}
+  '@mdit/plugin-mark@1.0.0':
+    resolution: {integrity: sha512-rwNVyLdNBoC4HliU1FPjDqYzqJ4Mct4U1UaWM10o58kXCZz/SnzaNWroDVuVGxpUU+SxUgRGPwQiUPnSvAADPA==}
+    engines: {node: '>=22'}
     peerDependencies:
-      markdown-it: ^14.1.0
+      markdown-it: ^14.2.0
     peerDependenciesMeta:
       markdown-it:
         optional: true
@@ -4045,7 +4045,7 @@ snapshots:
     dependencies:
       '@lit-labs/ssr-dom-shim': 1.2.1
 
-  '@mdit/helper@0.23.2(markdown-it@14.1.0)':
+  '@mdit/helper@1.0.0(markdown-it@14.1.0)':
     dependencies:
       '@types/markdown-it': 14.1.2
     optionalDependencies:
@@ -4056,16 +4056,16 @@ snapshots:
       '@types/markdown-it': 14.1.2
       markdown-it: 14.1.0
 
-  '@mdit/plugin-inline-rule@0.23.2(markdown-it@14.1.0)':
+  '@mdit/plugin-inline-rule@1.0.0(markdown-it@14.1.0)':
     dependencies:
-      '@mdit/helper': 0.23.2(markdown-it@14.1.0)
+      '@mdit/helper': 1.0.0(markdown-it@14.1.0)
       '@types/markdown-it': 14.1.2
     optionalDependencies:
       markdown-it: 14.1.0
 
-  '@mdit/plugin-mark@0.23.2(markdown-it@14.1.0)':
+  '@mdit/plugin-mark@1.0.0(markdown-it@14.1.0)':
     dependencies:
-      '@mdit/plugin-inline-rule': 0.23.2(markdown-it@14.1.0)
+      '@mdit/plugin-inline-rule': 1.0.0(markdown-it@14.1.0)
       '@types/markdown-it': 14.1.2
     optionalDependencies:
       markdown-it: 14.1.0
