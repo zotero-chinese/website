@@ -78,7 +78,7 @@ jobs:
           path: dist
 
       - name: Deploy to Server via SSH
-        uses: easingthemes/ssh-deploy@v5.1.2
+        uses: easingthemes/ssh-deploy@v6.0.3
         with:
           SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
           REMOTE_HOST: ${{ secrets.SERVER_HOST }}
