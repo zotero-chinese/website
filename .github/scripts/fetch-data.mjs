@@ -30,6 +30,9 @@ const data_list = [
 
 for (const d of data_list) {
   const data = await ofetch(d.remote_url, {
+    headers: {
+      Authorization: `bader ${process.env.GITHUB_TOKEN}`,
+    },
     parseResponse: JSON.parse,
     retry: 3,
     retryDelay: 500, // ms
@@ -65,6 +68,9 @@ const contributors_list = [
 
 for (const d of contributors_list) {
   const data = (await ofetch(d.remote_url), {
+    headers: {
+      Authorization: `bader ${process.env.GITHUB_TOKEN}`,
+    },
     parseResponse: txt => txt,
     retry: 3,
     retryDelay: 500, // ms
