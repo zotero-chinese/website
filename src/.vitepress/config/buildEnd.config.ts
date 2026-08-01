@@ -3,8 +3,7 @@ import { copyFileSync, writeFileSync } from 'node:fs'
 import { glob } from 'node:fs/promises'
 import path from 'node:path'
 import { Feed } from 'feed'
-import { createContentLoader } from 'vitepress'
-import { getGitTimestamp } from '../utils/getGitTimestamp'
+import { cacheAllGitTimestamps, createContentLoader, getGitTimestamp } from 'vitepress'
 import { getDefaultTitle, getTextSummary } from '../utils/markdown'
 
 const siteUrl = 'https://zotero-chinese.com'
@@ -29,12 +28,15 @@ export async function buildEnd(config: SiteConfig) {
 
   // console.log(paths)
 
+  // 在 wiki 子模块内用单次 git 遍历预填充时间戳缓存
+  await cacheAllGitTimestamps(path.resolve('src/wiki'), [':(glob)**/*.md'])
+
   // 获取每一条路径的 Git 时间
   const updatedDates = await Promise.all(
-    paths.map(async (path) => {
+    paths.map(async (filePath) => {
       return {
-        router: path.replace('src', '').replace('index.md', '').replace('.md', ''),
-        updated: new Date(await getGitTimestamp(path)),
+        router: filePath.replace('src', '').replace('index.md', '').replace('.md', ''),
+        updated: new Date(await getGitTimestamp(path.resolve(filePath).replaceAll('\\', '/'))),
       }
     }),
   )
