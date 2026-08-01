@@ -27,8 +27,8 @@ importers:
         specifier: 1.0.2
         version: 1.0.2(markdown-it@14.2.0)
       '@mdit/plugin-mark':
-        specifier: ^1.0.1
-        version: 1.0.1(markdown-it@14.2.0)
+        specifier: ^2.0.1
+        version: 2.0.1(markdown-it@14.2.0)
       '@nolebase/vitepress-plugin-git-changelog':
         specifier: 2.18.2
         version: 2.18.2(vitepress@2.0.0-alpha.18(@types/node@24.13.3)(async-validator@4.2.5)(change-case@5.4.4)(less@4.6.7)(nprogress@0.2.0)(postcss@8.5.25)(typescript@6.0.3)(yaml@2.9.0))(vue@3.5.40(typescript@6.0.3))
@@ -579,8 +579,8 @@ packages:
     peerDependencies:
       markdown-it: ^14.2.0
 
-  '@mdit/plugin-inline-rule@1.0.1':
-    resolution: {integrity: sha512-SdCbSS+f43j9tB0LzYCmgoXusDEiyWQKs3lrWa0dI5aJRZDqqa7w95ZyzeazcbGviFUP5NHZUHI2AsC5mSBGgQ==}
+  '@mdit/plugin-inline-rule@2.0.1':
+    resolution: {integrity: sha512-l1pLarAVfPpyVoJ1dyGaP+F904Cb5ZXu+nyM38QH0gy9jxKJvYi1sYUUHfJXBeKIbllcgQLuSggW/EV/5JIk4g==}
     engines: {node: '>=22'}
     peerDependencies:
       markdown-it: ^14.2.0
@@ -588,8 +588,8 @@ packages:
       markdown-it:
         optional: true
 
-  '@mdit/plugin-mark@1.0.1':
-    resolution: {integrity: sha512-7a3UFjTM7ov5awj302crbj0IGpzPB0ofueaouMCsFJLmOfbrq07XR2USDruks3EmGWWhYoiOo+6ZFVHjmleGTw==}
+  '@mdit/plugin-mark@2.0.1':
+    resolution: {integrity: sha512-5/i5Ab4Wi5NiApcx7dS4NKhQDuZrjVSvlKaqLXidw/ZtGOmc1XP70eRAMFUNw9QciDbWZRX7VzyFGyZwSsaTzA==}
     engines: {node: '>=22'}
     peerDependencies:
       markdown-it: ^14.2.0
@@ -4047,16 +4047,16 @@ snapshots:
       '@types/markdown-it': 14.1.2
       markdown-it: 14.2.0
 
-  '@mdit/plugin-inline-rule@1.0.1(markdown-it@14.2.0)':
+  '@mdit/plugin-inline-rule@2.0.1(markdown-it@14.2.0)':
     dependencies:
       '@mdit/helper': 1.0.1(markdown-it@14.2.0)
       '@types/markdown-it': 14.1.2
     optionalDependencies:
       markdown-it: 14.2.0
 
-  '@mdit/plugin-mark@1.0.1(markdown-it@14.2.0)':
+  '@mdit/plugin-mark@2.0.1(markdown-it@14.2.0)':
     dependencies:
-      '@mdit/plugin-inline-rule': 1.0.1(markdown-it@14.2.0)
+      '@mdit/plugin-inline-rule': 2.0.1(markdown-it@14.2.0)
       '@types/markdown-it': 14.1.2
     optionalDependencies:
       markdown-it: 14.2.0
