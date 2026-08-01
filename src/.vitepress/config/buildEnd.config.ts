@@ -1,7 +1,7 @@
 import type { SiteConfig } from 'vitepress'
 import { copyFileSync, writeFileSync } from 'node:fs'
+import { glob } from 'node:fs/promises'
 import path from 'node:path'
-import FastGlob from 'fast-glob'
 import { Feed } from 'feed'
 import { createContentLoader } from 'vitepress'
 import { getGitTimestamp } from '../utils/getGitTimestamp'
@@ -21,9 +21,11 @@ export async function buildEnd(config: SiteConfig) {
     copyright: 'Copyright © 2018-present Zotero 中文社区及贡献者',
   })
 
-  const paths = await FastGlob.glob('src/wiki/**/*.md', {
-    ignore: ['README.md', '**/node_modules', 'src/wiki/README.md', 'src/wiki/index.md'],
-  })
+  const paths = await Array.fromAsync(
+    glob('src/wiki/**/*.md', {
+      ignore: ['README.md', '**/node_modules', 'src/wiki/README.md', 'src/wiki/index.md'],
+    }),
+  )
 
   // console.log(paths)
 
@@ -31,10 +33,7 @@ export async function buildEnd(config: SiteConfig) {
   const updatedDates = await Promise.all(
     paths.map(async (path) => {
       return {
-        router: path
-          .replace('src', '')
-          .replace('index.md', '')
-          .replace('.md', ''),
+        router: path.replace('src', '').replace('index.md', '').replace('.md', ''),
         updated: new Date(await getGitTimestamp(path)),
       }
     }),
@@ -49,9 +48,7 @@ export async function buildEnd(config: SiteConfig) {
 
   // 匹配时间
   posts.map((post) => {
-    post.frontmatter.updated = updatedDates.find(
-      v => v.router === post.url,
-    )?.updated
+    post.frontmatter.updated = updatedDates.find((v) => v.router === post.url)?.updated
     return post
   })
 
@@ -75,9 +72,6 @@ export async function buildEnd(config: SiteConfig) {
 
   writeFileSync(path.join(config.outDir, 'feed.xml'), feed.rss2())
   // 旧站点兼容性
-  copyFileSync(
-    path.join(config.outDir, 'feed.xml'),
-    path.join(config.outDir, 'rss.rss'),
-  )
+  copyFileSync(path.join(config.outDir, 'feed.xml'), path.join(config.outDir, 'rss.rss'))
   console.log('🎉 RSS generated')
 }
