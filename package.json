@@ -1,25 +1,27 @@
 {
   "name": "zotero-chinese-website",
-  "type": "module",
   "version": "0.0.0",
   "private": "true",
-  "packageManager": "pnpm@11.18.0",
   "description": "Zotero 中文社区站点",
   "license": "MIT",
+  "type": "module",
   "scripts": {
     "dev": "vitepress dev src",
     "build": "vitepress build src",
     "build:tsc": "vue-tsc",
     "preview": "vitepress preview src",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
+    "check": "vp check",
+    "lint": "vp lint",
+    "lint:fix": "vp lint --fix",
+    "fmt": "vp fmt",
+    "fmt:check": "vp fmt --check",
+    "staged": "vp staged",
     "git:update": "git submodule update --remote --recursive",
     "fetch-data": "node .github/scripts/fetch-data.mjs",
     "deps:update": "pnpx taze minor --write --force --include-locked",
-    "prepare": "husky"
+    "prepare": "vp config"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^9.2.0",
     "@giscus/vue": "3.1.1",
     "@highcharts/dashboards": "3.6.0",
     "@iconify-json/ep": "^1.2.4",
@@ -32,19 +34,14 @@
     "@vitejs/plugin-vue": "6.0.8",
     "@vueuse/core": "14.4.0",
     "element-plus": "2.14.3",
-    "eslint": "10.8.0",
-    "eslint-plugin-format": "^2.0.1",
-    "fast-glob": "^3.3.3",
+    "es-toolkit": "^1.49.0",
     "feed": "6.0.0",
     "fs-extra": "11.4.0",
     "highcharts": "12.6.0",
     "highcharts-vue": "2.0.1",
-    "husky": "9.1.7",
-    "lint-staged": "17.2.0",
     "nprogress": "^0.2.0",
     "ofetch": "^1.5.1",
     "oxc-minify": "^0.142.0",
-    "radash": "12.1.1",
     "typescript": "6.0.3",
     "unplugin-auto-import": "21.0.0",
     "unplugin-icons": "^23.0.1",
@@ -52,12 +49,11 @@
     "vite": "^8.2.0",
     "vite-plugin-inspect": "12.0.2",
     "vite-plugin-vue-devtools": "8.2.1",
+    "vite-plus": "^0.2.7",
     "vitepress": "^2.0.0-alpha.18",
     "vitepress-plugin-llms": "^1.13.4",
     "vue": "3.5.40",
     "vue-tsc": "3.3.8"
   },
-  "lint-staged": {
-    "*.*": "eslint --fix"
-  }
+  "packageManager": "pnpm@11.18.0"
 }

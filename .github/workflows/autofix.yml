@@ -15,4 +15,4 @@ jobs:
     permissions:
       contents: read
     with:
-      command: 'pnpm lint:fix'
+      command: 'pnpm exec vp check --fix'

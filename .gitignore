@@ -19,3 +19,6 @@ dist
 
 # Local Netlify folder
 .netlify
+
+# Vite+ 生成的 git hooks
+.vite-hooks/
