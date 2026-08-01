@@ -39,8 +39,8 @@ pnpm dev
 # Build
 pnpm build
 
-# Lint
-pnpm lint
+# Lint & format & fix
+pnpm check
 ```
 
 ## 贡献者
