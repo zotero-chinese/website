@@ -1,6 +1,9 @@
 import { resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { GitChangelog, GitChangelogMarkdownSection } from '@nolebase/vitepress-plugin-git-changelog/vite'
+import {
+  GitChangelog,
+  GitChangelogMarkdownSection,
+} from '@nolebase/vitepress-plugin-git-changelog/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import IconsResolver from 'unplugin-icons/resolver'
 import Icons from 'unplugin-icons/vite'
@@ -21,19 +24,20 @@ export default defineConfig({
   resolve: {
     alias: [
       {
-      // @theme -> themeDir is a build-in alias of VitePress
+        // @theme -> themeDir is a build-in alias of VitePress
         find: '@wiki',
         replacement: resolve('src/wiki/'),
       },
       {
-
         find: '@data',
         replacement: resolve('src/.vitepress/data/'),
       },
       // 覆盖 VitePress 内置的社交链接组件
       {
         find: /^\.\/VPSocialLinks\.vue$/,
-        replacement: fileURLToPath(new URL('../theme/components/NavSocialLinks.vue', import.meta.url)),
+        replacement: fileURLToPath(
+          new URL('../theme/components/NavSocialLinks.vue', import.meta.url),
+        ),
       },
     ],
   },
@@ -55,10 +59,7 @@ export default defineConfig({
       extensions: ['vue', 'md'],
       // allow auto import and register components used in markdown
       include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
-      resolvers: [
-        ElementPlusResolver(),
-        IconsResolver({ prefix: 'i' }),
-      ],
+      resolvers: [ElementPlusResolver(), IconsResolver({ prefix: 'i' })],
     }),
 
     /**
@@ -77,8 +78,7 @@ export default defineConfig({
       mapAuthors: contributors,
     }),
     GitChangelogMarkdownSection({
-      exclude: id =>
-        !id.match('src/wiki/') || id.endsWith('src/wiki/index.md'),
+      exclude: (id) => !id.match('src/wiki/') || id.endsWith('src/wiki/index.md'),
     }),
 
     llmstxt({
@@ -86,18 +86,10 @@ export default defineConfig({
     }),
   ],
   ssr: {
-    noExternal: [
-      'element-plus',
-      'highcharts',
-      'highcharts-vue',
-      '@highcharts/dashboards',
-    ],
+    noExternal: ['element-plus', 'highcharts', 'highcharts-vue', '@highcharts/dashboards'],
   },
   optimizeDeps: {
-    include: [
-      'element-plus/es',
-      '@giscus/vue',
-    ],
+    include: ['element-plus/es', '@giscus/vue'],
   },
   experimental: {
     enableNativePlugin: true,

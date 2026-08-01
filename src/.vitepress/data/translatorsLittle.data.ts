@@ -4,10 +4,9 @@ import { existsSync, readFileSync } from 'node:fs'
 import path from 'node:path'
 
 const local_path = path.resolve('src/.vitepress/data/_data/dashboard.json')
-const remote_path
-  = 'https://github.com/l0o0/translators_CN/raw/master/data/dashboard.json'
+const remote_path = 'https://github.com/l0o0/translators_CN/raw/master/data/dashboard.json'
 
-declare const data: { translators: TranslatorLittle[], allItemTypes: string[] }
+declare const data: { translators: TranslatorLittle[]; allItemTypes: string[] }
 export { data }
 
 export default {
@@ -21,8 +20,7 @@ export default {
         if (testCase.items === 'multiple') {
           itemTypes.add(testCase.items)
           allItemTypes.add(testCase.items)
-        }
-        else {
+        } else {
           testCase.items.forEach((item) => {
             itemTypes.add(item.itemType)
             allItemTypes.add(item.itemType)
@@ -50,11 +48,8 @@ export default {
 async function getRaw(): Promise<Translators> {
   if (existsSync(local_path)) {
     return JSON.parse(readFileSync(local_path).toString())
-  }
-  else {
-    console.log(
-      'Local translators dashboard.json not found, will fetch from remote',
-    )
+  } else {
+    console.log('Local translators dashboard.json not found, will fetch from remote')
     return (await fetch(remote_path)).json() as unknown as Translators
   }
 }
@@ -76,11 +71,11 @@ export interface testCase {
   input?: string
   items:
     | Array<{
-      [key: string]: any
-      itemType: string
-      notes?: Array<string | { title?: string, note: string }>
-      seeAlso?: Array<string>
-    }>
+        [key: string]: any
+        itemType: string
+        notes?: Array<string | { title?: string; note: string }>
+        seeAlso?: Array<string>
+      }>
     | 'multiple'
 }
 
@@ -102,16 +97,10 @@ export interface Translators {
   [fileName: string]: Translator
 }
 
-export interface TranslatorLittle
-  extends Pick<
-    TranslatorHeader,
-    | 'translatorID'
-    | 'label'
-    | 'creator'
-    | 'target'
-    | 'translatorType'
-    | 'lastUpdated'
-  > {
+export interface TranslatorLittle extends Pick<
+  TranslatorHeader,
+  'translatorID' | 'label' | 'creator' | 'target' | 'translatorType' | 'lastUpdated'
+> {
   zhLabel: string
   itemTypes: Array<string>
 }

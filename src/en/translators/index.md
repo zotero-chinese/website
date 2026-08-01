@@ -6,8 +6,8 @@ type: translator
 sidebar: false
 aside: false
 actions:
-    - text: Go to Chinese Translator Repository
-      link: https://github.com/l0o0/translators_CN
-    - text: Go to Official Translator Repository
-      link: https://github.com/zotero/translators
+  - text: Go to Chinese Translator Repository
+    link: https://github.com/l0o0/translators_CN
+  - text: Go to Official Translator Repository
+    link: https://github.com/zotero/translators
 ---

@@ -12,12 +12,7 @@ const { data } = useSponsor()
     :data="data"
   />
   <div class="action">
-    <a
-      class="sponsor"
-      href="https://github.com/sponsors/vitejs"
-      target="_blank"
-      rel="noreferrer"
-    >
+    <a class="sponsor" href="https://github.com/sponsors/vitejs" target="_blank" rel="noreferrer">
       Sponsor Vite
     </a>
     <a

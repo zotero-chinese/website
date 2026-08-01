@@ -6,6 +6,6 @@ type: csl
 sidebar: false
 aside: false
 actions:
-    - text: 🏪 Get Official CSL Styles
-      link: https://zotero.org/styles
+  - text: 🏪 Get Official CSL Styles
+    link: https://zotero.org/styles
 ---

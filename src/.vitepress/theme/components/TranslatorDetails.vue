@@ -37,15 +37,8 @@ const translatorTypes = useTranslatorType(translator.value?.header.translatorTyp
       {{ translator?.header.lastUpdated }}
     </el-descriptions-item>
 
-    <el-descriptions-item
-      label="类型"
-    >
-      <el-tag
-        v-for="(type, index) in translatorTypes"
-        :key="index"
-        type="info"
-        round
-      >
+    <el-descriptions-item label="类型">
+      <el-tag v-for="(type, index) in translatorTypes" :key="index" type="info" round>
         {{ type }}
       </el-tag>
     </el-descriptions-item>
@@ -71,11 +64,7 @@ const translatorTypes = useTranslatorType(translator.value?.header.translatorTyp
       </template>
       <template v-else>
         {{ testCase.type }} ->
-        {{
-          testCase.items === "multiple"
-            ? "multiple"
-            : testCase.items[0]?.itemType ?? "空"
-        }}
+        {{ testCase.items === 'multiple' ? 'multiple' : (testCase.items[0]?.itemType ?? '空') }}
       </template>
     </summary>
 
@@ -93,10 +82,7 @@ const translatorTypes = useTranslatorType(translator.value?.header.translatorTyp
         </a>
 
         <el-descriptions :column="1" border>
-          <template
-            v-for="(value, field, fieldIndex) in item"
-            :key="fieldIndex"
-          >
+          <template v-for="(value, field, fieldIndex) in item" :key="fieldIndex">
             <template v-if="field === 'creators'">
               <el-descriptions-item
                 v-for="(creator, creatorIndex) in value"
@@ -106,17 +92,14 @@ const translatorTypes = useTranslatorType(translator.value?.header.translatorTyp
               >
                 <div>
                   {{ creator.lastName }}
-                  {{ creator.fieldMode !== 1 ? ", " : "" }}
+                  {{ creator.fieldMode !== 1 ? ', ' : '' }}
                   {{ creator.firstName }}
                 </div>
               </el-descriptions-item>
             </template>
 
             <template v-else>
-              <el-descriptions-item
-                :label="useItemField(String(field))"
-                label-align="right"
-              >
+              <el-descriptions-item :label="useItemField(String(field))" label-align="right">
                 <div v-if="field === 'itemType'">
                   {{ useItemType(value) }}
                 </div>
@@ -142,16 +125,12 @@ const translatorTypes = useTranslatorType(translator.value?.header.translatorTyp
                   >
                     <template v-if="attachment.mimeType === 'application/pdf'">
                       <el-icon>
-                        <img
-                          src="@wiki/assets/icons/item-type/attachment-pdf.svg"
-                        >
+                        <img src="@wiki/assets/icons/item-type/attachment-pdf.svg" />
                       </el-icon>
                     </template>
                     <template v-else>
                       <el-icon>
-                        <img
-                          src="@wiki/assets/icons/item-type/attachment-snapshot.svg"
-                        >
+                        <img src="@wiki/assets/icons/item-type/attachment-snapshot.svg" />
                       </el-icon>
                     </template>
                     {{ attachment.title }}
@@ -159,12 +138,7 @@ const translatorTypes = useTranslatorType(translator.value?.header.translatorTyp
                 </div>
 
                 <div v-else-if="field === 'tags'">
-                  <el-tag
-                    v-for="(tag, tagIndex) in value"
-                    :key="tagIndex"
-                    type="info"
-                    round
-                  >
+                  <el-tag v-for="(tag, tagIndex) in value" :key="tagIndex" type="info" round>
                     {{ tag.tag }}
                   </el-tag>
                 </div>
@@ -177,18 +151,13 @@ const translatorTypes = useTranslatorType(translator.value?.header.translatorTyp
                     effect="plain"
                     size="large"
                   >
-                    <img
-                      src="@wiki/assets/icons/item-type/note.svg"
-                    >
+                    <img src="@wiki/assets/icons/item-type/note.svg" />
                     {{ note }}
                   </el-tag>
                 </div>
 
                 <div v-else>
-                  <div
-                    v-if="typeof value === 'string'"
-                    v-html="value.replaceAll('\n', '<br/ >')"
-                  />
+                  <div v-if="typeof value === 'string'" v-html="value.replaceAll('\n', '<br/ >')" />
                   <div v-else>
                     {{ value }}
                   </div>
@@ -200,9 +169,7 @@ const translatorTypes = useTranslatorType(translator.value?.header.translatorTyp
       </template>
     </template>
 
-    <template v-else>
-      多个条目
-    </template>
+    <template v-else> 多个条目 </template>
   </details>
 
   <h2>变更历史</h2>

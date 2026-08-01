@@ -30,15 +30,13 @@ function isAnnouncementValid(announcement: Announcement): boolean {
   const now = new Date()
   if (announcement.startDate) {
     const startDate = new Date(announcement.startDate)
-    if (now < startDate)
-      return false
+    if (now < startDate) return false
   }
   if (announcement.endDate) {
     const endDate = new Date(announcement.endDate)
     // 设置到当天末尾
     endDate.setHours(23, 59, 59, 999)
-    if (now > endDate)
-      return false
+    if (now > endDate) return false
   }
   return true
 }
@@ -56,7 +54,7 @@ const bannerItems = computed<BannerItem[]>(() => {
   // 添加最近的博客文章
   const now = Date.now()
   const oneMonthAgo = now - 14 * 24 * 60 * 60 * 1000
-  const recentPosts = posts.filter(post => post.date.time > oneMonthAgo)
+  const recentPosts = posts.filter((post) => post.date.time > oneMonthAgo)
 
   if (recentPosts.length > 0) {
     recentPosts.forEach((post) => {
@@ -90,8 +88,7 @@ const bannerItems = computed<BannerItem[]>(() => {
 
 // 当前显示的项目
 const currentItem = computed(() => {
-  if (bannerItems.value.length === 0)
-    return null
+  if (bannerItems.value.length === 0) return null
   return bannerItems.value[currentIndex.value % bannerItems.value.length]
 })
 
@@ -108,7 +105,8 @@ function nextPage() {
 // 上一页
 function prevPage() {
   if (bannerItems.value.length > 0) {
-    currentIndex.value = (currentIndex.value - 1 + bannerItems.value.length) % bannerItems.value.length
+    currentIndex.value =
+      (currentIndex.value - 1 + bannerItems.value.length) % bannerItems.value.length
   }
 }
 
@@ -152,12 +150,14 @@ onMounted(() => {
   if (bannerItems.value.length > 0) {
     showBanner.value = true
     startAutoScroll()
-  }
-  else {
+  } else {
     showBanner.value = false
   }
   // 设置初始CSS变量
-  document.documentElement.style.setProperty('--vp-layout-top-height', showBanner.value ? '50px' : '0px')
+  document.documentElement.style.setProperty(
+    '--vp-layout-top-height',
+    showBanner.value ? '50px' : '0px',
+  )
 })
 
 watch(showBanner, (newVal) => {
@@ -187,18 +187,34 @@ onBeforeUnmount(() => {
 
     <!-- 翻页控制（多个项目时显示） -->
     <div v-if="hasMultipleItems" class="banner-pagination">
-      <button class="btn pagination-btn prev-btn" title="上一条" @click="() => { prevPage(); resetAutoScroll() }">
+      <button
+        class="btn pagination-btn prev-btn"
+        title="上一条"
+        @click="
+          () => {
+            prevPage()
+            resetAutoScroll()
+          }
+        "
+      >
         ‹
       </button>
       <span class="pagination-indicator">{{ currentIndex + 1 }}/{{ bannerItems.length }}</span>
-      <button class="btn pagination-btn next-btn" title="下一条" @click="() => { nextPage(); resetAutoScroll() }">
+      <button
+        class="btn pagination-btn next-btn"
+        title="下一条"
+        @click="
+          () => {
+            nextPage()
+            resetAutoScroll()
+          }
+        "
+      >
         ›
       </button>
     </div>
 
-    <button class="btn close-btn" @click="dismissBanner">
-      ✕
-    </button>
+    <button class="btn close-btn" @click="dismissBanner">✕</button>
   </div>
 </template>
 

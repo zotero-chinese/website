@@ -18,12 +18,8 @@ const sponsors = computed(() => {
 </script>
 
 <template>
-  <a
-    class="viteconf"
-    href="https://viteconf.org/23/replay?utm=vite-sidebar"
-    target="_blank"
-  >
-    <img width="22" height="22" src="/viteconf.svg">
+  <a class="viteconf" href="https://viteconf.org/23/replay?utm=vite-sidebar" target="_blank">
+    <img width="22" height="22" src="/viteconf.svg" />
     <span>
       <p class="extra-info">Beyond Fast</p>
       <p class="heading">ViteConf 2023</p>
@@ -64,7 +60,12 @@ const sponsors = computed(() => {
   transform: scale(1.75);
 }
 .viteconf .heading {
-  background-image: linear-gradient(120deg, #b047ff 16%, var(--vp-c-brand-lighter), var(--vp-c-brand-lighter));
+  background-image: linear-gradient(
+    120deg,
+    #b047ff 16%,
+    var(--vp-c-brand-lighter),
+    var(--vp-c-brand-lighter)
+  );
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;

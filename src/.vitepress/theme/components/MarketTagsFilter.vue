@@ -30,12 +30,7 @@ watch(selectedTags, (v) => {
 <template>
   <el-checkbox-group v-model="selectedTags" size="large">
     <!-- <el-checkbox value="all" border>All</el-checkbox> -->
-    <el-checkbox
-      v-for="tag in props.tags"
-      :key="tag.value"
-      :value="tag.value"
-      border
-    >
+    <el-checkbox v-for="tag in props.tags" :key="tag.value" :value="tag.value" border>
       <el-tooltip
         v-if="tag.description"
         class="box-item"

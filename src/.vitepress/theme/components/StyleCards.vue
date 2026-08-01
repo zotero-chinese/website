@@ -12,7 +12,7 @@ import { computed, ref, toRef } from 'vue'
 import StyleCardWithPop from './StyleCardWithPop.vue'
 import StyleCardWithPreview from './StyleCardWithPreview.vue'
 
-const allTags = [...new Set(styles.flatMap(style => style.tags))]
+const allTags = [...new Set(styles.flatMap((style) => style.tags))]
   .sort((a, b) => a.localeCompare(b, 'zh'))
   .map((v) => {
     return {
@@ -21,8 +21,8 @@ const allTags = [...new Set(styles.flatMap(style => style.tags))]
     }
   })
 
-const allFields = [...new Set(styles.flatMap(style => style.field!))]
-  .filter(v => !!v)
+const allFields = [...new Set(styles.flatMap((style) => style.field!))]
+  .filter((v) => !!v)
   .sort((a, b) => a.localeCompare(b, 'en'))
   .map((v) => {
     return {
@@ -42,7 +42,7 @@ const selectedTags = ref([]) as Ref<string[]>
 // 将 urlSearchParams.tags 由 string | string[] 转为 string[]
 syncRef(_selectedTags, selectedTags, {
   transform: {
-    ltr: left => [left].flat(),
+    ltr: (left) => [left].flat(),
   },
 })
 
@@ -53,8 +53,8 @@ const filtered = computed(() => {
     const searchTextLower = searchText.value.toLowerCase()
     filtered = filtered.filter((item) => {
       return (
-        item.title.toLowerCase().includes(searchTextLower)
-        || item.summary?.toLowerCase().includes(searchTextLower)
+        item.title.toLowerCase().includes(searchTextLower) ||
+        item.summary?.toLowerCase().includes(searchTextLower)
       )
     })
   }
@@ -78,8 +78,7 @@ const filtered = computed(() => {
     filtered = filtered.filter((item) => {
       if (filter.value === 'export') {
         return item.title.includes('export') || item.title.includes('导出')
-      }
-      else if (filter.value === 'thesis') {
+      } else if (filter.value === 'thesis') {
         return item.title.includes('学位论文') || item.title.includes('大学')
       }
       return true
@@ -89,7 +88,7 @@ const filtered = computed(() => {
   // 筛选标签
   if (selectedTags.value.length !== 0) {
     filtered = filtered.filter((item) => {
-      return selectedTags.value.every(tag => item.tags?.includes(tag as Tag))
+      return selectedTags.value.every((tag) => item.tags?.includes(tag as Tag))
     })
   }
 
@@ -100,11 +99,7 @@ const filtered = computed(() => {
 <template>
   <MarketToolBar>
     <!-- 引文格式 -->
-    <el-select
-      v-model="format"
-      placeholder="引文格式"
-      size="large"
-    >
+    <el-select v-model="format" placeholder="引文格式" size="large">
       <template #prefix>
         <el-icon>
           <i-ep-filter />
@@ -119,11 +114,7 @@ const filtered = computed(() => {
     </el-select>
 
     <!-- 学科分类 -->
-    <el-select
-      v-model="field"
-      placeholder="学科分类"
-      size="large"
-    >
+    <el-select v-model="field" placeholder="学科分类" size="large">
       <template #prefix>
         <el-icon>
           <i-ep-filter />
@@ -139,11 +130,7 @@ const filtered = computed(() => {
     </el-select>
 
     <!-- 工具样式 -->
-    <el-select
-      v-model="filter"
-      placeholder="筛选"
-      size="large"
-    >
+    <el-select v-model="filter" placeholder="筛选" size="large">
       <template #prefix>
         <el-icon>
           <i-ep-filter />
@@ -179,11 +166,7 @@ const filtered = computed(() => {
       </li>
     </ul>
     <div v-else>
-      <StyleCardWithPreview
-        v-for="style in filtered"
-        :key="style.id"
-        :style="style"
-      />
+      <StyleCardWithPreview v-for="style in filtered" :key="style.id" :style="style" />
     </div>
   </div>
 

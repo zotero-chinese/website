@@ -9,8 +9,7 @@ export const tags: PluginTag[] = [
   {
     label: '推荐',
     value: 'favorite',
-    description:
-      '我们推荐的高质量插件！这些插件通常可以解决多数同学的痛点，且维护良好',
+    description: '我们推荐的高质量插件！这些插件通常可以解决多数同学的痛点，且维护良好',
   },
   {
     label: 'AI 功能',
@@ -88,8 +87,7 @@ export const tagsEn: PluginTag[] = [
   {
     label: 'Favorite',
     value: 'favorite',
-    description:
-      '我们推荐的高质量插件！这些插件通常可以解决多数同学的痛点，且维护良好',
+    description: '我们推荐的高质量插件！这些插件通常可以解决多数同学的痛点，且维护良好',
   },
   {
     label: 'AI Integration',

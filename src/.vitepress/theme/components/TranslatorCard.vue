@@ -1,15 +1,11 @@
 <script setup lang="ts">
 import type { TranslatorLittle } from '@data/translatorsLittle.data'
-import {
-  useItemType,
-  useSortedItemTypes,
-  useTranslatorType,
-} from '../composables/localize'
+import { useItemType, useSortedItemTypes, useTranslatorType } from '../composables/localize'
 
 const props = defineProps<{ translator: TranslatorLittle }>()
 
 const sortedItemTypes = props.translator.itemTypes
-  .map(v => useItemType(v))
+  .map((v) => useItemType(v))
   .sort(useSortedItemTypes)
 
 const translatorTypes = useTranslatorType(props.translator.translatorType)
@@ -52,11 +48,7 @@ const translatorTypes = useTranslatorType(props.translator.translatorType)
           <i-ep-aim />
         </el-icon>
         <span class="tags-container">
-          <el-tag
-            v-for="(type, index) in translatorTypes"
-            :key="index"
-            type="info"
-          >
+          <el-tag v-for="(type, index) in translatorTypes" :key="index" type="info">
             {{ type }}
           </el-tag>
         </span>
@@ -65,9 +57,7 @@ const translatorTypes = useTranslatorType(props.translator.translatorType)
     <template #footer>
       <span class="tags-container">
         <template v-for="(type, index) in sortedItemTypes" :key="index">
-          <el-tag
-            :type="type === useItemType('multiple') ? 'success' : 'primary'"
-          >
+          <el-tag :type="type === useItemType('multiple') ? 'success' : 'primary'">
             {{ type }}
           </el-tag>
         </template>

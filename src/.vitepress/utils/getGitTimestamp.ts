@@ -6,17 +6,14 @@ const cache = new Map<string, number>()
 
 export function getGitTimestamp(file: string) {
   const cached = cache.get(file)
-  if (cached)
-    return cached
+  if (cached) return cached
 
   return new Promise<number>((resolve, reject) => {
     const cwd = dirname(file)
-    if (!fs.existsSync(cwd))
-      return resolve(0)
+    if (!fs.existsSync(cwd)) return resolve(0)
     const fileName = basename(file)
     execFile('git', ['log', '-1', '--pretty="%ai"', fileName], { cwd }, (error, stdout) => {
-      if (error)
-        return reject(error)
+      if (error) return reject(error)
       const timestamp = +new Date(stdout)
       cache.set(file, timestamp)
       resolve(timestamp)

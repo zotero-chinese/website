@@ -29,12 +29,5 @@
     "skipLibCheck": true
   },
   "include": ["env.d.ts", "src/**/*.ts", "src/**/*.d.ts", "src/.vitepress/**/*"],
-  "exclude": [
-    "**/node_modules/**",
-    "**/dist/**",
-    "template",
-    "bin",
-    "docs/snippets",
-    "scripts"
-  ]
+  "exclude": ["**/node_modules/**", "**/dist/**", "template", "bin", "docs/snippets", "scripts"]
 }

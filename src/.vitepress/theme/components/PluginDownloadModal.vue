@@ -14,13 +14,12 @@ const emits = defineEmits(['update:modelValue'])
 const locale = usePluginLocale()
 
 function getTargetZoteroVersions(release: PluginInfo['releases'][0]) {
-  return locale.value.downloadForZotero
-    .replace(
-      '\{\{ version \}\}',
-      release.targetZoteroVersion
-        .replaceAll(',', ', ')
-        .replace(`${LATEST_ZOTERO_BETA_VERSION}`, `${LATEST_ZOTERO_BETA_VERSION}-beta`),
-    )
+  return locale.value.downloadForZotero.replace(
+    '{{ version }}',
+    release.targetZoteroVersion
+      .replaceAll(',', ', ')
+      .replace(`${LATEST_ZOTERO_BETA_VERSION}`, `${LATEST_ZOTERO_BETA_VERSION}-beta`),
+  )
 }
 
 const isShowing = ref(true)
@@ -67,7 +66,7 @@ watch(isShowing, (v) => {
         </el-icon>
         {{ locale.downloadTips3 }}
       </el-text>
-      <br>
+      <br />
       <el-text type="warning">
         <el-icon>
           <i-ep-warn-triangle-filled />
@@ -84,7 +83,7 @@ watch(isShowing, (v) => {
       v-for="release in props.selectedPlugin?.releases"
       :key="release.targetZoteroVersion"
       shadow="hover"
-      class="card "
+      class="card"
     >
       <template #header>
         <div class="card-header">
@@ -95,10 +94,15 @@ watch(isShowing, (v) => {
       <ul>
         <li>{{ locale.pluginVersion }}{{ release.xpiVersion }}</li>
         <li>{{ locale.releaseDate }}{{ new Date(release.releaseDate).toLocaleString() }}</li>
-        <li>{{ locale.range }}Zotero {{ release.minZoteroVersion }} — {{ release.maxZoteroVersion }}</li>
+        <li>
+          {{ locale.range }}Zotero {{ release.minZoteroVersion }} — {{ release.maxZoteroVersion }}
+        </li>
         <li>
           {{ locale.downloadCount }}
-          <img alt="GitHub Downloads (all assets, specific tag)" :src="`https://img.shields.io/github/downloads/${props.selectedPlugin?.repo!}/${release.tagName}/total`">
+          <img
+            alt="GitHub Downloads (all assets, specific tag)"
+            :src="`https://img.shields.io/github/downloads/${props.selectedPlugin?.repo!}/${release.tagName}/total`"
+          />
         </li>
         <li>
           {{ locale.downloadLink }}

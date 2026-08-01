@@ -22,7 +22,7 @@ export function getTextSummary(text: string, count = 100) {
       // 除去加粗
       ?.replace(/\*\*(.*?)\*\*/g, '$1')
       ?.split('\n')
-      ?.filter(v => !!v)
+      ?.filter((v) => !!v)
       ?.join('\n')
       ?.replace(/>(.*)/, '')
       ?.replace(/</g, '&lt;')

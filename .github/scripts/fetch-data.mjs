@@ -23,8 +23,7 @@ const data_list = [
   },
   {
     local_path: 'src/.vitepress/data/_data/dashboard.json',
-    remote_url:
-      'https://raw.githubusercontent.com/l0o0/translators_CN/master/data/dashboard.json',
+    remote_url: 'https://raw.githubusercontent.com/l0o0/translators_CN/master/data/dashboard.json',
   },
 ]
 
@@ -67,15 +66,17 @@ const contributors_list = [
 ]
 
 for (const d of contributors_list) {
-  const data = (await ofetch(d.remote_url), {
-    headers: {
-      Authorization: `bader ${process.env.GITHUB_TOKEN}`,
-    },
-    parseResponse: txt => txt,
-    retry: 3,
-    retryDelay: 500, // ms
-    retryStatusCodes: [404, 500], // response status codes to retry
-  })
+  const data =
+    (await ofetch(d.remote_url),
+    {
+      headers: {
+        Authorization: `bader ${process.env.GITHUB_TOKEN}`,
+      },
+      parseResponse: (txt) => txt,
+      retry: 3,
+      retryDelay: 500, // ms
+      retryStatusCodes: [404, 500], // response status codes to retry
+    })
   fs.outputJSONSync(path.resolve(d.local_path), data)
   console.log(`Download ${d.local_path} success!`)
 }
@@ -108,10 +109,9 @@ async function getLatestRelease() {
   }
 }
 
-await getLatestRelease()
-  .then((release) => {
-    console.log('插件信息最新更新时间:', release.publishedAt)
-    fs.outputJSONSync(path.resolve('src/.vitepress/data/_data/update-time.json'), release)
-  })
+await getLatestRelease().then((release) => {
+  console.log('插件信息最新更新时间:', release.publishedAt)
+  fs.outputJSONSync(path.resolve('src/.vitepress/data/_data/update-time.json'), release)
+})
 
 console.log('Done!')

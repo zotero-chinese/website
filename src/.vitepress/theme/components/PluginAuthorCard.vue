@@ -13,9 +13,8 @@ const _emits = defineEmits(['clear'])
 const locale = usePluginLocale()
 
 const selectedAuthorInfo = computed(() => {
-  if (!props.authorName)
-    return null
-  return props.plugins.find(plugin => plugin.author.name === props.authorName)?.author
+  if (!props.authorName) return null
+  return props.plugins.find((plugin) => plugin.author.name === props.authorName)?.author
 })
 
 const pluginCount = computed(() => props.plugins.length)
@@ -27,13 +26,7 @@ const totalStars = computed(() =>
 <template>
   <el-card v-if="selectedAuthorInfo" class="author-card" shadow="hover">
     <div class="card-content">
-      <el-button
-        class="close-btn"
-        size="small"
-        type="danger"
-        circle
-        @click="$emit('clear')"
-      >
+      <el-button class="close-btn" size="small" type="danger" circle @click="$emit('clear')">
         <el-icon><i-ep-close-bold /></el-icon>
       </el-button>
 
@@ -46,9 +39,7 @@ const totalStars = computed(() =>
             shape="square"
             fit="fill"
           />
-          <el-avatar v-else size="large">
-            ?
-          </el-avatar>
+          <el-avatar v-else size="large"> ? </el-avatar>
         </div>
 
         <div class="info">
@@ -138,7 +129,8 @@ const totalStars = computed(() =>
   right: 5rem;
   transform: translateY(-50%);
   font-family:
-    'French Script MT', 'Apple Chancery', 'Lucida Calligraphy', Cursive, 'Brush Script MT', 'Times New Roman';
+    'French Script MT', 'Apple Chancery', 'Lucida Calligraphy', Cursive, 'Brush Script MT',
+    'Times New Roman';
   font-size: 3rem;
   font-weight: bold;
   font-style: italic;

@@ -10,19 +10,18 @@ import Loading from './Loading.vue'
 import MarketHero from './MarketHero.vue'
 
 const { frontmatter } = useData()
-const updateTime = computed(() => frontmatter.value.type === 'plugin' ? new Date(_pluginUpdateTime.publishedAt).toLocaleString('zh-CN') : _updateTime)
+const updateTime = computed(() =>
+  frontmatter.value.type === 'plugin'
+    ? new Date(_pluginUpdateTime.publishedAt).toLocaleString('zh-CN')
+    : _updateTime,
+)
 const description = computed(() => frontmatter.value.description ?? `${updateTime.value}`)
 
-const PluginCards = defineAsyncComponent(() =>
-  import('./PluginCards.vue'))
-const PluginCharts = defineAsyncComponent(() =>
-  import ('./PluginCharts.vue'))
-const StyleCards = defineAsyncComponent(() =>
-  import('./StyleCards.vue'))
-const TranslatorCards = defineAsyncComponent(() =>
-  import('./TranslatorCards.vue'))
-const BlogIndex = defineAsyncComponent(() =>
-  import('./BlogIndex.vue'))
+const PluginCards = defineAsyncComponent(() => import('./PluginCards.vue'))
+const PluginCharts = defineAsyncComponent(() => import('./PluginCharts.vue'))
+const StyleCards = defineAsyncComponent(() => import('./StyleCards.vue'))
+const TranslatorCards = defineAsyncComponent(() => import('./TranslatorCards.vue'))
+const BlogIndex = defineAsyncComponent(() => import('./BlogIndex.vue'))
 
 function getComponentByType(type: string) {
   switch (type) {

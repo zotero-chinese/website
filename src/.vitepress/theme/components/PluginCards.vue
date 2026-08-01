@@ -28,7 +28,9 @@ const allTags = computed(() => getPluginTags(lang.value))
 const query = useUrlSearchParams('hash-params', { removeFalsyValues: true })
 const sortBy = toRef(query, 'sort', 'stars') as Ref<string>
 const zotero = toRef(query, 'zotero', String(LATEST_ZOTERO_BETA_VERSION - 1)) as Ref<string>
-const allSupportedZotero = Array.from({ length: LATEST_ZOTERO_BETA_VERSION - 5 }, (_, i) => String(i + 6))
+const allSupportedZotero = Array.from({ length: LATEST_ZOTERO_BETA_VERSION - 5 }, (_, i) =>
+  String(i + 6),
+)
 const searchText = toRef(query, 'search', '') as Ref<string>
 const selectedAuthor = toRef(query, 'author', '') as Ref<string>
 
@@ -37,7 +39,7 @@ const selectedTags = ref([]) as Ref<string[]>
 // 将 urlSearchParams.tags 由 string | string[] 转为 string[]
 syncRef(_selectedTags, selectedTags, {
   transform: {
-    ltr: left => [left].flat(),
+    ltr: (left) => [left].flat(),
   },
 })
 
@@ -47,9 +49,9 @@ const filteredPlugins = computed(() => {
   // 筛选 Zotero 版本
   if (zotero.value !== '') {
     const selectedVersion = +zotero.value
-    filtered = filtered.filter(p =>
-      p.releases.some(r =>
-        r.targetZoteroVersion.split(',').some(v => +v.trim() === selectedVersion),
+    filtered = filtered.filter((p) =>
+      p.releases.some((r) =>
+        r.targetZoteroVersion.split(',').some((v) => +v.trim() === selectedVersion),
       ),
     )
   }
@@ -59,8 +61,8 @@ const filteredPlugins = computed(() => {
     const searchTextLower = searchText.value.toLowerCase()
     filtered = filtered.filter((plugin) => {
       return (
-        plugin.name.toLowerCase().includes(searchTextLower)
-        || plugin.description.toLowerCase().includes(searchTextLower)
+        plugin.name.toLowerCase().includes(searchTextLower) ||
+        plugin.description.toLowerCase().includes(searchTextLower)
       )
     })
   }
@@ -69,11 +71,8 @@ const filteredPlugins = computed(() => {
   if (selectedTags.value.length !== 0) {
     filtered = filtered.filter((plugin) => {
       const langSuffix = lang.value.startsWith('en') ? '_en' : '_zh'
-      return selectedTags.value.every(tag =>
-        plugin.tags?.some(t =>
-          t === tag
-          || t === `${tag}${langSuffix}`,
-        ),
+      return selectedTags.value.every((tag) =>
+        plugin.tags?.some((t) => t === tag || t === `${tag}${langSuffix}`),
       )
     })
   }
@@ -88,16 +87,11 @@ const filteredPlugins = computed(() => {
   // 排序
   if (sortBy.value === 'name') {
     return filtered.slice().sort((a, b) => a.name.localeCompare(b.name))
-  }
-  else if (sortBy.value === 'stars') {
+  } else if (sortBy.value === 'stars') {
     return filtered.slice().sort((a, b) => b.stars - a.stars)
-  }
-  else if (sortBy.value === 'author') {
-    return filtered
-      .slice()
-      .sort((a, b) => a.author.name.localeCompare(b.author.name))
-  }
-  else if (sortBy.value === 'lastUpdated') {
+  } else if (sortBy.value === 'author') {
+    return filtered.slice().sort((a, b) => a.author.name.localeCompare(b.author.name))
+  } else if (sortBy.value === 'lastUpdated') {
     return filtered.slice().sort((a, b) => {
       const aLatestDate = a.releases.length > 0 ? new Date(a.releases[0].releaseDate).getTime() : 0
       const bLatestDate = b.releases.length > 0 ? new Date(b.releases[0].releaseDate).getTime() : 0
@@ -108,7 +102,7 @@ const filteredPlugins = computed(() => {
 })
 
 const authors = computed(() => {
-  return [...new Set(plugins.map(plugin => plugin.author.name))].sort()
+  return [...new Set(plugins.map((plugin) => plugin.author.name))].sort()
 })
 
 function showDownload(plugin: PluginInfo) {
@@ -152,11 +146,7 @@ watch(zotero, (zotero) => {
 <template>
   <MarketToolBar>
     <!-- Zotero 版本筛选 -->
-    <el-select
-      v-model="zotero"
-      :placeholder="locale.zoteroVersion"
-      size="large"
-    >
+    <el-select v-model="zotero" :placeholder="locale.zoteroVersion" size="large">
       <template #prefix>
         <el-icon>
           <i-ep-filter />
@@ -167,11 +157,7 @@ watch(zotero, (zotero) => {
     </el-select>
 
     <!-- 排序 -->
-    <el-select
-      v-model="sortBy"
-      :placeholder="locale.sortBy"
-      size="large"
-    >
+    <el-select v-model="sortBy" :placeholder="locale.sortBy" size="large">
       <template #prefix>
         <el-icon>
           <i-ep-sort />
@@ -184,24 +170,14 @@ watch(zotero, (zotero) => {
     </el-select>
 
     <!-- 作者筛选 -->
-    <el-select
-      v-model="selectedAuthor"
-      :placeholder="locale.author"
-      size="large"
-      clearable
-    >
+    <el-select v-model="selectedAuthor" :placeholder="locale.author" size="large" clearable>
       <template #prefix>
         <el-icon>
           <i-ep-user />
         </el-icon>
       </template>
       <el-option key="all" :label="locale.authorAll" value="" />
-      <el-option
-        v-for="author in authors"
-        :key="author"
-        :label="author"
-        :value="author"
-      />
+      <el-option v-for="author in authors" :key="author" :label="author" :value="author" />
     </el-select>
 
     <!-- 搜索 -->
@@ -262,10 +238,7 @@ watch(zotero, (zotero) => {
           {{ locale.fillForm }}
         </el-link>
         /
-        <el-link
-          type="primary"
-          href="https://github.com/zotero-chinese/zotero-plugins"
-        >
+        <el-link type="primary" href="https://github.com/zotero-chinese/zotero-plugins">
           {{ locale.issueOnGithub }}
         </el-link>
         。

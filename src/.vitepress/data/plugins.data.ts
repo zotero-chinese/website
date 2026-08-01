@@ -6,8 +6,8 @@ import { LATEST_ZOTERO_BETA_VERSION } from './constant'
 
 const local_path = path.resolve('src/.vitepress/data/_data/plugins.json')
 // eslint-disable-next-line unused-imports/no-unused-vars
-const remote_path
-  = 'https://raw.githubusercontent.com/zotero-chinese/zotero-plugins/gh-pages/dist/plugins.json'
+const remote_path =
+  'https://raw.githubusercontent.com/zotero-chinese/zotero-plugins/gh-pages/dist/plugins.json'
 
 declare const data: PluginInfo[]
 export { data }
@@ -17,8 +17,7 @@ export default {
     let data: PluginInfo[]
     if (existsSync(local_path)) {
       data = JSON.parse(readFileSync(local_path).toString())
-    }
-    else {
+    } else {
       console.log('Local plugins.json not found, will fetch from remote')
       // data = (await fetch(remote_path)).json() as Promise<PluginInfo[]>
       data = []
@@ -32,16 +31,17 @@ export default {
         ...(fav.includes(p.repo) ? ['favorite'] : []),
         ...(fav4zh.includes(p.repo) ? ['favorite_zh'] : []),
         ...(fav4en.includes(p.repo) ? ['favorite_en'] : []),
-        ...(![...fav, ...fav4zh, ...fav4en].includes(p.repo) && p.recommended) ? ['favorite_en'] : [],
-        ...p.tags || [],
+        ...(![...fav, ...fav4zh, ...fav4en].includes(p.repo) && p.recommended
+          ? ['favorite_en']
+          : []),
+        ...(p.tags || []),
       ] as PluginInfo['tags']
 
-      p.releases = mergeReleasesByXpiVersion(p.releases)
-        .map((r) => {
-          delete r.name
-          delete r.description
-          return r
-        })
+      p.releases = mergeReleasesByXpiVersion(p.releases).map((r) => {
+        delete r.name
+        delete r.description
+        return r
+      })
 
       return p
     })
@@ -54,13 +54,9 @@ const fav = [
   'northword/zotero-format-metadata',
 ]
 
-const fav4zh = [
-  'l0o0/jasminum',
-]
+const fav4zh = ['l0o0/jasminum']
 
-const fav4en = [
-  '',
-]
+const fav4en = ['']
 
 function mergeReleasesByXpiVersion(releases: ReleaseInfo[]): ReleaseInfo[] {
   const groupByXpiVersion = new Map<string, ReleaseInfo[]>()
@@ -80,15 +76,15 @@ function mergeReleasesByXpiVersion(releases: ReleaseInfo[]): ReleaseInfo[] {
 
     if (group.length > 1) {
       const versions = group
-        .map(r => Number.parseInt(r.targetZoteroVersion, 10))
-        .filter(v => !Number.isNaN(v))
+        .map((r) => Number.parseInt(r.targetZoteroVersion, 10))
+        .filter((v) => !Number.isNaN(v))
         .sort((a, b) => a - b)
 
       if (versions.length > 0) {
         merged.targetZoteroVersion = versions
-        // 爬虫仓库提前写到了 v11，但部分插件的 strict_max_version 写的过大
-        // 导致网站侧出现了 Zotero 11 的信息，容易造成误导
-          .filter(v => v <= LATEST_ZOTERO_BETA_VERSION)
+          // 爬虫仓库提前写到了 v11，但部分插件的 strict_max_version 写的过大
+          // 导致网站侧出现了 Zotero 11 的信息，容易造成误导
+          .filter((v) => v <= LATEST_ZOTERO_BETA_VERSION)
           .map(String)
           .join(',')
       }
@@ -184,31 +180,31 @@ export interface ReleaseInfo extends ReleaseInfoBase {
 /**
  * 插件标签
  */
-export type PluginTagType
+export type PluginTagType =
   // 推荐列表
-  = | 'favorite'
+  | 'favorite'
   // 条目元数据维护
-    | 'metadata'
+  | 'metadata'
   // UI相关
-    | 'interface'
+  | 'interface'
   // 附件管理相关
-    | 'attachment'
+  | 'attachment'
   // 笔记增强
-    | 'notes'
+  | 'notes'
   // 阅读器增强
-    | 'reader'
+  | 'reader'
   // 效率增强、生产力工具
-    | 'productivity'
+  | 'productivity'
   // 可视化、文库分析
-    | 'visualization'
+  | 'visualization'
   // 第三方软件集成
-    | 'integration'
+  | 'integration'
   // ai
-    | 'ai'
+  | 'ai'
   // 字处理软件集成或增强
-    | 'writing'
+  | 'writing'
   // 开发者工具
-    | 'developer'
+  | 'developer'
   // 其他
-    | 'others'
-    | 'utility'
+  | 'others'
+  | 'utility'

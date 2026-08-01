@@ -9,8 +9,7 @@ export default {
   async load() {
     if (existsSync(local_path)) {
       return JSON.parse(readFileSync(local_path).toString())
-    }
-    else {
+    } else {
       console.log('Local shields.json not found, will fetch from remote')
       return {}
     }

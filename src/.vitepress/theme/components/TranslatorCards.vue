@@ -30,7 +30,7 @@ const selectedTags = ref([]) as Ref<string[]>
 // 将 urlSearchParams.tags 由 string | string[] 转为 string[]
 syncRef(_selectedTags, selectedTags, {
   transform: {
-    ltr: left => [left].flat(),
+    ltr: (left) => [left].flat(),
   },
 })
 
@@ -42,16 +42,16 @@ const filtered = computed(() => {
     const searchTextLower = searchText.value.toLowerCase()
     filtered = filtered.filter((item) => {
       return (
-        item.label.toLowerCase().includes(searchTextLower)
-        || item.zhLabel.toLowerCase().includes(searchTextLower)
-        || (item.target !== '' && new RegExp(item.target).test(searchText.value))
+        item.label.toLowerCase().includes(searchTextLower) ||
+        item.zhLabel.toLowerCase().includes(searchTextLower) ||
+        (item.target !== '' && new RegExp(item.target).test(searchText.value))
       )
     })
   }
 
   if (selectedTags.value.length !== 0) {
-    filtered = filtered.filter(translator =>
-      selectedTags.value.every(tag => translator.itemTypes.includes(tag)),
+    filtered = filtered.filter((translator) =>
+      selectedTags.value.every((tag) => translator.itemTypes.includes(tag)),
     )
   }
   return filtered

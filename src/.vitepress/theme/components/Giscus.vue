@@ -9,11 +9,7 @@ const { frontmatter, title, isDark } = useData()
 </script>
 
 <template>
-  <div
-    v-if="frontmatter.comments !== false"
-    :key="title"
-    class="comments-container"
-  >
+  <div v-if="frontmatter.comments !== false" :key="title" class="comments-container">
     <Giscus
       id="comments"
       repo="zotero-chinese/wiki"

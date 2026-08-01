@@ -5,6 +5,6 @@ type: translator
 sidebar: false
 aside: false
 actions:
-    - text: 🕯 报告转换器问题
-      link: https://github.com/l0o0/translators_CN
+  - text: 🕯 报告转换器问题
+    link: https://github.com/l0o0/translators_CN
 ---

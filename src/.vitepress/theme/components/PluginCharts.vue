@@ -31,12 +31,9 @@ const darkMode = useData().isDark
 onMounted(() => {
   // @ts-expect-error 存在此方法
   Math.wordCloudEasing = function (pos) {
-    if (pos < 1 / 2.75)
-      return 7.5625 * pos * pos
-    if (pos < 2 / 2.75)
-      return 7.5625 * (pos -= 1.5 / 2.75) * pos + 0.75
-    if (pos < 2.5 / 2.75)
-      return 7.5625 * (pos -= 2.25 / 2.75) * pos + 0.9375
+    if (pos < 1 / 2.75) return 7.5625 * pos * pos
+    if (pos < 2 / 2.75) return 7.5625 * (pos -= 1.5 / 2.75) * pos + 0.75
+    if (pos < 2.5 / 2.75) return 7.5625 * (pos -= 2.25 / 2.75) * pos + 0.9375
     return 7.5625 * (pos -= 2.625 / 2.75) * pos + 0.984375
   }
   loadChartsJson()
@@ -45,20 +42,18 @@ onMounted(() => {
 function loadChartsJson() {
   for (const com of chartsData.components) {
     if (com.chartOptions?.exporting) {
-      (
-        com.chartOptions.exporting.menuItemDefinitions.invertSelection as any
-      ).onclick = function (this: Highcharts.Chart) {
-        this.series.forEach(series => series.setVisible(undefined, false))
+      ;(com.chartOptions.exporting.menuItemDefinitions.invertSelection as any).onclick = function (
+        this: Highcharts.Chart,
+      ) {
+        this.series.forEach((series) => series.setVisible(undefined, false))
         this.redraw()
       }
     }
   }
-  (
-    chartsData.components[1].chartOptions!.plotOptions!.series.point!
-      .events as any
-  ).click = function (this: any) {
-    location.href = `https://github.com/${this.custom.repo}`
-  }
+  ;(chartsData.components[1].chartOptions!.plotOptions!.series.point!.events as any).click =
+    function (this: any) {
+      location.href = `https://github.com/${this.custom.repo}`
+    }
   // eslint-disable-next-line no-console
   console.debug(Dashboards.board('container', chartsData as Board.Options))
 
@@ -69,10 +64,7 @@ function loadChartsJson() {
 </script>
 
 <template>
-  <div
-    id="container"
-    :class="{ 'highcharts-dark': darkMode, 'highcharts-light': !darkMode }"
-  />
+  <div id="container" :class="{ 'highcharts-dark': darkMode, 'highcharts-light': !darkMode }" />
 </template>
 
 <style scope>

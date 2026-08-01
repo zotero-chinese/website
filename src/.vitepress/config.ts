@@ -42,9 +42,22 @@ export default defineConfig({
       description: 'Zotero 中文维护小组',
       head: [
         ...head,
-        ['meta', { property: 'keywords', content: 'Zotero, Zotero中文, Zotero 中文社区, Zotero 教程, Zotero 插件, 插件商店, CSL 样式, 中文引用格式, Translator' }],
+        [
+          'meta',
+          {
+            property: 'keywords',
+            content:
+              'Zotero, Zotero中文, Zotero 中文社区, Zotero 教程, Zotero 插件, 插件商店, CSL 样式, 中文引用格式, Translator',
+          },
+        ],
         ['meta', { property: 'og:title', content: 'Zotero 中文社区' }],
-        ['meta', { property: 'og:description', content: 'Zotero 中文使用手册、插件商店、CSL 样式、Translator 及开发者文档' }],
+        [
+          'meta',
+          {
+            property: 'og:description',
+            content: 'Zotero 中文使用手册、插件商店、CSL 样式、Translator 及开发者文档',
+          },
+        ],
       ],
       themeConfig: {
         nav,
@@ -52,7 +65,8 @@ export default defineConfig({
 
         footer: {
           message: `Zotero 是 Corporation for Digital Scholarship 的注册商标，本站与该机构无从属或关联关系`,
-          copyright: '本工作以 知识共享 署名 - 相同方式共享 和 MIT 协议共享，版权所有 © 2020-至今 Zotero 中文社区及其贡献者',
+          copyright:
+            '本工作以 知识共享 署名 - 相同方式共享 和 MIT 协议共享，版权所有 © 2020-至今 Zotero 中文社区及其贡献者',
         },
       },
     },
@@ -63,9 +77,23 @@ export default defineConfig({
       description: 'Zotero Chinese Community Maintenance Team, Zotero Plugin Market, CSL-M Styles.',
       head: [
         ...head,
-        ['meta', { property: 'keywords', content: 'Zotero, Zotero Chinese, Zotero Plugin, Zotero Plugin Store, Zotero Plugin Market, Zotero Plugin Marketplace, Zotero Chinese CSL Style' }],
+        [
+          'meta',
+          {
+            property: 'keywords',
+            content:
+              'Zotero, Zotero Chinese, Zotero Plugin, Zotero Plugin Store, Zotero Plugin Market, Zotero Plugin Marketplace, Zotero Chinese CSL Style',
+          },
+        ],
         ['meta', { property: 'og:title', content: 'Zotero Chinese Community' }],
-        ['meta', { property: 'og:description', content: 'Zotero Chinese Community, Zotero Plugin Store, Zotero Plugin Market, Zotero Chinese CSL Style' }],
+        [
+          'meta',
+          {
+            property: 'og:description',
+            content:
+              'Zotero Chinese Community, Zotero Plugin Store, Zotero Plugin Market, Zotero Chinese CSL Style',
+          },
+        ],
       ],
       link: '/en/',
       themeConfig: {
@@ -81,7 +109,8 @@ export default defineConfig({
 
         footer: {
           message: `Zotero is a registered trademark of the Corporation for Digital Scholarship. This site is not affiliated with or endorsed by Corporation for Digital Scholarship.`,
-          copyright: 'This work is shared under the CC BY-SA and MIT licenses. Copyright © 2020-present Zotero Chinese Community and its contributors.',
+          copyright:
+            'This work is shared under the CC BY-SA and MIT licenses. Copyright © 2020-present Zotero Chinese Community and its contributors.',
         },
       },
     },
@@ -94,8 +123,7 @@ export default defineConfig({
       pattern: ({ filePath }) => {
         if (filePath.startsWith('wiki')) {
           return `https://github.com/zotero-chinese/wiki/edit/main/${filePath.replace('wiki/', '')}`
-        }
-        else {
+        } else {
           return `https://github.com/zotero-chinese/website/edit/main/src/${filePath}`
         }
       },
@@ -116,10 +144,8 @@ export default defineConfig({
         // https://vitepress.dev/zh/reference/default-theme-search#example-excluding-pages-from-search
         _render(src, env, md) {
           const html = md.render(src, env)
-          if (env.frontmatter?.search === false)
-            return ''
-          if (!env.relativePath.startsWith('wiki'))
-            return ''
+          if (env.frontmatter?.search === false) return ''
+          if (!env.relativePath.startsWith('wiki')) return ''
           return html
         },
         locales: {

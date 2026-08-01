@@ -19,12 +19,10 @@ const licenseConfig = computed(() => {
   if (path.match('translators/')) {
     config.link = 'https://github.com/l0o0/translators_CN?tab=AGPL-3.0-1-ov-file#readme'
     config.name = 'AGPL-3.0'
-  }
-  else if (path.match('styles/')) {
+  } else if (path.match('styles/')) {
     config.link = 'https://creativecommons.org/licenses/by-sa/3.0/deed.zh-hans'
     config.name = 'CC BY-SA 3.0'
-  }
-  else {
+  } else {
     config.link = 'https://creativecommons.org/licenses/by-sa/4.0/deed.zh-hans'
     config.name = 'CC BY-SA 4.0'
   }
@@ -40,10 +38,7 @@ const licenseConfig = computed(() => {
     <div class="doc-before-footer-item">
       <el-icon><CopyrightIcon /></el-icon>
       <span>
-        <a
-          :href="licenseConfig.link"
-          target="_blank"
-        >
+        <a :href="licenseConfig.link" target="_blank">
           {{ licenseConfig.text }}
         </a>
       </span>

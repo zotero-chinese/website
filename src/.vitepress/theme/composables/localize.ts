@@ -207,15 +207,11 @@ const baseTypes = [
 ]
 
 function useTranslatorType(code: number) {
-  return baseTypes
-    .filter(item => (code & item.flag) !== 0)
-    .map(item => item.type)
+  return baseTypes.filter((item) => (code & item.flag) !== 0).map((item) => item.type)
 }
 
 function useItemType(itemType: string) {
-  return itemType === 'multiple'
-    ? '多个条目'
-    : itemTypes[itemType as keyof typeof itemTypes]
+  return itemType === 'multiple' ? '多个条目' : itemTypes[itemType as keyof typeof itemTypes]
 }
 
 function useItemField(field: string) {
@@ -236,10 +232,4 @@ function useSortedItemTypes(a: string, b: string) {
   return a.localeCompare(b, 'zh')
 }
 
-export {
-  useCreatorType,
-  useItemField,
-  useItemType,
-  useSortedItemTypes,
-  useTranslatorType,
-}
+export { useCreatorType, useItemField, useItemType, useSortedItemTypes, useTranslatorType }

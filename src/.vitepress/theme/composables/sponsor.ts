@@ -133,9 +133,7 @@ function mapSponsors(sponsors: Sponsors) {
 }
 
 const viteSponsorNames = new Set(
-  Object.values(viteSponsors).flatMap(sponsors =>
-    sponsors.map(s => s.name),
-  ),
+  Object.values(viteSponsors).flatMap((sponsors) => sponsors.map((s) => s.name)),
 )
 
 /**
@@ -143,8 +141,8 @@ const viteSponsorNames = new Set(
  */
 function mapImgPath(sponsors: Sponsor[]) {
   return sponsors
-    .filter(sponsor => !viteSponsorNames.has(sponsor.name))
-    .map(sponsor => ({
+    .filter((sponsor) => !viteSponsorNames.has(sponsor.name))
+    .map((sponsor) => ({
       ...sponsor,
       img: `${dataHost}/images/${sponsor.img}`,
     }))

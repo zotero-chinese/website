@@ -76,12 +76,7 @@ function copyLink() {
         </el-text>
       </el-tooltip>
 
-      <el-tooltip
-        class="box-item"
-        effect="dark"
-        :content="locale.pluginStars"
-        placement="bottom"
-      >
+      <el-tooltip class="box-item" effect="dark" :content="locale.pluginStars" placement="bottom">
         <el-text>
           <el-icon>
             <i-ep-star-filled />
@@ -105,7 +100,9 @@ function copyLink() {
         <el-tooltip
           class="box-item"
           effect="dark"
-          :content="allTags.find((t: PluginTag) => t.value === tag.replace(/_zh|_en/, ''))?.description"
+          :content="
+            allTags.find((t: PluginTag) => t.value === tag.replace(/_zh|_en/, ''))?.description
+          "
           placement="bottom"
         >
           {{ allTags.find((t: PluginTag) => t.value === tag.replace(/_zh|_en/, ''))?.label }}
@@ -115,7 +112,12 @@ function copyLink() {
 
     <template #footer>
       <div class="footer_left">
-        <el-button type="primary" :icon="DownloadIcon" :auto-insert-space="true" @click="showDownload">
+        <el-button
+          type="primary"
+          :icon="DownloadIcon"
+          :auto-insert-space="true"
+          @click="showDownload"
+        >
           {{ locale.download }}
         </el-button>
       </div>

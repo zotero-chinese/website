@@ -129,8 +129,7 @@ export const zhLocale: PluginLocaleData = {
   fillForm: '填写表格',
   issueOnGithub: 'GitHub 仓库提 issue',
   noMatchingPlugins: '无匹配插件',
-  compatibilityWarning:
-    '关于 Zotero 插件 - 安装插件',
+  compatibilityWarning: '关于 Zotero 插件 - 安装插件',
 }
 
 export const enLocale: PluginLocaleData = {
@@ -167,8 +166,10 @@ export const enLocale: PluginLocaleData = {
   authorHomepage: 'Author Homepage',
 
   // PluginDownloadModal
-  downloadTips1: 'This page provides multiple download addresses for each plugin. Please try to select an available address.',
-  downloadTips2: 'Firefox users can right-click the link and select "Save As" to download the XPI package.',
+  downloadTips1:
+    'This page provides multiple download addresses for each plugin. Please try to select an available address.',
+  downloadTips2:
+    'Firefox users can right-click the link and select "Save As" to download the XPI package.',
   downloadTips3: 'Plugins may conflict with each other. Install only what you need.',
   downloadWarning:
     'Plugins for different Zotero versions may be incompatible. Please download the version corresponding to your Zotero version. For information about checking your Zotero version and installing plugins, please refer to:',
@@ -199,8 +200,7 @@ export const enLocale: PluginLocaleData = {
   fillForm: 'fill out the form',
   issueOnGithub: 'open an issue on GitHub',
   noMatchingPlugins: 'No matching plugins',
-  compatibilityWarning:
-    'About Zotero Plugins - Install Plugins',
+  compatibilityWarning: 'About Zotero Plugins - Install Plugins',
 }
 
 const defaultLocaleInfo: Record<string, PluginLocaleData> = {
@@ -212,7 +212,8 @@ const overrides: Record<string, Partial<PluginLocaleData>> = {}
 
 export function getPluginLocale(lang: string): PluginLocaleData {
   const fallbackLang = lang.split('-')[0]
-  const defaultLocale = defaultLocaleInfo[lang] || defaultLocaleInfo[fallbackLang] || defaultLocaleInfo.zh
+  const defaultLocale =
+    defaultLocaleInfo[lang] || defaultLocaleInfo[fallbackLang] || defaultLocaleInfo.zh
 
   const overrideLocale = overrides[lang] ?? overrides[fallbackLang] ?? {}
 

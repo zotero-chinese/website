@@ -4,13 +4,11 @@ import { useData } from 'vitepress'
 
 const { page } = useData()
 
-const style = styles.find(
-  s => s.dir === page.value.relativePath.split('/')[1],
-)
+const style = styles.find((s) => s.dir === page.value.relativePath.split('/')[1])
 
 const contributors = [
-  ...(style?.author?.map(v => v.name) || ''),
-  ...(style?.contributor?.map(v => v.name) || ''),
+  ...(style?.author?.map((v) => v.name) || ''),
+  ...(style?.contributor?.map((v) => v.name) || ''),
 ].join(', ')
 
 const repoU = 'zotero-chinese'
@@ -29,14 +27,13 @@ const downloadLinks = {
 const styleClass = style?.style_class === 'in-text' ? '文内引注' : '脚注'
 
 const styleFormatMap: { [key: string]: string } = {
-  'author': '著者',
+  author: '著者',
   'author-date': '著者—出版年',
-  'numeric': '顺序编码',
-  'label': '标签',
-  'note': '脚注',
+  numeric: '顺序编码',
+  label: '标签',
+  note: '脚注',
 }
-const styleFormat
-  = styleFormatMap[style?.citation_format || ''] || style?.citation_format
+const styleFormat = styleFormatMap[style?.citation_format || ''] || style?.citation_format
 </script>
 
 <template>
@@ -83,7 +80,7 @@ const styleFormat
       </el-descriptions-item>
 
       <el-descriptions-item label="标签">
-        {{ style.tags.join(", ") }}
+        {{ style.tags.join(', ') }}
       </el-descriptions-item>
     </el-descriptions>
 
@@ -92,18 +89,13 @@ const styleFormat
       <a class="header-anchor" href="#link" aria-label="Permalink to link" />
     </h2>
     <div class="custom-block tip">
-      <p class="custom-block-title">
-        提示
-      </p>
+      <p class="custom-block-title">提示</p>
       <p>
-        请优先参阅
-        「<a href="/user-guide/citation-styles">安装样式文件</a>」
+        请优先参阅 「<a href="/user-guide/citation-styles">安装样式文件</a>」
         以了解样式文件安装步骤和常见问题。
       </p>
       <p>请确保 Zotero 正在运行，点击下面任意安装链接以安装样式。</p>
-      <p>
-        本站为每一个样式文件都提供了多个下载地址，请选择自己可用的地址。
-      </p>
+      <p>本站为每一个样式文件都提供了多个下载地址，请选择自己可用的地址。</p>
     </div>
 
     <h3 id="install">
@@ -161,7 +153,5 @@ const styleFormat
       </li>
     </ul>
   </template>
-  <template v-else>
-    未找到此条目。
-  </template>
+  <template v-else> 未找到此条目。 </template>
 </template>
