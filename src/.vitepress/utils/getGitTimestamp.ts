@@ -1,5 +1,5 @@
+import { execFile } from 'node:child_process'
 import { basename, dirname } from 'node:path'
-import { execa } from 'execa'
 import fs from 'fs-extra'
 
 const cache = new Map<string, number>()
@@ -14,16 +14,12 @@ export function getGitTimestamp(file: string) {
     if (!fs.existsSync(cwd))
       return resolve(0)
     const fileName = basename(file)
-    const child = execa('git', ['log', '-1', '--pretty="%ai"', fileName], {
-      cwd,
-    })
-    let output = ''
-    child.stdout.on('data', d => (output += String(d)))
-    child.on('close', () => {
-      const timestamp = +new Date(output)
+    execFile('git', ['log', '-1', '--pretty="%ai"', fileName], { cwd }, (error, stdout) => {
+      if (error)
+        return reject(error)
+      const timestamp = +new Date(stdout)
       cache.set(file, timestamp)
       resolve(timestamp)
     })
-    child.on('error', reject)
   })
 }
