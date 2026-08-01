@@ -15,4 +15,4 @@ jobs:
     permissions:
       contents: read
     with:
-      command: 'pnpm check'
+      command: 'vp check --fix'

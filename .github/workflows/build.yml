@@ -21,8 +21,8 @@ jobs:
       - name: Build
         run: |
           git submodule update --remote
-          pnpm fetch-data
-          pnpm build
+          vp run fetch-data
+          vp run build
 
       - name: Upload Output
         uses: actions/upload-artifact@v7
