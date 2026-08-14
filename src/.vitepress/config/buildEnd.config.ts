@@ -1,5 +1,5 @@
 import type { SiteConfig } from 'vitepress'
-import { copyFileSync, writeFileSync } from 'node:fs'
+import { copyFileSync, mkdirSync, writeFileSync } from 'node:fs'
 import { glob } from 'node:fs/promises'
 import path from 'node:path'
 import { Feed } from 'feed'
@@ -8,7 +8,28 @@ import { getDefaultTitle, getTextSummary } from '../utils/markdown'
 
 const siteUrl = 'https://zotero-chinese.com'
 
+/**
+ * 将 CSL 样式文件一并打包到站点输出目录，提供从本站下载样式的途径。
+ *
+ * 输出路径与源码保持一致，例如：
+ * `src/styles/detail/src/上海交通大学/上海交通大学.csl`
+ * → `<outDir>/styles/上海交通大学/上海交通大学.csl`
+ * → https://zotero-chinese.com/styles/上海交通大学/上海交通大学.csl
+ */
+async function copyCslFiles(outDir: string) {
+  const cslSourceDir = 'src/styles/detail/src'
+  const cslFiles = await Array.fromAsync(glob(`${cslSourceDir}/**/*.csl`))
+  for (const file of cslFiles) {
+    const dest = path.join(outDir, 'styles', path.relative(cslSourceDir, file))
+    mkdirSync(path.dirname(dest), { recursive: true })
+    copyFileSync(file, dest)
+  }
+  console.log(`🎉 Copied ${cslFiles.length} CSL files to ${path.join(outDir, 'styles')}`)
+}
+
 export async function buildEnd(config: SiteConfig) {
+  await copyCslFiles(config.outDir)
+
   const feed = new Feed({
     title: 'Zotero 中文社区',
     description: 'Zotero 中文维护小组',
