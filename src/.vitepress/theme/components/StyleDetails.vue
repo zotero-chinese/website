@@ -16,8 +16,8 @@ const repoN = 'styles'
 const blobLink = `https://github.com/${repoU}/${repoN}/blob/main/src/${style?.dir}/${style?.file}`
 const downloadLinks = {
   // https://raw.githubusercontent.com/redleafnew/Chinese-STD-GB-T-7714-related-csl/main/src/accounting-research/accounting-research.csl
-  // 本站直接分发，随站点构建自动同步
-  website: `https://zotero-chinese.com/styles/${style?.dir}/${style?.file}`,
+  // 本站直接分发，随站点构建自动同步；使用根相对路径以兼容预览站点
+  website: `/styles/${style?.dir}/${style?.file}`,
   github: `https://raw.githubusercontent.com/${repoU}/${repoN}/main/src/${style?.dir}/${style?.file}`,
   gitee: `https://gitee.com/zotero-chinese-x/styles/raw/main/src/${style?.dir}/${style?.file}`,
   jsd: `https://cdn.jsdelivr.net/gh/${repoU}/${repoN}@main/src/${style?.dir}/${style?.file}`,
