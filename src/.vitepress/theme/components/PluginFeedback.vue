@@ -18,9 +18,7 @@ const repo = computed<string | undefined>(() => {
   const r = frontmatter.value.plugin
   return typeof r === 'string' && r ? r : undefined
 })
-const issuesUrl = computed(() =>
-  repo.value ? `https://github.com/${repo.value}/issues/new` : '',
-)
+const issuesUrl = computed(() => (repo.value ? `https://github.com/${repo.value}/issues/new` : ''))
 </script>
 
 <template>
