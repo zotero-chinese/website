@@ -1,9 +1,39 @@
 import fs from 'fs-extra'
 
-// const local_path = path.resolve("src/styles/data/styles.json");
+/**
+ * 索引页使用的精简样式信息。
+ *
+ * 完整数据（含 citations/bibliography 等详情字段）由 dataAssets 插件
+ * 生成到 `public/styles-data/<key>.json`，按需 fetch。
+ */
+export interface StyleSummary {
+  /** 样式目录名，也用作详情页 URL 的一部分 */
+  dir: string
+  /** 样式文件名 */
+  file: string
+  title: string
+  id: string
+  summary?: string
+  citation_format?: string
+  field?: string
+  updated?: string
+  tags?: string[]
+  /** 完整数据 JSON 的文件 key（FNV-1a 64 位哈希） */
+  key: string
+}
 
-declare const data: StyleFullResult[]
+declare const data: StyleSummary[]
 export { data }
+
+/** FNV-1a 64 位哈希，与浏览器端实现保持一致 */
+export function styleKey(input: string): string {
+  let h = 0xcbf29ce484222325n
+  for (let i = 0; i < input.length; i++) {
+    h ^= BigInt(input.charCodeAt(i))
+    h = (h * 0x100000001b3n) & 0xffffffffffffffffn
+  }
+  return h.toString(16)
+}
 
 function getSortKeys(title: string): string[] {
   const keys: string[] = []
@@ -38,7 +68,19 @@ export default {
 
     return watchedFiles
       .map((file) => {
-        return fs.readJsonSync(file) as StyleFullResult
+        const full = fs.readJsonSync(file) as StyleFullResult
+        return {
+          dir: full.dir,
+          file: full.file,
+          title: full.title,
+          id: full.id,
+          summary: full.summary,
+          citation_format: full.citation_format,
+          field: full.field,
+          updated: full.updated,
+          tags: full.tags,
+          key: styleKey(full.dir),
+        } satisfies StyleSummary
       })
       .sort((a, b) => {
         const a_keys = getSortKeys(a.title)

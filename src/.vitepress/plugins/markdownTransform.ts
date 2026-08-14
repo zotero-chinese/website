@@ -1,3 +1,5 @@
+import { existsSync, readFileSync } from 'node:fs'
+import path from 'node:path'
 import type { Plugin } from 'vite'
 
 export function MarkdownTransform(): Plugin {
@@ -17,10 +19,22 @@ export function MarkdownTransform(): Plugin {
 
       // CSL 样式部分
       if (/styles\/detail\/.*\.md/.test(id)) {
+        // 读取同目录 metadata.json，注入 frontmatter，
+        // 使详情页标题、元数据、下载链接等可在 SSR 阶段渲染（利于 SEO），
+        // 客户端也无需再 fetch
+        const metaPath = path.join(path.dirname(id), 'metadata.json')
+        const styleData = existsSync(metaPath) ? readFileSync(metaPath, 'utf8').trim() : 'null'
+
         // 为详情页增加 md 前言
-        code = ['---', 'sidebar: false', 'comments: false', 'editLink: false', '---', code].join(
-          '\n',
-        )
+        code = [
+          '---',
+          'sidebar: false',
+          'comments: false',
+          'editLink: false',
+          `styleData: ${styleData}`,
+          '---',
+          code,
+        ].join('\n')
 
         // CSL 详情页的头部块
         code = code.replace(

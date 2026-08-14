@@ -1,32 +1,47 @@
 <script setup lang="ts">
-import { data as styles } from '@data/styles.data'
 import { useData } from 'vitepress'
+import { computed } from 'vue'
 
 const { page } = useData()
 
-const style = styles.find((s) => s.dir === page.value.relativePath.split('/')[1])
+// 样式数据由 MarkdownTransform 在构建时注入 frontmatter（`styleData`），
+// SSR 阶段即可渲染标题、元数据与下载链接，客户端无需 fetch
+const style = computed<StyleFullResult | null>(
+  () => (page.value.frontmatter.styleData as StyleFullResult | undefined) ?? null,
+)
 
-const contributors = [
-  ...(style?.author?.map((v) => v.name) || ''),
-  ...(style?.contributor?.map((v) => v.name) || ''),
-].join(', ')
+const contributors = computed(() => {
+  const s = style.value
+  return [
+    ...(s?.author?.map((v) => v.name) || ''),
+    ...(s?.contributor?.map((v) => v.name) || ''),
+  ].join(', ')
+})
 
 const repoU = 'zotero-chinese'
 const repoN = 'styles'
-const blobLink = `https://github.com/${repoU}/${repoN}/blob/main/src/${style?.dir}/${style?.file}`
-const downloadLinks = {
-  // https://raw.githubusercontent.com/redleafnew/Chinese-STD-GB-T-7714-related-csl/main/src/accounting-research/accounting-research.csl
-  // 本站直接分发，随站点构建自动同步；使用根相对路径以兼容预览站点
-  website: `/styles/${style?.dir}/${style?.file}`,
-  github: `https://raw.githubusercontent.com/${repoU}/${repoN}/main/src/${style?.dir}/${style?.file}`,
-  gitee: `https://gitee.com/zotero-chinese-x/styles/raw/main/src/${style?.dir}/${style?.file}`,
-  jsd: `https://cdn.jsdelivr.net/gh/${repoU}/${repoN}@main/src/${style?.dir}/${style?.file}`,
-  ghproxy: `https://ghfast.top/?q=${encodeURI(blobLink)}`,
-  keleAli: `https://oss.wieke.cn/styles/src/${style?.dir}/${style?.file}`,
-  keleAzure: `https://oss.wwang.de/styles/src/${style?.dir}/${style?.file}`,
-}
+const blobLink = computed(() => {
+  const s = style.value
+  return `https://github.com/${repoU}/${repoN}/blob/main/src/${s?.dir}/${s?.file}`
+})
+const downloadLinks = computed(() => {
+  const s = style.value
+  return {
+    // https://raw.githubusercontent.com/redleafnew/Chinese-STD-GB-T-7714-related-csl/main/src/accounting-research/accounting-research.csl
+    // 本站直接分发，随站点构建自动同步；使用根相对路径以兼容预览站点
+    website: `/styles/${s?.dir}/${s?.file}`,
+    github: `https://raw.githubusercontent.com/${repoU}/${repoN}/main/src/${s?.dir}/${s?.file}`,
+    gitee: `https://gitee.com/zotero-chinese-x/styles/raw/main/src/${s?.dir}/${s?.file}`,
+    jsd: `https://cdn.jsdelivr.net/gh/${repoU}/${repoN}@main/src/${s?.dir}/${s?.file}`,
+    ghproxy: `https://ghfast.top/?q=${encodeURI(blobLink.value)}`,
+    keleAli: `https://oss.wieke.cn/styles/src/${s?.dir}/${s?.file}`,
+    keleAzure: `https://oss.wwang.de/styles/src/${s?.dir}/${s?.file}`,
+  }
+})
 
-const styleClass = style?.style_class === 'in-text' ? '文内引注' : '脚注'
+const styleClass = computed(() => {
+  return style.value?.style_class === 'in-text' ? '文内引注' : '脚注'
+})
 
 const styleFormatMap: { [key: string]: string } = {
   author: '著者',
@@ -35,7 +50,9 @@ const styleFormatMap: { [key: string]: string } = {
   label: '标签',
   note: '脚注',
 }
-const styleFormat = styleFormatMap[style?.citation_format || ''] || style?.citation_format
+const styleFormat = computed(() => {
+  return styleFormatMap[style.value?.citation_format || ''] || style.value?.citation_format
+})
 </script>
 
 <template>

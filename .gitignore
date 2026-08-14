@@ -20,6 +20,10 @@ dist
 # CSL 样式构建产物（由 cslAssets 插件从 styles 子模块复制）
 src/public/styles/
 
+# dataAssets 插件生成的按需加载数据
+src/public/styles-data/
+src/public/plugin-data/
+
 # Local Netlify folder
 .netlify
 

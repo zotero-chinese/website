@@ -1,4 +1,4 @@
-import type { Translators } from '@data/translators.data'
+import type { Translators } from '@data/translatorsLittle.data'
 import fs from 'fs-extra'
 
 export default {
