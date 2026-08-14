@@ -1,49 +1,40 @@
-import { createReadStream, existsSync, statSync } from 'node:fs'
-import { resolve } from 'node:path'
-import type { Connect, Plugin } from 'vite'
+import { copyFileSync, mkdirSync } from 'node:fs'
+import { glob } from 'node:fs/promises'
+import { dirname, resolve } from 'node:path'
+import type { Plugin } from 'vite'
 
 /**
- * 开发环境下提供 CSL 样式文件的访问。
+ * 将 CSL 样式文件复制到 Vite 的 `publicDir`（`src/public/styles`），
+ * 之后完全交由 Vite 原生机制提供访问，dev 与构建行为一致：
  *
- * 生产构建时，CSL 文件会在 `buildEnd` 阶段被复制到站点输出目录
- * （见 `../config/buildEnd.config.ts`），而开发服务器不会执行该步骤，
- * 故在此直接以中间件形式从样式仓库（`src/styles/detail/src`）读取文件。
+ * - 开发：public 目录由 Vite 开发服务器直接 serve
+ * - 构建：public 目录由 Vite 在构建时原样复制到输出目录
+ *
+ * 产物路径与源码保持一致，例如：
+ * `src/styles/detail/src/上海交通大学/上海交通大学.csl`
+ * → `/styles/上海交通大学/上海交通大学.csl`
+ * → https://zotero-chinese.com/styles/上海交通大学/上海交通大学.csl
+ *
+ * 注：`src/public/styles` 为构建产物，已加入 `.gitignore`。
  */
 export function CslAssets(): Plugin {
-  const cslSourceDir = resolve('src/styles/detail/src')
+  const cslSourceDir = 'src/styles/detail/src'
 
-  const serveCsl: Connect.NextHandleFunction = (req, res, next) => {
-    const pathname = req.url?.split('?')[0] ?? ''
-    const match = pathname.match(/^\/styles\/(.+)\.csl$/)
-    if (!match) {
-      next()
-      return
+  async function copyToPublicDir(publicDir: string) {
+    const cslFiles = await Array.fromAsync(glob(`${cslSourceDir}/**/*.csl`))
+    for (const file of cslFiles) {
+      // glob 在 Windows 上可能返回反斜杠路径，需规范化为正斜杠
+      const relative = file.split(/[\\/]/).join('/').replace(`${cslSourceDir}/`, '')
+      const dest = resolve(publicDir, 'styles', relative)
+      mkdirSync(dirname(dest), { recursive: true })
+      copyFileSync(file, dest)
     }
-
-    // 请求路径为 URL 编码，需解码后与磁盘路径匹配
-    let dir: string
-    try {
-      dir = decodeURIComponent(match[1])
-    } catch {
-      next()
-      return
-    }
-
-    const file = resolve(cslSourceDir, `${dir}.csl`)
-    if (!file.startsWith(cslSourceDir) || !existsSync(file) || !statSync(file).isFile()) {
-      next()
-      return
-    }
-
-    res.setHeader('Content-Type', 'application/xml; charset=utf-8')
-    res.setHeader('Cache-Control', 'no-cache')
-    createReadStream(file).pipe(res)
   }
 
   return {
     name: 'zotero-chinese:csl-assets',
-    configureServer(server) {
-      server.middlewares.use(serveCsl)
+    async configResolved(config) {
+      await copyToPublicDir(config.publicDir)
     },
   }
 }
