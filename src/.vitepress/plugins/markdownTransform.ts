@@ -56,9 +56,47 @@ export function MarkdownTransform(): Plugin {
         code = code.replaceAll(/\[(\d+)\]\(([\d-]*)\)/g, '\\[$1\\]\\($2\\)')
       }
 
+      // 插件文档：对 user-guide/plugins/ 目录下的所有文档注入头部信息栏与
+      // 末尾反馈入口。组件内部根据 frontmatter 的 `plugin` 字段决定是否显示，
+      // 未标注的文档（如 about-plugin、translate/* 等）组件自动隐藏，
+      // 因此无需在此解析 frontmatter。
+      if (/user-guide\/plugins\/.*\.md/.test(id)) {
+        code = _injectPluginDocComponents(code)
+      }
+
       return code
     },
   }
+}
+
+function _injectPluginDocComponents(code: string): string {
+  if (code.includes('<PluginDocHeader')) return code
+
+  // 前置 script setup（参照 CSL 详情页的注入方式，保证组件可用）
+  const scriptSetup = [
+    '<script setup>',
+    'import PluginDocHeader from "@theme/components/PluginDocHeader.vue"',
+    'import PluginFeedback from "@theme/components/PluginFeedback.vue"',
+    '</script>',
+  ].join('\n')
+
+  // 在一级标题后注入头部信息栏
+  const lines = code.split('\n')
+  const headingIndex = lines.findIndex((line) => /^#\s+/.test(line))
+  if (headingIndex !== -1) {
+    lines.splice(headingIndex + 1, 0, '', '<PluginDocHeader />')
+  }
+  // 文档末尾（评论区上方）注入反馈入口
+  let injected = `${lines.join('\n')}\n\n<PluginFeedback />\n`
+
+  // script setup 须位于 frontmatter 之后、正文之前
+  const fmMatch = injected.match(/^---\n[\s\S]*?\n---\n?/)
+  if (fmMatch) {
+    injected = injected.replace(fmMatch[0], `${fmMatch[0]}${scriptSetup}\n\n`)
+  } else {
+    injected = `${scriptSetup}\n\n${injected}`
+  }
+  return injected
 }
 
 function _replaceAsync(

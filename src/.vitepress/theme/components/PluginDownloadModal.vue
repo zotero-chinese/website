@@ -1,6 +1,8 @@
 <script setup lang="ts">
-import type { PluginFullInfo, PluginInfo, ReleaseInfo } from '@data/plugins.data'
+import type { PluginInfo, ReleaseInfo } from '@data/plugins.data'
 import { LATEST_ZOTERO_BETA_VERSION } from '@data/constant'
+import { getPluginDocUrl } from '@data/pluginDocs'
+import { usePluginDownloads } from '@theme/composables/usePluginDownloads'
 import { usePluginLocale } from '@theme/composables/usePluginLocale'
 import { useMediaQuery } from '@vueuse/core'
 import { computed, ref, watch } from 'vue'
@@ -28,20 +30,9 @@ function getTargetZoteroVersions(release: ReleaseInfo) {
  *
  * 优先使用数据中的原始地址（`github` 键的值可能是 Gitee 直链等，不能按固定格式推导）；
  * 仅当数据缺失时，才用 repo/tag/文件名兜底推导 GitHub 系列链接。
+ *
+ * 由 usePluginDownloads 提供（与插件文档页头部共用）。
  */
-function buildXpiDownloadUrl(release: ReleaseInfo): Record<string, string> {
-  if (release.xpiDownloadUrl && Object.keys(release.xpiDownloadUrl).length > 0) {
-    return release.xpiDownloadUrl
-  }
-  const repo = props.selectedPlugin!.repo
-  if (!release.xpiFileName) return {}
-  const github = `https://github.com/${repo}/releases/download/${release.tagName}/${release.xpiFileName}`
-  return {
-    github,
-    ghProxy: `https://gh-proxy.org//${github}`,
-    kgithub: `https://kkgithub.com/${repo}/releases/download/${release.tagName}/${release.xpiFileName}`,
-  }
-}
 
 const isShowing = ref(true)
 
@@ -53,34 +44,13 @@ watch(isShowing, (v) => {
 const isNarrowScreen = useMediaQuery('(max-width: 500px)')
 const drawerSize = computed(() => (isNarrowScreen.value ? '100%' : '50%'))
 
-// 完整插件数据（含全部版本与下载信息），打开弹窗时按需加载
-const full = ref<PluginFullInfo | null>(null)
-const loading = ref(false)
-const failed = ref(false)
-const loadedRepo = ref('')
+// 完整插件数据（含全部版本与下载信息），按需加载（与插件文档页头部共用同一逻辑）
+const repoRef = computed(() => props.selectedPlugin?.repo)
+const { full, loading, failed, buildXpiDownloadUrl } = usePluginDownloads(repoRef)
 
-watch(
-  () => [props.modelValue, props.selectedPlugin?.repo] as const,
-  async ([show, repo]) => {
-    if (!show || !repo) return
-    // 已有当前插件的数据时直接复用，否则重新拉取
-    if (full.value && loadedRepo.value === repo) return
-    full.value = null
-    loading.value = true
-    failed.value = false
-    try {
-      const response = await fetch(`${import.meta.env.BASE_URL}plugin-data/${repo}.json`)
-      if (!response.ok) throw new Error(`HTTP ${response.status}`)
-      full.value = (await response.json()) as PluginFullInfo
-      loadedRepo.value = repo
-    } catch {
-      failed.value = true
-    } finally {
-      loading.value = false
-    }
-  },
-  // 组件由 v-if 创建，创建时 modelValue 已是 true，需立即执行首次加载
-  { immediate: true },
+// 插件介绍文档入口（有对应文档时显示）
+const docUrl = computed(() =>
+  props.selectedPlugin ? getPluginDocUrl(props.selectedPlugin.repo) : undefined,
 )
 </script>
 
@@ -132,6 +102,16 @@ watch(
         </a>
         。
       </el-text>
+    </div>
+
+    <div v-if="docUrl" class="doc-entry">
+      <el-link type="primary" :href="docUrl" :underline="false">
+        <el-icon>
+          <i-ep-document />
+        </el-icon>
+        {{ locale.docs }}
+      </el-link>
+      <span class="doc-tip">（含功能介绍与使用说明）</span>
     </div>
 
     <el-skeleton v-if="loading" :rows="8" animated />
@@ -198,5 +178,12 @@ watch(
   max-height: 20px;
   display: inline;
   margin: 0px 0px;
+}
+.doc-entry {
+  margin: 0.5rem 0 1rem;
+  font-size: 0.9rem;
+}
+.doc-entry .doc-tip {
+  color: var(--vp-c-text-3);
 }
 </style>

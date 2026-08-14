@@ -25,6 +25,8 @@ export interface PluginLocaleData {
   copyShareLink: string
   copySucessfully: string
   copyFailed: string
+  /** 文档（插件介绍页入口） */
+  docs: string
 
   // PluginAuthorCard
   publishedPlugins: string
@@ -90,6 +92,7 @@ export const zhLocale: PluginLocaleData = {
   copyShareLink: '复制分享链接',
   copySucessfully: '复制成功！',
   copyFailed: '您的浏览器不支持剪贴板接口，请手动复制。',
+  docs: '文档',
 
   // PluginAuthorCard
   publishedPlugins: '已发布插件',
@@ -159,6 +162,7 @@ export const enLocale: PluginLocaleData = {
   copyShareLink: 'Copy share link',
   copySucessfully: 'Copied successfully!',
   copyFailed: 'Your browser does not support clipboard API. Please copy manually.',
+  docs: 'Docs',
 
   // PluginAuthorCard
   publishedPlugins: 'Published Plugins',
