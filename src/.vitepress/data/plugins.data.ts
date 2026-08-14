@@ -37,11 +37,19 @@ export default {
         ...(p.tags || []),
       ] as PluginInfo['tags']
 
-      p.releases = mergeReleasesByXpiVersion(p.releases).map((r) => {
-        delete r.name
-        delete r.description
-        return r
-      })
+      const releases = mergeReleasesByXpiVersion(p.releases)
+        .map((r) => {
+          delete r.name
+          delete r.description
+          return r
+        })
+        // 数据源不保证按发布时间排序，这里统一按发布时间降序排列，
+        // 保证 `releases[0]` 即最新版本（下载弹窗等也依赖此顺序）
+        .sort((a, b) => +new Date(b.releaseDate) - +new Date(a.releaseDate))
+
+      p.releases = releases
+      // 最新发布时间，供插件商店按更新时间排序使用
+      p.lastUpdated = releases[0]?.releaseDate ?? ''
 
       return p
     })
@@ -137,6 +145,11 @@ export interface PluginInfo extends PluginInfoBase {
    */
   name: string
   releases: ReleaseInfo[]
+  /**
+   * 插件最新发布时间（ISO 8601），取自 releases 中最新的 releaseDate；
+   * 无 release 时为空字符串
+   */
+  lastUpdated: string
   description: string
   /**
    * @deprecated Please use stars instead.
