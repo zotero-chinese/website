@@ -42,7 +42,8 @@ export default {
       docs.push({
         repo: repo.toLowerCase(),
         url: `/user-guide/plugins/${name}`,
-        title: typeof frontmatter.title === 'string' && frontmatter.title ? frontmatter.title : name,
+        title:
+          typeof frontmatter.title === 'string' && frontmatter.title ? frontmatter.title : name,
       })
     }
     return docs

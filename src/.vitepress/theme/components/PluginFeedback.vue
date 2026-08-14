@@ -18,9 +18,7 @@ const issuesUrl = `https://github.com/${props.repo}/issues/new`
   <div class="plugin-feedback">
     <div class="custom-block tip">
       <p class="custom-block-title">💬 反馈与建议</p>
-      <p>
-        发现 Bug 或有功能建议？本站评论区插件作者不一定能看到，请前往插件仓库提交 Issue：
-      </p>
+      <p>发现 Bug 或有功能建议？本站评论区插件作者不一定能看到，请前往插件仓库提交 Issue：</p>
       <p>
         <el-button type="primary" tag="a" :href="issuesUrl" target="_blank" rel="noopener">
           前往 {{ props.repo }} 提交 Issue
