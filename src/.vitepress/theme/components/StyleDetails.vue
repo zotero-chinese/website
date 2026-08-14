@@ -1,40 +1,14 @@
 <script setup lang="ts">
 import { useData } from 'vitepress'
-import { computed, onMounted, ref } from 'vue'
+import { computed } from 'vue'
 
 const { page } = useData()
 
-const dir = computed(() => page.value.relativePath.split('/')[1])
-
-/** FNV-1a 64 位哈希，与 `styles.data.ts` / `dataAssets.ts` 中的实现保持一致 */
-function styleKey(input: string): string {
-  let h = 0xcbf29ce484222325n
-  for (let i = 0; i < input.length; i++) {
-    h ^= BigInt(input.charCodeAt(i))
-    h = (h * 0x100000001b3n) & 0xffffffffffffffffn
-  }
-  return h.toString(16)
-}
-
-const style = ref<StyleFullResult | null>(null)
-const loading = ref(true)
-const failed = ref(false)
-
-// 仅在客户端加载数据，避免 SSR 阶段 fetch 与 hydration 状态不一致
-onMounted(async () => {
-  if (!dir.value) return
-  try {
-    const response = await fetch(
-      `${import.meta.env.BASE_URL}styles-data/${styleKey(dir.value)}.json`,
-    )
-    if (!response.ok) throw new Error(`HTTP ${response.status}`)
-    style.value = (await response.json()) as StyleFullResult
-  } catch {
-    failed.value = true
-  } finally {
-    loading.value = false
-  }
-})
+// 样式数据由 MarkdownTransform 在构建时注入 frontmatter（`styleData`），
+// SSR 阶段即可渲染标题、元数据与下载链接，客户端无需 fetch
+const style = computed<StyleFullResult | null>(
+  () => (page.value.frontmatter.styleData as StyleFullResult | undefined) ?? null,
+)
 
 const contributors = computed(() => {
   const s = style.value
@@ -204,6 +178,5 @@ const styleFormat = computed(() => {
       </li>
     </ul>
   </template>
-  <el-skeleton v-else-if="loading" :rows="5" animated />
   <template v-else> 未找到此条目。 </template>
 </template>

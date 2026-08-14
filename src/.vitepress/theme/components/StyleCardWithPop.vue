@@ -42,7 +42,7 @@ async function loadPreview() {
         <h3>参考文献表</h3>
         <div v-html="preview.bibliography" />
       </div>
-      <el-skeleton v-else-if="loading" :rows="3" animated />
+      <el-skeleton v-else-if="!failed" :rows="3" animated />
       <el-empty v-else description="预览加载失败" />
     </el-popover>
   </client-only>
