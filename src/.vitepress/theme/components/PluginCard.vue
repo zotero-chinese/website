@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { PluginInfo } from '@data/plugins.data'
 import type { PluginTag } from '@data/pluginTags'
+import { getPluginDocUrl } from '@data/pluginDocs'
 import { getPluginTags } from '@data/pluginTags'
 import { usePluginLocale } from '@theme/composables/usePluginLocale'
 import { useClipboard, useTimeAgoIntl } from '@vueuse/core'
@@ -54,6 +55,9 @@ function copyLink() {
     })
   }
 }
+
+// 插件介绍文档入口（有对应文档时显示，zh/en 列表通用，文档为中文）
+const docUrl = computed(() => getPluginDocUrl(props.plugin.repo))
 </script>
 
 <template>
@@ -141,6 +145,11 @@ function copyLink() {
           @click="showDownload"
         >
           {{ locale.download }}
+        </el-button>
+
+        <el-button v-if="docUrl" tag="a" :href="docUrl" :auto-insert-space="true">
+          <el-icon><i-ep-document /></el-icon>
+          {{ locale.docs }}
         </el-button>
       </div>
 

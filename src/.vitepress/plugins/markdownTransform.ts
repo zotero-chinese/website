@@ -1,5 +1,6 @@
 import { existsSync, readFileSync } from 'node:fs'
 import path from 'node:path'
+import matter from 'gray-matter'
 import type { Plugin } from 'vite'
 
 export function MarkdownTransform(): Plugin {
@@ -56,9 +57,38 @@ export function MarkdownTransform(): Plugin {
         code = code.replaceAll(/\[(\d+)\]\(([\d-]*)\)/g, '\\[$1\\]\\($2\\)')
       }
 
-      return code
+      return _injectPluginDocComponents(code)
     },
   }
+}
+
+function _injectPluginDocComponents(code: string): string {
+  // 插件文档：frontmatter 含 `plugin` 字段时，注入文档头部信息栏与末尾反馈入口
+  const { data: frontmatter, content } = matter(code)
+  const pluginRepo = frontmatter.plugin
+  if (typeof pluginRepo !== 'string' || !pluginRepo || code.includes('<PluginDocHeader')) {
+    return code
+  }
+
+  // 前置 script setup（参照 CSL 详情页的注入方式，保证组件可用）
+  const scriptSetup = [
+    '<script setup>',
+    'import PluginDocHeader from "@theme/components/PluginDocHeader.vue"',
+    'import PluginFeedback from "@theme/components/PluginFeedback.vue"',
+    '</script>',
+  ].join('\n')
+
+  const lines = content.split('\n')
+  const headingIndex = lines.findIndex((line) => /^#\s+/.test(line))
+  if (headingIndex !== -1) {
+    // 一级标题后插入头部信息栏
+    lines.splice(headingIndex + 1, 0, '', `<PluginDocHeader repo="${pluginRepo}" />`)
+  }
+  // 文档末尾（评论区上方）插入反馈入口
+  const injectedContent = `${lines.join('\n')}\n\n<PluginFeedback repo="${pluginRepo}" />\n`
+  // frontmatter 块原样保留（gray-matter 的 content 不含 frontmatter）
+  const frontmatterBlock = code.slice(0, code.length - content.length)
+  return `${frontmatterBlock}${scriptSetup}\n\n${injectedContent}`
 }
 
 function _replaceAsync(

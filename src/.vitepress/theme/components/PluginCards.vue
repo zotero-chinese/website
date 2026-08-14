@@ -33,6 +33,8 @@ const allSupportedZotero = Array.from({ length: LATEST_ZOTERO_BETA_VERSION - 5 }
 )
 const searchText = toRef(query, 'search', '') as Ref<string>
 const selectedAuthor = toRef(query, 'author', '') as Ref<string>
+/** deep-link：`#plugin=<repo>` 时自动打开对应插件的下载抽屉 */
+const pluginParam = toRef(query, 'plugin', '') as Ref<string>
 
 const _selectedTags = toRef(query, 'tags', []) as Ref<string | string[]>
 const selectedTags = ref([]) as Ref<string[]>
@@ -109,6 +111,19 @@ function showDownload(plugin: PluginInfo) {
   selectedPlugin.value = plugin
   isShowDownload.value = true
 }
+
+// 打开 `#plugin=<repo>` 链接时自动弹出对应插件的下载抽屉；
+// 从全量数据中查找（不受筛选条件影响），打开后移除参数，避免刷新页面重复弹出
+watch(
+  pluginParam,
+  (repo) => {
+    if (!repo) return
+    const plugin = plugins.find((p) => p.repo.toLowerCase() === repo.toLowerCase())
+    if (plugin) showDownload(plugin)
+    delete query.plugin
+  },
+  { immediate: true },
+)
 
 function setAuthorFilter(author: string) {
   selectedAuthor.value = author
