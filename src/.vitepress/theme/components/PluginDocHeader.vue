@@ -37,7 +37,9 @@ const stars = computed(() => storePlugin.value?.stars ?? full.value?.stars)
 const author = computed(() => storePlugin.value?.author ?? full.value?.author)
 /** 适配的 Zotero 版本（如 "7,8" → "7、8"） */
 const compatibility = computed(() => {
-  const raw = storePlugin.value?.releases[0]?.targetZoteroVersion ?? full.value?.releases[0]?.targetZoteroVersion
+  const raw =
+    storePlugin.value?.releases[0]?.targetZoteroVersion ??
+    full.value?.releases[0]?.targetZoteroVersion
   return raw ? raw.replaceAll(',', '、') : undefined
 })
 /** 最近更新时间（ISO 8601） */
