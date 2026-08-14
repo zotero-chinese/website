@@ -37,14 +37,23 @@ export default {
     for (const file of files) {
       const repo = extractPluginRepo(readFileSync(file, 'utf8'))
       if (!repo) continue
-      const name = path.basename(file, '.md')
+      const rel = file.replaceAll('\\', '/').split('user-guide/plugins/')[1]
+      if (!rel) continue
+      // 目录 index 页规范化为目录 URL（如 translate/index → /user-guide/plugins/translate/）
+      const url = `/user-guide/plugins/${rel.replace(/\.md$/, '').replace(/\/index$/, '/')}`
       docs.push({
         repo: repo.toLowerCase(),
-        url: `/user-guide/plugins/${name}`,
-        title: name,
+        url,
+        title: path.basename(rel, '.md'),
       })
     }
-    return docs
+    // 同一插件多页时（如 translate/ 主文档 + 各翻译引擎配置页），
+    // 主文档（目录 index 页）优先作为商店的文档入口
+    return docs.sort((a, b) => {
+      const aMain = a.url.endsWith('/') ? 0 : 1
+      const bMain = b.url.endsWith('/') ? 0 : 1
+      return aMain - bMain || a.url.length - b.url.length
+    })
   },
 }
 
