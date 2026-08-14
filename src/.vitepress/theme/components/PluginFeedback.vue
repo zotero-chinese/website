@@ -23,29 +23,20 @@ const issuesUrl = computed(() => (repo.value ? `https://github.com/${repo.value}
 
 <template>
   <div v-if="repo" class="plugin-feedback">
-    <el-alert type="info" :closable="false" show-icon>
-      <template #title>💬 反馈与建议</template>
-      <div class="feedback-body">
-        <span
-          >发现 Bug 或有功能建议？本站评论区插件作者不一定能看到，请前往插件仓库提交 Issue：</span
-        >
-        <el-button tag="a" :href="issuesUrl" target="_blank" rel="noopener" size="small">
+    <div class="custom-block tip">
+      <p class="custom-block-title">💬 反馈与建议</p>
+      <p>发现 Bug 或有功能建议？本站评论区插件作者不一定能看到，请前往插件仓库提交 Issue：</p>
+      <p>
+        <el-button tag="a" :href="issuesUrl" target="_blank" rel="noopener">
           前往 {{ repo }} 提交 Issue
         </el-button>
-      </div>
-    </el-alert>
+      </p>
+    </div>
   </div>
 </template>
 
 <style scoped>
 .plugin-feedback {
   margin-top: 2rem;
-}
-
-.feedback-body {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.5rem;
 }
 </style>
