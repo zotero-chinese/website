@@ -38,6 +38,7 @@ declare module 'vue' {
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
     IEpAim: typeof import('~icons/ep/aim')['default']
     IEpAvatar: typeof import('~icons/ep/avatar')['default']
+    IEpClock: typeof import('~icons/ep/clock')['default']
     IEpCloseBold: typeof import('~icons/ep/close-bold')['default']
     IEpFilter: typeof import('~icons/ep/filter')['default']
     IEpInfoFilled: typeof import('~icons/ep/info-filled')['default']

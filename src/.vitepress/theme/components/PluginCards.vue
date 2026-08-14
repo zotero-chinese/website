@@ -93,9 +93,9 @@ const filteredPlugins = computed(() => {
     return filtered.slice().sort((a, b) => a.author.name.localeCompare(b.author.name))
   } else if (sortBy.value === 'lastUpdated') {
     return filtered.slice().sort((a, b) => {
-      const aLatestDate = a.releases.length > 0 ? new Date(a.releases[0].releaseDate).getTime() : 0
-      const bLatestDate = b.releases.length > 0 ? new Date(b.releases[0].releaseDate).getTime() : 0
-      return bLatestDate - aLatestDate
+      const aLatest = a.lastUpdated ? +new Date(a.lastUpdated) : 0
+      const bLatest = b.lastUpdated ? +new Date(b.lastUpdated) : 0
+      return bLatest - aLatest
     })
   }
   return filtered
@@ -208,6 +208,7 @@ watch(zotero, (zotero) => {
     >
       <PluginCard
         :plugin="plugin"
+        :show-last-updated="sortBy === 'lastUpdated'"
         @show-download="showDownload"
         @filter-by-author="setAuthorFilter"
       />

@@ -3,7 +3,7 @@ import type { PluginInfo } from '@data/plugins.data'
 import type { PluginTag } from '@data/pluginTags'
 import { getPluginTags } from '@data/pluginTags'
 import { usePluginLocale } from '@theme/composables/usePluginLocale'
-import { useClipboard } from '@vueuse/core'
+import { useClipboard, useTimeAgoIntl } from '@vueuse/core'
 import { useData } from 'vitepress'
 import { computed } from 'vue'
 import DownloadIcon from './icons/DownloadIcon.vue'
@@ -12,6 +12,8 @@ import ShareIcon from './icons/ShareIcon.vue'
 
 const props = defineProps<{
   plugin: PluginInfo
+  /** 是否显示最后更新时间（仅在按更新时间排序时） */
+  showLastUpdated?: boolean
 }>()
 
 const emits = defineEmits(['showDownload', 'filterByAuthor'])
@@ -19,6 +21,11 @@ const emits = defineEmits(['showDownload', 'filterByAuthor'])
 const locale = usePluginLocale()
 const { lang } = useData()
 const allTags = computed(() => getPluginTags(lang.value))
+
+// 相对时间（如“3 天前”），基于 Intl.RelativeTimeFormat，随语言切换
+const lastUpdatedText = useTimeAgoIntl(() => props.plugin.lastUpdated || Date.now(), {
+  locale: lang.value.startsWith('en') ? 'en-US' : 'zh-CN',
+})
 
 function showDownload() {
   emits('showDownload', props.plugin)
@@ -82,6 +89,21 @@ function copyLink() {
             <i-ep-star-filled />
           </el-icon>
           <span>{{ props.plugin.stars }}</span>
+        </el-text>
+      </el-tooltip>
+
+      <el-tooltip
+        v-if="props.showLastUpdated && props.plugin.lastUpdated"
+        class="box-item"
+        effect="dark"
+        :content="new Date(props.plugin.lastUpdated).toLocaleString()"
+        placement="bottom"
+      >
+        <el-text>
+          <el-icon>
+            <i-ep-clock />
+          </el-icon>
+          <span>{{ lastUpdatedText }}</span>
         </el-text>
       </el-tooltip>
     </el-space>
