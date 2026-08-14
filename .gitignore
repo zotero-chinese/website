@@ -17,6 +17,9 @@ dist
 # 下载的数据
 **/data/_data/
 
+# CSL 样式构建产物（由 cslAssets 插件从 styles 子模块复制）
+src/public/styles/
+
 # Local Netlify folder
 .netlify
 

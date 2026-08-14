@@ -14,6 +14,7 @@ import Inspect from 'vite-plugin-inspect'
 import VueDevTools from 'vite-plugin-vue-devtools'
 import llmstxt from 'vitepress-plugin-llms'
 import { contributors } from '../data/contributors'
+import { CslAssets } from '../plugins/cslAssets'
 import { MarkdownTransform } from '../plugins/markdownTransform'
 
 export default defineConfig({
@@ -84,6 +85,9 @@ export default defineConfig({
     llmstxt({
       ignoreFiles: ['translators/**', 'styles/**', 'plugins/**'],
     }),
+
+    // 开发环境下提供 CSL 样式文件的访问
+    CslAssets(),
   ],
   ssr: {
     noExternal: ['element-plus', 'highcharts', 'highcharts-vue', '@highcharts/dashboards'],
