@@ -57,7 +57,9 @@ const loadedRepo = ref('')
 watch(
   () => [props.modelValue, props.selectedPlugin?.repo] as const,
   async ([show, repo]) => {
-    if (!show || !repo || repo === loadedRepo.value) return
+    if (!show || !repo) return
+    // 已有当前插件的数据时直接复用，否则重新拉取
+    if (full.value && loadedRepo.value === repo) return
     full.value = null
     loading.value = true
     failed.value = false
@@ -72,6 +74,8 @@ watch(
       loading.value = false
     }
   },
+  // 组件由 v-if 创建，创建时 modelValue 已是 true，需立即执行首次加载
+  { immediate: true },
 )
 </script>
 
