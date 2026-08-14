@@ -26,7 +26,9 @@ const issuesUrl = computed(() => (repo.value ? `https://github.com/${repo.value}
     <el-alert type="info" :closable="false" show-icon>
       <template #title>💬 反馈与建议</template>
       <div class="feedback-body">
-        <span>发现 Bug 或有功能建议？本站评论区插件作者不一定能看到，请前往插件仓库提交 Issue：</span>
+        <span
+          >发现 Bug 或有功能建议？本站评论区插件作者不一定能看到，请前往插件仓库提交 Issue：</span
+        >
         <el-button tag="a" :href="issuesUrl" target="_blank" rel="noopener" size="small">
           前往 {{ repo }} 提交 Issue
         </el-button>
