@@ -33,7 +33,6 @@
     "es-toolkit": "^1.49.0",
     "feed": "6.0.0",
     "fs-extra": "11.4.0",
-    "gray-matter": "^4.0.3",
     "highcharts": "12.6.0",
     "highcharts-vue": "2.0.1",
     "nprogress": "^0.2.0",

@@ -2,39 +2,47 @@
 /**
  * 插件文档页头部信息栏。
  *
- * 由 markdownTransform 注入到带 `plugin:` frontmatter 的文档一级标题之后，
- * 展示官方下载地址、中文镜像（插件商店，deep-link 直达对应插件抽屉）与提交反馈入口。
+ * 由 markdownTransform 注入到 user-guide/plugins/ 目录下的所有文档一级标题之后；
+ * 插件仓库取自文档 frontmatter 的 `plugin` 字段，未标注时组件整体隐藏
+ * （about-plugin、translate/* 等无标注文档不受影响）。
  *
+ * 展示官方下载地址、中文镜像（插件商店，deep-link 直达对应插件抽屉）与提交反馈入口。
  * 文案仅面向中文文档（zh wiki），无需 i18n。
  */
 import { computed } from 'vue'
+import { useData } from 'vitepress'
 import { usePluginDownloads } from '@theme/composables/usePluginDownloads'
-// @ts-expect-error data 是 vitepress 的隐式导出
 import { data as plugins } from '@data/plugins.data'
 import type { PluginInfo } from '@data/plugins.data'
 import GitHubIcon from './icons/GitHubIcon.vue'
 
-const props = defineProps<{
-  /** 插件仓库，如 windingwind/zotero-better-notes */
-  repo: string
-}>()
+const { frontmatter } = useData()
 
-const repoRef = computed(() => props.repo)
+/** 插件仓库：文档 frontmatter 的 `plugin` 字段，如 windingwind/zotero-better-notes */
+const repo = computed<string | undefined>(() => {
+  const r = frontmatter.value.plugin
+  return typeof r === 'string' && r ? r : undefined
+})
+const repoRef = computed(() => repo.value)
 const { full, failed } = usePluginDownloads(repoRef)
 
 // 插件名优先取商店数据（构建期可得，SSR 即可渲染），其次取按需加载的完整数据
 const storePlugin = computed(() =>
-  (plugins as PluginInfo[]).find((p) => p.repo.toLowerCase() === props.repo.toLowerCase()),
+  (plugins as PluginInfo[]).find((p) => p.repo.toLowerCase() === repo.value?.toLowerCase()),
 )
-const pluginName = computed(() => storePlugin.value?.name ?? full.value?.name ?? props.repo)
-const githubReleaseUrl = computed(() => `https://github.com/${props.repo}/releases/latest`)
-const issuesUrl = computed(() => `https://github.com/${props.repo}/issues/new`)
+const pluginName = computed(() => storePlugin.value?.name ?? full.value?.name ?? repo.value ?? '')
+const githubReleaseUrl = computed(() =>
+  repo.value ? `https://github.com/${repo.value}/releases/latest` : '',
+)
+const issuesUrl = computed(() => (repo.value ? `https://github.com/${repo.value}/issues/new` : ''))
 /** 中文镜像：插件商店，打开后自动弹出该插件的下载抽屉 */
-const storeUrl = computed(() => `/plugins/#plugin=${encodeURIComponent(props.repo)}`)
+const storeUrl = computed(() =>
+  repo.value ? `/plugins/#plugin=${encodeURIComponent(repo.value)}` : '',
+)
 </script>
 
 <template>
-  <div class="plugin-doc-header">
+  <div v-if="repo" class="plugin-doc-header">
     <div class="info">
       <span class="name">{{ pluginName }}</span>
       <span v-if="full" class="meta">

@@ -56,9 +56,6 @@ importers:
       fs-extra:
         specifier: 11.4.0
         version: 11.4.0
-      gray-matter:
-        specifier: ^4.0.3
-        version: 4.0.3
       highcharts:
         specifier: 12.6.0
         version: 12.6.0
