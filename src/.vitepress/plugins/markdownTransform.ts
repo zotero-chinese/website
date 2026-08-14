@@ -77,15 +77,26 @@ function _injectPluginDocComponents(code: string): string {
     'import PluginFeedback from "@theme/components/PluginFeedback.vue"',
     '</script>',
   ].join('\n')
+  const header = `<PluginDocHeader repo="${pluginRepo}" />`
+  const footer = `<PluginFeedback repo="${pluginRepo}" />`
 
-  const lines = content.split('\n')
-  const headingIndex = lines.findIndex((line) => /^#\s+/.test(line))
-  if (headingIndex !== -1) {
-    // 一级标题后插入头部信息栏
-    lines.splice(headingIndex + 1, 0, '', `<PluginDocHeader repo="${pluginRepo}" />`)
+  // 优先替换 wiki 文档中预留的占位符（HTML 注释，wiki 站不显示）；
+  // 未预留时兑底：在一级标题后注入
+  const placeholder = '<!-- PLACEHOLDER FOR WEBSITE - PLUGIN INFO -->'
+  let injectedContent: string
+  if (content.includes(placeholder)) {
+    injectedContent = content.replace(placeholder, header)
+  } else {
+    const lines = content.split('\n')
+    const headingIndex = lines.findIndex((line) => /^#\s+/.test(line))
+    if (headingIndex !== -1) {
+      lines.splice(headingIndex + 1, 0, '', header)
+    }
+    injectedContent = lines.join('\n')
   }
   // 文档末尾（评论区上方）插入反馈入口
-  const injectedContent = `${lines.join('\n')}\n\n<PluginFeedback repo="${pluginRepo}" />\n`
+  injectedContent = `${injectedContent}\n\n${footer}\n`
+
   // frontmatter 块原样保留（gray-matter 的 content 不含 frontmatter）
   const frontmatterBlock = code.slice(0, code.length - content.length)
   return `${frontmatterBlock}${scriptSetup}\n\n${injectedContent}`
