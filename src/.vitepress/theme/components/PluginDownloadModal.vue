@@ -105,7 +105,7 @@ const docUrl = computed(() =>
     </div>
 
     <div v-if="docUrl" class="doc-entry">
-      <el-link type="primary" :href="docUrl" target="_blank" :underline="false">
+      <el-link type="primary" :href="docUrl" :underline="false">
         <el-icon>
           <i-ep-document />
         </el-icon>
