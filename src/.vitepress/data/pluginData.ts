@@ -207,27 +207,28 @@ export function readRawPlugins(): RawPlugin[] {
  */
 export function transformPlugins(raw: RawPlugin[]): PluginFullInfo[] {
   return raw.map((p) => {
-    const releases = mergeReleasesByXpiVersion(p.releases).map((r) => {
-      // 各镜像下载地址原样保留：`github` 键的值可能是 Gitee 直链等非 GitHub 链接，
-      // 无法按固定格式推导，必须以数据为准；仅提取文件名作为无 URL 时的兑底
-      const urls = r.xpiDownloadUrl
-      const anyUrl = urls && Object.values(urls).find((u) => u)
-      const xpiFileName = anyUrl ? anyUrl.split('/').pop()! : ''
-      return {
-        id: r.id,
-        xpiVersion: r.xpiVersion,
-        targetZoteroVersion: r.targetZoteroVersion,
-        tagName: r.tagName,
-        releaseDate: r.releaseDate,
-        minZoteroVersion: r.minZoteroVersion,
-        maxZoteroVersion: r.maxZoteroVersion,
-        ...(urls && Object.keys(urls).length > 0 ? { xpiDownloadUrl: urls } : {}),
-        ...(xpiFileName ? { xpiFileName } : {}),
-      } as ReleaseInfo
-    })
-    // 数据源不保证按发布时间排序，这里统一按发布时间降序排列，
-    // 保证 `releases[0]` 即最新版本（下载弹窗、lastUpdated 等也依赖此顺序）
-    .sort((a, b) => +new Date(b.releaseDate) - +new Date(a.releaseDate))
+    const releases = mergeReleasesByXpiVersion(p.releases)
+      .map((r) => {
+        // 各镜像下载地址原样保留：`github` 键的值可能是 Gitee 直链等非 GitHub 链接，
+        // 无法按固定格式推导，必须以数据为准；仅提取文件名作为无 URL 时的兑底
+        const urls = r.xpiDownloadUrl
+        const anyUrl = urls && Object.values(urls).find((u) => u)
+        const xpiFileName = anyUrl ? anyUrl.split('/').pop()! : ''
+        return {
+          id: r.id,
+          xpiVersion: r.xpiVersion,
+          targetZoteroVersion: r.targetZoteroVersion,
+          tagName: r.tagName,
+          releaseDate: r.releaseDate,
+          minZoteroVersion: r.minZoteroVersion,
+          maxZoteroVersion: r.maxZoteroVersion,
+          ...(urls && Object.keys(urls).length > 0 ? { xpiDownloadUrl: urls } : {}),
+          ...(xpiFileName ? { xpiFileName } : {}),
+        } as ReleaseInfo
+      })
+      // 数据源不保证按发布时间排序，这里统一按发布时间降序排列，
+      // 保证 `releases[0]` 即最新版本（下载弹窗、lastUpdated 等也依赖此顺序）
+      .sort((a, b) => +new Date(b.releaseDate) - +new Date(a.releaseDate))
 
     return {
       repo: p.repo,
