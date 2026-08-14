@@ -2,7 +2,8 @@
 import type { PluginFullInfo, PluginInfo, ReleaseInfo } from '@data/plugins.data'
 import { LATEST_ZOTERO_BETA_VERSION } from '@data/constant'
 import { usePluginLocale } from '@theme/composables/usePluginLocale'
-import { ref, watch } from 'vue'
+import { useMediaQuery } from '@vueuse/core'
+import { computed, ref, watch } from 'vue'
 
 const props = defineProps<{
   modelValue: boolean
@@ -48,6 +49,10 @@ watch(isShowing, (v) => {
   emits('update:modelValue', v)
 })
 
+// 窄屏（移动）设备上尽可能放大抽屉，便于阅读；桌面端保持原尺寸
+const isNarrowScreen = useMediaQuery('(max-width: 500px)')
+const drawerSize = computed(() => (isNarrowScreen.value ? '100%' : '50%'))
+
 // 完整插件数据（含全部版本与下载信息），打开弹窗时按需加载
 const full = ref<PluginFullInfo | null>(null)
 const loading = ref(false)
@@ -83,7 +88,7 @@ watch(
   <el-drawer
     v-model="isShowing"
     direction="rtl"
-    size="50%"
+    :size="drawerSize"
     modal-class="vp-doc"
     :lock-scroll="true"
     :title="props.selectedPlugin?.name"
