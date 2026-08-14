@@ -1,32 +1,73 @@
 <script setup lang="ts">
-import { data as styles } from '@data/styles.data'
 import { useData } from 'vitepress'
+import { computed, onMounted, ref } from 'vue'
 
 const { page } = useData()
 
-const style = styles.find((s) => s.dir === page.value.relativePath.split('/')[1])
+const dir = computed(() => page.value.relativePath.split('/')[1])
 
-const contributors = [
-  ...(style?.author?.map((v) => v.name) || ''),
-  ...(style?.contributor?.map((v) => v.name) || ''),
-].join(', ')
+/** FNV-1a 64 位哈希，与 `styles.data.ts` / `dataAssets.ts` 中的实现保持一致 */
+function styleKey(input: string): string {
+  let h = 0xcbf29ce484222325n
+  for (let i = 0; i < input.length; i++) {
+    h ^= BigInt(input.charCodeAt(i))
+    h = (h * 0x100000001b3n) & 0xffffffffffffffffn
+  }
+  return h.toString(16)
+}
+
+const style = ref<StyleFullResult | null>(null)
+const loading = ref(true)
+const failed = ref(false)
+
+// 仅在客户端加载数据，避免 SSR 阶段 fetch 与 hydration 状态不一致
+onMounted(async () => {
+  if (!dir.value) return
+  try {
+    const response = await fetch(
+      `${import.meta.env.BASE_URL}styles-data/${styleKey(dir.value)}.json`,
+    )
+    if (!response.ok) throw new Error(`HTTP ${response.status}`)
+    style.value = (await response.json()) as StyleFullResult
+  } catch {
+    failed.value = true
+  } finally {
+    loading.value = false
+  }
+})
+
+const contributors = computed(() => {
+  const s = style.value
+  return [
+    ...(s?.author?.map((v) => v.name) || ''),
+    ...(s?.contributor?.map((v) => v.name) || ''),
+  ].join(', ')
+})
 
 const repoU = 'zotero-chinese'
 const repoN = 'styles'
-const blobLink = `https://github.com/${repoU}/${repoN}/blob/main/src/${style?.dir}/${style?.file}`
-const downloadLinks = {
-  // https://raw.githubusercontent.com/redleafnew/Chinese-STD-GB-T-7714-related-csl/main/src/accounting-research/accounting-research.csl
-  // 本站直接分发，随站点构建自动同步；使用根相对路径以兼容预览站点
-  website: `/styles/${style?.dir}/${style?.file}`,
-  github: `https://raw.githubusercontent.com/${repoU}/${repoN}/main/src/${style?.dir}/${style?.file}`,
-  gitee: `https://gitee.com/zotero-chinese-x/styles/raw/main/src/${style?.dir}/${style?.file}`,
-  jsd: `https://cdn.jsdelivr.net/gh/${repoU}/${repoN}@main/src/${style?.dir}/${style?.file}`,
-  ghproxy: `https://ghfast.top/?q=${encodeURI(blobLink)}`,
-  keleAli: `https://oss.wieke.cn/styles/src/${style?.dir}/${style?.file}`,
-  keleAzure: `https://oss.wwang.de/styles/src/${style?.dir}/${style?.file}`,
-}
+const blobLink = computed(() => {
+  const s = style.value
+  return `https://github.com/${repoU}/${repoN}/blob/main/src/${s?.dir}/${s?.file}`
+})
+const downloadLinks = computed(() => {
+  const s = style.value
+  return {
+    // https://raw.githubusercontent.com/redleafnew/Chinese-STD-GB-T-7714-related-csl/main/src/accounting-research/accounting-research.csl
+    // 本站直接分发，随站点构建自动同步；使用根相对路径以兼容预览站点
+    website: `/styles/${s?.dir}/${s?.file}`,
+    github: `https://raw.githubusercontent.com/${repoU}/${repoN}/main/src/${s?.dir}/${s?.file}`,
+    gitee: `https://gitee.com/zotero-chinese-x/styles/raw/main/src/${s?.dir}/${s?.file}`,
+    jsd: `https://cdn.jsdelivr.net/gh/${repoU}/${repoN}@main/src/${s?.dir}/${s?.file}`,
+    ghproxy: `https://ghfast.top/?q=${encodeURI(blobLink.value)}`,
+    keleAli: `https://oss.wieke.cn/styles/src/${s?.dir}/${s?.file}`,
+    keleAzure: `https://oss.wwang.de/styles/src/${s?.dir}/${s?.file}`,
+  }
+})
 
-const styleClass = style?.style_class === 'in-text' ? '文内引注' : '脚注'
+const styleClass = computed(() => {
+  return style.value?.style_class === 'in-text' ? '文内引注' : '脚注'
+})
 
 const styleFormatMap: { [key: string]: string } = {
   author: '著者',
@@ -35,7 +76,9 @@ const styleFormatMap: { [key: string]: string } = {
   label: '标签',
   note: '脚注',
 }
-const styleFormat = styleFormatMap[style?.citation_format || ''] || style?.citation_format
+const styleFormat = computed(() => {
+  return styleFormatMap[style.value?.citation_format || ''] || style.value?.citation_format
+})
 </script>
 
 <template>
@@ -161,5 +204,6 @@ const styleFormat = styleFormatMap[style?.citation_format || ''] || style?.citat
       </li>
     </ul>
   </template>
+  <el-skeleton v-else-if="loading" :rows="5" animated />
   <template v-else> 未找到此条目。 </template>
 </template>

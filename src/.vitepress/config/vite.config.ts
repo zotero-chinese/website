@@ -15,6 +15,7 @@ import VueDevTools from 'vite-plugin-vue-devtools'
 import llmstxt from 'vitepress-plugin-llms'
 import { contributors } from '../data/contributors'
 import { CslAssets } from '../plugins/cslAssets'
+import { DataAssets } from '../plugins/dataAssets'
 import { MarkdownTransform } from '../plugins/markdownTransform'
 
 export default defineConfig({
@@ -71,6 +72,9 @@ export default defineConfig({
     Icons(),
 
     MarkdownTransform(),
+
+    // 生成 public/styles-data/ 与 public/plugin-data/ 下的静态数据 JSON
+    DataAssets(),
 
     // Git Changelog
     GitChangelog({

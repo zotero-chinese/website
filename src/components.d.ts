@@ -28,6 +28,7 @@ declare module 'vue' {
     ElPopover: typeof import('element-plus/es')['ElPopover']
     ElRow: typeof import('element-plus/es')['ElRow']
     ElSelect: typeof import('element-plus/es')['ElSelect']
+    ElSkeleton: typeof import('element-plus/es')['ElSkeleton']
     ElSpace: typeof import('element-plus/es')['ElSpace']
     ElStatistic: typeof import('element-plus/es')['ElStatistic']
     ElSwitch: typeof import('element-plus/es')['ElSwitch']
