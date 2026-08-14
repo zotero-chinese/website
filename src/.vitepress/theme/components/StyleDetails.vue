@@ -108,7 +108,9 @@ const styleFormat = styleFormatMap[style?.citation_format || ''] || style?.citat
     <p>单击以下任一链接，通过 Zotero Connector 直接安装：</p>
     <ul>
       <li>
-        <a :href="downloadLinks.website" target="_blank">通过 Zotero 中文社区下载</a>
+        <a :href="downloadLinks.website" target="_blank" :download="style?.file">
+          通过 Zotero 中文社区下载
+        </a>
         （由本站直接提供，与 GitHub 同步更新）
       </li>
       <li>
