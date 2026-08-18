@@ -1,1 +1,1 @@
-export const LATEST_ZOTERO_BETA_VERSION = 10
+export const LATEST_ZOTERO_BETA_VERSION = 11
