@@ -50,6 +50,12 @@ export interface ReleaseInfoBase {
   tagName: 'latest' | 'pre' | string
 }
 
+export interface PluginAuthor {
+  name: string
+  url: string
+  avatar: string
+}
+
 /** 索引页使用的精简插件信息 */
 export interface PluginInfo extends PluginInfoBase {
   /**
@@ -64,11 +70,7 @@ export interface PluginInfo extends PluginInfoBase {
   lastUpdated: string
   description: string
   stars: number
-  author: {
-    name: string
-    url: string
-    avatar: string
-  }
+  author: PluginAuthor
 }
 
 /** 索引页使用的精简发布信息（仅保留筛选与排序所需字段） */
@@ -82,11 +84,7 @@ export interface PluginFullInfo extends PluginInfoBase {
   releases: ReleaseInfo[]
   description: string
   stars: number
-  author: {
-    name: string
-    url: string
-    avatar: string
-  }
+  author: PluginAuthor
 }
 
 export interface ReleaseInfo extends ReleaseInfoBase {
@@ -158,7 +156,8 @@ interface RawPlugin {
    * @deprecated Please use stars instead.
    */
   star?: number
-  author: PluginInfo['author']
+  // 部分数据源记录的插件没有 author 字段，转换时会使用仓库所有者作为兜底。
+  author?: Partial<PluginAuthor> | null
   tags: PluginTagType[]
   recommended: boolean
   releases: Array<RawRelease>
@@ -235,7 +234,7 @@ export function transformPlugins(raw: RawPlugin[]): PluginFullInfo[] {
       name: p.name,
       description: p.description,
       stars: p.stars,
-      author: p.author,
+      author: normalizeAuthor(p.author, p.repo),
       recommended: p.recommended,
       tags: [
         ...(fav.includes(p.repo) ? ['favorite'] : []),
@@ -249,6 +248,31 @@ export function transformPlugins(raw: RawPlugin[]): PluginFullInfo[] {
       releases,
     }
   })
+}
+
+/**
+ * 规范化插件作者信息。
+ *
+ * 插件数据由外部抓取器生成，部分插件（例如没有可读取仓库元数据的插件）可能没有
+ * `author`。作者仍用于卡片展示、排序和筛选，因此使用仓库所有者作为可用的兜底值，
+ * 避免单条异常数据导致整个插件商店崩溃。
+ */
+function normalizeAuthor(
+  author: Partial<PluginAuthor> | null | undefined,
+  repo: string,
+): PluginAuthor {
+  const owner = repo.split('/')[0]?.trim() || 'Unknown author'
+  const fallback = {
+    name: owner,
+    url: owner === 'Unknown author' ? '' : `https://github.com/${owner}`,
+    avatar: owner === 'Unknown author' ? '' : `https://github.com/${owner}.png?size=100`,
+  }
+
+  return {
+    name: typeof author?.name === 'string' && author.name.trim() ? author.name : fallback.name,
+    url: typeof author?.url === 'string' && author.url ? author.url : fallback.url,
+    avatar: typeof author?.avatar === 'string' && author.avatar ? author.avatar : fallback.avatar,
+  }
 }
 
 /** 提取索引页使用的精简数据 */

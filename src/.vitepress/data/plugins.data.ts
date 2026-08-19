@@ -5,6 +5,7 @@ declare const data: PluginInfo[]
 export { data }
 
 export type {
+  PluginAuthor,
   PluginFullInfo,
   PluginInfo,
   PluginInfoBase,
