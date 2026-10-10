@@ -21,6 +21,7 @@ jobs:
       - name: Build
         run: |
           git submodule update --remote
+          node --test checks/*.test.ts checks/*.test.mjs
           vp run fetch-data
           vp run build
 

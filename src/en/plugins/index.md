@@ -6,7 +6,7 @@ aside: false
 title: Zotero Plugin Marketplace
 actions:
   - text: 🏪 Request Plugin Listing
-    link: https://github.com/zotero-chinese/zotero-plugins
+    link: https://github.com/zotero-chinese/zotero-plugins/issues/new
   - text: 🏆 Plugin Rankings
     link: /plugins/charts
   - text: Premium Plugins (in Chinese)

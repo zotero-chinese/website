@@ -43,6 +43,16 @@ pnpm build
 pnpm check
 ```
 
+插件搜索复用 Wiki 中带 `plugin` 标记的文档标题，并支持数据源中的可选 `nameZh`、`summaryZh`、`keywords` 字段。中文内容在 `zotero-plugins` 源清单维护；网站当前仍读取外部 scraper，切换数据源前，已有关联文档的中文标题即可用于搜索，无需另建别名清单。
+
+同步插件数据时，Gitee 直链的更新时间取对应分支下 XPI 文件的最后一次提交时间，以修正上游沿用 GitHub 发布日期的情况。查询失败时同步会报错，不写入不完整的插件数据，也不使用采集时间代替更新时间。
+
+运行插件回归检查（Node.js 24，需先检出项目源码）：
+
+```bash
+node --test checks/*.test.ts checks/*.test.mjs
+```
+
 ## 贡献者
 
 感谢所有贡献者！

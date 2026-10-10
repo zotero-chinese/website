@@ -14,30 +14,30 @@ export function usePluginDownloads(repo: Ref<string | undefined>) {
   const full = ref<PluginFullInfo | null>(null)
   const loading = ref(false)
   const failed = ref(false)
-  const loadedRepo = ref('')
+  const retryAttempt = ref(0)
 
   if (!import.meta.env.SSR) {
     watch(
-      repo,
-      async (r) => {
-        if (!r) {
-          full.value = null
-          return
-        }
-        // 已有当前插件的数据时直接复用，否则重新拉取
-        if (full.value && loadedRepo.value === r) return
+      [repo, retryAttempt],
+      async ([r], _previous, onCleanup) => {
         full.value = null
-        loading.value = true
+        loading.value = Boolean(r)
         failed.value = false
+        if (!r) return
+
+        const controller = new AbortController()
+        onCleanup(() => controller.abort())
         try {
-          const response = await fetch(`${import.meta.env.BASE_URL}plugin-data/${r}.json`)
+          const response = await fetch(`${import.meta.env.BASE_URL}plugin-data/${r}.json`, {
+            signal: controller.signal,
+          })
           if (!response.ok) throw new Error(`HTTP ${response.status}`)
-          full.value = (await response.json()) as PluginFullInfo
-          loadedRepo.value = r
+          const plugin = (await response.json()) as PluginFullInfo
+          if (!controller.signal.aborted) full.value = plugin
         } catch {
-          failed.value = true
+          if (!controller.signal.aborted) failed.value = true
         } finally {
-          loading.value = false
+          if (!controller.signal.aborted) loading.value = false
         }
       },
       // 组件可能由 v-if 创建（创建时 repo 已就绪），需立即执行首次加载
@@ -66,5 +66,9 @@ export function usePluginDownloads(repo: Ref<string | undefined>) {
     }
   }
 
-  return { full, loading, failed, buildXpiDownloadUrl }
+  function retry() {
+    retryAttempt.value++
+  }
+
+  return { full, loading, failed, retry, buildXpiDownloadUrl }
 }

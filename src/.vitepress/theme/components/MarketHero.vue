@@ -7,7 +7,6 @@ const props = defineProps({
   actions: Array<{
     text: string
     link: string
-    // theme?: { type: "brand" | "alt"; default: "alt" };
     target?: string
     rel?: string
   }>,
