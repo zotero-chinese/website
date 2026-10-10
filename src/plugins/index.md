@@ -6,7 +6,7 @@ aside: false
 title: Zotero 插件商店
 actions:
   - text: 🏪 请求收录插件
-    link: https://github.com/zotero-chinese/zotero-plugins
+    link: https://github.com/zotero-chinese/zotero-plugins/issues/new
   - text: 🏆 插件排行榜
     link: ./charts
   - text: 付费插件

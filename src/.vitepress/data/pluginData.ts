@@ -16,6 +16,9 @@ export const pluginsRemotePath =
   'https://raw.githubusercontent.com/zotero-chinese/zotero-plugins/gh-pages/dist/plugins.json'
 
 export interface PluginInfoBase {
+  nameZh?: string
+  summaryZh?: string
+  keywords?: string[]
   /**
    * 插件仓库
    *
@@ -64,7 +67,7 @@ export interface PluginInfo extends PluginInfoBase {
   name: string
   releases: ReleaseInfoSlim[]
   /**
-   * 插件最新发布时间（ISO 8601），取自 releases 中最新的 releaseDate；
+   * 插件文件最新更新时间（ISO 8601），取自 releases 中最新的 releaseDate；
    * 无 release 时为空字符串
    */
   lastUpdated: string
@@ -148,6 +151,9 @@ export type PluginTagType =
   | 'utility'
 
 interface RawPlugin {
+  nameZh?: string
+  summaryZh?: string
+  keywords?: string[]
   repo: string
   name: string
   description: string
@@ -205,7 +211,9 @@ export function readRawPlugins(): RawPlugin[] {
  *   同时提取 xpi 文件名作为下载链接缺失时的兜底
  */
 export function transformPlugins(raw: RawPlugin[]): PluginFullInfo[] {
-  return raw.map((p) => {
+  // 上游抓取数据仍可能包含已下架插件；索引与下载数据统一在这里排除。
+  const listed = raw.filter((plugin) => plugin.repo.toLowerCase() !== 'wdcpclover/ai4paper')
+  return listed.map((p) => {
     const releases = mergeReleasesByXpiVersion(p.releases)
       .map((r) => {
         // 各镜像下载地址原样保留：`github` 键的值可能是 Gitee 直链等非 GitHub 链接，
@@ -232,6 +240,9 @@ export function transformPlugins(raw: RawPlugin[]): PluginFullInfo[] {
     return {
       repo: p.repo,
       name: p.name,
+      nameZh: p.nameZh,
+      summaryZh: p.summaryZh,
+      keywords: p.keywords,
       description: p.description,
       stars: p.stars,
       author: normalizeAuthor(p.author, p.repo),
@@ -280,6 +291,9 @@ export function toPluginSummary(plugin: PluginFullInfo): PluginInfo {
   return {
     repo: plugin.repo,
     name: plugin.name,
+    nameZh: plugin.nameZh,
+    summaryZh: plugin.summaryZh,
+    keywords: plugin.keywords,
     description: plugin.description,
     stars: plugin.stars,
     author: plugin.author,

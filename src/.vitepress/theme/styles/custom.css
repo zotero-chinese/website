@@ -58,3 +58,19 @@ ul.el-timeline {
 .vp-doc p {
   text-align: justify;
 }
+@media (max-width: 640px) {
+  .VPNavBar .container > .title {
+    min-width: 0;
+    flex-shrink: 1;
+  }
+
+  .VPNavBarTitle .title > span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .VPNavBarTitle .logo {
+    flex-shrink: 0;
+  }
+}

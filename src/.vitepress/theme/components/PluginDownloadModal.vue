@@ -5,52 +5,55 @@ import { getPluginDocUrl } from '@data/pluginDocs'
 import { usePluginDownloads } from '@theme/composables/usePluginDownloads'
 import { usePluginLocale } from '@theme/composables/usePluginLocale'
 import { useMediaQuery } from '@vueuse/core'
-import { computed, ref, watch } from 'vue'
+import { useData } from 'vitepress'
+import { computed } from 'vue'
 
 const props = defineProps<{
-  modelValue: boolean
   selectedPlugin?: PluginInfo
+  zoteroVersion?: string
 }>()
 
-const emits = defineEmits(['update:modelValue'])
-
+const isShowing = defineModel<boolean>({ required: true })
 const locale = usePluginLocale()
+const { lang } = useData()
+const displayName = computed(() =>
+  lang.value.startsWith('zh')
+    ? props.selectedPlugin?.nameZh || props.selectedPlugin?.name
+    : props.selectedPlugin?.name,
+)
 
 function getTargetZoteroVersions(release: ReleaseInfo) {
   return locale.value.downloadForZotero.replace(
-    '{{ version }}',
+    '{version}',
     release.targetZoteroVersion
       .replaceAll(',', ', ')
       .replace(`${LATEST_ZOTERO_BETA_VERSION}`, `${LATEST_ZOTERO_BETA_VERSION}-beta`),
   )
 }
 
-/**
- * 各镜像下载地址。
- *
- * 优先使用数据中的原始地址（`github` 键的值可能是 Gitee 直链等，不能按固定格式推导）；
- * 仅当数据缺失时，才用 repo/tag/文件名兜底推导 GitHub 系列链接。
- *
- * 由 usePluginDownloads 提供（与插件文档页头部共用）。
- */
-
-const isShowing = ref(true)
-
-watch(isShowing, (v) => {
-  emits('update:modelValue', v)
-})
-
-// 窄屏（移动）设备上尽可能放大抽屉，便于阅读；桌面端保持原尺寸
 const isNarrowScreen = useMediaQuery('(max-width: 500px)')
 const drawerSize = computed(() => (isNarrowScreen.value ? '100%' : '50%'))
-
-// 完整插件数据（含全部版本与下载信息），按需加载（与插件文档页头部共用同一逻辑）
 const repoRef = computed(() => props.selectedPlugin?.repo)
-const { full, loading, failed, buildXpiDownloadUrl } = usePluginDownloads(repoRef)
-
-// 插件介绍文档入口（有对应文档时显示）
+const { full, loading, failed, retry, buildXpiDownloadUrl } = usePluginDownloads(repoRef)
+const releases = computed(() =>
+  (full.value?.releases ?? [])
+    .map((release) => ({
+      release,
+      matches: Boolean(
+        props.zoteroVersion &&
+        release.targetZoteroVersion
+          .split(',')
+          .some((version) => version.trim() === props.zoteroVersion),
+      ),
+    }))
+    .sort((a, b) => Number(b.matches) - Number(a.matches)),
+)
+const hasMatchingRelease = computed(() => releases.value.some(({ matches }) => matches))
 const docUrl = computed(() =>
   props.selectedPlugin ? getPluginDocUrl(props.selectedPlugin.repo) : undefined,
+)
+const authorReleasesUrl = computed(() =>
+  props.selectedPlugin ? `https://github.com/${props.selectedPlugin.repo}/releases` : undefined,
 )
 </script>
 
@@ -61,100 +64,105 @@ const docUrl = computed(() =>
     :size="drawerSize"
     modal-class="vp-doc"
     :lock-scroll="true"
-    :title="props.selectedPlugin?.name"
+    :title="displayName"
   >
-    <!-- <div
-      class="custom-block info"
-    >
-      <p class="custom-block-title">
-        插件信息
-      </p>
-      <p>插件名：</p>
-    </div> -->
-
     <div class="custom-block warning">
       <el-text>
-        <el-icon>
-          <i-ep-info-filled />
-        </el-icon>
+        <el-icon><i-ep-info-filled /></el-icon>
         {{ locale.downloadTips1 }}
       </el-text>
       <el-text>
-        <el-icon>
-          <i-ep-info-filled />
-        </el-icon>
+        <el-icon><i-ep-info-filled /></el-icon>
         {{ locale.downloadTips2 }}
       </el-text>
       <el-text>
-        <el-icon>
-          <i-ep-info-filled />
-        </el-icon>
+        <el-icon><i-ep-info-filled /></el-icon>
         {{ locale.downloadTips3 }}
       </el-text>
       <br />
       <el-text type="warning">
-        <el-icon>
-          <i-ep-warn-triangle-filled />
-        </el-icon>
+        <el-icon><i-ep-warn-triangle-filled /></el-icon>
         {{ locale.downloadWarning }}
-        <a href="/user-guide/plugins/about-plugin" type="danger">
-          {{ locale.compatibilityWarning }}
-        </a>
-        。
+        <a href="/user-guide/plugins/about-plugin">{{ locale.compatibilityWarning }}</a>
       </el-text>
     </div>
 
-    <div v-if="docUrl" class="doc-entry">
-      <el-link type="primary" :href="docUrl" :underline="false">
-        <el-icon>
-          <i-ep-document />
-        </el-icon>
+    <div class="doc-entry">
+      <el-link v-if="docUrl" type="primary" :href="docUrl" underline="never">
+        <el-icon><i-ep-document /></el-icon>
         {{ locale.docs }}
       </el-link>
-      <span class="doc-tip">（含功能介绍与使用说明）</span>
+      <el-link
+        type="primary"
+        :href="authorReleasesUrl"
+        target="_blank"
+        rel="noopener"
+        underline="never"
+      >
+        {{ locale.authorReleases }}
+      </el-link>
     </div>
 
-    <el-skeleton v-if="loading" :rows="8" animated />
-    <el-empty v-else-if="failed" description="插件数据加载失败，请稍后重试" />
+    <div v-if="loading" role="status" aria-busy="true">
+      <p>{{ locale.downloadLoading }}</p>
+      <el-skeleton :rows="8" animated aria-hidden="true" />
+    </div>
+    <el-empty v-else-if="failed" :description="locale.downloadLoadFailed" role="status">
+      <div class="download-actions">
+        <el-button @click="retry">{{ locale.retry }}</el-button>
+        <el-button tag="a" :href="authorReleasesUrl" target="_blank" rel="noopener">
+          {{ locale.authorReleases }}
+        </el-button>
+      </div>
+    </el-empty>
 
     <template v-else>
+      <p v-if="zoteroVersion && !hasMatchingRelease" role="status">
+        {{ locale.noCompatibleDownload.replace('{version}', zoteroVersion) }}
+      </p>
       <el-card
-        v-for="release in full?.releases"
-        :key="release.targetZoteroVersion"
+        v-for="{ release, matches } in releases"
+        :key="release.xpiVersion"
         shadow="hover"
         class="card"
       >
         <template #header>
           <div class="card-header">
             <span>{{ getTargetZoteroVersions(release) }}</span>
+            <el-tag v-if="matches && zoteroVersion" type="success" size="small">
+              {{ locale.recommendedDownload.replace('{version}', zoteroVersion) }}
+            </el-tag>
           </div>
         </template>
 
         <ul>
           <li>{{ locale.pluginVersion }}{{ release.xpiVersion }}</li>
-          <li>{{ locale.releaseDate }}{{ new Date(release.releaseDate).toLocaleString() }}</li>
+          <li>{{ locale.releaseDate }}{{ new Date(release.releaseDate).toLocaleString(lang) }}</li>
           <li>
             {{ locale.range }}Zotero {{ release.minZoteroVersion }} — {{ release.maxZoteroVersion }}
           </li>
           <li>
             {{ locale.downloadCount }}
             <img
-              alt="GitHub Downloads (all assets, specific tag)"
-              :src="`https://img.shields.io/github/downloads/${props.selectedPlugin?.repo!}/${release.tagName}/total`"
+              :alt="locale.downloadCount"
+              :src="`https://img.shields.io/github/downloads/${props.selectedPlugin?.repo}/${release.tagName}/total`"
+              loading="lazy"
             />
           </li>
           <li>
             {{ locale.downloadLink }}
-            <el-button
-              v-for="(value, key) in buildXpiDownloadUrl(release)"
-              :key="key"
-              tag="a"
-              :href="value"
-              text
-              bg
-            >
-              {{ key === 'github' ? 'Official Channel' : `${key}` }}
-            </el-button>
+            <div class="download-actions">
+              <el-button
+                v-for="(url, source) in buildXpiDownloadUrl(release)"
+                :key="source"
+                tag="a"
+                :href="url"
+                text
+                bg
+              >
+                {{ source === 'github' ? locale.originalDownload : source }}
+              </el-button>
+            </div>
           </li>
         </ul>
       </el-card>
@@ -162,28 +170,61 @@ const docUrl = computed(() =>
   </el-drawer>
 </template>
 
-<style lang="css" scoped>
+<style scoped>
 .card {
   line-height: 24px;
   font-size: var(--vp-custom-block-font-size);
 }
+
+.card-header,
+.doc-entry,
+.download-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.card-header {
+  justify-content: space-between;
+}
+
+.card-header :deep(.el-tag) {
+  margin: 0;
+}
+
 .card ul {
   margin: 0;
 }
+
 .card li {
-  height: 24px;
+  min-height: 24px;
+  overflow-wrap: anywhere;
 }
+
 .card li img {
   vertical-align: sub;
   max-height: 20px;
   display: inline;
-  margin: 0px 0px;
+  margin: 0;
 }
+
 .doc-entry {
   margin: 0.5rem 0 1rem;
+  gap: 16px;
   font-size: 0.9rem;
 }
-.doc-entry .doc-tip {
-  color: var(--vp-c-text-3);
+
+.download-actions {
+  margin-top: 4px;
+}
+
+.download-actions :deep(.el-button) {
+  margin-left: 0;
+  max-width: 100%;
+  min-height: 32px;
+  height: auto;
+  line-height: 1.5;
+  white-space: normal;
 }
 </style>

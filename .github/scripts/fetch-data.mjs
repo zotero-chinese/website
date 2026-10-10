@@ -3,6 +3,7 @@ import path from 'node:path'
 import process from 'node:process'
 import fs from 'fs-extra'
 import { ofetch } from 'ofetch'
+import { refreshGiteeReleaseDates } from './gitee-release-dates.mjs'
 
 const data_list = [
   {
@@ -37,6 +38,7 @@ for (const d of data_list) {
     retryDelay: 500, // ms
     retryStatusCodes: [404, 500], // response status codes to retry
   })
+  if (d.local_path.endsWith('/plugins.json')) await refreshGiteeReleaseDates(data)
   fs.outputJSONSync(path.resolve(d.local_path), data)
   console.log(`Download ${d.local_path} success!`)
 }

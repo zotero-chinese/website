@@ -1,4 +1,20 @@
 export interface PluginLocaleData {
+  dataUpdatedAt: string
+  releaseUpdatedAt: string
+  resultCount: string
+  requestListingPrompt: string
+  requestListing: string
+  clearFilters: string
+  searchHelp: string
+  searchAllVersions: string
+  recommendedDownload: string
+  noCompatibleDownload: string
+  downloadLoadFailed: string
+  retry: string
+  authorReleases: string
+  originalDownload: string
+  downloadLoading: string
+
   // Toolbar
   zoteroVersion: string
   sortBy: string
@@ -32,6 +48,7 @@ export interface PluginLocaleData {
   publishedPlugins: string
   receivedStars: string
   authorHomepage: string
+  clearAuthorFilter: string
 
   // PluginDownloadModal
   downloadTips1: string
@@ -47,14 +64,6 @@ export interface PluginLocaleData {
   downloadForZotero: string
   range: string
 
-  // Notification
-  upgradeToZotero7Title: string
-  upgradeToZotero7Message: string
-  upgradeToZotero7UpdateGuide: string
-  upgradeToZotero8Title: string
-  upgradeToZotero8Message: string
-  upgradeToZotero8UpdateGuide: string
-
   // Footer
   zoteroGroup: string
   zoteroGroupNumbers: string
@@ -66,11 +75,27 @@ export interface PluginLocaleData {
 }
 
 export const zhLocale: PluginLocaleData = {
+  dataUpdatedAt: '插件数据更新于',
+  releaseUpdatedAt: '插件更新于',
+  resultCount: '找到 {count} 个插件',
+  requestListingPrompt: '没找到想要的插件？',
+  requestListing: '提交收录请求',
+  clearFilters: '清空筛选',
+  searchHelp: '试试插件中文名、英文名、作者，或清空筛选条件。',
+  searchAllVersions: '查看其他 Zotero 版本中的 {count} 个结果',
+  recommendedDownload: '适配已选 Zotero {version}',
+  noCompatibleDownload: '暂无声明适配 Zotero {version} 的下载，请查看其他版本或作者发布页。',
+  downloadLoadFailed: '插件数据加载失败',
+  retry: '重试',
+  authorReleases: '作者发布页',
+  originalDownload: '作者发布源',
+  downloadLoading: '正在加载下载信息…',
+
   // Toolbar
   zoteroVersion: '适配 Zotero 版本',
   sortBy: '排序',
   author: '作者',
-  searchPlaceholder: '搜索插件...',
+  searchPlaceholder: '搜索名称、作者或关键词…',
 
   // Sort options
   sortByStars: '星标量',
@@ -79,7 +104,7 @@ export const zhLocale: PluginLocaleData = {
   sortByLastUpdated: '最后更新时间',
 
   // Zotero options
-  zoteroAll: 'All',
+  zoteroAll: '全部 Zotero 版本',
 
   // Author options
   authorAll: '所有',
@@ -91,13 +116,14 @@ export const zhLocale: PluginLocaleData = {
   visitHomepage: '访问插件主页',
   copyShareLink: '复制分享链接',
   copySucessfully: '复制成功！',
-  copyFailed: '您的浏览器不支持剪贴板接口，请手动复制。',
+  copyFailed: '复制失败，请检查浏览器剪贴板权限后重试。',
   docs: '文档',
 
   // PluginAuthorCard
   publishedPlugins: '已发布插件',
   receivedStars: '收到星标',
   authorHomepage: '作者主页',
+  clearAuthorFilter: '清除作者筛选',
 
   // PluginDownloadModal
   downloadTips1: '本页面为每一个插件都提供了多个下载地址，请逐个尝试选择可用的地址。',
@@ -106,23 +132,13 @@ export const zhLocale: PluginLocaleData = {
   downloadWarning:
     '针对不同 Zotero 版本的插件可能互不兼容，请按自己的 Zotero 版本下载对应的插件版本。查看 Zotero 版本和安装插件步骤请参考：',
   pluginVersion: '插件版本：',
-  releaseDate: '发布时间：',
+  releaseDate: '更新时间：',
   downloadCount: '下载量：',
   downloadLink: '下载链接:',
   downloadLinks: '下载链接',
   cantGetDownloadCount: '无法获取',
-  downloadForZotero: '下载适配 Zotero {{ version }} 的插件',
+  downloadForZotero: '下载适配 Zotero {version} 的插件',
   range: '兼容性声明：',
-
-  // Notification
-  upgradeToZotero7Title: '推荐升级到 Zotero 7',
-  upgradeToZotero7Message:
-    'Zotero 7 现已正式发布，我们推荐所有同学更新到 Zotero 7。<br /><br />请查阅 <a href="/blog/posts/hello-zotero-7" class="el-link el-link--primary is-underline">Zotero 7 更新指南</a>。',
-  upgradeToZotero8Title: '建议使用 Zotero 8',
-  upgradeToZotero8Message:
-    'Zotero 8 现已正式发布，我们推荐所有同学更新到 Zotero 8。<br /><br />请查阅 <a href="/blog/posts/zotero-8" class="el-link el-link--primary is-underline">Zotero 8 更新指南</a>。',
-  upgradeToZotero7UpdateGuide: 'Zotero 7 更新指南',
-  upgradeToZotero8UpdateGuide: 'Zotero 8 更新指南',
 
   // Footer
   zoteroGroup: 'Zotero 中文交流群',
@@ -136,11 +152,28 @@ export const zhLocale: PluginLocaleData = {
 }
 
 export const enLocale: PluginLocaleData = {
+  dataUpdatedAt: 'Plugin data updated',
+  releaseUpdatedAt: 'Plugin updated',
+  resultCount: 'Plugins found: {count}',
+  requestListingPrompt: 'Missing a plugin?',
+  requestListing: 'Request a listing',
+  clearFilters: 'Clear filters',
+  searchHelp: 'Try a plugin name, author, or clear your filters.',
+  searchAllVersions: 'Show {count} results across Zotero versions',
+  recommendedDownload: 'For selected Zotero {version}',
+  noCompatibleDownload:
+    'No download declares compatibility with Zotero {version}. Check other versions or the author’s releases.',
+  downloadLoadFailed: 'Could not load plugin downloads',
+  retry: 'Retry',
+  authorReleases: 'Author’s releases',
+  originalDownload: 'Original download',
+  downloadLoading: 'Loading download options…',
+
   // Toolbar
   zoteroVersion: 'Zotero Version',
   sortBy: 'Sort',
   author: 'Author',
-  searchPlaceholder: 'Search plugins...',
+  searchPlaceholder: 'Search names, authors or keywords…',
 
   // Sort options
   sortByStars: 'Stars',
@@ -161,13 +194,14 @@ export const enLocale: PluginLocaleData = {
   visitHomepage: 'Visit plugin homepage',
   copyShareLink: 'Copy share link',
   copySucessfully: 'Copied successfully!',
-  copyFailed: 'Your browser does not support clipboard API. Please copy manually.',
+  copyFailed: 'Copy failed. Check your browser clipboard permissions and try again.',
   docs: 'Docs',
 
   // PluginAuthorCard
   publishedPlugins: 'Published Plugins',
   receivedStars: 'Received Stars',
   authorHomepage: 'Author Homepage',
+  clearAuthorFilter: 'Clear author filter',
 
   // PluginDownloadModal
   downloadTips1:
@@ -178,23 +212,13 @@ export const enLocale: PluginLocaleData = {
   downloadWarning:
     'Plugins for different Zotero versions may be incompatible. Please download the version corresponding to your Zotero version. For information about checking your Zotero version and installing plugins, please refer to:',
   pluginVersion: 'Plugin Version: ',
-  releaseDate: 'Release Date: ',
+  releaseDate: 'Updated: ',
   downloadCount: 'Downloads: ',
   downloadLink: 'Download Links: ',
   downloadLinks: 'Download Links',
   cantGetDownloadCount: 'Unable to fetch',
-  downloadForZotero: 'Download plugin for Zotero {{ version }}',
-  range: 'Compatibility: ',
-
-  // Notification
-  upgradeToZotero7Title: 'Upgrade to Zotero 7 Recommended',
-  upgradeToZotero7Message:
-    'Zotero 7 has been officially released. We recommend all users update to Zotero 7.<br /><br />Please check the <a href="/blog/posts/hello-zotero-7" class="el-link el-link--primary is-underline">Zotero 7 Update Guide</a>.',
-  upgradeToZotero8Title: 'Update to Zotero 8 Recommended',
-  upgradeToZotero8Message:
-    'Zotero 8 has been officially released. We recommend all users update to Zotero 8.<br /><br />Please check the <a href="/blog/posts/zotero-8" class="el-link el-link--primary is-underline">Zotero 8 Update Guide</a>.',
-  upgradeToZotero7UpdateGuide: 'Zotero 7 Update Guide',
-  upgradeToZotero8UpdateGuide: 'Zotero 8 Update Guide',
+  downloadForZotero: 'Download plugin for Zotero {version}',
+  range: 'Declared compatibility: ',
 
   // Footer
   zoteroGroup: 'Zotero Chinese Community Groups',
@@ -212,14 +236,7 @@ const defaultLocaleInfo: Record<string, PluginLocaleData> = {
   en: enLocale,
 }
 
-const overrides: Record<string, Partial<PluginLocaleData>> = {}
-
 export function getPluginLocale(lang: string): PluginLocaleData {
   const fallbackLang = lang.split('-')[0]
-  const defaultLocale =
-    defaultLocaleInfo[lang] || defaultLocaleInfo[fallbackLang] || defaultLocaleInfo.zh
-
-  const overrideLocale = overrides[lang] ?? overrides[fallbackLang] ?? {}
-
-  return { ...defaultLocale, ...overrideLocale }
+  return defaultLocaleInfo[lang] || defaultLocaleInfo[fallbackLang] || defaultLocaleInfo.zh
 }
