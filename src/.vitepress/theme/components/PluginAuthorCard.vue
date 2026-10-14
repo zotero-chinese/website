@@ -8,43 +8,43 @@ const props = defineProps<{
   plugins: Array<PluginInfo>
 }>()
 
-const _emits = defineEmits(['clear'])
+defineEmits(['clear'])
 
 const locale = usePluginLocale()
 
 const selectedAuthorInfo = computed(() => {
-  if (!props.authorName) return null
   return props.plugins.find((plugin) => plugin.author.name === props.authorName)?.author
 })
 
 const pluginCount = computed(() => props.plugins.length)
-const totalStars = computed(() =>
-  props.plugins.reduce((sum, plugin) => sum + (plugin.stars || 0), 0),
-)
+const totalStars = computed(() => props.plugins.reduce((sum, plugin) => sum + plugin.stars, 0))
 </script>
 
 <template>
   <el-card v-if="selectedAuthorInfo" class="author-card" shadow="hover">
     <div class="card-content">
-      <el-button class="close-btn" size="small" type="danger" circle @click="$emit('clear')">
+      <el-button
+        class="close-btn"
+        size="small"
+        type="danger"
+        circle
+        :aria-label="locale.clearAuthorFilter"
+        :title="locale.clearAuthorFilter"
+        @click="$emit('clear')"
+      >
         <el-icon><i-ep-close-bold /></el-icon>
       </el-button>
 
       <div class="basic-info">
         <div class="avatar">
-          <el-avatar
-            v-if="selectedAuthorInfo.avatar"
-            :src="selectedAuthorInfo.avatar"
-            :size="50"
-            shape="square"
-            fit="fill"
-          />
-          <el-avatar v-else size="large"> ? </el-avatar>
+          <el-avatar :src="selectedAuthorInfo.avatar" :size="50" shape="square" fit="fill">
+            {{ selectedAuthorInfo.name.slice(0, 1).toUpperCase() }}
+          </el-avatar>
         </div>
 
         <div class="info">
           <h3>{{ selectedAuthorInfo.name }}</h3>
-          <el-link :href="selectedAuthorInfo.url" target="_blank" type="primary">
+          <el-link :href="selectedAuthorInfo.url" target="_blank" rel="noopener" type="primary">
             {{ locale.authorHomepage }}
           </el-link>
         </div>
