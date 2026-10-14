@@ -211,9 +211,7 @@ export function readRawPlugins(): RawPlugin[] {
  *   同时提取 xpi 文件名作为下载链接缺失时的兜底
  */
 export function transformPlugins(raw: RawPlugin[]): PluginFullInfo[] {
-  // 上游抓取数据仍可能包含已下架插件；索引与下载数据统一在这里排除。
-  const listed = raw.filter((plugin) => plugin.repo.toLowerCase() !== 'wdcpclover/ai4paper')
-  return listed.map((p) => {
+  return raw.map((p) => {
     const releases = mergeReleasesByXpiVersion(p.releases)
       .map((r) => {
         // 各镜像下载地址原样保留：`github` 键的值可能是 Gitee 直链等非 GitHub 链接，

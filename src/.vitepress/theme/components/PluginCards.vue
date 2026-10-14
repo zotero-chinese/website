@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import type { PluginInfo } from '@data/plugins.data'
 
-import { LATEST_ZOTERO_BETA_VERSION, LATEST_ZOTERO_STABLE_VERSION } from '@data/constant'
+import { LATEST_ZOTERO_BETA_VERSION } from '@data/constant'
 import { data as plugins } from '@data/plugins.data'
 import { data as pluginDocs } from '@data/pluginDocs.data'
-import { searchPlugins } from '@data/pluginSearch'
+import { searchPlugins } from '@theme/composables/pluginSearch'
 import { getPluginTags } from '@data/pluginTags'
 import MarketSearch from '@theme/components/MarketSearch.vue'
 import MarketTagsFilter from '@theme/components/MarketTagsFilter.vue'
@@ -42,7 +42,7 @@ function stringParam(key: string, fallback = '') {
 }
 
 const sortBy = stringParam('sort', 'stars')
-const zotero = stringParam('zotero', String(LATEST_ZOTERO_STABLE_VERSION))
+const zotero = stringParam('zotero', String(LATEST_ZOTERO_BETA_VERSION - 1))
 const allSupportedZotero = Array.from({ length: LATEST_ZOTERO_BETA_VERSION - 5 }, (_, i) =>
   String(i + 6),
 )
@@ -300,7 +300,24 @@ function clearFilters() {
 </template>
 
 <style scoped>
+.plugin-toolbar {
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1rem 0.5rem;
+}
+
+.plugin-toolbar > * {
+  margin: 0;
+}
+
+.plugin-toolbar > .el-select {
+  flex: 0 0 13rem;
+  max-width: 13rem;
+}
+
 .plugin-toolbar .plugin-search {
+  flex: 1 1 18rem;
   max-width: 28rem;
 }
 
@@ -319,7 +336,13 @@ function clearFilters() {
 }
 
 @media (max-width: 800px) {
+  .plugin-toolbar > .el-select {
+    flex: 1 1 10rem;
+    max-width: none;
+  }
+
   .plugin-toolbar .plugin-search {
+    flex-basis: 100%;
     max-width: none;
   }
 }

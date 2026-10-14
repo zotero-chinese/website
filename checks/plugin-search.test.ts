@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import { test } from 'node:test'
-import { searchPlugins } from '../src/.vitepress/data/pluginSearch.ts'
+import { searchPlugins } from '../src/.vitepress/theme/composables/pluginSearch.ts'
 import type { PluginInfo } from '../src/.vitepress/data/pluginData.ts'
 
 const jasminum: PluginInfo = {

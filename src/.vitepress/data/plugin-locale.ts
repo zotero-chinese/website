@@ -75,7 +75,7 @@ export interface PluginLocaleData {
 }
 
 export const zhLocale: PluginLocaleData = {
-  dataUpdatedAt: '插件数据更新于',
+  dataUpdatedAt: '数据更新于',
   releaseUpdatedAt: '插件更新于',
   resultCount: '找到 {count} 个插件',
   requestListingPrompt: '没找到想要的插件？',
@@ -152,7 +152,7 @@ export const zhLocale: PluginLocaleData = {
 }
 
 export const enLocale: PluginLocaleData = {
-  dataUpdatedAt: 'Plugin data updated',
+  dataUpdatedAt: 'Data updated',
   releaseUpdatedAt: 'Plugin updated',
   resultCount: 'Plugins found: {count}',
   requestListingPrompt: 'Missing a plugin?',

@@ -39,4 +39,13 @@ defineProps<{ tags: Tag[] }>()
 .el-checkbox {
   margin: 0px 0.5rem 1rem 0.5rem;
 }
+
+.el-checkbox :deep(.el-checkbox__inner) {
+  display: none;
+}
+
+.el-checkbox:focus-within {
+  outline: 2px solid var(--el-color-primary);
+  outline-offset: 2px;
+}
 </style>

@@ -16,6 +16,7 @@ const props = defineProps<{
 const isShowing = defineModel<boolean>({ required: true })
 const locale = usePluginLocale()
 const { lang } = useData()
+const sentenceEnd = computed(() => (lang.value.startsWith('en') ? '.' : '。'))
 const displayName = computed(() =>
   lang.value.startsWith('zh')
     ? props.selectedPlugin?.nameZh || props.selectedPlugin?.name
@@ -83,7 +84,8 @@ const authorReleasesUrl = computed(() =>
       <el-text type="warning">
         <el-icon><i-ep-warn-triangle-filled /></el-icon>
         {{ locale.downloadWarning }}
-        <a href="/user-guide/plugins/about-plugin">{{ locale.compatibilityWarning }}</a>
+        <a href="/user-guide/plugins/about-plugin">{{ locale.compatibilityWarning }}</a
+        >{{ sentenceEnd }}
       </el-text>
     </div>
 

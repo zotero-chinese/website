@@ -10,16 +10,23 @@ import { computed, defineAsyncComponent } from 'vue'
 import Loading from './Loading.vue'
 import MarketHero from './MarketHero.vue'
 
-const { frontmatter, lang } = useData()
+const { frontmatter } = useData()
 const locale = usePluginLocale()
 const isPluginMarket = computed(() => frontmatter.value.type === 'plugin')
-const description = computed(
-  () =>
-    frontmatter.value.description ??
-    (isPluginMarket.value
-      ? `${locale.value.dataUpdatedAt} ${new Date(_pluginUpdateTime.publishedAt).toLocaleString(lang.value)}`
-      : `${_updateTime}`),
-)
+const description = computed(() => {
+  if (frontmatter.value.description != null) return frontmatter.value.description
+  const timestamp = isPluginMarket.value ? _pluginUpdateTime.lastUpdate : _updateTime
+  if (!timestamp) return ''
+  const date = new Date(timestamp)
+  if (Number.isNaN(date.getTime())) return ''
+  const formatted = new Intl.DateTimeFormat('sv-SE', {
+    timeZone: 'Asia/Shanghai',
+    dateStyle: 'short',
+    timeStyle: 'medium',
+    hourCycle: 'h23',
+  }).format(date)
+  return `${locale.value.dataUpdatedAt} ${formatted}`
+})
 
 const PluginCards = defineAsyncComponent(() => import('./PluginCards.vue'))
 const PluginCharts = defineAsyncComponent(() => import('./PluginCharts.vue'))
