@@ -7,26 +7,35 @@ const data_list = [
   {
     local_path: 'src/.vitepress/data/_data/plugins.json',
     remote_url:
-      'https://raw.githubusercontent.com/zotero-chinese/zotero-plugins/gh-pages/dist/plugins.json',
+      'https://api.github.com/repos/zotero-chinese/zotero-plugins/contents/dist/plugins.json?ref=gh-pages',
   },
   {
     local_path: 'src/.vitepress/data/_data/update-time.json',
     remote_url:
-      'https://raw.githubusercontent.com/zotero-chinese/zotero-plugins/gh-pages/dist/shields.json',
+      'https://api.github.com/repos/zotero-chinese/zotero-plugins/contents/dist/shields.json?ref=gh-pages',
   },
   {
     local_path: 'src/.vitepress/data/_data/charts.json',
     remote_url:
-      'https://raw.githubusercontent.com/zotero-chinese/zotero-plugins/gh-pages/dist/charts.json',
+      'https://api.github.com/repos/zotero-chinese/zotero-plugins/contents/dist/charts.json?ref=gh-pages',
   },
   {
     local_path: 'src/.vitepress/data/_data/dashboard.json',
-    remote_url: 'https://raw.githubusercontent.com/l0o0/translators_CN/master/data/dashboard.json',
+    remote_url:
+      'https://api.github.com/repos/l0o0/translators_CN/contents/data/dashboard.json?ref=master',
   },
 ]
 
 for (const d of data_list) {
+  const headers = new Headers()
+  if (new URL(d.remote_url).origin === 'https://api.github.com') {
+    headers.set('Accept', 'application/vnd.github.raw+json')
+    if (process.env.GITHUB_TOKEN) {
+      headers.set('Authorization', `Bearer ${process.env.GITHUB_TOKEN}`)
+    }
+  }
   const data = await ofetch(d.remote_url, {
+    headers,
     parseResponse: JSON.parse,
     retry: 3,
     retryDelay: 500, // ms

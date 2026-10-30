@@ -2,8 +2,6 @@ export interface PluginLocaleData {
   dataUpdatedAt: string
   releaseUpdatedAt: string
   resultCount: string
-  requestListingPrompt: string
-  requestListing: string
   clearFilters: string
   searchHelp: string
   searchAllVersions: string
@@ -78,8 +76,6 @@ export const zhLocale: PluginLocaleData = {
   dataUpdatedAt: '数据更新于',
   releaseUpdatedAt: '插件更新于',
   resultCount: '找到 {count} 个插件',
-  requestListingPrompt: '没找到想要的插件？',
-  requestListing: '提交收录请求',
   clearFilters: '清空筛选',
   searchHelp: '试试插件中文名、英文名、作者，或清空筛选条件。',
   searchAllVersions: '查看其他 Zotero 版本中的 {count} 个结果',
@@ -155,8 +151,6 @@ export const enLocale: PluginLocaleData = {
   dataUpdatedAt: 'Data updated',
   releaseUpdatedAt: 'Plugin updated',
   resultCount: 'Plugins found: {count}',
-  requestListingPrompt: 'Missing a plugin?',
-  requestListing: 'Request a listing',
   clearFilters: 'Clear filters',
   searchHelp: 'Try a plugin name, author, or clear your filters.',
   searchAllVersions: 'Show {count} results across Zotero versions',

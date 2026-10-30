@@ -42,7 +42,8 @@ function stringParam(key: string, fallback = '') {
 }
 
 const sortBy = stringParam('sort', 'stars')
-const zotero = stringParam('zotero', String(LATEST_ZOTERO_BETA_VERSION - 1))
+const defaultZoteroVersion = String(LATEST_ZOTERO_BETA_VERSION - 1)
+const zotero = stringParam('zotero', defaultZoteroVersion)
 const allSupportedZotero = Array.from({ length: LATEST_ZOTERO_BETA_VERSION - 5 }, (_, i) =>
   String(i + 6),
 )
@@ -126,7 +127,10 @@ function clearAuthorFilter() {
 
 const hasFilters = computed(
   () =>
-    !!searchText.value || !!selectedAuthor.value || selectedTags.value.length > 0 || !!zotero.value,
+    !!searchText.value.trim() ||
+    !!selectedAuthor.value ||
+    selectedTags.value.length > 0 ||
+    (!!zotero.value && zotero.value !== defaultZoteroVersion),
 )
 
 function clearFilters() {
@@ -138,7 +142,7 @@ function clearFilters() {
 </script>
 
 <template>
-  <MarketToolBar class="plugin-toolbar">
+  <MarketToolBar>
     <!-- Zotero 版本筛选 -->
     <el-select
       v-model="zotero"
@@ -199,35 +203,19 @@ function clearFilters() {
     </el-select>
 
     <!-- 搜索 -->
-    <MarketSearch
-      v-model="searchText"
-      class="plugin-search"
-      :placeholder="locale.searchPlaceholder"
-    />
+    <MarketSearch v-model="searchText" :placeholder="locale.searchPlaceholder" />
   </MarketToolBar>
 
   <!-- 标签筛选 -->
   <MarketTagsFilter v-model="selectedTags" :tags="allTags" />
 
   <div class="plugin-results">
-    <div class="plugin-result-count">
-      <el-text role="status" aria-live="polite">{{
-        locale.resultCount.replace('{count}', String(filteredPlugins.length))
-      }}</el-text>
-      <el-button v-if="hasFilters" text type="primary" @click="clearFilters">{{
-        locale.clearFilters
-      }}</el-button>
-    </div>
-    <span class="plugin-listing-request">
-      <el-text type="info">{{ locale.requestListingPrompt }}</el-text>
-      <el-link
-        type="primary"
-        href="https://github.com/zotero-chinese/zotero-plugins/issues/new"
-        target="_blank"
-        rel="noopener noreferrer"
-        >{{ locale.requestListing }}</el-link
-      >
-    </span>
+    <el-text role="status" aria-live="polite">{{
+      locale.resultCount.replace('{count}', String(filteredPlugins.length))
+    }}</el-text>
+    <el-button v-if="hasFilters" text type="primary" @click="clearFilters">{{
+      locale.clearFilters
+    }}</el-button>
   </div>
 
   <!-- 作者信息卡片 -->
@@ -300,51 +288,12 @@ function clearFilters() {
 </template>
 
 <style scoped>
-.plugin-toolbar {
-  justify-content: flex-start;
-  flex-wrap: wrap;
-  gap: 1rem;
-  padding: 1rem 0.5rem;
-}
-
-.plugin-toolbar > * {
-  margin: 0;
-}
-
-.plugin-toolbar > .el-select {
-  flex: 0 0 13rem;
-  max-width: 13rem;
-}
-
-.plugin-toolbar .plugin-search {
-  flex: 1 1 18rem;
-  max-width: 28rem;
-}
-
-.plugin-results,
-.plugin-result-count,
-.plugin-listing-request {
+.plugin-results {
   display: flex;
   align-items: center;
   gap: 8px;
-}
-
-.plugin-results {
-  justify-content: space-between;
   flex-wrap: wrap;
   margin: 0.5rem;
-}
-
-@media (max-width: 800px) {
-  .plugin-toolbar > .el-select {
-    flex: 1 1 10rem;
-    max-width: none;
-  }
-
-  .plugin-toolbar .plugin-search {
-    flex-basis: 100%;
-    max-width: none;
-  }
 }
 
 .plugin-list-footer {
