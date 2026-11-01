@@ -28,7 +28,7 @@
     "@types/fs-extra": "11.0.4",
     "@types/node": "24.13.3",
     "@vitejs/plugin-vue": "6.0.8",
-    "@vueuse/core": "14.4.0",
+    "@vueuse/core": "15.0.0",
     "element-plus": "2.14.5",
     "es-toolkit": "^1.52.0",
     "feed": "6.0.0",
