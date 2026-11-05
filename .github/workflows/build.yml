@@ -19,6 +19,8 @@ jobs:
           fetch-all: true
 
       - name: Build
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
         run: |
           git submodule update --remote
           vp run fetch-data

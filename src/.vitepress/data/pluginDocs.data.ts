@@ -22,7 +22,7 @@ export interface PluginDoc {
    */
   url: string
   /**
-   * 文档标题（frontmatter.title，缺省时用文件名）
+   * 文档一级标题，缺省时用文件名；同时供插件搜索使用
    */
   title: string
 }
@@ -35,16 +35,16 @@ export default {
     const docs: PluginDoc[] = []
     const files = globSync('src/wiki/user-guide/plugins/**/*.md')
     for (const file of files) {
-      const repo = extractPluginRepo(readFileSync(file, 'utf8'))
+      const content = readFileSync(file, 'utf8')
+      const repo = extractPluginRepo(content)
       if (!repo) continue
       const rel = file.replaceAll('\\', '/').split('user-guide/plugins/')[1]
-      if (!rel) continue
       // 目录 index 页规范化为目录 URL（如 translate/index → /user-guide/plugins/translate/）
       const url = `/user-guide/plugins/${rel.replace(/\.md$/, '').replace(/\/index$/, '/')}`
       docs.push({
         repo: repo.toLowerCase(),
         url,
-        title: path.basename(rel, '.md'),
+        title: content.match(/^#\s+(.+)$/m)?.[1].trim() ?? path.basename(rel, '.md'),
       })
     }
     // 同一插件多页时（如 translate/ 主文档 + 各翻译引擎配置页），

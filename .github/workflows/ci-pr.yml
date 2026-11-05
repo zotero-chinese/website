@@ -9,6 +9,17 @@ permissions:
   contents: write
 
 jobs:
+  test:
+    name: 测试
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Setup JS
+        uses: zotero-plugin-dev/workflows/setup-js@main
+      - name: Test
+        run: node --test checks/*.test.ts
+
   build:
     name: 构建
     uses: ./.github/workflows/build.yml

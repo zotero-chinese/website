@@ -1,100 +1,92 @@
 <script setup lang="ts">
 import type { PluginInfo } from '@data/plugins.data'
-import type { Ref } from 'vue'
 
 import { LATEST_ZOTERO_BETA_VERSION } from '@data/constant'
 import { data as plugins } from '@data/plugins.data'
+import { data as pluginDocs } from '@data/pluginDocs.data'
+import { searchPlugins } from '@theme/composables/pluginSearch'
 import { getPluginTags } from '@data/pluginTags'
 import MarketSearch from '@theme/components/MarketSearch.vue'
 import MarketTagsFilter from '@theme/components/MarketTagsFilter.vue'
 import MarketToolBar from '@theme/components/MarketToolBar.vue'
 import { usePluginLocale } from '@theme/composables/usePluginLocale'
-import { syncRef, useUrlSearchParams } from '@vueuse/core'
+import { useUrlSearchParams } from '@vueuse/core'
 
 import { useData } from 'vitepress'
-import { computed, ref, toRef, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 import PluginAuthorCard from './PluginAuthorCard.vue'
 import PluginCard from './PluginCard.vue'
 import PluginDownloadModal from './PluginDownloadModal.vue'
 
 const isShowDownload = ref(false)
-const selectedPlugin = ref(undefined) as Ref<PluginInfo | undefined>
+const selectedPlugin = ref<PluginInfo>()
 
 const locale = usePluginLocale()
 const { lang } = useData()
 
 const allTags = computed(() => getPluginTags(lang.value))
 
-const query = useUrlSearchParams('hash-params', { removeFalsyValues: true })
-const sortBy = toRef(query, 'sort', 'stars') as Ref<string>
-const zotero = toRef(query, 'zotero', String(LATEST_ZOTERO_BETA_VERSION - 1)) as Ref<string>
+const query = useUrlSearchParams('hash-params', { removeFalsyValues: false })
+
+// URL parameters may be repeated; a single-value control uses the first value.
+function stringParam(key: string, fallback = '') {
+  return computed({
+    get: () => {
+      const value = query[key]
+      return (Array.isArray(value) ? value[0] : value) ?? fallback
+    },
+    set: (value: string) => {
+      query[key] = value
+    },
+  })
+}
+
+const sortBy = stringParam('sort', 'stars')
+const defaultZoteroVersion = String(LATEST_ZOTERO_BETA_VERSION - 1)
+const zotero = stringParam('zotero', defaultZoteroVersion)
 const allSupportedZotero = Array.from({ length: LATEST_ZOTERO_BETA_VERSION - 5 }, (_, i) =>
   String(i + 6),
 )
-const searchText = toRef(query, 'search', '') as Ref<string>
-const selectedAuthor = toRef(query, 'author', '') as Ref<string>
-/** deep-link：`#plugin=<repo>` 时自动打开对应插件的下载抽屉 */
-const pluginParam = toRef(query, 'plugin', '') as Ref<string>
-
-const _selectedTags = toRef(query, 'tags', []) as Ref<string | string[]>
-const selectedTags = ref([]) as Ref<string[]>
-// 将 urlSearchParams.tags 由 string | string[] 转为 string[]
-syncRef(_selectedTags, selectedTags, {
-  transform: {
-    ltr: (left) => [left].flat(),
+const searchText = stringParam('search')
+const selectedAuthor = stringParam('author')
+const pluginParam = stringParam('plugin')
+const selectedTags = computed({
+  get: () => [query.tags ?? []].flat().filter(Boolean),
+  set: (tags: string[]) => {
+    if (tags.length) query.tags = tags
+    else delete query.tags
   },
 })
 
-const filteredPlugins = computed(() => {
-  let filtered = plugins
-
-  // 筛选 Zotero 版本
-  if (zotero.value !== '') {
-    const selectedVersion = +zotero.value
-    filtered = filtered.filter((p) =>
-      p.releases.some((r) =>
-        r.targetZoteroVersion.split(',').some((v) => +v.trim() === selectedVersion),
+const matchingPlugins = computed(() => {
+  const langSuffix = lang.value.startsWith('en') ? '_en' : '_zh'
+  return searchPlugins(plugins, searchText.value, pluginDocs).filter(
+    (plugin) =>
+      (!selectedAuthor.value || plugin.author.name === selectedAuthor.value) &&
+      selectedTags.value.every((tag) =>
+        plugin.tags.some((t) => t === tag || t === `${tag}${langSuffix}`),
       ),
-    )
-  }
+  )
+})
 
-  // 筛选关键词
-  if (searchText.value !== '') {
-    const searchTextLower = searchText.value.toLowerCase()
-    filtered = filtered.filter((plugin) => {
-      return (
-        plugin.name.toLowerCase().includes(searchTextLower) ||
-        plugin.description.toLowerCase().includes(searchTextLower)
-      )
-    })
-  }
-
-  // 筛选标签
-  if (selectedTags.value.length !== 0) {
-    filtered = filtered.filter((plugin) => {
-      const langSuffix = lang.value.startsWith('en') ? '_en' : '_zh'
-      return selectedTags.value.every((tag) =>
-        plugin.tags?.some((t) => t === tag || t === `${tag}${langSuffix}`),
-      )
-    })
-  }
-
-  // 筛选作者
-  if (selectedAuthor.value !== '') {
-    filtered = filtered.filter((plugin) => {
-      return plugin.author.name === selectedAuthor.value
-    })
-  }
+const filteredPlugins = computed(() => {
+  const filtered = matchingPlugins.value.filter(
+    (plugin) =>
+      !zotero.value ||
+      plugin.releases.some((release) =>
+        release.targetZoteroVersion.split(',').some((v) => v.trim() === zotero.value),
+      ),
+  )
 
   // 排序
   if (sortBy.value === 'name') {
-    return filtered.slice().sort((a, b) => a.name.localeCompare(b.name))
+    return filtered.sort((a, b) => a.name.localeCompare(b.name))
   } else if (sortBy.value === 'stars') {
-    return filtered.slice().sort((a, b) => b.stars - a.stars)
+    return filtered.sort((a, b) => b.stars - a.stars)
   } else if (sortBy.value === 'author') {
-    return filtered.slice().sort((a, b) => a.author.name.localeCompare(b.author.name))
+    return filtered.sort((a, b) => a.author.name.localeCompare(b.author.name))
   } else if (sortBy.value === 'lastUpdated') {
-    return filtered.slice().sort((a, b) => {
+    return filtered.sort((a, b) => {
       const aLatest = a.lastUpdated ? +new Date(a.lastUpdated) : 0
       const bLatest = b.lastUpdated ? +new Date(b.lastUpdated) : 0
       return bLatest - aLatest
@@ -133,46 +125,53 @@ function clearAuthorFilter() {
   selectedAuthor.value = ''
 }
 
-watch(zotero, (zotero) => {
-  if (zotero === 'zotero6') {
-    ElNotification({
-      title: locale.value.upgradeToZotero7Title,
-      dangerouslyUseHTMLString: true,
-      message: locale.value.upgradeToZotero7Message,
-      type: 'warning',
-      duration: 10000,
-      offset: 60,
-    })
-  }
+const hasFilters = computed(
+  () =>
+    !!searchText.value.trim() ||
+    !!selectedAuthor.value ||
+    selectedTags.value.length > 0 ||
+    (!!zotero.value && zotero.value !== defaultZoteroVersion),
+)
 
-  if (zotero === 'zotero7') {
-    ElNotification({
-      title: locale.value.upgradeToZotero8Title,
-      dangerouslyUseHTMLString: true,
-      message: locale.value.upgradeToZotero8Message,
-      type: 'warning',
-      duration: 10000,
-      offset: 60,
-    })
-  }
-})
+function clearFilters() {
+  delete query.search
+  delete query.author
+  delete query.tags
+  zotero.value = ''
+}
 </script>
 
 <template>
   <MarketToolBar>
     <!-- Zotero 版本筛选 -->
-    <el-select v-model="zotero" :placeholder="locale.zoteroVersion" size="large">
+    <el-select
+      v-model="zotero"
+      :placeholder="locale.zoteroVersion"
+      :aria-label="locale.zoteroVersion"
+      :empty-values="[null, undefined]"
+      size="large"
+    >
       <template #prefix>
         <el-icon>
           <i-ep-filter />
         </el-icon>
       </template>
       <el-option :label="locale.zoteroAll" value="" />
-      <el-option v-for="v in allSupportedZotero" :key="v" :label="`Zotero ${v}`" :value="v" />
+      <el-option
+        v-for="v in allSupportedZotero"
+        :key="v"
+        :label="`Zotero ${v}${+v === LATEST_ZOTERO_BETA_VERSION ? ' Beta' : ''}`"
+        :value="v"
+      />
     </el-select>
 
     <!-- 排序 -->
-    <el-select v-model="sortBy" :placeholder="locale.sortBy" size="large">
+    <el-select
+      v-model="sortBy"
+      :placeholder="locale.sortBy"
+      :aria-label="locale.sortBy"
+      size="large"
+    >
       <template #prefix>
         <el-icon>
           <i-ep-sort />
@@ -185,7 +184,15 @@ watch(zotero, (zotero) => {
     </el-select>
 
     <!-- 作者筛选 -->
-    <el-select v-model="selectedAuthor" :placeholder="locale.author" size="large" clearable>
+    <el-select
+      v-model="selectedAuthor"
+      :placeholder="locale.author"
+      :aria-label="locale.author"
+      value-on-clear=""
+      size="large"
+      filterable
+      clearable
+    >
       <template #prefix>
         <el-icon>
           <i-ep-user />
@@ -201,6 +208,15 @@ watch(zotero, (zotero) => {
 
   <!-- 标签筛选 -->
   <MarketTagsFilter v-model="selectedTags" :tags="allTags" />
+
+  <div class="plugin-results">
+    <el-text role="status" aria-live="polite">{{
+      locale.resultCount.replace('{count}', String(filteredPlugins.length))
+    }}</el-text>
+    <el-button v-if="hasFilters" text type="primary" @click="clearFilters">{{
+      locale.clearFilters
+    }}</el-button>
+  </div>
 
   <!-- 作者信息卡片 -->
   <PluginAuthorCard
@@ -231,13 +247,21 @@ watch(zotero, (zotero) => {
   </el-row>
 
   <!-- 空状态 -->
-  <el-empty v-if="filteredPlugins.length === 0" :description="locale.noMatchingPlugins" />
+  <el-empty v-if="filteredPlugins.length === 0" :description="locale.noMatchingPlugins">
+    <p>
+      <el-text type="info">{{ locale.searchHelp }}</el-text>
+    </p>
+    <el-button v-if="zotero && matchingPlugins.length" type="primary" @click="zotero = ''">
+      {{ locale.searchAllVersions.replace('{count}', String(matchingPlugins.length)) }}
+    </el-button>
+  </el-empty>
 
   <!-- 下载页面 -->
   <PluginDownloadModal
-    v-if="isShowDownload"
+    v-if="isShowDownload && selectedPlugin"
     v-model="isShowDownload"
     :selected-plugin="selectedPlugin"
+    :zotero-version="zotero"
   />
 
   <div class="plugin-list-footer">
@@ -254,7 +278,7 @@ watch(zotero, (zotero) => {
           {{ locale.fillForm }}
         </el-link>
         /
-        <el-link type="primary" href="https://github.com/zotero-chinese/zotero-plugins">
+        <el-link type="primary" href="https://github.com/zotero-chinese/zotero-plugins/issues">
           {{ locale.issueOnGithub }}
         </el-link>
         。
@@ -264,6 +288,14 @@ watch(zotero, (zotero) => {
 </template>
 
 <style scoped>
+.plugin-results {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 0.5rem;
+}
+
 .plugin-list-footer {
   text-align: center;
   padding-top: 2rem;
