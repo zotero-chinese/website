@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="184" height="24" viewBox="0 0 184 24" role="img" aria-labelledby="title">
+  <title id="title">Zotero 中文社区 · 已收录</title>
+  <defs>
+    <clipPath id="badge">
+      <rect width="184" height="24" rx="4" />
+    </clipPath>
+  </defs>
+  <g clip-path="url(#badge)">
+    <rect width="124" height="24" fill="#343744" />
+    <rect x="124" width="60" height="24" fill="#535bf2" />
+  </g>
+  <rect x="0.5" y="0.5" width="183" height="23" rx="3.5" fill="none" stroke="#fff" stroke-opacity="0.1" />
+  <g fill="#fff" font-family="Inter, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="12" text-anchor="middle">
+    <text x="62" y="16" font-weight="500"><tspan fill="#db2c3a">Z</tspan>otero 中文社区</text>
+    <text x="154" y="16" font-weight="600">已收录</text>
+  </g>
+</svg>
