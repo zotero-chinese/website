@@ -388,7 +388,7 @@ export const transformHead: UserConfig['transformHead'] = async (ctx: TransformC
   head.push(['meta', { name: 'twitter:image', content: `${siteUrl}/logo.png` }])
 
   // 百度站点验证
-  head.push(['meta', { name: 'baidu-site-verification', content: "KTxWznFskn" }])
+  head.push(['meta', { name: 'baidu-site-verification', content: 'KTxWznFskn' }])
 
   // 必应/Google 站点验证（可选，同样由环境变量驱动）
   const googleVerification = process.env.GOOGLE_SITE_VERIFICATION
