@@ -31,11 +31,15 @@ async function loadPreview() {
 </script>
 
 <template>
-  <client-only>
-    <el-popover trigger="hover" width="90%" @show="loadPreview">
-      <template #reference>
-        <a :href="`/styles/${props.style.dir}`">{{ props.style.title }}</a>
-      </template>
+  <!--
+    样式名称与链接在服务端渲染（搜索引擎需要抓到 318 个样式的入口），
+    预览内容依赖浏览器 fetch，仅在客户端渲染。
+  -->
+  <el-popover trigger="hover" width="90%" @show="loadPreview">
+    <template #reference>
+      <a :href="`/styles/${props.style.dir}`">{{ props.style.title }}</a>
+    </template>
+    <ClientOnly>
       <div v-if="preview" class="csl-preview">
         <h3>引注</h3>
         <div v-html="preview.citations" />
@@ -44,6 +48,6 @@ async function loadPreview() {
       </div>
       <el-skeleton v-else-if="!failed" :rows="3" animated />
       <el-empty v-else description="预览加载失败" />
-    </el-popover>
-  </client-only>
+    </ClientOnly>
+  </el-popover>
 </template>

@@ -87,3 +87,33 @@ jobs:
           TARGET: ${{ secrets.SERVER_PATH }}
           SCRIPT_AFTER: |
             echo "Deployment completed at $(date)"
+
+  seo-push:
+    name: 推送 URL 至搜索引擎
+    if: github.ref_name == 'main' && github.event_name != 'pull_request' && github.repository == 'zotero-chinese/website'
+    # 依赖 build 而非某个部署 job，避免部署步骤失败时连带跳过推送
+    needs:
+      - build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Download Build Output
+        uses: actions/download-artifact@v8
+        with:
+          name: build-result
+          path: src/.vitepress/dist
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      # 百度普通收录与必应 IndexNow 主动推送：把新页面的发现时间从数周缩短到分钟级。
+      # 未配置 token 时脚本会跳过，不影响构建。
+      - name: Push URLs
+        run: node .github/scripts/seo-push.ts
+        env:
+          BAIDU_PUSH_TOKEN: ${{ secrets.BAIDU_PUSH_TOKEN }}
+          INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
