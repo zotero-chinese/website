@@ -1,0 +1,33 @@
+# robots.txt —— Zotero 中文社区
+# https://zotero-chinese.com
+#
+# 站点由 VitePress 构建为纯静态 HTML，正文在服务端渲染，
+# 因此不对任何主流搜索引擎设限，仅屏蔽无索引价值的路径。
+
+User-agent: *
+Allow: /
+
+# sitemap 由 VitePress 在构建时生成，包含全部收录页面的规范化 URL
+Sitemap: https://zotero-chinese.com/sitemap.xml
+
+# 站点构建产物中同时保留了 Markdown 原文（供 /llms.txt 等 AI 场景使用）
+# 以及 llms 全量包，这些不是面向搜索用户的页面，避免重复内容
+Disallow: /llms-full.txt
+Disallow: /llms.txt
+Disallow: /plugin-data/
+Disallow: /styles-data/
+
+# 百度蜘蛛
+User-agent: Baiduspider
+Allow: /
+Sitemap: https://zotero-chinese.com/sitemap.xml
+
+# 神马搜索（移动端）
+User-agent: YisouSpider
+Allow: /
+Sitemap: https://zotero-chinese.com/sitemap.xml
+
+# 搜狗
+User-agent: Sogou web spider
+Allow: /
+Sitemap: https://zotero-chinese.com/sitemap.xml

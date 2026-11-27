@@ -60,7 +60,12 @@ function getComponentByType(type: string) {
       :actions="frontmatter.actions"
     />
     <main class="MarketMain">
-      <ClientOnly>
+      <!--
+        charts（插件排行榜）依赖 Highcharts，无法在 Node 端渲染，保留仅客户端加载；
+        其余列表页（插件商店 / CSL 样式 / 转换器 / 博客）的数据在构建期即可取得，
+        故改为服务端渲染，使正文出现在初始 HTML 中，供搜索引擎抓取。
+      -->
+      <ClientOnly v-if="frontmatter.type === 'charts'">
         <Suspense timeout="0">
           <template #default>
             <component :is="getComponentByType(frontmatter.type)" :key="frontmatter.type" />
@@ -70,6 +75,14 @@ function getComponentByType(type: string) {
           </template>
         </Suspense>
       </ClientOnly>
+      <Suspense v-else timeout="0">
+        <template #default>
+          <component :is="getComponentByType(frontmatter.type)" :key="frontmatter.type" />
+        </template>
+        <template #fallback>
+          <Loading />
+        </template>
+      </Suspense>
     </main>
 
     <Content />

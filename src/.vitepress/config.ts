@@ -4,6 +4,7 @@ import { head } from './config/head.config'
 import { markdown } from './config/markdown.config'
 import { nav, navEn } from './config/navbar.config'
 import { sidebar } from './config/sidebar.config'
+import { transformHead, transformPageData } from './config/transform.config'
 import vite from './config/vite.config'
 
 const RssIcon = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 448 512"><title>RSS</title><path d="M400 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM112 416c-26.51 0-48-21.49-48-48s21.49-48 48-48s48 21.49 48 48s-21.49 48-48 48zm157.533 0h-34.335c-6.011 0-11.051-4.636-11.442-10.634c-5.214-80.05-69.243-143.92-149.123-149.123c-5.997-.39-10.633-5.431-10.633-11.441v-34.335c0-6.535 5.468-11.777 11.994-11.425c110.546 5.974 198.997 94.536 204.964 204.964c.352 6.526-4.89 11.994-11.425 11.994zm103.027 0h-34.334c-6.161 0-11.175-4.882-11.427-11.038c-5.598-136.535-115.204-246.161-251.76-251.76C68.882 152.949 64 147.935 64 141.774V107.44c0-6.454 5.338-11.664 11.787-11.432c167.83 6.025 302.21 141.191 308.205 308.205c.232 6.449-4.978 11.787-11.432 11.787z" fill="currentColor"></path></svg>`
@@ -19,6 +20,8 @@ export default defineConfig({
     '**/_template.md',
     '**/.vitepress/**',
     'styles/detail/src/index.md',
+    // 与 `wiki/user-guide/index.md` 经 rewrites 后同为 `/user-guide/`，会产生重复页面
+    'en/wiki/**',
   ],
   // outDir: 'dist',
 
@@ -45,9 +48,9 @@ export default defineConfig({
         [
           'meta',
           {
-            property: 'keywords',
+            name: 'keywords',
             content:
-              'Zotero, Zotero中文, Zotero 中文社区, Zotero 教程, Zotero 插件, 插件商店, CSL 样式, 中文引用格式, Translator',
+              'Zotero, Zotero中文, Zotero中文社区, Zotero教程, Zotero下载, Zotero插件, Zotero插件商店, Zotero参考文献格式, Zotero引用格式, CSL样式, GB/T 7714, 中文引用格式, Zotero Translator, 文献管理软件',
           },
         ],
         ['meta', { property: 'og:title', content: 'Zotero 中文社区' }],
@@ -80,9 +83,9 @@ export default defineConfig({
         [
           'meta',
           {
-            property: 'keywords',
+            name: 'keywords',
             content:
-              'Zotero, Zotero Chinese, Zotero Plugin, Zotero Plugin Store, Zotero Plugin Market, Zotero Plugin Marketplace, Zotero Chinese CSL Style',
+              'Zotero, Zotero Chinese, Zotero Chinese Community, Zotero Plugin, Zotero Plugin Store, Zotero Plugin Market, Zotero Plugin Marketplace, Zotero Chinese CSL Style, GB/T 7714',
           },
         ],
         ['meta', { property: 'og:title', content: 'Zotero Chinese Community' }],
@@ -208,6 +211,11 @@ export default defineConfig({
   },
 
   markdown,
+
+  // SEO：为每页生成唯一的 title / description / canonical / JSON-LD
+  transformPageData,
+  transformHead,
+
   ignoreDeadLinks: [
     // ignore all localhost links
     /^https?:\/\/localhost/,
@@ -219,5 +227,23 @@ export default defineConfig({
 
   sitemap: {
     hostname: 'https://zotero-chinese.com',
+    transformItems: (items) => {
+      // 站点导航中不可达、对搜索用户无价值的页面不进 sitemap：
+      // 仓库自述（AGENTS/README）、行为准则、贡献者名单等。
+      // 注意 item.url 是不带前导斜杠的相对路径（如 `about`），需先归一化再匹配。
+      const excluded =
+        /^\/?(AGENTS|README|code_of_conduct|contributors?|public\/readme?)(\.html)?$/i
+      // 同一 URL 可能因 rewrites 或多语言分组被写入多次，
+      // 重复的 <url> 会稀释 sitemap 质量，这里按 loc 去重。
+      const seen = new Set<string>()
+      return items.filter((item) => {
+        const loc = typeof item === 'string' ? item : item.url
+        const pathname = loc.replace(/^https?:\/\/[^/]+/, '').replace(/\.html$/, '')
+        if (excluded.test(pathname)) return false
+        if (seen.has(loc)) return false
+        seen.add(loc)
+        return true
+      })
+    },
   },
 })
