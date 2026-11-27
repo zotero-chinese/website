@@ -7,6 +7,7 @@ import type {
 } from 'vitepress'
 import { existsSync, readFileSync } from 'node:fs'
 import path from 'node:path'
+import { attachGitInfo } from '../plugins/git'
 import { getDefaultTitle, getTextSummary } from '../utils/markdown'
 
 const siteUrl = 'https://zotero-chinese.com'
@@ -212,6 +213,9 @@ export const transformPageData: UserConfig['transformPageData'] = (
   pageData: PageData,
   _ctx: TransformPageContext,
 ) => {
+  // 挂载 Git 信息（贡献者与更新日志），供页面底部的 GitInfo 组件渲染
+  attachGitInfo(pageData)
+
   // 404 页不参与索引
   if (pageData.relativePath === '404.md') {
     pageData.frontmatter.head = [

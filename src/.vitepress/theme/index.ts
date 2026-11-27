@@ -1,6 +1,4 @@
 import type { Theme } from 'vitepress'
-import type { Plugin } from 'vue'
-import { NolebaseGitChangelogPlugin } from '@nolebase/vitepress-plugin-git-changelog/client'
 import { ID_INJECTION_KEY, ZINDEX_INJECTION_KEY } from 'element-plus/es'
 
 // @ts-expect-error no types
@@ -17,7 +15,6 @@ import './styles/custom.css'
 import './styles/csl-styles.css'
 import './styles/nprogress.css'
 import 'element-plus/theme-chalk/dark/css-vars.css' // Element Plus Dark mode support: https://element-plus.org/zh-CN/guide/dark-mode.html
-import '@nolebase/vitepress-plugin-git-changelog/client/style.css'
 
 export default {
   extends: DefaultTheme,
@@ -32,11 +29,6 @@ export default {
     // https://element-plus.org/zh-CN/guide/ssr.html#提供-id-注入内容
     app.provide(ID_INJECTION_KEY, { prefix: 1024, current: 0 })
     app.provide(ZINDEX_INJECTION_KEY, { current: 0 })
-
-    // https://nolebase-integrations.ayaka.io/pages/zh-CN/integrations/vitepress-plugin-git-changelog/
-    app.use(NolebaseGitChangelogPlugin as Plugin, {
-      displayAuthorsInsideCommitLine: true,
-    })
 
     // Router Enhance
     // nprogress

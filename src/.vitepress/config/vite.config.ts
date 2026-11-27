@@ -1,9 +1,5 @@
 import { resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import {
-  GitChangelog,
-  GitChangelogMarkdownSection,
-} from '@nolebase/vitepress-plugin-git-changelog/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import IconsResolver from 'unplugin-icons/resolver'
 import Icons from 'unplugin-icons/vite'
@@ -13,7 +9,6 @@ import { defineConfig } from 'vite'
 import Inspect from 'vite-plugin-inspect'
 import VueDevTools from 'vite-plugin-vue-devtools'
 import llmstxt from 'vitepress-plugin-llms'
-import { contributors } from '../data/contributors'
 import { CslAssets } from '../plugins/cslAssets'
 import { DataAssets } from '../plugins/dataAssets'
 import { MarkdownTransform } from '../plugins/markdownTransform'
@@ -75,16 +70,6 @@ export default defineConfig({
 
     // 生成 public/styles-data/ 与 public/plugin-data/ 下的静态数据 JSON
     DataAssets(),
-
-    // Git Changelog
-    GitChangelog({
-      include: ['src/wiki/**/*.md'],
-      repoURL: () => 'https://github.com/zotero-chinese/wiki',
-      mapAuthors: contributors,
-    }),
-    GitChangelogMarkdownSection({
-      exclude: (id) => !id.match('src/wiki/') || id.endsWith('src/wiki/index.md'),
-    }),
 
     llmstxt({
       ignoreFiles: ['translators/**', 'styles/**', 'plugins/**'],
