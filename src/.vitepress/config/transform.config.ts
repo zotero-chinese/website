@@ -387,11 +387,9 @@ export const transformHead: UserConfig['transformHead'] = async (ctx: TransformC
   head.push(['meta', { name: 'twitter:description', content: description }])
   head.push(['meta', { name: 'twitter:image', content: `${siteUrl}/logo.png` }])
 
-  // 百度站点验证（在 `BAIDU_SITE_VERIFICATION` 环境变量中配置 token）
-  const baiduVerification = process.env.BAIDU_SITE_VERIFICATION
-  if (baiduVerification) {
-    head.push(['meta', { name: 'baidu-site-verification', content: baiduVerification }])
-  }
+  // 百度站点验证
+  head.push(['meta', { name: 'baidu-site-verification', content: "KTxWznFskn" }])
+
   // 必应/Google 站点验证（可选，同样由环境变量驱动）
   const googleVerification = process.env.GOOGLE_SITE_VERIFICATION
   if (googleVerification) {
