@@ -96,19 +96,14 @@ jobs:
       - build
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v7
+      - name: Setup JS
+        uses: zotero-plugin-dev/workflows/setup-js@main
 
       - name: Download Build Output
         uses: actions/download-artifact@v8
         with:
           name: build-result
           path: src/.vitepress/dist
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 24
 
       # 百度普通收录与必应 IndexNow 主动推送：把新页面的发现时间从数周缩短到分钟级。
       # 未配置 token 时脚本会跳过，不影响构建。
