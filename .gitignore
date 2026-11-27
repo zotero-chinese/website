@@ -29,3 +29,6 @@ src/public/plugin-data/
 
 # Vite+ 生成的 git hooks
 .vite-hooks/
+
+# seo-push 的本地增量状态（CI 中由 actions/cache 保管）
+.seo-push-state*.json

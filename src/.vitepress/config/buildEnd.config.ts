@@ -5,6 +5,7 @@ import path from 'node:path'
 import { Feed } from 'feed'
 import { cacheAllGitTimestamps, createContentLoader, getGitTimestamp } from 'vitepress'
 import { getDefaultTitle, getTextSummary } from '../utils/markdown'
+import { applySitemapLastmod } from '../utils/git-timestamps'
 
 const siteUrl = 'https://zotero-chinese.com'
 
@@ -76,4 +77,9 @@ export async function buildEnd(config: SiteConfig) {
   // 旧站点兼容性
   copyFileSync(path.join(config.outDir, 'feed.xml'), path.join(config.outDir, 'rss.rss'))
   console.log('🎉 RSS generated')
+
+  // sitemap 的 lastmod：让搜索引擎（以及 seo-push 的增量筛选）能判断页面新旧。
+  // 必须在 RSS 之后，因为上面已经用同一套 git 缓存预热过 wiki 子模块。
+  const lastmodCount = await applySitemapLastmod(config, cacheAllGitTimestamps, getGitTimestamp)
+  console.log(`🎉 sitemap lastmod: ${lastmodCount} 条`)
 }

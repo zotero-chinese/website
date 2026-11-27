@@ -109,6 +109,17 @@ jobs:
           name: build-result
           path: src/.vitepress/dist
 
+      # 增量推送需要记住「哪些 URL 已推过、推的是哪个版本的 lastmod」。
+      # 状态文件丢失只会退化为全量推送（安全但浪费配额），不会推错页面。
+      # restore-keys 让滚动缓存能接上前一天的记录。
+      - name: Restore SEO State
+        uses: actions/cache/restore@v5
+        with:
+          path: .seo-push-state.json
+          key: seo-push-state-${{ github.run_id }}
+          restore-keys: |
+            seo-push-state-
+
       # 百度普通收录与必应 IndexNow 主动推送：把新页面的发现时间从数周缩短到分钟级。
       # 未配置 token 时脚本会跳过，不影响构建。
       - name: Push URLs
@@ -116,3 +127,15 @@ jobs:
         env:
           BAIDU_PUSH_TOKEN: ${{ secrets.BAIDU_PUSH_TOKEN }}
           INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
+          SEO_STATE_PATH: .seo-push-state.json
+          # 百度普通收录的每日配额（本站实测 10 条/天）。
+          # 不设时脚本依据响应中的 remain 自行收手，首批只探测 10 条。
+          BAIDU_DAILY_QUOTA: ${{ vars.BAIDU_DAILY_QUOTA }}
+
+      # 只保存成功推送后的状态：脚本失败时不会把未成功的 URL 记成已推送
+      - name: Save SEO State
+        if: success()
+        uses: actions/cache/save@v5
+        with:
+          path: .seo-push-state.json
+          key: seo-push-state-${{ github.run_id }}
