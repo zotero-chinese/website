@@ -49,14 +49,6 @@ pnpm check
 
 [![contributors](https://contrib.rocks/image?repo=zotero-chinese/website)](https://github.com/zotero-chinese/website/graphs/contributors)
 
-## SEO
-
-站点的搜索引擎优化配置（站点验证、主动推送、已实现的优化项）见 [docs/seo.md](docs/seo.md)。
-
-```bash
-pnpm seo:push --dry-run   # 预览将要推送的 URL
-```
-
 ## 协议
 
 Git 子模块以其对应的协议分发。
