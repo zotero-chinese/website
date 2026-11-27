@@ -14,7 +14,7 @@ const { frontmatter } = useData()
 const locale = usePluginLocale()
 const isPluginMarket = computed(() => frontmatter.value.type === 'plugin')
 const description = computed(() => {
-  if (frontmatter.value.description != null) return frontmatter.value.description
+  // if (frontmatter.value.description != null) return frontmatter.value.description
   const timestamp = isPluginMarket.value ? _pluginUpdateTime.lastUpdate : _updateTime
   if (!timestamp) return ''
   const date = new Date(timestamp)
