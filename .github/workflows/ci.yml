@@ -85,33 +85,9 @@ jobs:
           REMOTE_USER: ${{ secrets.SERVER_USER }}
           SOURCE: dist/
           TARGET: ${{ secrets.SERVER_PATH }}
-          # 构建产物带内容 hash 且每次构建都会变，rsync 默认不删除远端多余文件，
-          # 旧 hash 文件只增不减，长期累积会把服务器磁盘占满
-          # （即 rsync 报 write failed: No space left on device）。
           # --delete-after 在传输成功后清理远端多余文件，让远端与 dist/ 一致。
-          # 必须排除宝塔的 .user.ini 与 ACME 的 .well-known：这两者不在 dist/ 中，
-          # 会被当成多余文件删除，而前者通常是不可写的保护文件，删不掉会让 rsync 失败。
           ARGS: '-rlgoDzvc -i --delete-after'
           EXCLUDE: '.user.ini,.well-known'
-          # 部署前先清空远端目录。--delete 也要依赖 rsync 成功建好文件列表，
-          # 磁盘已满时连临时列表和临时文件都写不进去，仅靠 --delete 解不开这个死局，
-          # 所以必须先腾出空间。
-          # 只删实际内容，保留目录本身与以 . 开头的隐藏项（.user.ini、.well-known 等）。
-          SCRIPT_BEFORE: |
-            set -e
-            TARGET="${{ secrets.SERVER_PATH }}"
-            if [ -z "$TARGET" ] || [ "$TARGET" = "/" ] || [ "$TARGET" = "." ] || [ "$TARGET" = "$HOME" ]; then
-              echo "❌ Refusing to clean unsafe TARGET: '$TARGET'"
-              exit 1
-            fi
-            cd "$TARGET"
-            echo "Disk usage of $TARGET before cleanup:"
-            du -sh "$TARGET" 2>/dev/null || true
-            df -h "$TARGET" || true
-            find . -mindepth 1 -maxdepth 1 ! -name '.??*' -exec rm -rf {} +
-            echo "Disk usage after cleanup:"
-            du -sh "$TARGET" 2>/dev/null || true
-            df -h "$TARGET" || true
           SCRIPT_AFTER: |
             echo "Deployment completed at $(date)"
             df -h "${{ secrets.SERVER_PATH }}" || true
