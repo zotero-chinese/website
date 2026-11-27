@@ -58,3 +58,13 @@ ul.el-timeline {
 .vp-doc p {
   text-align: justify;
 }
+
+/**
+ * 页面历史 / 贡献者（@nolebase/vitepress-plugin-git-changelog）
+ * 其中的头像会命中 .vp-doc img 的 `margin: 1rem 0`，
+ * 把每行的行高撑到 56px，导致提交哈希、提交信息、作者头像对不齐。
+ * 只清掉上下方向的外边距，保留插件为多作者头像设置的 margin-left 负值。
+ */
+.vp-doc .vp-nolebase-git-changelog img {
+  margin-block: 0;
+}
