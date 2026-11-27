@@ -388,141 +388,144 @@ export const transformHead: UserConfig['transformHead'] = async (ctx: TransformC
   head.push(['meta', { name: 'twitter:image', content: `${siteUrl}/logo.png` }])
 
   // 百度站点验证
-  head.push(['meta', { name: 'baidu-site-verification', content: 'KTxWznFskn' }])
+  const baiduVerification = process.env.BAIDU_SITE_VERIFICATION
+  if (baiduVerification) {
+    head.push(['meta', { name: 'google-site-verification', content: baiduVerification }])
 
-  // 必应/Google 站点验证（可选，同样由环境变量驱动）
-  const googleVerification = process.env.GOOGLE_SITE_VERIFICATION
-  if (googleVerification) {
-    head.push(['meta', { name: 'google-site-verification', content: googleVerification }])
-  }
-  const bingVerification = process.env.BING_SITE_VERIFICATION
-  if (bingVerification) {
-    head.push(['meta', { name: 'msvalidate.01', content: bingVerification }])
-  }
-
-  // 中英文页面互相声明，帮助搜索引擎识别语言版本而非重复内容。
-  // 注意 `en/` 前缀只对确实存在的英文页面生效。
-  const routePath = resolveRoutePath(page)
-  const isEn = page.startsWith('en/')
-  const counterpart = isEn ? routePath.replace(/^\/en(?=\/|$)/, '') || '/' : `/en${routePath}`
-  head.push([
-    'link',
-    {
-      rel: 'alternate',
-      hreflang: isEn ? 'zh-CN' : 'en',
-      href: `${siteUrl}${counterpart}`,
-    },
-  ])
-  head.push(['link', { rel: 'alternate', hreflang: 'x-default', href: canonical }])
-
-  head.push(...buildStructuredData({ canonical, title, description, pageData, siteData }))
-
-  return head
-}
-
-interface StructuredDataInput {
-  canonical: string
-  title: string
-  description: string
-  pageData: PageData
-  siteData: TransformContext['siteData']
-}
-
-/**
- * 生成 JSON-LD 结构化数据
- *
- * 首页输出 WebSite + Organization（带 SearchAction，便于搜索引擎识别站内搜索），
- * 内容页输出 TechArticle / Article + BreadcrumbList。
- */
-function buildStructuredData(input: StructuredDataInput): HeadConfig[] {
-  const { canonical, title, description, pageData, siteData } = input
-  // 首页：文件路径为 `index.md`
-  const isHome = pageData.filePath === 'index.md'
-
-  const organization = {
-    '@type': 'Organization',
-    '@id': `${siteUrl}/#organization`,
-    name: siteName,
-    url: siteUrl,
-    logo: `${siteUrl}/logo.png`,
-    sameAs: ['https://github.com/zotero-chinese', 'https://gitee.com/zotero-chinese'],
-  }
-
-  const graph: Record<string, unknown>[] = []
-
-  if (isHome) {
-    graph.push({
-      '@type': 'WebSite',
-      '@id': `${siteUrl}/#website`,
-      url: siteUrl,
-      name: siteName,
-      description,
-      inLanguage: siteData.lang,
-      publisher: { '@id': `${siteUrl}/#organization` },
-      potentialAction: {
-        '@type': 'SearchAction',
-        target: {
-          '@type': 'EntryPoint',
-          urlTemplate: `${siteUrl}/user-guide/?q={search_term_string}`,
-        },
-        'query-input': 'required name=search_term_string',
-      },
-    })
-    graph.push(organization)
-  } else if (isIndexable(pageData.filePath)) {
-    graph.push(organization)
-
-    const isArticle = /^(wiki|blog)\//.test(pageData.filePath)
-    const lastUpdated = pageData.lastUpdated
-    graph.push({
-      '@type': isArticle ? 'TechArticle' : 'WebPage',
-      '@id': `${canonical}#page`,
-      url: canonical,
-      name: title,
-      description,
-      inLanguage: siteData.lang,
-      isPartOf: { '@id': `${siteUrl}/#website` },
-      ...(isArticle
-        ? {
-            headline: title,
-            ...(lastUpdated
-              ? {
-                  dateModified: new Date(lastUpdated).toISOString(),
-                }
-              : {}),
-          }
-        : {}),
-    })
-
-    // 面包屑：用 URL 分段构造，帮助搜索引擎理解站点层级
-    const segments = canonical.replace(siteUrl, '').split('/').filter(Boolean)
-    if (segments.length > 0) {
-      const itemListElement = [{ '@type': 'ListItem', position: 1, name: '首页', item: siteUrl }]
-      let acc = ''
-      segments.forEach((segment, index) => {
-        acc += `/${segment}`
-        itemListElement.push({
-          '@type': 'ListItem',
-          position: index + 2,
-          name: index === segments.length - 1 ? title : decodeURIComponent(segment),
-          item: `${siteUrl}${acc}`,
-        })
-      })
-      graph.push({
-        '@type': 'BreadcrumbList',
-        '@id': `${canonical}#breadcrumb`,
-        itemListElement,
-      })
+    // 必应/Google 站点验证（可选，同样由环境变量驱动）
+    const googleVerification = process.env.GOOGLE_SITE_VERIFICATION
+    if (googleVerification) {
+      head.push(['meta', { name: 'google-site-verification', content: googleVerification }])
     }
+    const bingVerification = process.env.BING_SITE_VERIFICATION
+    if (bingVerification) {
+      head.push(['meta', { name: 'msvalidate.01', content: bingVerification }])
+    }
+
+    // 中英文页面互相声明，帮助搜索引擎识别语言版本而非重复内容。
+    // 注意 `en/` 前缀只对确实存在的英文页面生效。
+    const routePath = resolveRoutePath(page)
+    const isEn = page.startsWith('en/')
+    const counterpart = isEn ? routePath.replace(/^\/en(?=\/|$)/, '') || '/' : `/en${routePath}`
+    head.push([
+      'link',
+      {
+        rel: 'alternate',
+        hreflang: isEn ? 'zh-CN' : 'en',
+        href: `${siteUrl}${counterpart}`,
+      },
+    ])
+    head.push(['link', { rel: 'alternate', hreflang: 'x-default', href: canonical }])
+
+    head.push(...buildStructuredData({ canonical, title, description, pageData, siteData }))
+
+    return head
   }
 
-  if (graph.length === 0) return []
+  interface StructuredDataInput {
+    canonical: string
+    title: string
+    description: string
+    pageData: PageData
+    siteData: TransformContext['siteData']
+  }
 
-  return [
-    [
-      'script',
-      { type: 'application/ld+json' },
-      JSON.stringify({ '@context': 'https://schema.org', '@graph': graph }),
-    ],
-  ]
+  /**
+   * 生成 JSON-LD 结构化数据
+   *
+   * 首页输出 WebSite + Organization（带 SearchAction，便于搜索引擎识别站内搜索），
+   * 内容页输出 TechArticle / Article + BreadcrumbList。
+   */
+  function buildStructuredData(input: StructuredDataInput): HeadConfig[] {
+    const { canonical, title, description, pageData, siteData } = input
+    // 首页：文件路径为 `index.md`
+    const isHome = pageData.filePath === 'index.md'
+
+    const organization = {
+      '@type': 'Organization',
+      '@id': `${siteUrl}/#organization`,
+      name: siteName,
+      url: siteUrl,
+      logo: `${siteUrl}/logo.png`,
+      sameAs: ['https://github.com/zotero-chinese', 'https://gitee.com/zotero-chinese'],
+    }
+
+    const graph: Record<string, unknown>[] = []
+
+    if (isHome) {
+      graph.push({
+        '@type': 'WebSite',
+        '@id': `${siteUrl}/#website`,
+        url: siteUrl,
+        name: siteName,
+        description,
+        inLanguage: siteData.lang,
+        publisher: { '@id': `${siteUrl}/#organization` },
+        potentialAction: {
+          '@type': 'SearchAction',
+          target: {
+            '@type': 'EntryPoint',
+            urlTemplate: `${siteUrl}/user-guide/?q={search_term_string}`,
+          },
+          'query-input': 'required name=search_term_string',
+        },
+      })
+      graph.push(organization)
+    } else if (isIndexable(pageData.filePath)) {
+      graph.push(organization)
+
+      const isArticle = /^(wiki|blog)\//.test(pageData.filePath)
+      const lastUpdated = pageData.lastUpdated
+      graph.push({
+        '@type': isArticle ? 'TechArticle' : 'WebPage',
+        '@id': `${canonical}#page`,
+        url: canonical,
+        name: title,
+        description,
+        inLanguage: siteData.lang,
+        isPartOf: { '@id': `${siteUrl}/#website` },
+        ...(isArticle
+          ? {
+              headline: title,
+              ...(lastUpdated
+                ? {
+                    dateModified: new Date(lastUpdated).toISOString(),
+                  }
+                : {}),
+            }
+          : {}),
+      })
+
+      // 面包屑：用 URL 分段构造，帮助搜索引擎理解站点层级
+      const segments = canonical.replace(siteUrl, '').split('/').filter(Boolean)
+      if (segments.length > 0) {
+        const itemListElement = [{ '@type': 'ListItem', position: 1, name: '首页', item: siteUrl }]
+        let acc = ''
+        segments.forEach((segment, index) => {
+          acc += `/${segment}`
+          itemListElement.push({
+            '@type': 'ListItem',
+            position: index + 2,
+            name: index === segments.length - 1 ? title : decodeURIComponent(segment),
+            item: `${siteUrl}${acc}`,
+          })
+        })
+        graph.push({
+          '@type': 'BreadcrumbList',
+          '@id': `${canonical}#breadcrumb`,
+          itemListElement,
+        })
+      }
+    }
+
+    if (graph.length === 0) return []
+
+    return [
+      [
+        'script',
+        { type: 'application/ld+json' },
+        JSON.stringify({ '@context': 'https://schema.org', '@graph': graph }),
+      ],
+    ]
+  }
 }
