@@ -99,7 +99,4 @@ export default defineConfig({
   optimizeDeps: {
     include: ['element-plus/es', '@giscus/vue'],
   },
-  experimental: {
-    enableNativePlugin: true,
-  },
 })

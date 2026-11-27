@@ -15,7 +15,7 @@ export default defineConfig({
 
   srcExclude: [
     'wiki/index.md',
-    '**/README.md',
+    // '**/README.md',
     '**/_template.md',
     '**/.vitepress/**',
     'styles/detail/src/index.md',
@@ -216,7 +216,6 @@ export default defineConfig({
   buildEnd,
 
   vite,
-  metaChunk: true,
 
   sitemap: {
     hostname: 'https://zotero-chinese.com',

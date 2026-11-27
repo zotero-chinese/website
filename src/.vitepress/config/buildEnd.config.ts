@@ -22,7 +22,7 @@ export async function buildEnd(config: SiteConfig) {
 
   const paths = await Array.fromAsync(
     glob('src/wiki/**/*.md', {
-      ignore: ['README.md', '**/node_modules', 'src/wiki/README.md', 'src/wiki/index.md'],
+      exclude: ['README.md', '**/node_modules', 'src/wiki/README.md', 'src/wiki/index.md'],
     }),
   )
 

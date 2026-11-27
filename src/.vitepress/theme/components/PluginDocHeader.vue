@@ -76,7 +76,7 @@ const storeUrl = computed(() =>
             target="_blank"
             rel="noopener"
             class="author"
-            :underline="false"
+            underline="never"
           >
             {{ author.name }}
           </el-link>
