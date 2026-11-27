@@ -387,40 +387,39 @@ export const transformHead: UserConfig['transformHead'] = async (ctx: TransformC
   head.push(['meta', { name: 'twitter:description', content: description }])
   head.push(['meta', { name: 'twitter:image', content: `${siteUrl}/logo.png` }])
 
-  // 百度站点验证
+  // 站点验证：值由构建环境提供（GitHub Actions 中来自 `${{ vars.* }}`）。
+  // 三者互相独立，任一缺失都不应影响其余 head 标签的输出。
   const baiduVerification = process.env.BAIDU_SITE_VERIFICATION
   if (baiduVerification) {
-    head.push(['meta', { name: 'google-site-verification', content: baiduVerification }])
-
-    // 必应/Google 站点验证（可选，同样由环境变量驱动）
-    const googleVerification = process.env.GOOGLE_SITE_VERIFICATION
-    if (googleVerification) {
-      head.push(['meta', { name: 'google-site-verification', content: googleVerification }])
-    }
-    const bingVerification = process.env.BING_SITE_VERIFICATION
-    if (bingVerification) {
-      head.push(['meta', { name: 'msvalidate.01', content: bingVerification }])
-    }
-
-    // 中英文页面互相声明，帮助搜索引擎识别语言版本而非重复内容。
-    // 注意 `en/` 前缀只对确实存在的英文页面生效。
-    const routePath = resolveRoutePath(page)
-    const isEn = page.startsWith('en/')
-    const counterpart = isEn ? routePath.replace(/^\/en(?=\/|$)/, '') || '/' : `/en${routePath}`
-    head.push([
-      'link',
-      {
-        rel: 'alternate',
-        hreflang: isEn ? 'zh-CN' : 'en',
-        href: `${siteUrl}${counterpart}`,
-      },
-    ])
-    head.push(['link', { rel: 'alternate', hreflang: 'x-default', href: canonical }])
-
-    head.push(...buildStructuredData({ canonical, title, description, pageData, siteData }))
-
-    return head
+    head.push(['meta', { name: 'baidu-site-verification', content: baiduVerification }])
   }
+  const googleVerification = process.env.GOOGLE_SITE_VERIFICATION
+  if (googleVerification) {
+    head.push(['meta', { name: 'google-site-verification', content: googleVerification }])
+  }
+  const bingVerification = process.env.BING_SITE_VERIFICATION
+  if (bingVerification) {
+    head.push(['meta', { name: 'msvalidate.01', content: bingVerification }])
+  }
+
+  // 中英文页面互相声明，帮助搜索引擎识别语言版本而非重复内容。
+  // 注意 `en/` 前缀只对确实存在的英文页面生效。
+  const routePath = resolveRoutePath(page)
+  const isEn = page.startsWith('en/')
+  const counterpart = isEn ? routePath.replace(/^\/en(?=\/|$)/, '') || '/' : `/en${routePath}`
+  head.push([
+    'link',
+    {
+      rel: 'alternate',
+      hreflang: isEn ? 'zh-CN' : 'en',
+      href: `${siteUrl}${counterpart}`,
+    },
+  ])
+  head.push(['link', { rel: 'alternate', hreflang: 'x-default', href: canonical }])
+
+  head.push(...buildStructuredData({ canonical, title, description, pageData, siteData }))
+
+  return head
 
   interface StructuredDataInput {
     canonical: string

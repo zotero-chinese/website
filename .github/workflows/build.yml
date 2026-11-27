@@ -21,6 +21,9 @@ jobs:
       - name: Build
         env:
           GITHUB_TOKEN: ${{ github.token }}
+          BAIDU_SITE_VERIFICATION: ${{ vars.BAIDU_SITE_VERIFICATION }}
+          GOOGLE_SITE_VERIFICATION: ${{ vars.GOOGLE_SITE_VERIFICATION }}
+          BING_SITE_VERIFICATION: ${{ vars.BING_SITE_VERIFICATION }}
         run: |
           git submodule update --remote
           vp run fetch-data
