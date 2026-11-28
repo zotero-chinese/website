@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { GitChangelogOmitted, GitCommit } from '@data/git-types'
+import type { GitCommit } from '@data/git-types'
 import { computed, ref } from 'vue'
 import GitContributors from './GitContributors.vue'
 
@@ -7,8 +7,8 @@ const props = defineProps<{
   commits: GitCommit[]
   /** 更新日志末尾那条「最早的提交」的 hash，其上方需要插入省略说明 */
   initialHash?: string
-  /** 被省略的提交，用于交代「中间还改了多少次」 */
-  omitted?: GitChangelogOmitted
+  /** 被省略的历史变更数量 */
+  omitted?: number
 }>()
 
 const HASH_LETTERS = 7
@@ -41,11 +41,7 @@ const rows = computed(() =>
 
 const omittedText = computed(() => {
   const omitted = props.omitted
-  if (!omitted?.count) return ''
-  const bits = [`省略 ${omitted.count} 次提交`]
-  if (omitted.massEdits) bits.push(`其中 ${omitted.massEdits} 次为批量调整大量样式`)
-  if (omitted.maxFiles > 1) bits.push(`单次最多改动 ${omitted.maxFiles} 个文件`)
-  return bits.join('，')
+  return omitted ? `省略了 ${omitted} 次历史变更` : ''
 })
 </script>
 

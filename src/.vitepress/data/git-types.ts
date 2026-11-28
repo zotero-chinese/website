@@ -20,16 +20,6 @@ export interface GitCommit {
   commitUrl?: string
 }
 
-/** 被省略的提交，用于在更新日志里补一行说明 */
-export interface GitChangelogOmitted {
-  /** 省略的提交条数 */
-  count: number
-  /** 其中「一次改动大量文件」的批量调整条数 */
-  massEdits: number
-  /** 单次提交最多改动了多少个文件 */
-  maxFiles: number
-}
-
 /** 构建期写入 `page.git` 的数据，由 plugins/git.ts 生成 */
 export interface GitPageData {
   contributors?: GitContributor[]
@@ -41,5 +31,6 @@ export interface GitPageData {
    * 组件据此在它上方插入省略说明。缺失时更新日志是连续的。
    */
   changelogInitial?: string
-  changelogOmitted?: GitChangelogOmitted
+  /** 因超出条数上限而未展示的历史变更数量，组件据此补一行说明 */
+  changelogOmitted?: number
 }

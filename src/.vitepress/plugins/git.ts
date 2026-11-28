@@ -1,11 +1,7 @@
 import type { PageData } from 'vitepress'
 import type { ContributorInfo } from '../data/contributors.ts'
-import type {
-  GitChangelogOmitted,
-  GitCommit,
-  GitContributor,
-  GitPageData,
-} from '../data/git-types.ts'
+// 本提交已把 changelogOmitted 简化为 number，GitChangelogOmitted 类型不再需要
+import type { GitCommit, GitContributor, GitPageData } from '../data/git-types.ts'
 import { execFileSync } from 'node:child_process'
 import { globSync } from 'node:fs'
 import { contributorInfos } from '../data/contributors.ts'
@@ -30,18 +26,8 @@ const STYLES_SOURCE: GitSource = {
 
 /** wiki 页面在 srcDir 下的路径前缀 */
 const WIKI_PAGE_PREFIX = 'wiki/'
-/** wiki 文档页最多保留的更新日志条数 */
-const MAX_CHANGELOG = 100
-/** 样式页最多列出的「最近提交」条数，另加一条最早的提交 */
-const MAX_STYLE_CHANGELOG = 10
-/**
- * 一次改动超过该数量的样式文件，视为仓库级统一调整。
- *
- * 只用于在省略说明里区分两类提交，不参与过滤：仅作说明，
- * 让读者知道省略的提交里有多少是「全仓库一起动」的批量调整。
- */
-const MASS_EDIT_THRESHOLD = 20
-
+/** 每页最多列出的「最近提交」条数，wiki 与样式页共用，另加一条最早的提交 */
+const MAX_CHANGELOG = 20
 interface RawAuthor {
   name: string
   email: string
@@ -346,15 +332,9 @@ function selectCommits(commits: RawCommit[], limit: number) {
   return { recent, initial, omitted: commits.slice(limit, -1) }
 }
 
-/** 描述被省略的提交，供更新日志里补一行说明 */
-function describeOmitted(omitted: RawCommit[]): GitChangelogOmitted | undefined {
-  if (!omitted.length) return undefined
-  const massEdits = omitted.filter((commit) => commit.changes.length > MASS_EDIT_THRESHOLD)
-  return {
-    count: omitted.length,
-    massEdits: massEdits.length,
-    maxFiles: Math.max(...omitted.map((commit) => commit.changes.length)),
-  }
+/** 被省略的历史变更数量，供更新日志里补一行说明 */
+function describeOmitted(omitted: RawCommit[]): number | undefined {
+  return omitted.length || undefined
 }
 
 function resolvePageGit(commits: RawCommit[]): GitPageData {
@@ -374,11 +354,15 @@ function resolvePageGit(commits: RawCommit[]): GitPageData {
     (a, b) => (counts.get(b.name) ?? 0) - (counts.get(a.name) ?? 0),
   )
 
-  const { recent, omitted } = selectCommits(commits, MAX_CHANGELOG)
+  const { recent, initial, omitted } = selectCommits(commits, MAX_CHANGELOG)
+  const changelog = recent.map((commit) => toGitCommit(commit, WIKI_SOURCE.repoUrl))
+  if (initial) changelog.push(toGitCommit(initial, WIKI_SOURCE.repoUrl))
 
   return {
     contributors,
-    changelog: recent.map((commit) => toGitCommit(commit, WIKI_SOURCE.repoUrl)),
+    changelog,
+    // 列表末尾追加了最早一条提交，组件据此在其上方插入省略说明
+    changelogInitial: initial?.hash,
     changelogOmitted: describeOmitted(omitted),
   }
 }
@@ -386,9 +370,9 @@ function resolvePageGit(commits: RawCommit[]): GitPageData {
 /**
  * 样式详情页的更新日志取自 CSL 文件自身的提交记录。
  *
- * 与 wiki 页不同，样式仓库的历史里绝大多数是「一次改上百个样式」的批量调整
- * （本站实测占 74.5%），因此只列该文件最近的若干条，另加一条最早的提交，
- * 中间省略的部分用一行说明交代清楚。
+ * 与 wiki 页同一策略：只列最近的若干条 + 最早一条，中间省略的部分用一行
+ * 说明交代清楚。样式仓库的历史里绝大多数是「一次改上百个样式」的批量调整
+ * （本站实测占全部条目的 74.5%），只留最近若干条尤其必要。
  */
 function resolveStyleChangelog(style: StyleMetadata): GitPageData | undefined {
   const { dir, file } = style
@@ -397,7 +381,7 @@ function resolveStyleChangelog(style: StyleMetadata): GitPageData | undefined {
   const commits = getStylesHistory().get(`src/${dir}/${file}`)
   if (!commits?.length) return undefined
 
-  const { recent, initial, omitted } = selectCommits(commits, MAX_STYLE_CHANGELOG)
+  const { recent, initial, omitted } = selectCommits(commits, MAX_CHANGELOG)
   const changelog = recent.map((commit) => toGitCommit(commit, STYLES_SOURCE.repoUrl))
   if (initial) changelog.push(toGitCommit(initial, STYLES_SOURCE.repoUrl))
 
