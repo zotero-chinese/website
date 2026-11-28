@@ -1,10 +1,14 @@
 <script setup lang="ts">
-import type { GitCommit } from '@data/git-types'
+import type { GitChangelogOmitted, GitCommit } from '@data/git-types'
 import { computed, ref } from 'vue'
 import GitContributors from './GitContributors.vue'
 
 const props = defineProps<{
   commits: GitCommit[]
+  /** 更新日志末尾那条「最早的提交」的 hash，其上方需要插入省略说明 */
+  initialHash?: string
+  /** 被省略的提交，用于交代「中间还改了多少次」 */
+  omitted?: GitChangelogOmitted
 }>()
 
 const HASH_LETTERS = 7
@@ -30,8 +34,19 @@ const rows = computed(() =>
     shortHash: commit.hash.slice(0, HASH_LETTERS),
     date: dateFormatter.format(commit.time),
     iso: new Date(commit.time).toISOString(),
+    // 末尾那条是最早的提交，与上面几条不属于连续区间
+    isInitial: commit.hash === props.initialHash,
   })),
 )
+
+const omittedText = computed(() => {
+  const omitted = props.omitted
+  if (!omitted?.count) return ''
+  const bits = [`省略 ${omitted.count} 次提交`]
+  if (omitted.massEdits) bits.push(`其中 ${omitted.massEdits} 次为批量调整大量样式`)
+  if (omitted.maxFiles > 1) bits.push(`单次最多改动 ${omitted.maxFiles} 个文件`)
+  return bits.join('，')
+})
 </script>
 
 <template>
@@ -61,6 +76,10 @@ const rows = computed(() =>
     <div class="git-changelog-body">
       <div id="git-changelog-list" class="git-changelog-list">
         <template v-for="commit in rows" :key="commit.hash">
+          <template v-if="commit.isInitial && omittedText">
+            <span class="git-changelog-commit-icon git-changelog-omitted-icon" />
+            <p class="git-changelog-omitted">{{ omittedText }}</p>
+          </template>
           <span class="git-changelog-commit-icon" />
           <div class="git-changelog-item">
             <a
@@ -180,6 +199,19 @@ const rows = computed(() =>
 
 .expanded .git-changelog-chevron {
   transform: rotate(180deg);
+}
+
+.git-changelog-omitted {
+  align-self: center;
+  margin: 0;
+  color: var(--vp-c-text-2);
+  font-size: 0.75rem;
+  line-height: 1.6;
+}
+
+.git-changelog-omitted-icon {
+  opacity: 0.3;
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='%23000' stroke-linecap='round' stroke-width='2' d='M5 12h.01M9 12h.01M13 12h.01M17 12h.01'/%3E%3C/svg%3E");
 }
 
 .git-changelog-commit-icon {
