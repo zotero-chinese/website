@@ -127,9 +127,9 @@ const styleFormat = computed(() => {
       <li>
         <a :href="downloadLinks.github" target="_blank">从 GitHub 安装样式</a>
       </li>
-      <li>
+      <!-- <li>
         <a :href="downloadLinks.gitee" target="_blank">从 Gitee 安装样式</a>
-      </li>
+      </li> -->
     </ul>
 
     <h3 id="download">
