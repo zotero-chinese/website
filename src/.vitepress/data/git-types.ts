@@ -24,4 +24,13 @@ export interface GitCommit {
 export interface GitPageData {
   contributors?: GitContributor[]
   changelog?: GitCommit[]
+  /**
+   * 更新日志末尾那条「最早的提交」的 hash。
+   *
+   * 样式详情页只列最近若干条，另把创建该文件的那次提交单独放在末尾；
+   * 组件据此在它上方插入省略说明。缺失时更新日志是连续的。
+   */
+  changelogInitial?: string
+  /** 因超出条数上限而未展示的历史变更数量，组件据此补一行说明 */
+  changelogOmitted?: number
 }

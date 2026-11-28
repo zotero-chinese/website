@@ -8,7 +8,8 @@ const { page } = useData()
 
 const git = computed(() => page.value.git)
 
-// 样式详情页没有提交记录，贡献者已由构建期从 metadata.json 解析后注入 page.git
+// 样式详情页的贡献者来自 metadata.json，更新日志来自 CSL 文件自身的提交记录，
+// 两者都在构建期写入 page.git
 const hasContributors = computed(() => Boolean(git.value?.contributors?.length))
 const changelog = computed(() => git.value?.changelog ?? [])
 </script>
@@ -27,7 +28,12 @@ const changelog = computed(() => git.value?.changelog ?? [])
       <GitContributors :contributors="git!.contributors!" />
     </template>
 
-    <GitChangelog v-if="changelog.length" :commits="changelog" />
+    <GitChangelog
+      v-if="changelog.length"
+      :commits="changelog"
+      :initial-hash="git?.changelogInitial"
+      :omitted="git?.changelogOmitted"
+    />
   </div>
 </template>
 
