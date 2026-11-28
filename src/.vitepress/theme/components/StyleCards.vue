@@ -21,7 +21,7 @@ const allTags = [...new Set(styles.flatMap((style) => style.tags ?? []))]
     }
   })
 
-const allFields = [...new Set(styles.flatMap((style) => (style.field ? [style.field] : [])))]
+const allFields = [...new Set(styles.flatMap((style) => (style.field ? [style.field].flat() : [])))]
   .filter((v) => !!v)
   .sort((a, b) => a.localeCompare(b, 'zh'))
   .map((v) => {
@@ -69,7 +69,7 @@ const filtered = computed(() => {
   // 筛选学科
   if (field.value !== '') {
     filtered = filtered.filter((item) => {
-      return item.field === field.value
+      return (item.field ? [item.field].flat() : []).includes(field.value)
     })
   }
 

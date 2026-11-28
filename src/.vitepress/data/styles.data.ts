@@ -15,7 +15,7 @@ export interface StyleSummary {
   id: string
   summary?: string
   citation_format?: string
-  field?: string
+  field?: string | string[]
   updated?: string
   tags?: string[]
   /** 完整数据 JSON 的文件 key（FNV-1a 64 位哈希） */
@@ -92,8 +92,8 @@ export const STYLE_FIELD_LABELS: Record<string, string> = {
   zoology: '动物学',
 }
 
-export function getFieldLabel(field: string | undefined): string {
-  return field ? (STYLE_FIELD_LABELS[field] ?? field) : ''
+export function getFieldLabel(field: string | string[] | undefined): string[] {
+  return field ? [field].flat().map((v) => STYLE_FIELD_LABELS[v] ?? v) : []
 }
 
 export default {
