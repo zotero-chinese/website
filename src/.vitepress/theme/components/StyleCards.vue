@@ -21,7 +21,7 @@ const allTags = [...new Set(styles.flatMap((style) => style.tags ?? []))]
     }
   })
 
-const allFields = [...new Set(styles.flatMap(style => style.field))]
+const allFields = [...new Set(styles.flatMap((style) => style.field))]
   .filter((v) => !!v)
   .sort((a, b) => a.localeCompare(b, 'zh'))
   .map((v) => {
