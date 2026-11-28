@@ -95,9 +95,7 @@ export const STYLE_FIELD_LABELS: Record<string, string> = {
 }
 
 export function getFieldLabel(field: string | string[] | undefined): string[] {
-  return field 
-  ? [field].flat().map((v) => STYLE_FIELD_LABELS[v] ?? v) 
-  : []
+  return field ? [field].flat().map((v) => STYLE_FIELD_LABELS[v] ?? v) : []
 }
 
 export default {
