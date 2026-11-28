@@ -28,6 +28,13 @@ const STYLES_SOURCE: GitSource = {
 const WIKI_PAGE_PREFIX = 'wiki/'
 /** 每页最多列出的「最近提交」条数，wiki 与样式页共用，另加一条最早的提交 */
 const MAX_CHANGELOG = 20
+/**
+ * 一次改动超过该数量样式文件的提交，视为仓库级统一调整。
+ *
+ * 这类提交不代表对某个具体样式的贡献，因此在统计样式页贡献者时剔除
+ * （更新日志里仍会照常出现，见 `selectCommits()`）。
+ */
+const MASS_EDIT_THRESHOLD = 20
 interface RawAuthor {
   name: string
   email: string
@@ -393,25 +400,61 @@ function resolveStyleChangelog(style: StyleMetadata): GitPageData | undefined {
   }
 }
 
-/** 样式详情页的贡献者来自 metadata.json 中的 author 与 contributor */
+/**
+ * 样式详情页的贡献者 = metadata.json 里的署名 + 实际提交过该 CSL 文件的人。
+ *
+ * 两者互补：metadata 的 author/contributor 是「谁署了这个样式」，可能包含并未
+ * 提交过代码的人；Git 提交人是「谁改过这个文件」，能补全 metadata 遗漏的参与者。
+ *
+ * 提交人一侧会剔除一次改动超过 `MASS_EDIT_THRESHOLD` 个样式文件的仓库级调整：
+ * 这类提交（如统一改文件名、批量修正链接）并不代表对该样式的贡献，
+ * 不过滤时 Northword 会出现在 193/357 个样式页上。
+ */
 function resolveStyleContributors(style: StyleMetadata): GitContributor[] {
+  const merged = new Map<string, GitContributor>()
+
+  /** 按去掉大小写与分隔符的名称去重，避免 `Zeping Lee` 与 `zepinglee` 各占一行 */
+  const add = (contributor: GitContributor) => {
+    const key = normalizeName(contributor.name)
+    if (!merged.has(key)) merged.set(key, contributor)
+  }
+
+  // 先放署名，保证它们排在前面
   const names = [...(style.author ?? []), ...(style.contributor ?? [])]
     .map((item) => item.name?.trim())
     .filter((name): name is string => Boolean(name))
 
-  const contributors = new Map<string, GitContributor>()
   for (const name of names) {
     const info = findContributorInfo(name, undefined, undefined)
     const github = info?.github
-    const contributor: GitContributor = {
+    add({
       name: info?.name || name,
       avatar: info?.avatar || (github ? `https://github.com/${github}.png` : undefined),
       url: info?.links?.[0] || (github ? `https://github.com/${github}` : undefined),
-    }
-    if (!contributors.has(contributor.name)) contributors.set(contributor.name, contributor)
+    })
   }
 
-  return [...contributors.values()]
+  // 再按提交次数降序补上 Git 提交人
+  const path = style.dir && style.file ? `src/${style.dir}/${style.file}` : undefined
+  const commits = path ? getStylesHistory().get(path) : undefined
+  const counts = new Map<string, { contributor: GitContributor; count: number }>()
+  for (const commit of commits ?? []) {
+    if (commit.changes.length > MASS_EDIT_THRESHOLD) continue
+    for (const author of [commit.author, ...commit.coAuthors]) {
+      if (isBot(author)) continue
+      const contributor = lookupContributor(author)
+      const key = normalizeName(contributor.name)
+      const entry = counts.get(key)
+      if (entry) entry.count++
+      else counts.set(key, { contributor, count: 1 })
+    }
+  }
+
+  for (const { contributor } of [...counts.values()].sort((a, b) => b.count - a.count)) {
+    add(contributor)
+  }
+
+  return [...merged.values()]
 }
 
 /**
