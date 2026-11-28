@@ -1,5 +1,5 @@
-import { readRawPlugins, toPluginSummary, transformPlugins } from './pluginData'
-import type { PluginInfo } from './pluginData'
+import { readRawPlugins, toPluginSummary, transformPlugins } from './pluginData.ts'
+import type { PluginInfo } from './pluginData.ts'
 
 declare const data: PluginInfo[]
 export { data }
@@ -13,7 +13,7 @@ export type {
   ReleaseInfo,
   ReleaseInfoBase,
   ReleaseInfoSlim,
-} from './pluginData'
+} from './pluginData.ts'
 
 export default {
   async load() {

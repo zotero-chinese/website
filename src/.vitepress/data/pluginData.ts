@@ -8,7 +8,7 @@
  */
 import { existsSync, readFileSync } from 'node:fs'
 import path from 'node:path'
-import { LATEST_ZOTERO_BETA_VERSION } from './constant'
+import { LATEST_ZOTERO_BETA_VERSION } from './constant.ts'
 
 export const pluginsLocalPath = path.resolve('src/.vitepress/data/_data/plugins.json')
 // eslint-disable-next-line unused-imports/no-unused-vars

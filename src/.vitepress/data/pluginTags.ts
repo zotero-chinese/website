@@ -1,5 +1,5 @@
 import type { Tag } from '@theme/components/MarketTagsFilter.vue'
-import type { PluginTagType } from './plugins.data'
+import type { PluginTagType } from './plugins.data.ts'
 
 export interface PluginTag extends Tag {
   value: PluginTagType

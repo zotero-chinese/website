@@ -7,7 +7,7 @@ import type {
 } from 'vitepress'
 import { existsSync, readFileSync } from 'node:fs'
 import path from 'node:path'
-import { getDefaultTitle, getTextSummary } from '../utils/markdown'
+import { getDefaultTitle, getTextSummary } from '../utils/markdown.ts'
 
 const siteUrl = 'https://zotero-chinese.com'
 

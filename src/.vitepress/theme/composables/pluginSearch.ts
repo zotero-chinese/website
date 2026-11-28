@@ -1,5 +1,5 @@
-import type { PluginInfo } from '../../data/pluginData'
-import type { PluginDoc } from '../../data/pluginDocs.data'
+import type { PluginInfo } from '../../data/pluginData.ts'
+import type { PluginDoc } from '../../data/pluginDocs.data.ts'
 
 /** Search source metadata and existing Chinese documentation without a second alias catalog. */
 export function searchPlugins(

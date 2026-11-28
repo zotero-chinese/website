@@ -1,5 +1,5 @@
 import type { Author } from '@nolebase/vitepress-plugin-git-changelog'
-import { wikiContributors } from '../../wiki/.vitepress/contributors'
+import { wikiContributors } from '../../wiki/.vitepress/contributors.ts'
 
 export const contributors: Author[] = [...(wikiContributors as Author[])]
 

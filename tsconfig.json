@@ -19,6 +19,8 @@
     "resolveJsonModule": true,
 
     "allowJs": true,
+    // 配置文件由 Vite 的 native config loader 加载，需显式扩展名
+    "allowImportingTsExtensions": true,
     "strict": true,
     "declaration": true,
     // "composite": true,

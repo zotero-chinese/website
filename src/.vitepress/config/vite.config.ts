@@ -13,10 +13,10 @@ import { defineConfig } from 'vite'
 import Inspect from 'vite-plugin-inspect'
 import VueDevTools from 'vite-plugin-vue-devtools'
 import llmstxt from 'vitepress-plugin-llms'
-import { contributors } from '../data/contributors'
-import { CslAssets } from '../plugins/cslAssets'
-import { DataAssets } from '../plugins/dataAssets'
-import { MarkdownTransform } from '../plugins/markdownTransform'
+import { contributors } from '../data/contributors.ts'
+import { CslAssets } from '../plugins/cslAssets.ts'
+import { DataAssets } from '../plugins/dataAssets.ts'
+import { MarkdownTransform } from '../plugins/markdownTransform.ts'
 
 export default defineConfig({
   define: {

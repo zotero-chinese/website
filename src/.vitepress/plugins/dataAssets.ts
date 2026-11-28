@@ -1,7 +1,7 @@
 import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import path from 'node:path'
 import type { Plugin } from 'vite'
-import { readRawPlugins, transformPlugins } from '../data/pluginData'
+import { readRawPlugins, transformPlugins } from '../data/pluginData.ts'
 
 const stylesRoot = path.resolve('src/styles/detail/src')
 const stylesOut = path.resolve('src/public/styles-data')
