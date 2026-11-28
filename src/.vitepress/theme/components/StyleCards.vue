@@ -23,7 +23,7 @@ const allTags = [...new Set(styles.flatMap((style) => style.tags ?? []))]
 
 const allFields = [...new Set(styles.flatMap((style) => (style.field ? [style.field] : [])))]
   .filter((v) => !!v)
-  .sort((a, b) => a.localeCompare(b, 'en'))
+  .sort((a, b) => a.localeCompare(b, 'zh'))
   .map((v) => {
     return {
       label: v,
