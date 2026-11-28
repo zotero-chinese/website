@@ -5,36 +5,6 @@ import { execFileSync } from 'node:child_process'
 import { globSync } from 'node:fs'
 import { contributorInfos } from '../data/contributors'
 
-/**
- * 兼容旧版 wiki 名单的字段名。
- *
- * CI 的 `git submodule update --remote` 可能拉到尚未包含字段重命名的 wiki 提交，
- * 此时名单里只有 `username` / `mapBy*Aliases`，读取 `github` / `alias` 会得到空值，
- * 头像与主页就全部退化为首字母占位。这里统一读出新旧两种写法，
- * wiki 侧字段重命名合并后可删去。
- */
-interface LegacyContributorFields {
-  username?: string
-  mapByNameAliases?: string[]
-  mapByEmailAliases?: string[]
-}
-
-/** 读 GitHub 用户名，兼容旧字段 `username` */
-function readGithub(info: ContributorInfo | undefined): string | undefined {
-  if (!info) return undefined
-  return info.github || (info as unknown as LegacyContributorFields).username
-}
-
-/** 读名称别名，兼容旧字段 `mapByNameAliases` */
-function readAlias(info: ContributorInfo): string[] | undefined {
-  return info.alias ?? (info as unknown as LegacyContributorFields).mapByNameAliases
-}
-
-/** 读邮箱别名，兼容旧字段 `mapByEmailAliases` */
-function readEmailAlias(info: ContributorInfo): string[] | undefined {
-  return info.emailAlias ?? (info as unknown as LegacyContributorFields).mapByEmailAliases
-}
-
 /** wiki 子模块目录，相对于仓库根目录 */
 const WIKI_DIR = 'src/wiki'
 /** wiki 页面在 srcDir 下的路径前缀 */
@@ -230,19 +200,18 @@ function findContributorInfo(
   email: string | undefined,
 ): ContributorInfo | undefined {
   const exact = contributorInfos.find((info) => {
-    const github = readGithub(info)
-    const alias = readAlias(info) ?? []
-    if (info.name === name || github === name) return true
+    const alias = info.alias ?? []
+    if (info.name === name || info.github === name) return true
     if (alias.includes(name)) return true
     if (
       githubFromEmail &&
       (info.name === githubFromEmail ||
-        github === githubFromEmail ||
+        info.github === githubFromEmail ||
         alias.includes(githubFromEmail))
     ) {
       return true
     }
-    if (email && readEmailAlias(info)?.includes(email)) return true
+    if (email && info.emailAlias?.includes(email)) return true
     return false
   })
   if (exact) return exact
@@ -250,7 +219,7 @@ function findContributorInfo(
   // 宽松匹配：Git 提交里的署名与名单写法常有差异（如 `Zeping Lee` 与 `zepinglee`）
   const target = normalizeName(name)
   const loose = contributorInfos.find((info) => {
-    return [info.name, readGithub(info), ...(readAlias(info) ?? [])].some(
+    return [info.name, info.github, ...(info.alias ?? [])].some(
       (candidate) => normalizeName(candidate) === target,
     )
   })
@@ -258,7 +227,7 @@ function findContributorInfo(
 
   if (!githubFromEmail) return undefined
   const targetGithub = normalizeName(githubFromEmail)
-  return contributorInfos.find((info) => normalizeName(readGithub(info)) === targetGithub)
+  return contributorInfos.find((info) => normalizeName(info.github) === targetGithub)
 }
 
 /**
@@ -274,7 +243,7 @@ function normalizeName(name: string | undefined): string {
 function resolveContributor(author: RawAuthor): GitContributor {
   const noreply = noreplyUsername(author.email)
   const info = findContributorInfo(author.name, noreply, author.email)
-  const github = readGithub(info) || noreply
+  const github = info?.github || noreply
 
   return {
     name: info?.name || noreply || author.name,
@@ -282,6 +251,7 @@ function resolveContributor(author: RawAuthor): GitContributor {
     url: info?.links?.[0] || (github ? `https://github.com/${github}` : undefined),
   }
 }
+
 const contributorCache = new Map<string, GitContributor>()
 
 function lookupContributor(author: RawAuthor): GitContributor {
@@ -335,7 +305,7 @@ function resolveStyleContributors(style: StyleMetadata): GitContributor[] {
   const contributors = new Map<string, GitContributor>()
   for (const name of names) {
     const info = findContributorInfo(name, undefined, undefined)
-    const github = readGithub(info)
+    const github = info?.github
     const contributor: GitContributor = {
       name: info?.name || name,
       avatar: info?.avatar || (github ? `https://github.com/${github}.png` : undefined),
