@@ -5,6 +5,7 @@ import { watchEffect } from 'vue'
 
 import Banner from './components/Banner.vue'
 import DocFooter from './components/DocFooter.vue'
+import GitInfo from './components/GitInfo.vue'
 import Giscus from './components/Giscus.vue'
 
 import { useLanguageNotification } from './composables/useLanguageNotification'
@@ -30,6 +31,7 @@ watchEffect(() => {
     </template>
 
     <template #doc-footer-before>
+      <GitInfo />
       <DocFooter />
     </template>
 
