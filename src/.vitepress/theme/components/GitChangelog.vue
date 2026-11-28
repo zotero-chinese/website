@@ -201,8 +201,7 @@ const rows = computed(() =>
 }
 
 .git-changelog-hash,
-.git-changelog-divider,
-.git-changelog-author {
+.git-changelog-divider {
   flex: none;
 }
 
