@@ -69,7 +69,7 @@ const filtered = computed(() => {
   // 筛选学科
   if (field.value !== '') {
     filtered = filtered.filter((item) => {
-      return (item.field ? [item.field].flat() : []).includes(field.value)
+      return (item.field).includes(field.value)
     })
   }
 
