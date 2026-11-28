@@ -1,5 +1,5 @@
-import type { WikiContributor } from '../../wiki/.vitepress/contributors'
-import { wikiContributors } from '../../wiki/.vitepress/contributors'
+import type { WikiContributor } from '../../wiki/.vitepress/contributors.ts'
+import { wikiContributors } from '../../wiki/.vitepress/contributors.ts'
 
 /**
  * 贡献者信息

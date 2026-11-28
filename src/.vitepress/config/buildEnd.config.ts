@@ -4,8 +4,8 @@ import { glob } from 'node:fs/promises'
 import path from 'node:path'
 import { Feed } from 'feed'
 import { cacheAllGitTimestamps, createContentLoader, getGitTimestamp } from 'vitepress'
-import { getDefaultTitle, getTextSummary } from '../utils/markdown'
-import { applySitemapLastmod } from '../utils/git-timestamps'
+import { getDefaultTitle, getTextSummary } from '../utils/markdown.ts'
+import { applySitemapLastmod } from '../utils/git-timestamps.ts'
 
 const siteUrl = 'https://zotero-chinese.com'
 

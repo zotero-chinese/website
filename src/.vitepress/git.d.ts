@@ -1,4 +1,4 @@
-import type { GitPageData } from './data/git-types'
+import type { GitPageData } from './data/git-types.ts'
 
 declare module 'vitepress' {
   interface PageData {

@@ -1,6 +1,6 @@
 import type { DefaultTheme } from 'vitepress'
 import { omit } from 'es-toolkit'
-import { sidebar as wikiSideBar } from '../../wiki/.vitepress/sidebar'
+import { sidebar as wikiSideBar } from '../../wiki/.vitepress/sidebar.ts'
 
 export const sidebar: DefaultTheme.Sidebar = {
   ...omit(wikiSideBar, ['/contributing/']),

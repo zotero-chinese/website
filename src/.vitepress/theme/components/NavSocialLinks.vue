@@ -28,8 +28,21 @@ const links = computed((): DefaultTheme.SocialLink[] =>
 
 <template>
   <div class="VPSocialLinks">
-    <VPSocialLink :key="page.filePath" icon="github" :link="githubLink" aria-label="GitHub" />
-    <VPSocialLink v-for="{ link, icon, ariaLabel } in links" :key="link" :icon :link :aria-label />
+    <VPSocialLink
+      :key="page.filePath"
+      icon="github"
+      :link="githubLink"
+      aria-label="GitHub"
+      :me="true"
+    />
+    <VPSocialLink
+      v-for="{ link, icon, ariaLabel } in links"
+      :key="link"
+      :icon
+      :link
+      :aria-label
+      :me="true"
+    />
   </div>
 </template>
 

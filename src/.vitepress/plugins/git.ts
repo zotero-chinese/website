@@ -1,9 +1,9 @@
 import type { PageData } from 'vitepress'
-import type { ContributorInfo } from '../data/contributors'
-import type { GitCommit, GitContributor, GitPageData } from '../data/git-types'
+import type { ContributorInfo } from '../data/contributors.ts'
+import type { GitCommit, GitContributor, GitPageData } from '../data/git-types.ts'
 import { execFileSync } from 'node:child_process'
 import { globSync } from 'node:fs'
-import { contributorInfos } from '../data/contributors'
+import { contributorInfos } from '../data/contributors.ts'
 
 /** wiki 子模块目录，相对于仓库根目录 */
 const WIKI_DIR = 'src/wiki'
