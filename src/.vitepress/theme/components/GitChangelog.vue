@@ -192,10 +192,18 @@ const rows = computed(() =>
 
 .git-changelog-item {
   display: flex;
-  flex-wrap: wrap;
+  /* 不整体换行：否则长提交信息会作为一个整体掉到下一行，
+     而是让它在中间列内部自行折行 */
+  flex-wrap: nowrap;
   align-items: baseline;
   gap: 0.25rem;
   min-width: 0;
+}
+
+.git-changelog-hash,
+.git-changelog-divider,
+.git-changelog-author {
+  flex: none;
 }
 
 .git-changelog-hash {
@@ -208,7 +216,11 @@ const rows = computed(() =>
 }
 
 .git-changelog-message {
+  flex: 1 1 auto;
+  min-width: 0;
   margin-inline-end: 0.5rem;
+  /* 连续长串（链接、无空格标识符）也能断开，不会撑出容器 */
+  overflow-wrap: anywhere;
   word-break: break-word;
 }
 
@@ -216,7 +228,13 @@ const rows = computed(() =>
   text-decoration: underline;
 }
 
+/* 行内头像由子组件渲染，不能被压缩，否则会被长提交信息挤掉 */
+.git-changelog-item :deep(.git-contributors) {
+  flex: none;
+}
+
 .git-changelog-date {
+  flex: none;
   margin-inline-start: auto;
   color: var(--vp-c-text-2);
   font-size: 0.75rem;
